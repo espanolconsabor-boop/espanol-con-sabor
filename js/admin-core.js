@@ -5,6 +5,7 @@ async function loadAdminTab(tab) {
   if (tab === 'blog') return renderBlogPosts(content);
   if (tab === 'content') return renderSiteContent(content);
   if (tab === 'faq') return renderFaqs(content);
+  if (tab === 'newsletter') return renderNewsletter(content);
   content.innerHTML = '<p>Sección "' + tab + '" en construcción</p>';
 }
 

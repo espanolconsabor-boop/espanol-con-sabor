@@ -408,4 +408,86 @@ body {
   border-color: var(--gold, #f2b705);
 }
 
+/* ─── TABLAS Y CONTADORES (NEWSLETTER / AUDIENCIA) ───── */
+.admin-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.admin-section-title {
+  margin: 0;
+  font-size: 1.3rem;
+  color: var(--gold, #f2b705);
+  font-weight: 700;
+}
+
+.admin-counter-pill {
+  background: rgba(242, 183, 5, 0.12);
+  color: var(--gold, #f2b705);
+  border: 1px solid rgba(242, 183, 5, 0.35);
+  padding: 8px 18px;
+  border-radius: var(--radius-pill, 999px);
+  font-size: 0.95rem;
+}
+
+.admin-counter-pill strong {
+  color: #fff;
+  font-weight: 700;
+}
+
+.admin-table-wrapper {
+  background: rgba(14, 90, 96, 0.25);
+  border: 1px solid rgba(255, 243, 214, 0.12);
+  border-radius: var(--radius-md, 16px);
+  overflow-x: auto;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.95rem;
+}
+
+.admin-table th {
+  background: rgba(14, 90, 96, 0.5);
+  color: var(--gold, #f2b705);
+  font-weight: 600;
+  padding: 14px 18px;
+  border-bottom: 1px solid rgba(255, 243, 214, 0.15);
+  text-transform: uppercase;
+  font-size: 0.78rem;
+  letter-spacing: 0.5px;
+}
+
+.admin-table td {
+  padding: 14px 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.85);
+  vertical-align: middle;
+}
+
+.admin-table tbody tr:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.admin-table .td-email {
+  color: #ffffff;
+}
+
+.admin-table .td-date {
+  color: rgba(255, 243, 214, 0.6);
+  font-size: 0.88rem;
+}
+
+.admin-table .admin-btn-delete {
+  padding: 6px 14px;
+  flex: none;
+}
+
+
 
