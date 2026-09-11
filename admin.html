@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Panel de Administración | Español con Sabor</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+
+  <div id="login-screen" class="admin-login-screen">
+    <form id="login-form" class="admin-login-box">
+      <h1>☕ Panel de Español con Sabor</h1>
+      <input type="email" id="login-email" placeholder="Correo" required />
+      <input type="password" id="login-password" placeholder="Contraseña" required />
+      <button type="submit">Entrar</button>
+      <p id="login-error" class="admin-error"></p>
+    </form>
+  </div>
+
+  <div id="admin-app" class="admin-app" style="display:none;">
+    <header class="admin-header">
+      <h1>☕ Panel de Español con Sabor</h1>
+      <button id="logout-btn">Cerrar sesión</button>
+    </header>
+
+    <nav class="admin-tabs">
+      <button class="admin-tab active" data-tab="teachers">Profesores</button>
+      <button class="admin-tab" data-tab="testimonials">Reseñas</button>
+      <button class="admin-tab" data-tab="blog">Blog</button>
+      <button class="admin-tab" data-tab="content">Textos generales</button>
+      <button class="admin-tab" data-tab="faq">FAQ</button>
+    </nav>
+
+    <main id="admin-content"></main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-client.js"></script>
+  <script src="js/admin-auth.js"></script>
+  <script src="js/admin-teachers.js"></script>
+  <script src="js/admin-testimonials.js"></script>
+  <script src="js/admin-blog.js"></script>
+  <script src="js/admin-content.js"></script>
+  <script src="js/admin-faq.js"></script>
+  <script src="js/admin-core.js"></script>
+</body>
+</html>

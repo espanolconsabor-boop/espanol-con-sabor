@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Español con Sabor | Learn Colombian Spanish Online</title>
+  <meta name="description" content="Learn authentic Colombian Spanish with native teachers from Colombia. Cultural immersion, flexible scheduling, and proven results. Book a trial class for just $15." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Dismissible Discount Banner -->
+  <div id="discount-banner" class="discount-banner" role="alert">
+    <span class="discount-icon">🎉</span>
+    <span class="discount-text"><strong>Limited Time:</strong> First month <strong>10% off</strong> — Use code <span class="discount-code">SABOR10</span> at checkout</span>
+    <button id="dismiss-banner" class="dismiss-btn" aria-label="Dismiss banner">✕</button>
+  </div>
+
+  <!-- Navigation -->
+  <header class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#" class="nav-logo" id="logo-link" onclick="showTab('home'); return false;">
+        <span class="logo-icon">☕</span>
+        <div class="logo-text">
+          <span class="logo-main">Español con Sabor</span>
+          <span class="logo-sub">Colombian Spanish School</span>
+        </div>
+      </a>
+      <nav class="nav-links" id="nav-links" aria-label="Main navigation">
+        <a href="#" class="nav-link active" id="nav-home" onclick="showTab('home'); return false;">Home</a>
+        <a href="#" class="nav-link" id="nav-blog" onclick="showTab('blog'); return false;">Blog</a>
+        <a href="#" class="nav-link" id="nav-about" onclick="showTab('about'); return false;">About Us</a>
+        <a href="#" class="nav-link" id="nav-book" onclick="showTab('book'); return false;">Book a Class</a>
+      </nav>
+      <div class="nav-right">
+        <button class="btn-nav-cta" id="nav-book-btn" onclick="showTab('book')">Book a Class</button>
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+      <a href="#" class="mobile-nav-link" onclick="showTab('home'); closeMobileMenu(); return false;">🏠 Home</a>
+      <a href="#" class="mobile-nav-link" onclick="showTab('blog'); closeMobileMenu(); return false;">📝 Blog</a>
+      <a href="#" class="mobile-nav-link" onclick="showTab('about'); closeMobileMenu(); return false;">👥 About Us</a>
+      <a href="#" class="mobile-nav-link" onclick="showTab('book'); closeMobileMenu(); return false;">📅 Book a Class</a>
+    </div>
+  </header>
+
+  <!-- Live Activity Ticker -->
+  <div class="activity-ticker" id="activity-ticker">
+    <div class="ticker-content">
+      <span class="ticker-dot"></span>
+      <span class="ticker-text" id="ticker-text">🔴 <strong>12 students</strong> booked a class in the last 24 hours</span>
+    </div>
+  </div>
+
+  <!-- ==================== HOME TAB ==================== -->
+  <main id="tab-home" class="tab-content active" role="main">
+
+    <section class="hero" id="hero-section">
+      <div class="hero-bg-overlay"></div>
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="badge-dot"></span>
+          <span>Native Colombian Teachers · 100% Online</span>
+        </div>
+        <h1 id="hero-heading" class="hero-title">
+          Speak Spanish<br /><em>the way Colombians do.</em>
+        </h1>
+        <p class="hero-subtitle">
+          Immersive 1-on-1 lessons with certified native teachers from Colombia.
+          Learn the most <strong>neutral &amp; clear</strong> Spanish in Latin America —
+          rooted in culture, designed for real life.
+        </p>
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <span class="stat-number">500+</span>
+            <span class="stat-label">Students</span>
+          </div>
+          <div class="hero-divider"></div>
+          <div class="hero-stat">
+            <span class="stat-number">4.9★</span>
+            <span class="stat-label">Rating</span>
+          </div>
+          <div class="hero-divider"></div>
+          <div class="hero-stat">
+            <span class="stat-number">12+</span>
+            <span class="stat-label">Countries</span>
+          </div>
+        </div>
+        <div class="hero-cta-group">
+          <button class="btn-primary btn-lg" id="hero-trial-btn" onclick="showTab('book')">
+            🚀 Start Trial Class — $15
+          </button>
+          <button class="btn-secondary btn-lg" id="hero-learn-btn" onclick="showTab('about')">
+            Meet Our Teachers
+          </button>
+        </div>
+        <p class="hero-guarantee">✅ No commitment · Cancel anytime · 100% satisfaction guarantee</p>
+      </div>
+      <div class="hero-image-wrapper">
+        <img src="images/hero_colombia_bg.jpg" alt="Colombian coffee farm with Andes mountains and sombrero vueltiao" class="hero-img" loading="eager" />
+        <div class="hero-img-badge">
+          <span class="img-badge-icon">🇨🇴</span>
+          <div>
+            <span class="img-badge-title">Made in Colombia</span>
+            <span class="img-badge-sub">Authentic culture</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Urgency Promo Banner -->
+    <section class="promo-banner">
+      <div class="promo-inner">
+        <div class="promo-left">
+          <span class="promo-fire">🔥</span>
+          <div>
+            <p class="promo-label">FLASH OFFER — Ends in:</p>
+            <p class="promo-title">30% off your first month of classes</p>
+          </div>
+        </div>
+        <div class="promo-countdown">
+          <div class="countdown-unit">
+            <span class="countdown-num" id="count-h">02</span>
+            <span class="countdown-label">hrs</span>
+          </div>
+          <span class="countdown-sep">:</span>
+          <div class="countdown-unit">
+            <span class="countdown-num" id="count-m">47</span>
+            <span class="countdown-label">min</span>
+          </div>
+          <span class="countdown-sep">:</span>
+          <div class="countdown-unit">
+            <span class="countdown-num" id="count-s">33</span>
+            <span class="countdown-label">sec</span>
+          </div>
+        </div>
+        <button class="btn-promo" id="promo-claim-btn" onclick="showTab('book')">Claim Offer →</button>
+      </div>
+    </section>
+
+    <!-- Live Activity Counter -->
+    <section class="activity-section">
+      <div class="container">
+        <div class="activity-card">
+          <div class="activity-pulse"></div>
+          <div class="activity-info">
+            <p class="activity-count">🗓️ <strong>10 classes</strong> scheduled in the past 24 hours</p>
+            <p class="activity-scarcity">⚡ Only <strong>3 spots left</strong> this week with Camila</p>
+          </div>
+          <button class="btn-activity-cta" id="activity-book-btn" onclick="showTab('book')">Book Now →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Simple Process</span>
+          <h2 class="section-title">Start speaking in 3 easy steps</h2>
+          <p class="section-sub">From zero to conversational — faster than you think.</p>
+        </div>
+        <div class="steps-grid">
+          <div class="step-card" id="step-1">
+            <div class="step-number">01</div>
+            <div class="step-icon">📅</div>
+            <h3 class="step-title">Book Your Class</h3>
+            <p class="step-desc">Choose a time that works for you and pick your teacher. Trial class is just $15 — no strings attached.</p>
+          </div>
+          <div class="step-connector">→</div>
+          <div class="step-card" id="step-2">
+            <div class="step-number">02</div>
+            <div class="step-icon">🎯</div>
+            <h3 class="step-title">Meet Your Teacher</h3>
+            <p class="step-desc">Your certified Colombian teacher tailors every session to your goals, pace, and interests.</p>
+          </div>
+          <div class="step-connector">→</div>
+          <div class="step-card" id="step-3">
+            <div class="step-number">03</div>
+            <div class="step-icon">🗣️</div>
+            <h3 class="step-title">Start Speaking</h3>
+            <p class="step-desc">From day one you will be speaking real Spanish. Progress is tracked, culture is woven in, results are guaranteed.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Student Stories</span>
+          <h2 class="section-title">What our students say</h2>
+          <div class="overall-rating">
+            <span class="stars">★★★★★</span>
+            <span class="rating-num">4.9</span>
+            <span class="rating-count">(247 reviews)</span>
+          </div>
+        </div>
+        <div class="testimonials-grid">
+          <article class="testimonial-card" id="testimonial-1">
+            <div class="testimonial-header">
+              <div class="testimonial-avatar" style="background:#2A9D8F;">S</div>
+              <div class="testimonial-meta">
+                <strong class="testimonial-name">Sarah M.</strong>
+                <span class="testimonial-location">🇺🇸 New York, USA</span>
+              </div>
+              <div class="testimonial-stars">★★★★★</div>
+            </div>
+            <p class="testimonial-text">"After just 2 months with Camila, I was able to have full conversations in Spanish. The Colombian approach is so warm and encouraging — I never felt embarrassed making mistakes!"</p>
+            <div class="testimonial-badge">📅 Student for 6 months</div>
+          </article>
+          <article class="testimonial-card" id="testimonial-2">
+            <div class="testimonial-header">
+              <div class="testimonial-avatar" style="background:#F2B705; color:#0E5A60;">J</div>
+              <div class="testimonial-meta">
+                <strong class="testimonial-name">James T.</strong>
+                <span class="testimonial-location">🇬🇧 London, UK</span>
+              </div>
+              <div class="testimonial-stars">★★★★★</div>
+            </div>
+            <p class="testimonial-text">"I tried Duolingo for years with no real progress. One month with Santiago and I was ordering coffee in Medellín with zero issues. Worth every cent."</p>
+            <div class="testimonial-badge">📅 Student for 3 months</div>
+          </article>
+          <article class="testimonial-card" id="testimonial-3">
+            <div class="testimonial-header">
+              <div class="testimonial-avatar" style="background:#0E5A60;">A</div>
+              <div class="testimonial-meta">
+                <strong class="testimonial-name">Ana K.</strong>
+                <span class="testimonial-location">🇩🇪 Berlin, Germany</span>
+              </div>
+              <div class="testimonial-stars">★★★★★</div>
+            </div>
+            <p class="testimonial-text">"The cultural component is what sets this school apart. I don't just speak Spanish — I understand Colombian humor, music, and history. My colleagues are amazed."</p>
+            <div class="testimonial-badge">📅 Student for 1 year</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Final CTA Section -->
+    <section class="final-cta">
+      <div class="container">
+        <div class="final-cta-content">
+          <span class="final-cta-emoji">☕</span>
+          <h2 class="final-cta-title">Ready to speak Spanish <em>con sabor?</em></h2>
+          <p class="final-cta-sub">Join 500+ students from 12+ countries learning the most beautiful Spanish in the world.</p>
+          <button class="btn-primary btn-xl" id="final-cta-btn" onclick="showTab('book')">
+            Book Your $15 Trial Class Today
+          </button>
+          <p class="final-cta-note">🔒 Secure checkout · SSL encrypted · 100% money-back guarantee</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==================== BLOG TAB ==================== -->
+  <main id="tab-blog" class="tab-content" role="main">
+
+    <section class="page-hero page-hero--blog">
+      <div class="container">
+        <span class="section-tag">Our Blog</span>
+        <h1 class="page-title">Culture, Language &amp; Stories</h1>
+        <p class="page-subtitle">Dive into the richness of Colombian culture, Latin America, and practical Spanish tips from our native teachers.</p>
+      </div>
+    </section>
+
+    <section class="blog-section">
+      <div class="container">
+        <div class="blog-grid">
+
+          <article class="blog-card" id="blog-post-1">
+            <div class="blog-card-img-wrapper">
+              <img src="images/blog_coffee_culture.jpg" alt="Colombian coffee farm with Andes mountains" class="blog-card-img" loading="lazy" />
+              <span class="blog-card-tag">Culture</span>
+            </div>
+            <div class="blog-card-body">
+              <div class="blog-card-meta">
+                <span class="blog-author">☕ By Valentina R.</span>
+                <span class="blog-date">August 18, 2026</span>
+              </div>
+              <h2 class="blog-card-title">The Art of Colombian Coffee Culture: More Than Just a Drink</h2>
+              <p class="blog-card-excerpt">Colombia is the world's third-largest coffee producer, but for Colombians, coffee is so much more than a morning ritual. Learn the vocabulary, etiquette, and deep cultural significance of el tinto — and why it matters to your Spanish journey.</p>
+              <a href="#" class="blog-read-more" onclick="return false;">Read Article →</a>
+            </div>
+          </article>
+
+          <article class="blog-card" id="blog-post-2">
+            <div class="blog-card-img-wrapper">
+              <img src="images/blog_cartagena.jpg" alt="Colonial streets of Cartagena with colorful buildings" class="blog-card-img" loading="lazy" />
+              <span class="blog-card-tag" style="background:#FC2C54;">Travel</span>
+            </div>
+            <div class="blog-card-body">
+              <div class="blog-card-meta">
+                <span class="blog-author">🌊 By Santiago M.</span>
+                <span class="blog-date">August 10, 2026</span>
+              </div>
+              <h2 class="blog-card-title">Cartagena de Indias: A City That Speaks History</h2>
+              <p class="blog-card-excerpt">The walled city of Cartagena is Colombia's crown jewel — a UNESCO World Heritage Site where every cobblestone street tells a story. Discover the Spanish vocabulary of the Caribbean coast and why Costeño Spanish is the most musical dialect you'll ever hear.</p>
+              <a href="#" class="blog-read-more" onclick="return false;">Read Article →</a>
+            </div>
+          </article>
+
+          <article class="blog-card" id="blog-post-3">
+            <div class="blog-card-img-wrapper">
+              <img src="images/blog_slang.jpg" alt="Colombian Spanish slang speech bubbles" class="blog-card-img" loading="lazy" />
+              <span class="blog-card-tag" style="background:#2A9D8F;">Language</span>
+            </div>
+            <div class="blog-card-body">
+              <div class="blog-card-meta">
+                <span class="blog-author">💬 By Camila A.</span>
+                <span class="blog-date">August 2, 2026</span>
+              </div>
+              <h2 class="blog-card-title">10 Colombian Slang Words That'll Make You Sound Like a Local</h2>
+              <p class="blog-card-excerpt">Parcero, chévere, bacano, quiubo — if you don't know these words yet, you're missing out on the soul of Colombian Spanish. Our teacher Camila breaks down the most essential slang expressions with real-life examples you can use today.</p>
+              <a href="#" class="blog-read-more" onclick="return false;">Read Article →</a>
+            </div>
+          </article>
+
+        </div>
+
+        <div class="blog-newsletter">
+          <div class="newsletter-content">
+            <span class="newsletter-emoji">📬</span>
+            <div>
+              <h3 class="newsletter-title">Get weekly Spanish tips in your inbox</h3>
+              <p class="newsletter-sub">Join 2,000+ learners getting free vocabulary, culture, and teaching insights every Friday.</p>
+            </div>
+          </div>
+          <form class="newsletter-form" onsubmit="handleNewsletterSignup(event)">
+            <input type="email" id="newsletter-email" class="newsletter-input" placeholder="Your email address" required />
+            <button type="submit" class="btn-newsletter" id="newsletter-submit-btn">Subscribe Free →</button>
+          </form>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==================== ABOUT US TAB ==================== -->
+  <main id="tab-about" class="tab-content" role="main">
+
+    <section class="page-hero page-hero--about">
+      <div class="container">
+        <span class="section-tag">Our Story</span>
+        <h1 class="page-title">We teach Spanish <em>the way it's lived.</em></h1>
+        <p class="page-subtitle">Born in the mountains of Colombia, built for curious minds around the world.</p>
+      </div>
+    </section>
+
+    <section class="founder-section">
+      <div class="container">
+        <div class="founder-card" id="founder-card">
+          <div class="founder-img-wrapper">
+            <img src="images/founder_avatar.jpg" alt="Carlos Herrera, founder of Español con Sabor" class="founder-img" loading="lazy" />
+            <div class="founder-img-badge">Fundador</div>
+          </div>
+          <div class="founder-bio">
+            <h2 class="founder-name">Carlos Herrera</h2>
+            <p class="founder-title">Founder &amp; Lead Instructor · Medellín, Colombia 🇨🇴</p>
+            <div class="founder-credentials">
+              <span class="credential-badge">🎓 MA Linguistics, Univ. de Antioquia</span>
+              <span class="credential-badge">📜 DELE Certified Examiner</span>
+              <span class="credential-badge">⭐ 10+ Years Teaching</span>
+            </div>
+            <blockquote class="founder-quote">"I didn't just want to teach grammar rules. I wanted to share the music, the warmth, the joy of speaking Spanish the way we Colombians do — with heart."</blockquote>
+            <p class="founder-text">Carlos founded Español con Sabor in 2016 after years of teaching in international schools across Bogotá and Medellín. Frustrated by textbook-heavy approaches that left students sounding robotic, he developed a cultural immersion methodology that weaves Colombian music, literature, food, and daily life into every lesson.</p>
+            <p class="founder-text">Today, the school has grown to a team of 8 certified teachers, 500+ students from 12 countries, and a mission: make Colombian Spanish accessible, joyful, and genuinely transformative.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="philosophy-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Our Philosophy</span>
+          <h2 class="section-title">Three pillars that guide every class</h2>
+        </div>
+        <div class="pillars-grid">
+          <div class="pillar-card" id="pillar-1">
+            <div class="pillar-icon">🌱</div>
+            <h3 class="pillar-title">Roots First</h3>
+            <p class="pillar-text">Language lives in culture. We don't just teach words — we teach context, history, and the stories behind every expression.</p>
+          </div>
+          <div class="pillar-card" id="pillar-2">
+            <div class="pillar-icon">🗣️</div>
+            <h3 class="pillar-title">Speak from Day One</h3>
+            <p class="pillar-text">Forget passive study. Our teachers push you to communicate in every class, building real confidence through practice.</p>
+          </div>
+          <div class="pillar-card" id="pillar-3">
+            <div class="pillar-icon">❤️</div>
+            <h3 class="pillar-title">Human Connection</h3>
+            <p class="pillar-text">Learning is personal. We match students with teachers who share their interests, making every class feel natural and genuine.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="teachers-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Meet the Team</span>
+          <h2 class="section-title">Your Colombian teachers</h2>
+          <p class="section-sub">Every teacher is a certified native speaker with a passion for cultural storytelling.</p>
+        </div>
+        <div class="teachers-grid">
+
+          <article class="teacher-card" id="teacher-camila">
+            <div class="teacher-availability">⚡ Only 3 spots left this week!</div>
+            <div class="teacher-img-wrapper">
+              <img src="images/teacher_camila.jpg" alt="Camila Acosta, teacher from Medellín" class="teacher-img" loading="lazy" />
+            </div>
+            <div class="teacher-body">
+              <div class="teacher-header">
+                <div>
+                  <h3 class="teacher-name">Camila Acosta</h3>
+                  <p class="teacher-city">📍 Medellín, Antioquia</p>
+                </div>
+                <div class="teacher-rating">
+                  <span class="t-stars">★★★★★</span>
+                  <span class="t-rating">5.0</span>
+                </div>
+              </div>
+              <p class="teacher-specialty">Specialty: Conversational Spanish &amp; Business Spanish</p>
+              <div class="teacher-stats">
+                <div class="t-stat"><span class="t-stat-num">348</span><span class="t-stat-label">Classes</span></div>
+                <div class="t-stat"><span class="t-stat-num">47</span><span class="t-stat-label">Students</span></div>
+                <div class="t-stat"><span class="t-stat-num">98%</span><span class="t-stat-label">Re-book</span></div>
+              </div>
+              <div class="teacher-badges">
+                <span class="trust-badge">✅ DELE Certified</span>
+                <span class="trust-badge">🏆 Top Rated</span>
+                <span class="trust-badge">💬 Cultural Coach</span>
+              </div>
+              <button class="btn-book-teacher" onclick="showTab('book')">Book with Camila →</button>
+            </div>
+          </article>
+
+          <article class="teacher-card" id="teacher-santiago">
+            <div class="teacher-img-wrapper">
+              <img src="images/teacher_santiago.jpg" alt="Santiago Morales, teacher from Bogotá" class="teacher-img" loading="lazy" />
+            </div>
+            <div class="teacher-body">
+              <div class="teacher-header">
+                <div>
+                  <h3 class="teacher-name">Santiago Morales</h3>
+                  <p class="teacher-city">📍 Bogotá, Cundinamarca</p>
+                </div>
+                <div class="teacher-rating">
+                  <span class="t-stars">★★★★★</span>
+                  <span class="t-rating">4.9</span>
+                </div>
+              </div>
+              <p class="teacher-specialty">Specialty: Grammar Foundations &amp; DELE Exam Prep</p>
+              <div class="teacher-stats">
+                <div class="t-stat"><span class="t-stat-num">512</span><span class="t-stat-label">Classes</span></div>
+                <div class="t-stat"><span class="t-stat-num">62</span><span class="t-stat-label">Students</span></div>
+                <div class="t-stat"><span class="t-stat-num">95%</span><span class="t-stat-label">Re-book</span></div>
+              </div>
+              <div class="teacher-badges">
+                <span class="trust-badge">✅ DELE Examiner</span>
+                <span class="trust-badge">🎓 MA Linguistics</span>
+                <span class="trust-badge">📚 Grammar Expert</span>
+              </div>
+              <button class="btn-book-teacher" onclick="showTab('book')">Book with Santiago →</button>
+            </div>
+          </article>
+
+          <article class="teacher-card" id="teacher-valentina">
+            <div class="teacher-img-wrapper">
+              <img src="images/teacher_valentina.jpg" alt="Valentina Rios, teacher from Cali" class="teacher-img" loading="lazy" />
+            </div>
+            <div class="teacher-body">
+              <div class="teacher-header">
+                <div>
+                  <h3 class="teacher-name">Valentina Ríos</h3>
+                  <p class="teacher-city">📍 Cali, Valle del Cauca</p>
+                </div>
+                <div class="teacher-rating">
+                  <span class="t-stars">★★★★★</span>
+                  <span class="t-rating">4.8</span>
+                </div>
+              </div>
+              <p class="teacher-specialty">Specialty: Cultural Immersion &amp; Travel Spanish</p>
+              <div class="teacher-stats">
+                <div class="t-stat"><span class="t-stat-num">289</span><span class="t-stat-label">Classes</span></div>
+                <div class="t-stat"><span class="t-stat-num">38</span><span class="t-stat-label">Students</span></div>
+                <div class="t-stat"><span class="t-stat-num">97%</span><span class="t-stat-label">Re-book</span></div>
+              </div>
+              <div class="teacher-badges">
+                <span class="trust-badge">✅ Native Speaker</span>
+                <span class="trust-badge">🎭 Cultural Expert</span>
+                <span class="trust-badge">🌎 Travel Coach</span>
+              </div>
+              <button class="btn-book-teacher" onclick="showTab('book')">Book with Valentina →</button>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==================== BOOK A CLASS TAB ==================== -->
+  <main id="tab-book" class="tab-content" role="main">
+
+    <section class="page-hero page-hero--book">
+      <div class="container">
+        <span class="section-tag">Pricing &amp; Booking</span>
+        <h1 class="page-title">Choose your plan, <em>start today.</em></h1>
+        <p class="page-subtitle">Flexible plans named after Colombia's most beautiful regions. All plans include 1-on-1 native Colombian teachers.</p>
+        <div class="social-proof-bar">
+          <span class="sp-dot"></span>
+          <span>🔥 <strong>12 students</strong> booked a class in the last 24 hours</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="pricing-section">
+      <div class="container">
+        <div class="trial-cta-bar" id="trial-cta-bar">
+          <div class="trial-left">
+            <span class="trial-emoji">🚀</span>
+            <div>
+              <p class="trial-label">Not sure yet?</p>
+              <p class="trial-title">Try your first class for just <strong>$15</strong></p>
+              <p class="trial-sub">45 minutes · No commitment · Pick any teacher</p>
+            </div>
+          </div>
+          <a href="https://calendly.com/mariajose-izquierdo-j/30min" target="_blank" rel="noopener noreferrer" class="btn-trial" id="trial-calendly-btn">
+            📅 Book Trial on Calendly →
+          </a>
+        </div>
+
+        <h2 class="pricing-title">Monthly Subscription Plans</h2>
+        <p class="pricing-sub">Billed monthly · Cancel anytime · Unlimited rescheduling</p>
+
+        <div class="pricing-grid">
+
+          <div class="pricing-card" id="plan-andina">
+            <div class="plan-header">
+              <div class="plan-region">🏔️ Andina</div>
+              <h3 class="plan-name">Starter</h3>
+              <div class="plan-price">
+                <span class="price-amount">$89</span>
+                <span class="price-period">/month</span>
+              </div>
+              <p class="price-note">4 classes per month · 45 min each</p>
+            </div>
+            <ul class="plan-features">
+              <li class="feature-item">✅ 4 one-on-one classes/month</li>
+              <li class="feature-item">✅ Choose your teacher</li>
+              <li class="feature-item">✅ Learning materials included</li>
+              <li class="feature-item">✅ Progress tracking dashboard</li>
+              <li class="feature-item text-muted">— Group study sessions</li>
+              <li class="feature-item text-muted">— Priority scheduling</li>
+              <li class="feature-item text-muted">— Cultural deep-dives</li>
+            </ul>
+            <a href="https://calendly.com/mariajose-izquierdo-j/30min" target="_blank" rel="noopener noreferrer" class="btn-plan btn-plan--outline" id="plan-andina-btn">Get Started →</a>
+          </div>
+
+          <div class="pricing-card pricing-card--popular" id="plan-cafetera">
+            <div class="popular-badge">⭐ Most Popular</div>
+            <div class="plan-header">
+              <div class="plan-region">☕ Cafetera</div>
+              <h3 class="plan-name">Growth</h3>
+              <div class="plan-price">
+                <span class="price-amount">$159</span>
+                <span class="price-period">/month</span>
+              </div>
+              <p class="price-note">8 classes per month · 60 min each</p>
+            </div>
+            <ul class="plan-features">
+              <li class="feature-item">✅ 8 one-on-one classes/month</li>
+              <li class="feature-item">✅ Choose your teacher</li>
+              <li class="feature-item">✅ Learning materials included</li>
+              <li class="feature-item">✅ Progress tracking dashboard</li>
+              <li class="feature-item">✅ Weekly group study sessions</li>
+              <li class="feature-item">✅ Priority scheduling</li>
+              <li class="feature-item text-muted">— Cultural deep-dives</li>
+            </ul>
+            <a href="https://calendly.com/mariajose-izquierdo-j/30min" target="_blank" rel="noopener noreferrer" class="btn-plan btn-plan--primary" id="plan-cafetera-btn">Choose Cafetera →</a>
+          </div>
+
+          <div class="pricing-card" id="plan-caribena">
+            <div class="plan-header">
+              <div class="plan-region">🌊 Caribeña</div>
+              <h3 class="plan-name">Immersive</h3>
+              <div class="plan-price">
+                <span class="price-amount">$249</span>
+                <span class="price-period">/month</span>
+              </div>
+              <p class="price-note">14 classes per month · 60 min each</p>
+            </div>
+            <ul class="plan-features">
+              <li class="feature-item">✅ 14 one-on-one classes/month</li>
+              <li class="feature-item">✅ Dedicated personal teacher</li>
+              <li class="feature-item">✅ Learning materials included</li>
+              <li class="feature-item">✅ Progress tracking dashboard</li>
+              <li class="feature-item">✅ Weekly group study sessions</li>
+              <li class="feature-item">✅ Priority scheduling</li>
+              <li class="feature-item">✅ Monthly cultural deep-dives</li>
+            </ul>
+            <a href="https://calendly.com/mariajose-izquierdo-j/30min" target="_blank" rel="noopener noreferrer" class="btn-plan btn-plan--outline" id="plan-caribena-btn">Go Immersive →</a>
+          </div>
+
+        </div>
+
+        <div class="guarantee-bar">
+          <span class="guarantee-icon">🔒</span>
+          <p class="guarantee-text"><strong>100% Satisfaction Guarantee:</strong> If you're not happy after your first month, we'll refund your money — no questions asked. We're that confident.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="booking-steps-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">How to Book</span>
+          <h2 class="section-title">Ready in 3 quick steps</h2>
+        </div>
+        <div class="booking-steps">
+          <div class="booking-step" id="booking-step-1">
+            <div class="booking-step-num">1</div>
+            <div class="booking-step-icon">🎯</div>
+            <h3 class="booking-step-title">Choose Your Plan</h3>
+            <p class="booking-step-desc">Select the plan that fits your schedule and goals. Start with a $15 trial if you're not sure.</p>
+          </div>
+          <div class="booking-step-arrow">→</div>
+          <div class="booking-step" id="booking-step-2">
+            <div class="booking-step-num">2</div>
+            <div class="booking-step-icon">📅</div>
+            <h3 class="booking-step-title">Pick Your Time</h3>
+            <p class="booking-step-desc">Use our Calendly integration to see real-time availability and schedule your first class in minutes.</p>
+          </div>
+          <div class="booking-step-arrow">→</div>
+          <div class="booking-step" id="booking-step-3">
+            <div class="booking-step-num">3</div>
+            <div class="booking-step-icon">🎉</div>
+            <h3 class="booking-step-title">Join &amp; Start Learning</h3>
+            <p class="booking-step-desc">Get your Zoom link by email. Show up ready to speak — your teacher handles everything else.</p>
+          </div>
+        </div>
+        <div class="booking-cta-row">
+          <a href="https://calendly.com/mariajose-izquierdo-j/30min" target="_blank" rel="noopener noreferrer" class="btn-primary btn-lg" id="schedule-now-btn">
+            📅 Schedule on Calendly Now
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="faq-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">FAQ</span>
+          <h2 class="section-title">Frequently Asked Questions</h2>
+        </div>
+        <div class="faq-list" id="faq-list">
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false" onclick="toggleFaq(this)">
+              <span>What level of Spanish do I need to start?</span>
+              <span class="faq-chevron">▾</span>
+            </button>
+            <div class="faq-answer">
+              <p>Absolutely none! We teach complete beginners, intermediate learners, and advanced students looking to polish their Colombian accent. During your trial class, your teacher will assess your current level and tailor every session from there.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false" onclick="toggleFaq(this)">
+              <span>How does the trial class work?</span>
+              <span class="faq-chevron">▾</span>
+            </button>
+            <div class="faq-answer">
+              <p>Your $15 trial is a full 45-minute one-on-one class with a teacher of your choice. There's no subscription required, no automatic charges. After the class, you can decide whether to join a monthly plan. We're confident you'll love it!</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false" onclick="toggleFaq(this)">
+              <span>Can I switch teachers or reschedule?</span>
+              <span class="faq-chevron">▾</span>
+            </button>
+            <div class="faq-answer">
+              <p>Yes! You can switch teachers anytime via your student dashboard. Rescheduling is unlimited — just do it at least 24 hours in advance. Life happens, and we understand completely.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false" onclick="toggleFaq(this)">
+              <span>What platform do you use for classes?</span>
+              <span class="faq-chevron">▾</span>
+            </button>
+            <div class="faq-answer">
+              <p>All classes are held on Zoom. You'll receive a unique Zoom link in your confirmation email. No special software is needed — just a stable internet connection and a willingness to speak!</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false" onclick="toggleFaq(this)">
+              <span>Do you offer group classes?</span>
+              <span class="faq-chevron">▾</span>
+            </button>
+            <div class="faq-answer">
+              <p>The Cafetera and Caribeña plans include weekly group study sessions for conversation practice with other students. These complement your private 1-on-1 classes. Group sessions max out at 6 students to keep quality high.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Floating CTA Button -->
+  <a href="https://calendly.com/mariajose-izquierdo-j/30min" target="_blank" rel="noopener noreferrer" class="floating-cta" id="floating-cta-btn">
+    <span class="floating-cta-pulse"></span>
+    <span class="floating-cta-icon">📅</span>
+    <span class="floating-cta-text">Book a Class</span>
+  </a>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <span>☕</span>
+            <span class="footer-logo-text">Español con Sabor</span>
+          </div>
+          <p class="footer-tagline">Authentic Colombian Spanish, delivered online with warmth and cultural depth.</p>
+          <div class="footer-socials">
+            <a href="#" class="social-link" onclick="return false;">📸 Instagram</a>
+            <a href="#" class="social-link" onclick="return false;">🎵 TikTok</a>
+            <a href="#" class="social-link" onclick="return false;">▶️ YouTube</a>
+          </div>
+        </div>
+        <div class="footer-links-col">
+          <h4 class="footer-col-title">Navigate</h4>
+          <a href="#" class="footer-link" onclick="showTab('home'); return false;">Home</a>
+          <a href="#" class="footer-link" onclick="showTab('blog'); return false;">Blog</a>
+          <a href="#" class="footer-link" onclick="showTab('about'); return false;">About Us</a>
+          <a href="#" class="footer-link" onclick="showTab('book'); return false;">Book a Class</a>
+        </div>
+        <div class="footer-links-col">
+          <h4 class="footer-col-title">Plans</h4>
+          <a href="#" class="footer-link" onclick="showTab('book'); return false;">🏔️ Andina — $89/mo</a>
+          <a href="#" class="footer-link" onclick="showTab('book'); return false;">☕ Cafetera — $159/mo</a>
+          <a href="#" class="footer-link" onclick="showTab('book'); return false;">🌊 Caribeña — $249/mo</a>
+          <a href="#" class="footer-link footer-link--highlight" onclick="showTab('book'); return false;">🚀 Trial Class — $15</a>
+        </div>
+        <div class="footer-links-col">
+          <h4 class="footer-col-title">Contact</h4>
+          <p class="footer-contact">📧 hola@espanolconsabor.com</p>
+          <p class="footer-contact">💬 WhatsApp: +57 310 000 0000</p>
+          <p class="footer-contact">🕐 Mon–Fri, 8am–8pm COT</p>
+          <div class="footer-trust">
+            <span class="f-trust-badge">🔒 SSL Secure</span>
+            <span class="f-trust-badge">✅ DELE Certified</span>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Español con Sabor · Made with ❤️ in Medellín, Colombia · <a href="#" onclick="return false;" class="footer-legal">Privacy Policy</a> · <a href="#" onclick="return false;" class="footer-legal">Terms of Service</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-client.js"></script>
+  <script src="js/content-loader.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
