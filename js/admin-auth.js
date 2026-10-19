@@ -7,7 +7,9 @@ document.getElementById('login-form')?.addEventListener('submit', async (e) => {
   const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
 
   if (error) {
-    errorEl.textContent = 'Correo o contraseña incorrectos';
+    errorEl.textContent = error.message === 'Invalid login credentials'
+      ? 'Correo o contraseña incorrectos'
+      : (error.message || 'Error al iniciar sesión');
     return;
   }
 
