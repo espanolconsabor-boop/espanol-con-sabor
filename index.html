@@ -292,7 +292,7 @@
       <div class="container">
         <div class="blog-grid">
 
-          <article class="blog-card" id="blog-post-1">
+          <article class="blog-card" id="blog-post-1" onclick="openBlogArticle(0, true)" style="cursor:pointer;">
             <div class="blog-card-img-wrapper">
               <img src="images/blog_coffee_culture.jpg" alt="Colombian coffee farm with Andes mountains" class="blog-card-img" loading="lazy" />
               <span class="blog-card-tag">Culture</span>
@@ -304,11 +304,11 @@
               </div>
               <h2 class="blog-card-title">The Art of Colombian Coffee Culture: More Than Just a Drink</h2>
               <p class="blog-card-excerpt">Colombia is the world's third-largest coffee producer, but for Colombians, coffee is so much more than a morning ritual. Learn the vocabulary, etiquette, and deep cultural significance of el tinto — and why it matters to your Spanish journey.</p>
-              <a href="#" class="blog-read-more" onclick="return false;">Read Article →</a>
+              <a href="#" class="blog-read-more" onclick="event.preventDefault(); event.stopPropagation(); openBlogArticle(0, true); return false;">Read Article →</a>
             </div>
           </article>
 
-          <article class="blog-card" id="blog-post-2">
+          <article class="blog-card" id="blog-post-2" onclick="openBlogArticle(1, true)" style="cursor:pointer;">
             <div class="blog-card-img-wrapper">
               <img src="images/blog_cartagena.jpg" alt="Colonial streets of Cartagena with colorful buildings" class="blog-card-img" loading="lazy" />
               <span class="blog-card-tag" style="background:#FC2C54;">Travel</span>
@@ -320,11 +320,11 @@
               </div>
               <h2 class="blog-card-title">Cartagena de Indias: A City That Speaks History</h2>
               <p class="blog-card-excerpt">The walled city of Cartagena is Colombia's crown jewel — a UNESCO World Heritage Site where every cobblestone street tells a story. Discover the Spanish vocabulary of the Caribbean coast and why Costeño Spanish is the most musical dialect you'll ever hear.</p>
-              <a href="#" class="blog-read-more" onclick="return false;">Read Article →</a>
+              <a href="#" class="blog-read-more" onclick="event.preventDefault(); event.stopPropagation(); openBlogArticle(1, true); return false;">Read Article →</a>
             </div>
           </article>
 
-          <article class="blog-card" id="blog-post-3">
+          <article class="blog-card" id="blog-post-3" onclick="openBlogArticle(2, true)" style="cursor:pointer;">
             <div class="blog-card-img-wrapper">
               <img src="images/blog_slang.jpg" alt="Colombian Spanish slang speech bubbles" class="blog-card-img" loading="lazy" />
               <span class="blog-card-tag" style="background:#2A9D8F;">Language</span>
@@ -336,24 +336,10 @@
               </div>
               <h2 class="blog-card-title">10 Colombian Slang Words That'll Make You Sound Like a Local</h2>
               <p class="blog-card-excerpt">Parcero, chévere, bacano, quiubo — if you don't know these words yet, you're missing out on the soul of Colombian Spanish. Our teacher Camila breaks down the most essential slang expressions with real-life examples you can use today.</p>
-              <a href="#" class="blog-read-more" onclick="return false;">Read Article →</a>
+              <a href="#" class="blog-read-more" onclick="event.preventDefault(); event.stopPropagation(); openBlogArticle(2, true); return false;">Read Article →</a>
             </div>
           </article>
 
-        </div>
-
-        <div class="blog-newsletter">
-          <div class="newsletter-content">
-            <span class="newsletter-emoji">📬</span>
-            <div>
-              <h3 class="newsletter-title">Get weekly Spanish tips in your inbox</h3>
-              <p class="newsletter-sub">Join 2,000+ learners getting free vocabulary, culture, and teaching insights every Friday.</p>
-            </div>
-          </div>
-          <form class="newsletter-form" onsubmit="handleNewsletterSignup(event)">
-            <input type="email" id="newsletter-email" class="newsletter-input" placeholder="Your email address" required />
-            <button type="submit" class="btn-newsletter" id="newsletter-submit-btn">Subscribe Free →</button>
-          </form>
         </div>
 
       </div>
@@ -796,6 +782,30 @@
       </div>
     </div>
   </footer>
+
+  <!-- Blog Article Modal -->
+  <div id="blog-modal" class="article-modal" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="modal-article-title">
+    <div class="article-modal-backdrop" onclick="closeBlogArticle()"></div>
+    <div class="article-modal-container">
+      <button class="article-modal-close" onclick="closeBlogArticle()" aria-label="Cerrar artículo">✕</button>
+      <div class="article-modal-body">
+        <span class="blog-card-tag" id="modal-article-tag">Culture</span>
+        <h1 class="article-modal-title" id="modal-article-title"></h1>
+        <div class="article-modal-meta">
+          <span class="blog-author" id="modal-article-author">☕ Español con Sabor</span>
+          <span class="blog-date" id="modal-article-date"></span>
+        </div>
+        <div class="article-modal-img-wrapper" id="modal-article-img-wrap">
+          <img src="" alt="" id="modal-article-img" class="article-modal-img" />
+        </div>
+        <div class="article-modal-text" id="modal-article-content"></div>
+        <div class="article-modal-footer">
+          <button class="btn-primary" onclick="closeBlogArticle(); showTab('book');">🚀 Reservar una clase de prueba — $15</button>
+          <button class="btn-secondary" onclick="closeBlogArticle()">← Volver al Blog</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabase-client.js"></script>
