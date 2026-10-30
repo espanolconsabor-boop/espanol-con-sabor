@@ -256,11 +256,11 @@ async function loadSiteContent() {
   if (founderTexts[0] && v.founder_bio) founderTexts[0].textContent = v.founder_bio;
   if (v.founder_photo_url) set('.founder-img', v.founder_photo_url, 'src');
 
-  // Planes: precio, periodo, nota, features (por id del contenedor)
+  // Planes: precio, periodo, nota, features, url (por id del contenedor)
   const plans = [
-    { id: 'plan-andina', price: v.plan_andina_price, period: v.plan_andina_period, note: v.plan_andina_note, features: v.plan_andina_features },
-    { id: 'plan-cafetera', price: v.plan_cafetera_price, period: v.plan_cafetera_period, note: v.plan_cafetera_note, features: v.plan_cafetera_features },
-    { id: 'plan-caribena', price: v.plan_caribena_price, period: v.plan_caribena_period, note: v.plan_caribena_note, features: v.plan_caribena_features },
+    { id: 'plan-andina', price: v.plan_andina_price, period: v.plan_andina_period, note: v.plan_andina_note, features: v.plan_andina_features, url: v.plan_andina_booking_url },
+    { id: 'plan-cafetera', price: v.plan_cafetera_price, period: v.plan_cafetera_period, note: v.plan_cafetera_note, features: v.plan_cafetera_features, url: v.plan_cafetera_booking_url },
+    { id: 'plan-caribena', price: v.plan_caribena_price, period: v.plan_caribena_period, note: v.plan_caribena_note, features: v.plan_caribena_features, url: v.plan_caribena_booking_url },
   ];
   plans.forEach(p => {
     const card = document.getElementById(p.id);
@@ -271,6 +271,10 @@ async function loadSiteContent() {
       if (periodEl) periodEl.textContent = p.period.startsWith('/') ? p.period : `/${p.period}`;
     }
     if (p.note) card.querySelector('.price-note').textContent = p.note;
+    if (p.url && p.url.trim()) {
+      const btn = card.querySelector('.btn-plan');
+      if (btn) btn.href = p.url.trim();
+    }
     if (p.features) {
       const ul = card.querySelector('.plan-features');
       if (ul) {
@@ -279,8 +283,27 @@ async function loadSiteContent() {
     }
   });
 
+  // Enlaces de reserva (Trial & General)
+  const trialBookingUrl = (v.booking_trial_url || '').trim();
+  if (trialBookingUrl) {
+    const trialBtn = document.getElementById('trial-booking-btn') || document.getElementById('trial-calendly-btn');
+    if (trialBtn) trialBtn.href = trialBookingUrl;
+  }
+
+  const generalBookingUrl = (v.booking_general_url || trialBookingUrl || '').trim();
+  if (generalBookingUrl) {
+    const scheduleBtn = document.getElementById('schedule-now-btn');
+    if (scheduleBtn) scheduleBtn.href = generalBookingUrl;
+    const floatingCta = document.getElementById('floating-cta-btn');
+    if (floatingCta) floatingCta.href = generalBookingUrl;
+  }
+
   // Footer
   set('.footer-tagline', v.footer_tagline);
+  const footerCreditsEl = document.getElementById('footer-credits-text');
+  if (footerCreditsEl && v.footer_credits) {
+    footerCreditsEl.textContent = v.footer_credits;
+  }
 
   // Email
   const emailVal = v.footer_email ? v.footer_email.trim() : '';
