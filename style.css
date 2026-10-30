@@ -1420,6 +1420,15 @@ strong { font-weight: 700; }
 .footer-link:hover { color: var(--gold); }
 .footer-link--highlight { color: var(--gold); }
 .footer-contact { font-size: 0.875rem; color: rgba(255,255,255,0.6); }
+.footer-contact-link {
+  display: block;
+  text-decoration: none;
+  transition: color 0.2s ease;
+  margin-bottom: 8px;
+}
+.footer-contact-link:hover {
+  color: var(--gold);
+}
 .footer-trust { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
 .f-trust-badge {
   background: rgba(255,255,255,0.08);

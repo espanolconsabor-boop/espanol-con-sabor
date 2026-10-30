@@ -281,15 +281,54 @@ async function loadSiteContent() {
 
   // Footer
   set('.footer-tagline', v.footer_tagline);
-  const contactPs = document.querySelectorAll('.footer-contact');
-  if (contactPs[0] && v.footer_email) contactPs[0].textContent = `📧 ${v.footer_email}`;
-  if (contactPs[1] && v.footer_whatsapp) contactPs[1].textContent = `💬 WhatsApp: ${v.footer_whatsapp}`;
-  if (contactPs[2] && v.footer_hours) contactPs[2].textContent = `🕐 ${v.footer_hours}`;
 
-  const socialLinks = document.querySelectorAll('.footer-socials .social-link');
-  if (socialLinks[0] && v.social_instagram_url) { socialLinks[0].href = v.social_instagram_url; socialLinks[0].removeAttribute('onclick'); socialLinks[0].target = '_blank'; }
-  if (socialLinks[1] && v.social_tiktok_url) { socialLinks[1].href = v.social_tiktok_url; socialLinks[1].removeAttribute('onclick'); socialLinks[1].target = '_blank'; }
-  if (socialLinks[2] && v.social_youtube_url) { socialLinks[2].href = v.social_youtube_url; socialLinks[2].removeAttribute('onclick'); socialLinks[2].target = '_blank'; }
+  // Email
+  const emailVal = v.footer_email ? v.footer_email.trim() : '';
+  const emailLink = document.getElementById('footer-email-link');
+  const emailSpan = document.getElementById('footer-email-val');
+  if (emailVal) {
+    if (emailLink) emailLink.href = `mailto:${emailVal}`;
+    if (emailSpan) emailSpan.textContent = emailVal;
+  }
+
+  // WhatsApp con hipervínculo directo
+  const whatsappVal = v.footer_whatsapp ? v.footer_whatsapp.trim() : '';
+  const whatsappLink = document.getElementById('footer-whatsapp-link');
+  const whatsappSpan = document.getElementById('footer-whatsapp-val');
+  if (whatsappVal) {
+    const cleanNumber = whatsappVal.replace(/[^0-9]/g, '');
+    if (whatsappLink) {
+      whatsappLink.href = cleanNumber ? `https://wa.me/${cleanNumber}` : '#';
+    }
+    if (whatsappSpan) {
+      whatsappSpan.textContent = whatsappVal;
+    }
+  }
+
+  // Redes sociales: Instagram
+  const instagramLink = document.getElementById('footer-social-instagram') || document.querySelectorAll('.footer-socials .social-link')[0];
+  if (instagramLink && v.social_instagram_url && v.social_instagram_url.trim()) {
+    instagramLink.href = v.social_instagram_url.trim();
+    instagramLink.removeAttribute('onclick');
+    instagramLink.target = '_blank';
+    instagramLink.rel = 'noopener noreferrer';
+  }
+
+  // Redes sociales: TikTok (controlado por toggle social_tiktok_enabled)
+  const tiktokLink = document.getElementById('footer-social-tiktok');
+  if (tiktokLink) {
+    const isTiktokEnabled = v.social_tiktok_enabled === 'true';
+    const tiktokUrl = (v.social_tiktok_url || '').trim();
+    if (isTiktokEnabled && tiktokUrl) {
+      tiktokLink.style.display = 'inline-flex';
+      tiktokLink.href = tiktokUrl;
+      tiktokLink.removeAttribute('onclick');
+      tiktokLink.target = '_blank';
+      tiktokLink.rel = 'noopener noreferrer';
+    } else {
+      tiktokLink.style.display = 'none';
+    }
+  }
 }
 
 async function loadFaqs() {

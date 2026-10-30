@@ -30,11 +30,10 @@ const CONTENT_FIELDS = [
   { key: 'section_title_faq', label: 'Título — Sección FAQ', type: 'text' },
   { key: 'footer_tagline', label: 'Footer — Frase debajo del logo', type: 'text' },
   { key: 'footer_email', label: 'Footer — Correo de contacto', type: 'text' },
-  { key: 'footer_whatsapp', label: 'Footer — WhatsApp', type: 'text' },
-  { key: 'footer_hours', label: 'Footer — Horario de atención', type: 'text' },
+  { key: 'footer_whatsapp', label: 'Footer — WhatsApp (ej: +57 310 000 0000)', type: 'text' },
   { key: 'social_instagram_url', label: 'Link de Instagram', type: 'text' },
+  { key: 'social_tiktok_enabled', label: 'TikTok — Mostrar en el pie de página (Encendido / Apagado)', type: 'toggle' },
   { key: 'social_tiktok_url', label: 'Link de TikTok', type: 'text' },
-  { key: 'social_youtube_url', label: 'Link de YouTube', type: 'text' },
   { key: 'plan_andina_features', label: 'Plan Andina — Beneficios (uno por línea)', type: 'textarea' },
   { key: 'plan_cafetera_features', label: 'Plan Cafetera — Beneficios (uno por línea)', type: 'textarea' },
   { key: 'plan_caribena_features', label: 'Plan Caribeña — Beneficios (uno por línea)', type: 'textarea' },
@@ -49,6 +48,18 @@ async function renderSiteContent(content) {
   (data || []).forEach(row => values[row.key] = row.value);
 
   form.innerHTML = CONTENT_FIELDS.map(f => {
+    if (f.type === 'toggle') {
+      const isChecked = values[f.key] === 'true';
+      return `
+        <div style="margin: 16px 0; padding: 12px 16px; background: rgba(14,90,96,0.04); border-radius: 8px; border: 1px solid rgba(14,90,96,0.12);">
+          <label style="display: flex; align-items: center; gap: 12px; cursor: pointer; font-weight: 600; color: #0E5A60; margin: 0;">
+            <input type="checkbox" data-key="${f.key}" ${isChecked ? 'checked' : ''} style="width: 20px; height: 20px; accent-color: #0E5A60; cursor: pointer;" />
+            <span>${f.label}</span>
+          </label>
+          <small style="display: block; margin-top: 4px; color: #666;">Activa esta casilla cuando quieras que el botón de TikTok se muestre a los visitantes.</small>
+        </div>
+      `;
+    }
     if (f.type === 'textarea') {
       return `<label class="admin-form-label">${f.label}</label><textarea data-key="${f.key}">${values[f.key] || ''}</textarea>`;
     }
@@ -65,7 +76,10 @@ async function renderSiteContent(content) {
     const updates = [];
 
     for (const f of CONTENT_FIELDS) {
-      if (f.type === 'image') {
+      if (f.type === 'toggle') {
+        const checkbox = form.querySelector(`input[type="checkbox"][data-key="${f.key}"]`);
+        updates.push({ key: f.key, value: checkbox && checkbox.checked ? 'true' : 'false' });
+      } else if (f.type === 'image') {
         const fileInput = form.querySelector(`.content-image-input[data-key="${f.key}"]`);
         if (fileInput.files[0]) {
           const file = fileInput.files[0];
