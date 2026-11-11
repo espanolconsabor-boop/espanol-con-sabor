@@ -388,7 +388,7 @@ async function loadBookingsLinksView() {
     },
     {
       title: '💳 Suscripción Plan Caribeña ($180 USD / mes — Inmersivo)',
-      desc: '14 clases individuales al mes (50 min c/u) con tutora nativa dedicada.',
+      desc: '12 clases individuales al mes (50 min c/u) con tutora nativa dedicada.',
       url: `${origin}/reservar.html?plan=caribena`,
       badge: 'Plan $180/mes',
     },
