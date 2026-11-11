@@ -24,10 +24,10 @@
         Español con Sabor
       </div>
       <h1 class="text-2xl md:text-3xl font-extrabold tracking-tight">
-        Trial Class — $15 USD (45 Minutes)
+        Trial Class — $15 USD (30 Minutes)
       </h1>
       <p class="text-white/80 text-xs md:text-sm max-w-xl mx-auto mt-1">
-        45 minutes · No commitment · Choose your native Colombian teacher or redeem your monthly membership.
+        30 minutes · No commitment · Choose your native Colombian teacher or redeem your monthly membership.
       </p>
 
       <!-- Stepper Progress Bar -->
@@ -147,7 +147,7 @@
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-2 border-b border-gray-100">
           <div>
             <h2 class="text-2xl font-bold text-[#0E5A60]">Select Date & Time</h2>
-            <p class="text-gray-600 text-sm mt-0.5">Session duration: <strong class="text-[#0E5A60]">45 minutes</strong></p>
+            <p class="text-gray-600 text-sm mt-0.5">Session duration: <strong class="text-[#0E5A60]" id="session-duration-text">30 minutes</strong></p>
           </div>
           <div class="flex items-center space-x-2 text-xs">
             <span class="text-gray-500">🌐 Timezone:</span>
@@ -273,7 +273,7 @@
         <div class="bg-[#FFF3D6]/40 border border-[#0E5A60]/15 rounded-2xl p-5 space-y-3">
           <div class="flex items-center justify-between pb-3 border-b border-[#0E5A60]/10">
             <div>
-              <h4 class="font-bold text-[#0E5A60] text-base" id="summary-title">Trial Class (45 Min)</h4>
+              <h4 class="font-bold text-[#0E5A60] text-base" id="summary-title">Trial Class (30 Min)</h4>
               <p class="text-xs text-gray-600">Teacher: <strong id="summary-tutor">María Izquierdo</strong></p>
             </div>
             <div class="text-right">
@@ -444,7 +444,8 @@
     let selectedTimeSlot = '';
     let currentBookingId = null;
     let customPrice = 15.0;
-    let customTitle = 'Trial Class (45 Min)';
+    let customTitle = 'Trial Class (30 Min)';
+    let customDuration = 30;
 
     // Check URL parameters for direct tutor selection or success return
     document.addEventListener('DOMContentLoaded', () => {
@@ -459,6 +460,13 @@
       const titleParam = urlParams.get('title') || urlParams.get('plan') || urlParams.get('desc');
       const nameParam = urlParams.get('name');
       const emailParam = urlParams.get('email');
+      const durationParam = urlParams.get('duration');
+
+      if (durationParam && !isNaN(parseInt(durationParam))) {
+        customDuration = parseInt(durationParam);
+        const durEl = document.getElementById('session-duration-text');
+        if (durEl) durEl.innerText = `${customDuration} minutes`;
+      }
 
       if (priceParam && !isNaN(parseFloat(priceParam))) {
         customPrice = parseFloat(priceParam);
@@ -576,7 +584,7 @@
       slots.forEach(slot => {
         const btn = document.createElement('button');
         btn.className = 'py-3 px-3 rounded-xl border-2 border-gray-200 bg-white hover:border-[#2A9D8F] text-center font-bold text-sm text-gray-800 transition time-slot-btn';
-        btn.innerHTML = `<span>${slot}</span><span class="block text-[10px] text-gray-400 font-normal">45 min</span>`;
+        btn.innerHTML = `<span>${slot}</span><span class="block text-[10px] text-gray-400 font-normal">${customDuration} min</span>`;
         btn.onclick = () => {
           document.querySelectorAll('.time-slot-btn').forEach(b => {
             b.classList.remove('border-[#0E5A60]', 'bg-[#0E5A60]', 'text-white');
@@ -620,13 +628,69 @@
       }
     }
 
-    function validateStep3() {
+    function getBookingTimeRange(dateStr, timeSlotStr, durationMinutes = 30) {
+      const match = (timeSlotStr || '10:00 AM').match(/(\d+):(\d+)\s*(AM|PM)/i);
+      let hours = 10;
+      let minutes = 0;
+      if (match) {
+        hours = parseInt(match[1]);
+        minutes = parseInt(match[2]);
+        const mod = match[3].toUpperCase();
+        if (mod === 'PM' && hours < 12) hours += 12;
+        if (mod === 'AM' && hours === 12) hours = 0;
+      }
+      const pad = (n) => String(n).padStart(2, '0');
+      const startIso = `${dateStr}T${pad(hours)}:${pad(minutes)}:00Z`;
+      const endTimestamp = new Date(startIso).getTime() + durationMinutes * 60000;
+      const endIso = new Date(endTimestamp).toISOString();
+      return { startTime: startIso, endTime: endIso };
+    }
+
+    async function validateStep3() {
       const name = document.getElementById('input-name').value.trim();
       const email = document.getElementById('input-email').value.trim();
       if (!name || !email) {
         alert('Please enter your full name and email address to proceed.');
         return;
       }
+
+      // Check if student already booked a trial class
+      const isTrial = customTitle.toLowerCase().includes('trial') || customPrice === 15;
+      const isCentral = email.toLowerCase() === 'espanolconsabor0@gmail.com';
+
+      if (isTrial && !isCentral) {
+        const btnNext = document.getElementById('btn-to-step-4');
+        if (btnNext) {
+          btnNext.disabled = true;
+          btnNext.innerText = 'Verifying trial eligibility...';
+        }
+
+        try {
+          const { data: existingTrials } = await supabaseClient
+            .from('bookings')
+            .select('id, status')
+            .eq('booking_link_id', 'b1111111-1111-1111-1111-111111111111')
+            .ilike('student_email', email)
+            .in('status', ['confirmed', 'completed']);
+
+          if (existingTrials && existingTrials.length > 0) {
+            alert('⚠️ Trial Class Limit Reached:\n\nYou have already booked or completed a Trial Class with this email address (' + email + ').\n\nTrial classes are limited to ONE per student. To continue your Spanish journey with us, please select "I have a Membership" or get in touch with us for continuous lesson packages!');
+            if (btnNext) {
+              btnNext.disabled = false;
+              btnNext.innerText = 'Proceed to Payment →';
+            }
+            return;
+          }
+        } catch (e) {
+          console.warn('Trial limit check skipped:', e);
+        }
+
+        if (btnNext) {
+          btnNext.disabled = false;
+          btnNext.innerText = 'Proceed to Payment →';
+        }
+      }
+
       document.getElementById('summary-tutor').innerText = TUTOR_NAMES[selectedTutor] || 'María Izquierdo';
       document.getElementById('summary-time').innerText = `${selectedDate} at ${selectedTimeSlot}`;
       document.getElementById('summary-student').innerText = `${name} (${email})`;
@@ -713,8 +777,9 @@
               const goal = goalEl ? goalEl.value : 'Conversational';
               const notes = document.getElementById('input-notes').value.trim();
               const tutorId = getSelectedTutorUUID();
-              const startTime = `${selectedDate}T10:00:00Z`;
-              const endTime = `${selectedDate}T10:45:00Z`;
+              const timeRange = getBookingTimeRange(selectedDate, selectedTimeSlot, customDuration);
+              const startTime = timeRange.startTime;
+              const endTime = timeRange.endTime;
 
               const bookingRes = await fetch('https://xpmyayjtowdhrjdbezas.supabase.co/functions/v1/create-booking', {
                 method: 'POST',
