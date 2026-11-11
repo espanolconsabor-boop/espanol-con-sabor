@@ -355,6 +355,59 @@ async function loadBookingsLinksView() {
 
   container.innerHTML = `
     <div style="max-width: 900px; display: flex; flex-direction: column; gap: 24px;">
+
+      <!-- GENERADOR DE ENLACES CON TARIFA PERSONALIZADA -->
+      <div style="background: linear-gradient(135deg, #0E5A60 0%, #164e63 100%); color: white; border-radius: 16px; padding: 24px; box-shadow: 0 4px 14px rgba(14,90,96,0.2);">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+          <div>
+            <h3 style="margin: 0; color: #F2C94C; font-size: 18px; font-weight: 800;">🪄 Generador de Enlaces con Tarifa Personalizada</h3>
+            <p style="color: #e2e8f0; font-size: 13px; margin: 4px 0 0 0;">
+              Crea links únicos para alumnos antiguos con su tarifa especial acordada (ej: $68, $120, $180 USD).
+            </p>
+          </div>
+          <span style="background: rgba(242,201,76,0.2); color: #F2C94C; border: 1px solid #F2C94C; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 800;">Alumnos Antiguos</span>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-top: 16px;">
+          <div>
+            <label style="display: block; font-size: 11px; font-weight: 700; color: #cbd5e1; margin-bottom: 4px;">Concepto / Título:</label>
+            <input type="text" id="gen-title" value="Tarifa Especial Alumno Antiguo" oninput="updateCustomGeneratedLink()" style="width: 100%; padding: 8px 12px; font-size: 12px; border-radius: 8px; border: 1px solid #475569; background: #0f172a; color: white; box-sizing: border-box;" />
+          </div>
+
+          <div>
+            <label style="display: block; font-size: 11px; font-weight: 700; color: #cbd5e1; margin-bottom: 4px;">Tarifa en USD ($):</label>
+            <input type="number" id="gen-price" value="68" min="1" step="1" oninput="updateCustomGeneratedLink()" style="width: 100%; padding: 8px 12px; font-size: 12px; border-radius: 8px; border: 1px solid #475569; background: #0f172a; color: white; box-sizing: border-box;" />
+          </div>
+
+          <div>
+            <label style="display: block; font-size: 11px; font-weight: 700; color: #cbd5e1; margin-bottom: 4px;">Tutora Asignada:</label>
+            <select id="gen-tutor" onchange="updateCustomGeneratedLink()" style="width: 100%; padding: 8px 12px; font-size: 12px; border-radius: 8px; border: 1px solid #475569; background: #0f172a; color: white; box-sizing: border-box;">
+              <option value="">Cualquier Tutora Disponible</option>
+              <option value="maria">María Izquierdo</option>
+              <option value="daniela">Daniela García</option>
+              <option value="valentina">Valentina Gómez</option>
+            </select>
+          </div>
+
+          <div>
+            <label style="display: block; font-size: 11px; font-weight: 700; color: #cbd5e1; margin-bottom: 4px;">Nombre Alumno (opcional):</label>
+            <input type="text" id="gen-name" placeholder="Ej: John Doe" oninput="updateCustomGeneratedLink()" style="width: 100%; padding: 8px 12px; font-size: 12px; border-radius: 8px; border: 1px solid #475569; background: #0f172a; color: white; box-sizing: border-box;" />
+          </div>
+        </div>
+
+        <div style="margin-top: 16px; background: rgba(0,0,0,0.25); border-radius: 12px; padding: 12px; border: 1px solid rgba(255,255,255,0.1);">
+          <span style="font-size: 11px; color: #F2C94C; font-weight: 700; display: block; margin-bottom: 6px;">Enlace Personalizado Listo:</span>
+          <div style="display: flex; gap: 8px;">
+            <input type="text" readonly id="gen-output-url" style="flex: 1; padding: 8px 12px; font-size: 12px; background: white; border-radius: 8px; border: none; color: #0E5A60; font-weight: 600;" />
+            <button onclick="copyGeneratedCustomLink()" style="background: #F2B705; color: #0E5A60; font-weight: 800; border: none; padding: 8px 16px; border-radius: 8px; font-size: 12px; cursor: pointer; white-space: nowrap;">
+              Copiar Enlace 📋
+            </button>
+            <a id="gen-preview-link" href="#" target="_blank" style="background: white; color: #0E5A60; font-weight: 700; text-decoration: none; padding: 8px 14px; border-radius: 8px; font-size: 12px; display: inline-flex; align-items: center; white-space: nowrap;">
+              Probar ↗
+            </a>
+          </div>
+        </div>
+      </div>
       
       <!-- Listado de Enlaces Directos -->
       <div style="background: white; border: 1px solid #eaeaea; border-radius: 16px; padding: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.04);">
@@ -406,6 +459,33 @@ async function loadBookingsLinksView() {
 
     </div>
   `;
+
+  setTimeout(updateCustomGeneratedLink, 50);
+}
+
+function updateCustomGeneratedLink() {
+  const origin = window.location.origin;
+  const title = encodeURIComponent(document.getElementById('gen-title')?.value.trim() || 'Tarifa Especial');
+  const price = document.getElementById('gen-price')?.value || '68';
+  const tutor = document.getElementById('gen-tutor')?.value || '';
+  const name = encodeURIComponent(document.getElementById('gen-name')?.value.trim() || '');
+
+  let url = `${origin}/reservar.html?price=${price}&title=${title}`;
+  if (tutor) url += `&tutor=${tutor}`;
+  if (name) url += `&name=${name}`;
+
+  const inputEl = document.getElementById('gen-output-url');
+  const prevEl = document.getElementById('gen-preview-link');
+  if (inputEl) inputEl.value = url;
+  if (prevEl) prevEl.href = url;
+}
+
+function copyGeneratedCustomLink() {
+  const inputEl = document.getElementById('gen-output-url');
+  if (!inputEl) return;
+  inputEl.select();
+  navigator.clipboard.writeText(inputEl.value);
+  alert('¡Enlace con tarifa personalizada copiado al portapapeles!\n' + inputEl.value);
 }
 
 function copyLinkByIndex(idx) {

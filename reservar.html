@@ -443,6 +443,8 @@
     let selectedDate = '';
     let selectedTimeSlot = '';
     let currentBookingId = null;
+    let customPrice = 15.0;
+    let customTitle = 'Trial Class (45 Min)';
 
     // Check URL parameters for direct tutor selection or success return
     document.addEventListener('DOMContentLoaded', () => {
@@ -451,6 +453,38 @@
       if (tutorParam && TUTOR_IDS[tutorParam.toLowerCase()]) {
         const card = document.getElementById(`tutor-card-${tutorParam.toLowerCase()}`);
         if (card) selectTutor(tutorParam.toLowerCase(), card);
+      }
+
+      const priceParam = urlParams.get('price') || urlParams.get('amount');
+      const titleParam = urlParams.get('title') || urlParams.get('plan') || urlParams.get('desc');
+      const nameParam = urlParams.get('name');
+      const emailParam = urlParams.get('email');
+
+      if (priceParam && !isNaN(parseFloat(priceParam))) {
+        customPrice = parseFloat(priceParam);
+        const priceEl = document.getElementById('summary-price');
+        if (priceEl) priceEl.innerText = `$${customPrice}`;
+      }
+
+      if (titleParam) {
+        customTitle = decodeURIComponent(titleParam);
+        const titleEl = document.getElementById('summary-title');
+        if (titleEl) titleEl.innerText = customTitle;
+      }
+
+      const modeLabel = document.querySelector('#btn-mode-paypal span.block');
+      if (modeLabel && (priceParam || titleParam)) {
+        modeLabel.innerText = `${customTitle} ($${customPrice} USD)`;
+      }
+
+      if (nameParam) {
+        const inputName = document.getElementById('input-name');
+        if (inputName) inputName.value = decodeURIComponent(nameParam);
+      }
+
+      if (emailParam) {
+        const inputEmail = document.getElementById('input-email');
+        if (inputEmail) inputEmail.value = decodeURIComponent(emailParam);
       }
 
       // Check if returning with confirmed booking status
@@ -650,10 +684,10 @@
           createOrder: function(data, actions) {
             return actions.order.create({
               purchase_units: [{
-                description: 'Trial Class (45 Min) - Español con Sabor',
+                description: `${customTitle} - Español con Sabor`,
                 amount: {
                   currency_code: 'USD',
-                  value: '15.00'
+                  value: customPrice.toFixed(2)
                 }
               }]
             });
@@ -697,6 +731,7 @@
                   dynamicResponses: { mcer_level: level, learning_goal: goal, notes: notes },
                   paymentType: 'single_session',
                   paypalOrderId: orderData.id,
+                  totalAmount: customPrice,
                   isPaid: true
                 })
               });
