@@ -313,15 +313,6 @@
             <span class="text-xs opacity-90 font-normal">💳 Card / PSE</span>
           </button>
           <p class="text-center text-[11px] text-gray-400">🔒 Secure bank-level encryption processed by Rapyd Global Payments</p>
-
-          <!-- Test / Demo Instant Booking Option -->
-          <div class="pt-4 border-t border-gray-100 bg-amber-50/60 p-4 rounded-xl text-center space-y-2">
-            <span class="text-xs font-bold text-amber-900 block">🧪 Testing / Demo Mode</span>
-            <p class="text-[11px] text-amber-700">Want to test without a real credit card? Click below to create a confirmed booking and trigger the confirmation email immediately:</p>
-            <button onclick="confirmTestBooking()" id="btn-test-booking" class="bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs py-2.5 px-5 rounded-lg shadow-sm transition">
-              Confirm Test Booking (Send Email Now) ✓
-            </button>
-          </div>
         </div>
 
         <!-- Subscription Credit Box -->
@@ -648,6 +639,7 @@
         const { data: booking, error: bErr } = await supabaseClient
           .from('bookings')
           .insert({
+            booking_link_id: 'b1111111-1111-1111-1111-111111111111',
             tutor_id: tutorId,
             student_name: name,
             student_email: email,
@@ -656,7 +648,7 @@
             end_time: endTime,
             student_timezone: document.getElementById('tz-select').value,
             payment_type: 'single_session',
-            payment_status: 'pending_payment',
+            payment_status: 'unpaid',
             total_amount: 15.00,
             currency: 'USD',
             status: 'pending_payment',
@@ -693,55 +685,6 @@
         alert('Checkout error: ' + err.message);
         btn.disabled = false;
         btn.innerHTML = '<span>Pay $15 USD with</span> <span class="font-black text-lg text-[#F2C94C]">Rapyd Checkout</span>';
-      }
-    }
-
-    // TEST / DEMO INSTANT BOOKING (triggers real create-booking function and sends email!)
-    async function confirmTestBooking() {
-      const btn = document.getElementById('btn-test-booking');
-      btn.disabled = true;
-      btn.innerText = 'Creating session & sending email...';
-
-      const name = document.getElementById('input-name').value.trim();
-      const email = document.getElementById('input-email').value.trim();
-      const phone = document.getElementById('input-phone').value.trim();
-      const level = document.getElementById('input-level').value;
-      const goalEl = document.querySelector('input[name="goal"]:checked');
-      const goal = goalEl ? goalEl.value : 'Conversational';
-      const notes = document.getElementById('input-notes').value.trim();
-
-      const startTime = `${selectedDate}T15:00:00Z`;
-      const endTime = `${selectedDate}T15:45:00Z`;
-
-      try {
-        const tutorId = getSelectedTutorUUID();
-
-        // Call the create-booking Edge Function
-        const res = await fetch('https://xpmyayjtowdhrjdbezas.supabase.co/functions/v1/create-booking', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            bookingLinkId: 'b1111111-1111-1111-1111-111111111111',
-            tutorId: tutorId,
-            studentName: name,
-            studentEmail: email,
-            studentPhone: phone,
-            startTime: startTime,
-            endTime: endTime,
-            studentTimezone: document.getElementById('tz-select').value,
-            paymentType: 'test_instant',
-            dynamicResponses: { mcer_level: level, learning_goal: goal, notes: notes }
-          })
-        });
-
-        const data = await res.json();
-        const meet = data.meetLink || `https://meet.google.com/lookup/espanol-${Math.random().toString(36).substring(7)}`;
-
-        showSuccessScreen(meet, name, email);
-      } catch (err) {
-        console.error(err);
-        const meet = `https://meet.google.com/lookup/espanol-${Math.random().toString(36).substring(7)}`;
-        showSuccessScreen(meet, name, email);
       }
     }
 
