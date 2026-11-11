@@ -1,5 +1,6 @@
 async function loadAdminTab(tab) {
   const content = document.getElementById('admin-content');
+  if (tab === 'bookings') return renderBookingsManager(content);
   if (tab === 'teachers') return renderTeachers(content);
   if (tab === 'testimonials') return renderTestimonials(content);
   if (tab === 'blog') return renderBlogPosts(content);

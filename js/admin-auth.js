@@ -31,7 +31,7 @@ async function checkSession() {
 function showAdminApp() {
   document.getElementById('login-screen').style.display = 'none';
   document.getElementById('admin-app').style.display = 'block';
-  if (typeof loadAdminTab === 'function') loadAdminTab('teachers');
+  if (typeof loadAdminTab === 'function') loadAdminTab('bookings');
 }
 
 checkSession();
