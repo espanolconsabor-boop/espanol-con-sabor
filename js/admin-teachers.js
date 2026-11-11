@@ -115,6 +115,22 @@ function showTeacherForm(teacher = null) {
       }
       // Guardar también siempre en site_content para persistencia garantizada
       await supabaseClient.from('site_content').upsert([{ key: `teacher_rating_${teacher.id}`, value: ratingStr }], { onConflict: 'key' });
+
+      // Sincronizar también con tutors table
+      try {
+        const firstName = name.split(' ')[0];
+        const tutorPayload = {
+          name,
+          rating: ratingVal,
+          bio,
+          headline: bio,
+          updated_at: new Date().toISOString()
+        };
+        if (photo_url) tutorPayload.avatar_url = photo_url;
+        await supabaseClient.from('tutors').update(tutorPayload).ilike('name', `%${firstName}%`);
+      } catch (tutorSyncErr) {
+        console.warn('Sync to tutors error:', tutorSyncErr);
+      }
     } else {
       let createdId = null;
       const { data: inserted, error: errInsert } = await supabaseClient.from('teachers').insert([{ ...payload, rating: ratingVal }]).select();
@@ -126,6 +142,22 @@ function showTeacherForm(teacher = null) {
       }
       if (createdId) {
         await supabaseClient.from('site_content').upsert([{ key: `teacher_rating_${createdId}`, value: ratingStr }], { onConflict: 'key' });
+      }
+
+      // Sincronizar también con tutors table
+      try {
+        const firstName = name.split(' ')[0];
+        const tutorPayload = {
+          name,
+          rating: ratingVal,
+          bio,
+          headline: bio,
+          updated_at: new Date().toISOString()
+        };
+        if (photo_url) tutorPayload.avatar_url = photo_url;
+        await supabaseClient.from('tutors').update(tutorPayload).ilike('name', `%${firstName}%`);
+      } catch (tutorSyncErr) {
+        console.warn('Sync to tutors error:', tutorSyncErr);
       }
     }
 

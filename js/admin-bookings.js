@@ -47,18 +47,19 @@ async function renderBookingsManager(container) {
           </div>
 
           <div>
-            <label style="display: block; font-size: 12px; font-weight: 700; color: #333; margin-bottom: 4px;">URL de Foto de Perfil</label>
-            <input type="url" id="edit-tutor-avatar" oninput="document.getElementById('edit-tutor-avatar-preview').src = this.value" required style="width: 100%; padding: 8px 12px; border: 1px solid #ccc; border-radius: 8px; font-size: 13px; box-sizing: border-box;" />
+            <label style="display: block; font-size: 12px; font-weight: 700; color: #333; margin-bottom: 4px;">Foto de Perfil</label>
+            <input type="file" id="edit-tutor-file" accept="image/*" style="font-size: 12px; margin-bottom: 6px; width: 100%;" />
+            <input type="url" id="edit-tutor-avatar" placeholder="O pega el enlace de la imagen (https://...)" oninput="document.getElementById('edit-tutor-avatar-preview').src = this.value" style="width: 100%; padding: 8px 12px; border: 1px solid #ccc; border-radius: 8px; font-size: 13px; box-sizing: border-box;" />
             <div style="display: flex; align-items: center; gap: 10px; margin-top: 6px;">
-              <img id="edit-tutor-avatar-preview" src="" style="width: 44px; height: 44px; border-radius: 50%; object-fit: cover; border: 2px solid #0E5A60;" />
-              <span style="font-size: 11px; color: #666;">Vista previa de la foto</span>
+              <img id="edit-tutor-avatar-preview" src="" style="width: 48px; height: 48px; border-radius: 50%; object-fit: cover; border: 2px solid #0E5A60;" />
+              <span style="font-size: 11px; color: #666;">Vista previa</span>
             </div>
           </div>
 
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
             <div>
-              <label style="display: block; font-size: 12px; font-weight: 700; color: #333; margin-bottom: 4px;">Tarifa ($ USD)</label>
-              <input type="number" id="edit-tutor-rate" step="1" required style="width: 100%; padding: 8px 12px; border: 1px solid #ccc; border-radius: 8px; font-size: 13px; box-sizing: border-box;" />
+              <label style="display: block; font-size: 12px; font-weight: 700; color: #333; margin-bottom: 4px;">Calificación ⭐ (0.0 a 5.0)</label>
+              <input type="number" id="edit-tutor-rating" step="0.1" min="1" max="5" value="5.0" required style="width: 100%; padding: 8px 12px; border: 1px solid #ccc; border-radius: 8px; font-size: 13px; font-weight: 700; color: #0E5A60; box-sizing: border-box;" />
             </div>
             <div>
               <label style="display: block; font-size: 12px; font-weight: 700; color: #333; margin-bottom: 4px;">Código PIN de Acceso</label>
@@ -243,11 +244,11 @@ async function loadBookingsTutorsView() {
 
           <div style="padding-top: 14px; border-top: 1px solid #f0f0f0;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-size: 12px;">
-              <span>Tarifa: <strong style="color: #0E5A60; font-size: 14px;">$${t.hourly_rate || 30} USD</strong></span>
+              <span>⭐ Calificación: <strong style="color: #0E5A60; font-size: 13px;">${parseFloat(t.rating || 5.0).toFixed(1)} / 5.0</strong></span>
               <span style="background: #FFF3D6; color: #0E5A60; padding: 3px 8px; border-radius: 6px; font-weight: 700; font-size: 11px; border: 1px solid #F2B705/30;">PIN Portal: <strong>${t.access_pin || '1234'}</strong></span>
             </div>
             <button onclick="openTutorModal('${t.id}')" style="width: 100%; padding: 8px 14px; background: #0E5A60; color: white; border: none; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; transition: 0.2s;">
-              ✏️ Editar Datos & Foto
+              ✏️ Editar Datos, Calificación & Foto
             </button>
           </div>
         </div>
@@ -267,10 +268,12 @@ function openTutorModal(tutorId) {
   document.getElementById('edit-tutor-email').value = tutor.email || '';
   document.getElementById('edit-tutor-avatar').value = tutor.avatar_url || '';
   document.getElementById('edit-tutor-avatar-preview').src = tutor.avatar_url || '';
-  document.getElementById('edit-tutor-rate').value = tutor.hourly_rate || 30;
+  document.getElementById('edit-tutor-rating').value = (parseFloat(tutor.rating) || 5.0).toFixed(1);
   document.getElementById('edit-tutor-pin').value = tutor.access_pin || '1234';
   document.getElementById('edit-tutor-headline').value = tutor.headline || '';
   document.getElementById('edit-tutor-bio').value = tutor.bio || '';
+  const fileInput = document.getElementById('edit-tutor-file');
+  if (fileInput) fileInput.value = '';
 
   const modal = document.getElementById('modal-edit-tutor');
   modal.style.display = 'flex';
@@ -288,20 +291,53 @@ async function saveTutorChanges(e) {
   btn.innerText = 'Guardando en Supabase...';
 
   const tutorId = document.getElementById('edit-tutor-id').value;
-  const updates = {
-    name: document.getElementById('edit-tutor-name').value.trim(),
-    email: document.getElementById('edit-tutor-email').value.trim(),
-    avatar_url: document.getElementById('edit-tutor-avatar').value.trim(),
-    hourly_rate: Number(document.getElementById('edit-tutor-rate').value),
-    access_pin: document.getElementById('edit-tutor-pin').value.trim(),
-    headline: document.getElementById('edit-tutor-headline').value.trim(),
-    bio: document.getElementById('edit-tutor-bio').value.trim(),
-    updated_at: new Date().toISOString(),
-  };
+  let avatarUrl = document.getElementById('edit-tutor-avatar').value.trim();
+  const fileInput = document.getElementById('edit-tutor-file');
 
   try {
+    if (fileInput && fileInput.files && fileInput.files[0]) {
+      btn.innerText = 'Subiendo foto a Supabase...';
+      const file = fileInput.files[0];
+      const fileName = `teachers/${Date.now()}_${file.name}`;
+      const { error: uploadError } = await supabaseClient.storage.from('photos').upload(fileName, file);
+      if (uploadError) throw new Error('Error subiendo foto: ' + uploadError.message);
+      const { data: urlData } = supabaseClient.storage.from('photos').getPublicUrl(fileName);
+      avatarUrl = urlData.publicUrl;
+    }
+
+    const ratingNum = parseFloat(document.getElementById('edit-tutor-rating').value) || 5.0;
+    const nameVal = document.getElementById('edit-tutor-name').value.trim();
+    const emailVal = document.getElementById('edit-tutor-email').value.trim();
+    const pinVal = document.getElementById('edit-tutor-pin').value.trim();
+    const headlineVal = document.getElementById('edit-tutor-headline').value.trim();
+    const bioVal = document.getElementById('edit-tutor-bio').value.trim();
+
+    const updates = {
+      name: nameVal,
+      email: emailVal,
+      avatar_url: avatarUrl,
+      rating: ratingNum,
+      access_pin: pinVal,
+      headline: headlineVal,
+      bio: bioVal,
+      updated_at: new Date().toISOString(),
+    };
+
     const { error } = await supabaseClient.from('tutors').update(updates).eq('id', tutorId);
     if (error) throw error;
+
+    // Sync to teachers table if present
+    try {
+      const firstName = nameVal.split(' ')[0];
+      await supabaseClient.from('teachers').update({
+        name: nameVal,
+        photo_url: avatarUrl,
+        bio: headlineVal || bioVal,
+        rating: ratingNum
+      }).ilike('name', `%${firstName}%`);
+    } catch (syncErr) {
+      console.warn('Sync to teachers table skipped:', syncErr);
+    }
 
     alert('¡Datos de la tutora actualizados con éxito en Supabase!');
     closeTutorModal();
