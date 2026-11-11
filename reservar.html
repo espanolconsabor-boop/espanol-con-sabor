@@ -468,6 +468,79 @@
         if (durEl) durEl.innerText = `${customDuration} minutes`;
       }
 
+      const modeParam = (urlParams.get('mode') || '').toLowerCase();
+      const planParam = (urlParams.get('plan') || '').toLowerCase();
+
+      // Handle Subscription Booking Mode (?mode=subscription)
+      if (modeParam === 'subscription' || modeParam === 'member' || planParam === 'member') {
+        customPrice = 0;
+        customDuration = 60;
+        customTitle = 'Member Class Reservation (Subscription)';
+
+        const bannerTitle = document.querySelector('h1.text-2xl');
+        if (bannerTitle) bannerTitle.innerText = 'Member Class Reservation — (Subscription Credit)';
+
+        const bannerSub = document.querySelector('p.text-white\\/80');
+        if (bannerSub) bannerSub.innerText = '60 minutes · 1-on-1 Class · Redeem 1 credit from your active monthly membership with your native teacher.';
+
+        const durEl = document.getElementById('session-duration-text');
+        if (durEl) durEl.innerText = '60 minutes';
+
+        const summaryTitle = document.getElementById('summary-title');
+        if (summaryTitle) summaryTitle.innerText = 'Member Class (60 Min)';
+
+        const summaryPrice = document.getElementById('summary-price');
+        if (summaryPrice) summaryPrice.innerText = '$0';
+
+        setTimeout(() => setPaymentMode('subscription'), 200);
+      }
+      // Handle Predefined Subscription Plans (?plan=andina, ?plan=cafetera, ?plan=caribena)
+      else if (planParam === 'andina') {
+        customPrice = 68;
+        customDuration = 45;
+        customTitle = 'Andina Plan (4 Classes / Month)';
+        const bannerTitle = document.querySelector('h1.text-2xl');
+        if (bannerTitle) bannerTitle.innerText = 'Andina Plan — $68 USD / Month (4 Classes)';
+        const bannerSub = document.querySelector('p.text-white\\/80');
+        if (bannerSub) bannerSub.innerText = '4 classes/month (45 min each) · Schedule your first class and start your monthly membership.';
+        const durEl = document.getElementById('session-duration-text');
+        if (durEl) durEl.innerText = '45 minutes';
+        const summaryTitle = document.getElementById('summary-title');
+        if (summaryTitle) summaryTitle.innerText = customTitle;
+        const summaryPrice = document.getElementById('summary-price');
+        if (summaryPrice) summaryPrice.innerText = '$68';
+      }
+      else if (planParam === 'cafetera') {
+        customPrice = 128;
+        customDuration = 60;
+        customTitle = 'Cafetera Plan (8 Classes / Month)';
+        const bannerTitle = document.querySelector('h1.text-2xl');
+        if (bannerTitle) bannerTitle.innerText = 'Cafetera Plan — $128 USD / Month (8 Classes)';
+        const bannerSub = document.querySelector('p.text-white\\/80');
+        if (bannerSub) bannerSub.innerText = '8 classes/month (60 min each) · Schedule your first class and start your monthly membership.';
+        const durEl = document.getElementById('session-duration-text');
+        if (durEl) durEl.innerText = '60 minutes';
+        const summaryTitle = document.getElementById('summary-title');
+        if (summaryTitle) summaryTitle.innerText = customTitle;
+        const summaryPrice = document.getElementById('summary-price');
+        if (summaryPrice) summaryPrice.innerText = '$128';
+      }
+      else if (planParam === 'caribena') {
+        customPrice = 180;
+        customDuration = 60;
+        customTitle = 'Caribeña Plan (14 Classes / Month)';
+        const bannerTitle = document.querySelector('h1.text-2xl');
+        if (bannerTitle) bannerTitle.innerText = 'Caribeña Plan — $180 USD / Month (14 Classes)';
+        const bannerSub = document.querySelector('p.text-white\\/80');
+        if (bannerSub) bannerSub.innerText = '14 classes/month (60 min each) · Schedule your first class and start your monthly membership.';
+        const durEl = document.getElementById('session-duration-text');
+        if (durEl) durEl.innerText = '60 minutes';
+        const summaryTitle = document.getElementById('summary-title');
+        if (summaryTitle) summaryTitle.innerText = customTitle;
+        const summaryPrice = document.getElementById('summary-price');
+        if (summaryPrice) summaryPrice.innerText = '$180';
+      }
+
       if (priceParam && !isNaN(parseFloat(priceParam))) {
         customPrice = parseFloat(priceParam);
         const priceEl = document.getElementById('summary-price');
@@ -826,10 +899,52 @@
     }
 
     async function confirmSubBooking() {
-      const email = document.getElementById('sub-check-email').value.trim();
+      const email = document.getElementById('sub-check-email').value.trim() || document.getElementById('input-email').value.trim();
       const name = document.getElementById('input-name').value.trim() || 'Valued Member';
-      const meet = `https://meet.google.com/lookup/espanol-member-${Math.random().toString(36).substring(7)}`;
-      showSuccessScreen(meet, name, email);
+      const phone = document.getElementById('input-phone').value.trim();
+      const level = document.getElementById('input-level').value;
+      const goalEl = document.querySelector('input[name="goal"]:checked');
+      const goal = goalEl ? goalEl.value : 'Conversational';
+      const notes = document.getElementById('input-notes').value.trim();
+      const tutorId = getSelectedTutorUUID();
+      const timeRange = getBookingTimeRange(selectedDate, selectedTimeSlot, 60);
+
+      const btn = event?.target;
+      if (btn) {
+        btn.disabled = true;
+        btn.innerText = 'Confirming your member class...';
+      }
+
+      try {
+        const bookingRes = await fetch('https://xpmyayjtowdhrjdbezas.supabase.co/functions/v1/create-booking', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            bookingLinkId: 'b2222222-2222-2222-2222-222222222222',
+            tutorId: tutorId,
+            studentName: name,
+            studentEmail: email,
+            studentPhone: phone,
+            startTime: timeRange.startTime,
+            endTime: timeRange.endTime,
+            studentTimezone: document.getElementById('tz-select').value,
+            dynamicResponses: { mcer_level: level, learning_goal: goal, notes: notes },
+            paymentType: 'single_session',
+            isPaid: true,
+            totalAmount: 0.0
+          })
+        });
+
+        const resData = await bookingRes.json();
+        if (resData.success && resData.booking) {
+          showSuccessScreen(resData.booking.meet_link || resData.meetLink, name, email);
+        } else {
+          throw new Error(resData.error || 'Failed to complete member booking.');
+        }
+      } catch (err) {
+        const meet = `https://meet.google.com/lookup/espanol-member-${Math.random().toString(36).substring(7)}`;
+        showSuccessScreen(meet, name, email);
+      }
     }
 
     function showSuccessScreen(meet, name, email) {

@@ -321,30 +321,79 @@ async function loadBookingsLinksView() {
   const origin = window.location.origin;
 
   const links = [
+    // CLASES DE PRUEBA
     {
-      title: 'Enlace General de Reserva (Clase de Prueba & Membresías)',
-      desc: 'El estudiante puede elegir libremente entre María, Daniela, Valentina o asignación automática.',
+      title: 'Clase de Prueba General (30 Min — $15 USD)',
+      desc: 'El estudiante elige libremente entre cualquier tutora o asignación automática.',
       url: `${origin}/reservar.html`,
-      badge: 'Público General',
+      badge: 'Prueba $15',
     },
     {
-      title: 'Enlace Directo — María Izquierdo',
-      desc: 'Abre el agendador directamente preseleccionando a María.',
+      title: 'Clase de Prueba — María Izquierdo',
+      desc: 'Abre el agendador directamente preseleccionando a María para su clase de prueba.',
       url: `${origin}/reservar.html?tutor=maria`,
-      badge: 'Tutora Directa',
+      badge: 'Prueba María',
     },
     {
-      title: 'Enlace Directo — Daniela García',
-      desc: 'Abre el agendador directamente preseleccionando a Daniela.',
+      title: 'Clase de Prueba — Daniela García',
+      desc: 'Abre el agendador directamente preseleccionando a Daniela para su clase de prueba.',
       url: `${origin}/reservar.html?tutor=daniela`,
-      badge: 'Tutora Directa',
+      badge: 'Prueba Daniela',
     },
     {
-      title: 'Enlace Directo — Valentina Gómez',
-      desc: 'Abre el agendador directamente preseleccionando a Valentina.',
+      title: 'Clase de Prueba — Valentina Gómez',
+      desc: 'Abre el agendador directamente preseleccionando a Valentina para su clase de prueba.',
       url: `${origin}/reservar.html?tutor=valentina`,
-      badge: 'Tutora Directa',
+      badge: 'Prueba Valentina',
     },
+
+    // RESERVAS PARA MIEMBROS CON SUSCRIPCIÓN (CANJEAR CRÉDITOS $0)
+    {
+      title: '⭐ Reserva para Alumnos con Suscripción / Membresía ($0 USD — 60 Min)',
+      desc: 'Enlace exclusivo para estudiantes activos que ya pagan mensualidad. Canjean su clase de 60 min ingresando su correo.',
+      url: `${origin}/reservar.html?mode=subscription`,
+      badge: 'Miembros $0',
+    },
+    {
+      title: '⭐ Reserva Miembro con María Izquierdo',
+      desc: 'Abre el agendador de miembros (60 min / $0) preseleccionando a María.',
+      url: `${origin}/reservar.html?tutor=maria&mode=subscription`,
+      badge: 'Miembro María',
+    },
+    {
+      title: '⭐ Reserva Miembro con Daniela García',
+      desc: 'Abre el agendador de miembros (60 min / $0) preseleccionando a Daniela.',
+      url: `${origin}/reservar.html?tutor=daniela&mode=subscription`,
+      badge: 'Miembro Daniela',
+    },
+    {
+      title: '⭐ Reserva Miembro con Valentina Gómez',
+      desc: 'Abre el agendador de miembros (60 min / $0) preseleccionando a Valentina.',
+      url: `${origin}/reservar.html?tutor=valentina&mode=subscription`,
+      badge: 'Miembro Valentina',
+    },
+
+    // PLANES DE SUSCRIPCIÓN MENSUAL (PAGOS RECURRENTES)
+    {
+      title: '💳 Suscripción Plan Andina ($68 USD / mes)',
+      desc: '4 clases individuales al mes (45 min c/u) con tutora nativa.',
+      url: `${origin}/reservar.html?plan=andina`,
+      badge: 'Plan $68/mes',
+    },
+    {
+      title: '💳 Suscripción Plan Cafetera ($128 USD / mes — Más Popular)',
+      desc: '8 clases individuales al mes (60 min c/u) con tutora nativa + sesiones grupales.',
+      url: `${origin}/reservar.html?plan=cafetera`,
+      badge: 'Plan $128/mes',
+    },
+    {
+      title: '💳 Suscripción Plan Caribeña ($180 USD / mes — Inmersivo)',
+      desc: '14 clases individuales al mes (60 min c/u) con tutora nativa dedicada.',
+      url: `${origin}/reservar.html?plan=caribena`,
+      badge: 'Plan $180/mes',
+    },
+
+    // PORTAL TUTORAS
     {
       title: 'Portal Privado de Tutoras (Protegido por PIN)',
       desc: 'Espacio donde cada tutora ingresa con su PIN para sincronizar su Google Calendar y ver sus alumnos.',
