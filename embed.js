@@ -1,7 +1,7 @@
 /**
  * Español con Sabor - Embeddable Booking Web Component
  * Usage:
- *   <script src="https://espanolconsabor.pages.dev/embed.js" defer></script>
+ *   <script src="https://espanolconsaboracademy.com/embed.js" defer></script>
  *   <sabor-booking-widget slug="clase-individual-60min"></sabor-booking-widget>
  */
 
@@ -9,7 +9,7 @@
   class SaborBookingWidget extends HTMLElement {
     connectedCallback() {
       const slug = this.getAttribute('slug') || 'clase-individual-60min';
-      const baseUrl = this.getAttribute('host') || 'https://espanolconsabor.pages.dev';
+      const baseUrl = this.getAttribute('host') || 'https://espanolconsaboracademy.com';
       const height = this.getAttribute('height') || '850px';
 
       this.innerHTML = `
