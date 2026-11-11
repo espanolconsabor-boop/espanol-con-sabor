@@ -3,25 +3,83 @@
  * Archivo: js/tutor-portal.js
  */
 
-const TUTOR_IDS = {
-  maria: 'a1111111-1111-1111-1111-111111111111',
-  daniela: 'a2222222-2222-2222-2222-222222222222',
-  valentina: 'a3333333-3333-3333-3333-333333333333',
-};
-
-let currentTutorId = localStorage.getItem('sabor_active_tutor') || TUTOR_IDS.maria;
+const SESSION_KEY = 'sabor_logged_tutor_id';
+let currentTutorId = sessionStorage.getItem(SESSION_KEY);
 const daysNames = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
 
 document.addEventListener('DOMContentLoaded', async () => {
-  const select = document.getElementById('tutor-select');
-  if (select) select.value = currentTutorId;
-  await loadTutorPortalData();
+  if (currentTutorId) {
+    showDashboard();
+    await loadTutorPortalData();
+  } else {
+    showLoginScreen();
+  }
 });
 
-async function changeActiveTutor(tutorId) {
-  currentTutorId = tutorId;
-  localStorage.setItem('sabor_active_tutor', tutorId);
-  await loadTutorPortalData();
+function showLoginScreen() {
+  document.getElementById('login-modal-screen').classList.remove('hidden');
+  document.getElementById('tutor-dashboard-screen').classList.add('hidden');
+}
+
+function showDashboard() {
+  document.getElementById('login-modal-screen').classList.add('hidden');
+  document.getElementById('tutor-dashboard-screen').classList.remove('hidden');
+}
+
+async function handleTutorLogin(e) {
+  e.preventDefault();
+  const select = document.getElementById('login-tutor-select');
+  const pinInput = document.getElementById('login-pin-input');
+  const errorMsg = document.getElementById('login-error-msg');
+  const btn = document.getElementById('btn-login-submit');
+
+  const selectedTutorId = select.value;
+  const enteredPin = pinInput.value.trim();
+
+  btn.disabled = true;
+  btn.innerText = 'Verificando PIN...';
+  errorMsg.classList.add('hidden');
+
+  try {
+    // Consultar el PIN de la tutora en Supabase
+    const { data: tutor, error } = await supabaseClient
+      .from('tutors')
+      .select('id, name, access_pin')
+      .eq('id', selectedTutorId)
+      .single();
+
+    if (error || !tutor) {
+      throw new Error('No se encontró el registro de la tutora.');
+    }
+
+    const expectedPin = tutor.access_pin || '1234';
+
+    if (enteredPin === expectedPin) {
+      currentTutorId = tutor.id;
+      sessionStorage.setItem(SESSION_KEY, tutor.id);
+      showDashboard();
+      await loadTutorPortalData();
+    } else {
+      errorMsg.classList.remove('hidden');
+      errorMsg.innerText = 'Código PIN incorrecto. Por favor intenta de nuevo.';
+      pinInput.value = '';
+      pinInput.focus();
+    }
+  } catch (err) {
+    errorMsg.classList.remove('hidden');
+    errorMsg.innerText = err.message || 'Error de conexión. Intenta de nuevo.';
+  } finally {
+    btn.disabled = false;
+    btn.innerText = 'Ingresar a mi Portal →';
+  }
+}
+
+function handleTutorLogout() {
+  sessionStorage.removeItem(SESSION_KEY);
+  currentTutorId = null;
+  const pinInput = document.getElementById('login-pin-input');
+  if (pinInput) pinInput.value = '';
+  showLoginScreen();
 }
 
 async function loadTutorPortalData() {
@@ -36,6 +94,9 @@ async function loadTutorProfile() {
     .single();
 
   if (!tutor) return;
+
+  const headerName = document.getElementById('header-active-name');
+  if (headerName) headerName.innerText = tutor.name;
 
   document.getElementById('tutor-name').innerText = tutor.name;
   document.getElementById('tutor-email').innerText = tutor.email;
@@ -148,23 +209,29 @@ async function loadTutorSchedule() {
   container.innerHTML = weekDays
     .map((dayNum) => {
       const dayRule = rules?.find((r) => r.day_of_week === dayNum);
-      const isActive = dayRule ? dayRule.is_active : true;
+      const isAvailable = dayRule ? dayRule.is_available : dayNum <= 5;
       const start = dayRule ? dayRule.start_time.slice(0, 5) : '09:00';
-      const end = dayRule ? dayRule.end_time.slice(0, 5) : '17:00';
+      const end = dayRule ? dayRule.end_time.slice(0, 5) : '18:00';
 
       return `
-        <div class="p-3.5 border border-gray-200 rounded-2xl bg-white space-y-2">
+        <div class="p-4 rounded-2xl border border-gray-200 bg-gray-50/50 space-y-2 rule-card" data-day="${dayNum}">
           <div class="flex items-center justify-between">
-            <span class="font-bold text-xs text-gray-800">${daysNames[dayNum]}</span>
-            <label class="flex items-center cursor-pointer text-[11px] font-semibold">
-              <input type="checkbox" id="chk-day-${dayNum}" ${isActive ? 'checked' : ''} class="mr-1 accent-[#0E5A60]">
-              ${isActive ? 'Disponible' : 'Libre'}
+            <span class="font-bold text-sm text-[#0E5A60]">${daysNames[dayNum]}</span>
+            <label class="relative inline-flex items-center cursor-pointer">
+              <input type="checkbox" class="sr-only peer day-available-chk" ${isAvailable ? 'checked' : ''} onchange="toggleDayStatus(${dayNum}, this.checked)">
+              <div class="w-9 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-[#2A9D8F]"></div>
             </label>
           </div>
-          <div class="flex items-center space-x-2 text-xs">
-            <input type="time" id="start-day-${dayNum}" value="${start}" class="border border-gray-200 rounded-lg px-2 py-1 text-xs outline-none">
-            <span class="text-gray-400">a</span>
-            <input type="time" id="end-day-${dayNum}" value="${end}" class="border border-gray-200 rounded-lg px-2 py-1 text-xs outline-none">
+
+          <div class="grid grid-cols-2 gap-2 text-xs pt-1 ${isAvailable ? '' : 'opacity-40 pointer-events-none'}" id="inputs-day-${dayNum}">
+            <div>
+              <span class="text-gray-400 block text-[10px]">Desde</span>
+              <input type="time" class="start-time-input w-full p-1.5 border border-gray-200 rounded-lg bg-white" value="${start}">
+            </div>
+            <div>
+              <span class="text-gray-400 block text-[10px]">Hasta</span>
+              <input type="time" class="end-time-input w-full p-1.5 border border-gray-200 rounded-lg bg-white" value="${end}">
+            </div>
           </div>
         </div>
       `;
@@ -172,52 +239,69 @@ async function loadTutorSchedule() {
     .join('');
 }
 
-async function saveScheduleChanges() {
-  const weekDays = [1, 2, 3, 4, 5, 6];
-  const updates = [];
-
-  for (const dayNum of weekDays) {
-    const chk = document.getElementById(`chk-day-${dayNum}`);
-    const start = document.getElementById(`start-day-${dayNum}`);
-    const end = document.getElementById(`end-day-${dayNum}`);
-
-    if (chk && start && end) {
-      updates.push({
-        tutor_id: currentTutorId,
-        day_of_week: dayNum,
-        start_time: start.value,
-        end_time: end.value,
-        is_active: chk.checked,
-      });
-    }
+function toggleDayStatus(dayNum, isChecked) {
+  const inputs = document.getElementById(`inputs-day-${dayNum}`);
+  if (inputs) {
+    inputs.classList.toggle('opacity-40', !isChecked);
+    inputs.classList.toggle('pointer-events-none', !isChecked);
   }
+}
 
-  const { error } = await supabaseClient
-    .from('tutor_availability_rules')
-    .upsert(updates, { onConflict: 'tutor_id,day_of_week,start_time,end_time' });
+async function saveScheduleChanges() {
+  const cards = document.querySelectorAll('.rule-card');
+  const rulesToSave = [];
 
-  if (!error) {
-    alert('¡Tus horarios han sido guardados con éxito!');
-  } else {
-    alert('Horario actualizado en el sistema.');
+  cards.forEach((card) => {
+    const day = parseInt(card.getAttribute('data-day'));
+    const isAvailable = card.querySelector('.day-available-chk').checked;
+    const start = card.querySelector('.start-time-input').value;
+    const end = card.querySelector('.end-time-input').value;
+
+    rulesToSave.push({
+      tutor_id: currentTutorId,
+      day_of_week: day,
+      is_available: isAvailable,
+      start_time: start + ':00',
+      end_time: end + ':00',
+    });
+  });
+
+  try {
+    const { error: delErr } = await supabaseClient
+      .from('tutor_availability_rules')
+      .delete()
+      .eq('tutor_id', currentTutorId);
+
+    if (delErr) throw delErr;
+
+    const { error: insErr } = await supabaseClient
+      .from('tutor_availability_rules')
+      .insert(rulesToSave);
+
+    if (insErr) throw insErr;
+
+    alert('¡Tus horarios de disponibilidad han sido guardados con éxito!');
+  } catch (err) {
+    alert('Error al guardar horarios: ' + err.message);
   }
 }
 
 function switchTab(tab) {
-  const viewClasses = document.getElementById('view-classes');
-  const viewSchedule = document.getElementById('view-schedule');
-  const btnClasses = document.getElementById('tab-btn-classes');
-  const btnSchedule = document.getElementById('tab-btn-schedule');
+  const classesView = document.getElementById('view-classes');
+  const scheduleView = document.getElementById('view-schedule');
+  const tabBtnClasses = document.getElementById('tab-btn-classes');
+  const tabBtnSchedule = document.getElementById('tab-btn-schedule');
 
-  if (tab === 'classes') {
-    viewClasses.classList.remove('hidden');
-    viewSchedule.classList.add('hidden');
-    btnClasses.className = 'px-4 py-2 rounded-xl text-xs font-bold bg-[#0E5A60] text-white shadow-xs';
-    btnSchedule.className = 'px-4 py-2 rounded-xl text-xs font-bold bg-white text-gray-600 border border-gray-200 hover:bg-gray-50';
+  const isClasses = tab === 'classes';
+
+  classesView.classList.toggle('hidden', !isClasses);
+  scheduleView.classList.toggle('hidden', isClasses);
+
+  if (isClasses) {
+    tabBtnClasses.className = 'px-4 py-2 rounded-xl text-xs font-bold bg-[#0E5A60] text-white shadow-xs';
+    tabBtnSchedule.className = 'px-4 py-2 rounded-xl text-xs font-bold bg-white text-gray-600 border border-gray-200 hover:bg-gray-50';
   } else {
-    viewClasses.classList.add('hidden');
-    viewSchedule.classList.remove('hidden');
-    btnSchedule.className = 'px-4 py-2 rounded-xl text-xs font-bold bg-[#0E5A60] text-white shadow-xs';
-    btnClasses.className = 'px-4 py-2 rounded-xl text-xs font-bold bg-white text-gray-600 border border-gray-200 hover:bg-gray-50';
+    tabBtnClasses.className = 'px-4 py-2 rounded-xl text-xs font-bold bg-white text-gray-600 border border-gray-200 hover:bg-gray-50';
+    tabBtnSchedule.className = 'px-4 py-2 rounded-xl text-xs font-bold bg-[#0E5A60] text-white shadow-xs';
   }
 }

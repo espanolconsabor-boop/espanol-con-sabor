@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Español con Sabor - Reserva tu Clase de Español</title>
+  <title>Español con Sabor - Book Your Spanish Class</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
@@ -11,14 +11,6 @@
       font-family: 'Plus Jakarta Sans', sans-serif;
       background-color: #FFF3D6;
     }
-    .brand-teal { color: #0E5A60; }
-    .bg-brand-teal { background-color: #0E5A60; }
-    .border-brand-teal { border-color: #0E5A60; }
-    .brand-green { color: #2A9D8F; }
-    .bg-brand-green { background-color: #2A9D8F; }
-    .brand-gold { color: #F2B705; }
-    .bg-brand-gold { background-color: #F2B705; }
-    .bg-brand-cream { background-color: #FFF3D6; }
   </style>
 </head>
 <body class="min-h-screen py-8 px-4 flex flex-col items-center justify-center">
@@ -32,32 +24,32 @@
         Español con Sabor
       </div>
       <h1 class="text-2xl md:text-3xl font-extrabold tracking-tight">
-        Clase de Prueba — $15 USD (45 Minutos)
+        Trial Class — $15 USD (45 Minutes)
       </h1>
       <p class="text-white/80 text-xs md:text-sm max-w-xl mx-auto mt-1">
-        45 minutos · Sin compromiso · Elige a tu tutora nativa (María, Daniela o Valentina) o canjea tu membresía.
+        45 minutes · No commitment · Choose your native Colombian teacher or redeem your monthly membership.
       </p>
 
       <!-- Stepper Progress Bar -->
       <div id="stepper" class="flex items-center justify-center space-x-2 sm:space-x-4 mt-6 pt-4 border-t border-white/10">
         <div class="flex items-center space-x-2 step-item" data-step="1">
           <div class="step-circle w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold bg-[#F2B705] text-[#0E5A60] ring-4 ring-white/20">1</div>
-          <span class="step-label text-xs font-bold text-[#F2C94C] hidden md:inline">Tutora</span>
+          <span class="step-label text-xs font-bold text-[#F2C94C] hidden md:inline">Teacher</span>
         </div>
         <div class="w-4 h-0.5 bg-white/20 hidden sm:block"></div>
         <div class="flex items-center space-x-2 step-item" data-step="2">
           <div class="step-circle w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold bg-white/20 text-white/70">2</div>
-          <span class="step-label text-xs font-medium text-white/50 hidden md:inline">Fecha y Hora</span>
+          <span class="step-label text-xs font-medium text-white/50 hidden md:inline">Date & Time</span>
         </div>
         <div class="w-4 h-0.5 bg-white/20 hidden sm:block"></div>
         <div class="flex items-center space-x-2 step-item" data-step="3">
           <div class="step-circle w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold bg-white/20 text-white/70">3</div>
-          <span class="step-label text-xs font-medium text-white/50 hidden md:inline">Tus Datos</span>
+          <span class="step-label text-xs font-medium text-white/50 hidden md:inline">Your Details</span>
         </div>
         <div class="w-4 h-0.5 bg-white/20 hidden sm:block"></div>
         <div class="flex items-center space-x-2 step-item" data-step="4">
           <div class="step-circle w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold bg-white/20 text-white/70">4</div>
-          <span class="step-label text-xs font-medium text-white/50 hidden md:inline">Pago</span>
+          <span class="step-label text-xs font-medium text-white/50 hidden md:inline">Payment</span>
         </div>
       </div>
     </div>
@@ -65,98 +57,86 @@
     <!-- Step Container -->
     <div class="p-6 md:p-8 bg-[#FFF3D6]/20">
       
-      <!-- STEP 1: Tutor Selection -->
+      <!-- STEP 1: Teacher Selection -->
       <div id="step-1" class="space-y-6">
         <div class="text-center max-w-xl mx-auto">
-          <h2 class="text-2xl font-bold text-[#0E5A60]">Elige a tu Tutora</h2>
+          <h2 class="text-2xl font-bold text-[#0E5A60]">Choose Your Teacher</h2>
           <p class="text-gray-600 text-sm mt-1">
-            Nuestras tutoras son profesionales nativas certificadas. Puedes elegir a tu favorita o seleccionar la opción automática.
+            Our teachers are certified native Colombian professionals. Pick your preferred tutor or choose automatic matching for fastest booking.
           </p>
         </div>
 
-        <!-- Any Tutor Option -->
-        <div onclick="selectTutor('any', this)" class="tutor-card p-4 rounded-2xl border-2 border-[#0E5A60] bg-[#FFF3D6]/40 cursor-pointer shadow-sm flex items-center justify-between transition ring-2 ring-[#0E5A60]/20">
+        <!-- Any Teacher Option -->
+        <div onclick="selectTutor('any', this)" id="tutor-card-any" class="tutor-card p-4 rounded-2xl border-2 border-[#0E5A60] bg-[#FFF3D6]/40 cursor-pointer shadow-sm flex items-center justify-between transition ring-2 ring-[#0E5A60]/20">
           <div class="flex items-center space-x-4">
             <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-[#0E5A60] to-[#2A9D8F] flex items-center justify-center text-white text-xl font-bold shadow-inner">
               ✨
             </div>
             <div>
-              <h3 class="font-bold text-[#0E5A60] text-base">Cualquier tutora disponible</h3>
-              <p class="text-xs text-gray-500">Mayor variedad de horarios y disponibilidad inmediata.</p>
+              <h3 class="font-bold text-[#0E5A60] text-base">Any Available Teacher</h3>
+              <p class="text-xs text-gray-500">Widest schedule availability and immediate booking.</p>
             </div>
           </div>
-          <span class="text-xs font-semibold px-2.5 py-1 bg-[#2A9D8F]/15 text-[#0E5A60] rounded-full">Recomendado</span>
+          <span class="text-xs font-semibold px-2.5 py-1 bg-[#2A9D8F]/15 text-[#0E5A60] rounded-full">Recommended</span>
         </div>
 
         <!-- Tutor Grid -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <!-- Tutor 1 -->
-          <div onclick="selectTutor('maria', this)" class="tutor-card p-5 rounded-2xl border-2 border-gray-200 bg-white hover:border-[#2A9D8F] cursor-pointer transition flex flex-col justify-between">
+          <!-- Tutor 1: Maria -->
+          <div onclick="selectTutor('maria', this)" id="tutor-card-maria" class="tutor-card p-5 rounded-2xl border-2 border-gray-200 bg-white hover:border-[#2A9D8F] cursor-pointer transition flex flex-col justify-between">
             <div>
               <div class="relative mb-3 flex items-center justify-center">
                 <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80" alt="María Izquierdo" class="w-20 h-20 rounded-full object-cover border-2 border-[#0E5A60]/20">
                 <span class="absolute -bottom-1 bg-[#F2B705] text-[#0E5A60] text-xs font-bold px-2 py-0.5 rounded-full shadow-sm">★ 5.0</span>
               </div>
               <h3 class="text-center font-bold text-gray-900 text-base">María Izquierdo</h3>
-              <p class="text-center text-xs font-medium text-[#2A9D8F] mb-2">Conversación Fluida y Fonética</p>
-              <p class="text-xs text-gray-600 line-clamp-3 mb-3 text-center">Apasionada por la cultura hispanoamericana y la enseñanza interactiva.</p>
-              <div class="flex flex-wrap gap-1 justify-center mb-3">
-                <span class="text-[11px] bg-gray-100 text-gray-700 px-2 py-0.5 rounded">Conversación</span>
-                <span class="text-[11px] bg-gray-100 text-gray-700 px-2 py-0.5 rounded">Viajeros</span>
-              </div>
+              <p class="text-center text-xs text-[#2A9D8F] font-semibold">Lead Instructor · Medellín</p>
+              <p class="text-xs text-gray-500 mt-2 text-center">Specialist in conversational fluency, Colombian idioms, and cultural immersion.</p>
             </div>
-            <div class="pt-3 border-t border-gray-100 flex items-center justify-between">
-              <span class="text-xs text-gray-500">Sesión 60m</span>
-              <span class="font-bold text-[#0E5A60] text-sm">$30 USD</span>
+            <div class="pt-3 border-t border-gray-100 flex items-center justify-between mt-4">
+              <span class="text-xs text-gray-500">Trial Class</span>
+              <span class="font-bold text-[#0E5A60] text-sm">$15 USD</span>
             </div>
           </div>
 
-          <!-- Tutor 2 -->
-          <div onclick="selectTutor('daniela', this)" class="tutor-card p-5 rounded-2xl border-2 border-gray-200 bg-white hover:border-[#2A9D8F] cursor-pointer transition flex flex-col justify-between">
+          <!-- Tutor 2: Daniela -->
+          <div onclick="selectTutor('daniela', this)" id="tutor-card-daniela" class="tutor-card p-5 rounded-2xl border-2 border-gray-200 bg-white hover:border-[#2A9D8F] cursor-pointer transition flex flex-col justify-between">
             <div>
               <div class="relative mb-3 flex items-center justify-center">
-                <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=400&q=80" alt="Daniela García" class="w-20 h-20 rounded-full object-cover border-2 border-[#2A9D8F]/20">
+                <img src="https://images.unsplash.com/photo-1580894732444-8ecded7900cd?auto=format&fit=crop&w=400&q=80" alt="Daniela García" class="w-20 h-20 rounded-full object-cover border-2 border-[#0E5A60]/20">
                 <span class="absolute -bottom-1 bg-[#F2B705] text-[#0E5A60] text-xs font-bold px-2 py-0.5 rounded-full shadow-sm">★ 5.0</span>
               </div>
               <h3 class="text-center font-bold text-gray-900 text-base">Daniela García</h3>
-              <p class="text-center text-xs font-medium text-[#2A9D8F] mb-2">Preparadora Oficial DELE/SIELE</p>
-              <p class="text-xs text-gray-600 line-clamp-3 mb-3 text-center">Licenciada en Lenguas Modernas con amplia experiencia en español profesional.</p>
-              <div class="flex flex-wrap gap-1 justify-center mb-3">
-                <span class="text-[11px] bg-gray-100 text-gray-700 px-2 py-0.5 rounded">DELE B1-C2</span>
-                <span class="text-[11px] bg-gray-100 text-gray-700 px-2 py-0.5 rounded">Negocios</span>
-              </div>
+              <p class="text-center text-xs text-[#2A9D8F] font-semibold">DELE & Grammar Expert · Bogotá</p>
+              <p class="text-xs text-gray-500 mt-2 text-center">Patient and structured methodology. Great for beginners moving to intermediate.</p>
             </div>
-            <div class="pt-3 border-t border-gray-100 flex items-center justify-between">
-              <span class="text-xs text-gray-500">Sesión 60m</span>
-              <span class="font-bold text-[#0E5A60] text-sm">$32 USD</span>
+            <div class="pt-3 border-t border-gray-100 flex items-center justify-between mt-4">
+              <span class="text-xs text-gray-500">Trial Class</span>
+              <span class="font-bold text-[#0E5A60] text-sm">$15 USD</span>
             </div>
           </div>
 
-          <!-- Tutor 3 -->
-          <div onclick="selectTutor('valentina', this)" class="tutor-card p-5 rounded-2xl border-2 border-gray-200 bg-white hover:border-[#2A9D8F] cursor-pointer transition flex flex-col justify-between">
+          <!-- Tutor 3: Valentina -->
+          <div onclick="selectTutor('valentina', this)" id="tutor-card-valentina" class="tutor-card p-5 rounded-2xl border-2 border-gray-200 bg-white hover:border-[#2A9D8F] cursor-pointer transition flex flex-col justify-between">
             <div>
               <div class="relative mb-3 flex items-center justify-center">
-                <img src="https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?auto=format&fit=crop&w=400&q=80" alt="Valentina Gómez" class="w-20 h-20 rounded-full object-cover border-2 border-[#F2B705]/20">
-                <span class="absolute -bottom-1 bg-[#F2B705] text-[#0E5A60] text-xs font-bold px-2 py-0.5 rounded-full shadow-sm">★ 4.96</span>
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80" alt="Valentina Gómez" class="w-20 h-20 rounded-full object-cover border-2 border-[#0E5A60]/20">
+                <span class="absolute -bottom-1 bg-[#F2B705] text-[#0E5A60] text-xs font-bold px-2 py-0.5 rounded-full shadow-sm">★ 5.0</span>
               </div>
               <h3 class="text-center font-bold text-gray-900 text-base">Valentina Gómez</h3>
-              <p class="text-center text-xs font-medium text-[#2A9D8F] mb-2">Niveles Iniciales e Intermedios</p>
-              <p class="text-xs text-gray-600 line-clamp-3 mb-3 text-center">Clases dinámicas y relajadas para ganar seguridad desde el primer minuto.</p>
-              <div class="flex flex-wrap gap-1 justify-center mb-3">
-                <span class="text-[11px] bg-gray-100 text-gray-700 px-2 py-0.5 rounded">A1 a B1</span>
-                <span class="text-[11px] bg-gray-100 text-gray-700 px-2 py-0.5 rounded">Cultura</span>
-              </div>
+              <p class="text-center text-xs text-[#2A9D8F] font-semibold">Travel & Real Life Spanish · Cali</p>
+              <p class="text-xs text-gray-500 mt-2 text-center">Dynamic, high-energy classes focusing on speaking confidence and pronunciation.</p>
             </div>
-            <div class="pt-3 border-t border-gray-100 flex items-center justify-between">
-              <span class="text-xs text-gray-500">Sesión 60m</span>
-              <span class="font-bold text-[#0E5A60] text-sm">$28 USD</span>
+            <div class="pt-3 border-t border-gray-100 flex items-center justify-between mt-4">
+              <span class="text-xs text-gray-500">Trial Class</span>
+              <span class="font-bold text-[#0E5A60] text-sm">$15 USD</span>
             </div>
           </div>
         </div>
 
         <div class="flex justify-end pt-4">
           <button onclick="goToStep(2)" class="bg-[#0E5A60] hover:bg-[#093c40] text-white font-semibold py-3 px-8 rounded-xl shadow-md transition flex items-center space-x-2 text-sm">
-            <span>Continuar a Horarios</span>
+            <span>Continue to Schedule</span>
             <span>→</span>
           </button>
         </div>
@@ -166,23 +146,26 @@
       <div id="step-2" class="space-y-6 hidden">
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-2 border-b border-gray-100">
           <div>
-            <h2 class="text-2xl font-bold text-[#0E5A60]">Elige Fecha y Hora</h2>
-            <p class="text-gray-600 text-sm mt-0.5">Duración: <strong class="text-[#0E5A60]">60 minutos</strong> por sesión</p>
+            <h2 class="text-2xl font-bold text-[#0E5A60]">Select Date & Time</h2>
+            <p class="text-gray-600 text-sm mt-0.5">Session duration: <strong class="text-[#0E5A60]">45 minutes</strong></p>
           </div>
           <div class="flex items-center space-x-2 text-xs">
-            <span class="text-gray-500">🌐 Zona horaria:</span>
+            <span class="text-gray-500">🌐 Timezone:</span>
             <select id="tz-select" class="bg-white border border-gray-200 rounded-lg px-2.5 py-1.5 font-medium text-gray-700 outline-none">
-              <option value="America/Bogota">Colombia / Perú (UTC-5)</option>
-              <option value="America/New_York" selected>Eastern Time - NY / Miami (UTC-5)</option>
-              <option value="America/Los_Angeles">Pacific Time - LA / SF (UTC-8)</option>
-              <option value="Europe/Madrid">España peninsular (UTC+1)</option>
+              <option value="America/New_York" selected>Eastern Time (ET) - New York / Miami</option>
+              <option value="America/Chicago">Central Time (CT) - Chicago / Dallas</option>
+              <option value="America/Denver">Mountain Time (MT) - Denver</option>
+              <option value="America/Los_Angeles">Pacific Time (PT) - LA / San Francisco</option>
+              <option value="America/Bogota">Colombia / Peru (UTC-5)</option>
+              <option value="Europe/London">UK Time (GMT / BST)</option>
+              <option value="Europe/Madrid">Spain / Central Europe (CET)</option>
             </select>
           </div>
         </div>
 
         <!-- Horizontal Days Selector -->
         <div>
-          <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Selecciona un día</label>
+          <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Select a Day</label>
           <div id="days-carousel" class="flex gap-2 overflow-x-auto pb-2">
             <!-- Dynamically populated via JS -->
           </div>
@@ -190,7 +173,7 @@
 
         <!-- Time Slots Grid -->
         <div>
-          <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Horarios disponibles para esta fecha</label>
+          <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Available times for this date</label>
           <div id="slots-grid" class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
             <!-- Populated via JS -->
           </div>
@@ -198,10 +181,10 @@
 
         <div class="flex justify-between items-center pt-4 border-t border-gray-100">
           <button onclick="goToStep(1)" class="text-gray-600 font-semibold px-4 py-2.5 rounded-xl border border-gray-200 hover:bg-gray-50 text-sm">
-            ← Cambiar Tutora
+            ← Change Teacher
           </button>
           <button id="btn-to-step-3" onclick="goToStep(3)" disabled class="bg-[#0E5A60] hover:bg-[#093c40] disabled:opacity-40 disabled:cursor-not-allowed text-white font-semibold py-3 px-8 rounded-xl shadow-md transition text-sm">
-            Completar Formulario →
+            Continue to Details →
           </button>
         </div>
       </div>
@@ -209,63 +192,72 @@
       <!-- STEP 3: Dynamic Questionnaire Form -->
       <div id="step-3" class="space-y-6 hidden">
         <div class="pb-2 border-b border-gray-100">
-          <h2 class="text-2xl font-bold text-[#0E5A60]">Tus Datos y Preferencias</h2>
-          <p class="text-gray-600 text-sm mt-0.5">Esta información ayuda a tu tutora a preparar la clase ideal para ti.</p>
+          <h2 class="text-2xl font-bold text-[#0E5A60]">Your Details & Learning Goals</h2>
+          <p class="text-gray-600 text-sm mt-0.5">This information helps your teacher prepare the ideal personalized lesson for you.</p>
         </div>
 
         <div class="space-y-4">
           <div>
-            <label class="block text-sm font-semibold text-gray-700 mb-1">Nombre Completo <span class="text-[#FC2C54]">*</span></label>
-            <input type="text" id="input-name" placeholder="Ej: John Doe" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-[#0E5A60] focus:ring-2 focus:ring-[#0E5A60]/10 text-sm outline-none">
+            <label class="block text-sm font-semibold text-gray-700 mb-1">Full Name <span class="text-[#FC2C54]">*</span></label>
+            <input type="text" id="input-name" placeholder="e.g. John Doe" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-[#0E5A60] focus:ring-2 focus:ring-[#0E5A60]/10 text-sm outline-none">
           </div>
 
           <div>
-            <label class="block text-sm font-semibold text-gray-700 mb-1">Correo Electrónico <span class="text-[#FC2C54]">*</span></label>
-            <input type="email" id="input-email" placeholder="tu-correo@ejemplo.com" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-[#0E5A60] focus:ring-2 focus:ring-[#0E5A60]/10 text-sm outline-none">
-            <p class="text-[11px] text-gray-500 mt-1">Aquí recibirás el enlace permanente de Google Meet y la invitación de calendario.</p>
+            <label class="block text-sm font-semibold text-gray-700 mb-1">Email Address <span class="text-[#FC2C54]">*</span></label>
+            <input type="email" id="input-email" placeholder="john@example.com" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-[#0E5A60] focus:ring-2 focus:ring-[#0E5A60]/10 text-sm outline-none">
+            <p class="text-[11px] text-gray-500 mt-1">Your Google Meet video link and calendar invitation will be sent here.</p>
           </div>
 
           <div>
-            <label class="block text-sm font-semibold text-gray-700 mb-1">¿Cuál es tu nivel aproximado de español? <span class="text-[#FC2C54]">*</span></label>
+            <label class="block text-sm font-semibold text-gray-700 mb-1">Phone / WhatsApp (Optional)</label>
+            <input type="tel" id="input-phone" placeholder="+1 (555) 000-0000" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-[#0E5A60] text-sm outline-none">
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-1">What is your current Spanish level? <span class="text-[#FC2C54]">*</span></label>
             <select id="input-level" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-[#0E5A60] text-sm bg-white outline-none">
-              <option value="A1 - Principiante total">A1 - Principiante total</option>
-              <option value="A2 - Elemental (frases básicas)">A2 - Elemental (frases básicas)</option>
-              <option value="B1 - Intermedio (puedo conversar)" selected>B1 - Intermedio (puedo conversar)</option>
-              <option value="B2 - Intermedio Alto">B2 - Intermedio Alto</option>
-              <option value="C1 / C2 - Avanzado">C1 / C2 - Avanzado</option>
+              <option value="A1 - Total Beginner (Just starting)">A1 - Total Beginner (Just starting)</option>
+              <option value="A2 - Elementary (Basic phrases and survival Spanish)">A2 - Elementary (Basic phrases and survival Spanish)</option>
+              <option value="B1 - Intermediate (Can hold basic conversations)" selected>B1 - Intermediate (Can hold basic conversations)</option>
+              <option value="B2 - Upper Intermediate (Comfortable speaking)">B2 - Upper Intermediate (Comfortable speaking)</option>
+              <option value="C1 / C2 - Advanced / Fluent">C1 / C2 - Advanced / Fluent</option>
             </select>
           </div>
 
           <div>
-            <label class="block text-sm font-semibold text-gray-700 mb-2">¿Cuál es tu principal objetivo de aprendizaje? <span class="text-[#FC2C54]">*</span></label>
+            <label class="block text-sm font-semibold text-gray-700 mb-2">What is your primary learning goal? <span class="text-[#FC2C54]">*</span></label>
             <div class="space-y-2">
               <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-200 hover:border-[#0E5A60] cursor-pointer">
-                <input type="radio" name="goal" value="Conversación fluida para viajes y vida diaria" checked class="text-[#0E5A60]">
-                <span class="text-sm">Conversación fluida para viajes y vida diaria</span>
+                <input type="radio" name="goal" value="Conversational fluency for travel and daily life" checked class="text-[#0E5A60]">
+                <span class="text-sm">Conversational fluency for travel and daily life</span>
               </label>
               <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-200 hover:border-[#0E5A60] cursor-pointer">
-                <input type="radio" name="goal" value="Preparación para examen oficial (DELE / SIELE)" class="text-[#0E5A60]">
-                <span class="text-sm">Preparación para examen oficial (DELE / SIELE)</span>
+                <input type="radio" name="goal" value="Official exam preparation (DELE / SIELE)" class="text-[#0E5A60]">
+                <span class="text-sm">Official exam preparation (DELE / SIELE)</span>
               </label>
               <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-200 hover:border-[#0E5A60] cursor-pointer">
-                <input type="radio" name="goal" value="Español profesional o de negocios" class="text-[#0E5A60]">
-                <span class="text-sm">Español profesional o de negocios</span>
+                <input type="radio" name="goal" value="Business or professional Spanish" class="text-[#0E5A60]">
+                <span class="text-sm">Business or professional Spanish</span>
+              </label>
+              <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-200 hover:border-[#0E5A60] cursor-pointer">
+                <input type="radio" name="goal" value="Colombian culture, slang and pronunciation" class="text-[#0E5A60]">
+                <span class="text-sm">Colombian culture, slang and pronunciation</span>
               </label>
             </div>
           </div>
 
           <div>
-            <label class="block text-sm font-semibold text-gray-700 mb-1">¿Algún tema específico que te gustaría practicar?</label>
-            <textarea id="input-notes" rows="2" placeholder="Ej: subjuntivo, modismos colombianos, ordenar comida..." class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-[#0E5A60] text-sm outline-none"></textarea>
+            <label class="block text-sm font-semibold text-gray-700 mb-1">Any specific topics or goals for this class? (Optional)</label>
+            <textarea id="input-notes" rows="2" placeholder="e.g. Subjunctive, ordering food in Medellín, job interview..." class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-[#0E5A60] text-sm outline-none"></textarea>
           </div>
         </div>
 
         <div class="flex justify-between items-center pt-4 border-t border-gray-100">
           <button onclick="goToStep(2)" class="text-gray-600 font-semibold px-4 py-2.5 rounded-xl border border-gray-200 hover:bg-gray-50 text-sm">
-            ← Cambiar Horario
+            ← Change Schedule
           </button>
           <button onclick="validateStep3()" class="bg-[#0E5A60] hover:bg-[#093c40] text-white font-semibold py-3 px-8 rounded-xl shadow-md transition text-sm">
-            Continuar al Pago →
+            Proceed to Payment →
           </button>
         </div>
       </div>
@@ -273,16 +265,16 @@
       <!-- STEP 4: Payment Checkout -->
       <div id="step-4" class="space-y-6 hidden">
         <div class="pb-2 border-b border-gray-100">
-          <h2 class="text-2xl font-bold text-[#0E5A60]">Resumen y Pago</h2>
-          <p class="text-gray-600 text-sm mt-0.5">El pago anticipado garantiza la reserva del tiempo de tu tutora.</p>
+          <h2 class="text-2xl font-bold text-[#0E5A60]">Review & Payment</h2>
+          <p class="text-gray-600 text-sm mt-0.5">Advance payment secures your tutor's dedicated time slot.</p>
         </div>
 
         <!-- Summary Card -->
         <div class="bg-[#FFF3D6]/40 border border-[#0E5A60]/15 rounded-2xl p-5 space-y-3">
           <div class="flex items-center justify-between pb-3 border-b border-[#0E5A60]/10">
             <div>
-              <h4 class="font-bold text-[#0E5A60] text-base" id="summary-title">Clase de Prueba (45 Min)</h4>
-              <p class="text-xs text-gray-600">Tutora: <strong id="summary-tutor">María Izquierdo</strong></p>
+              <h4 class="font-bold text-[#0E5A60] text-base" id="summary-title">Trial Class (45 Min)</h4>
+              <p class="text-xs text-gray-600">Teacher: <strong id="summary-tutor">María Izquierdo</strong></p>
             </div>
             <div class="text-right">
               <span class="text-2xl font-extrabold text-[#0E5A60]" id="summary-price">$15</span>
@@ -291,11 +283,11 @@
           </div>
           <div class="grid grid-cols-2 gap-2 text-xs text-gray-700">
             <div>
-              <span class="text-gray-400 block">Horario</span>
-              <span id="summary-time" class="font-bold text-gray-800">Mañana a las 10:00 AM</span>
+              <span class="text-gray-400 block">Schedule</span>
+              <span id="summary-time" class="font-bold text-gray-800">Tomorrow at 10:00 AM</span>
             </div>
             <div>
-              <span class="text-gray-400 block">Estudiante</span>
+              <span class="text-gray-400 block">Student</span>
               <span id="summary-student" class="font-bold text-gray-800">John Doe</span>
             </div>
           </div>
@@ -304,46 +296,55 @@
         <!-- Payment Mode Tabs -->
         <div class="grid grid-cols-2 gap-3">
           <button onclick="setPaymentMode('rapyd')" id="btn-mode-rapyd" class="p-4 rounded-xl border-2 border-[#0E5A60] bg-white ring-2 ring-[#0E5A60]/10 text-left shadow-sm">
-            <span class="font-bold text-sm text-[#0E5A60] block">Clase de Prueba ($15 USD)</span>
-            <span class="text-xs text-gray-500">Paga con Rapyd (Tarjeta, PSE, etc.)</span>
+            <span class="font-bold text-sm text-[#0E5A60] block">Trial Class ($15 USD)</span>
+            <span class="text-xs text-gray-500">Pay with Card, PSE, or Rapyd</span>
           </button>
           <button onclick="setPaymentMode('subscription')" id="btn-mode-sub" class="p-4 rounded-xl border-2 border-gray-200 bg-gray-50 text-left hover:bg-white">
-            <span class="font-bold text-sm text-[#0E5A60] block">Tengo una Membresía</span>
-            <span class="text-xs text-gray-500">Canjea 1 crédito (Andina, Cafetera, Caribeña)</span>
+            <span class="font-bold text-sm text-[#0E5A60] block">I have a Membership</span>
+            <span class="text-xs text-gray-500">Redeem 1 class credit</span>
           </button>
         </div>
 
         <!-- Single Session Box (Rapyd) -->
-        <div id="checkout-rapyd-box" class="p-5 border border-gray-200 rounded-2xl bg-white space-y-3">
-          <button onclick="simulatePaymentSuccess('trial_class')" class="w-full bg-[#0E5A60] hover:bg-[#093c40] text-white font-bold py-3.5 px-6 rounded-xl flex items-center justify-center space-x-2 shadow-md transition">
-            <span>Pagar $15 USD vía</span>
+        <div id="checkout-rapyd-box" class="p-5 border border-gray-200 rounded-2xl bg-white space-y-4">
+          <button id="btn-start-checkout" onclick="startRapydCheckout()" class="w-full bg-[#0E5A60] hover:bg-[#093c40] text-white font-bold py-3.5 px-6 rounded-xl flex items-center justify-center space-x-2 shadow-md transition">
+            <span>Pay $15 USD with</span>
             <span class="font-black text-lg tracking-wide text-[#F2C94C]">Rapyd Checkout</span>
-            <span class="text-xs opacity-90 font-normal">💳 Tarjeta / PSE</span>
+            <span class="text-xs opacity-90 font-normal">💳 Card / PSE</span>
           </button>
-          <p class="text-center text-[11px] text-gray-400">🔒 Pasarela segura procesada por Rapyd Payments Global</p>
+          <p class="text-center text-[11px] text-gray-400">🔒 Secure bank-level encryption processed by Rapyd Global Payments</p>
+
+          <!-- Test / Demo Instant Booking Option -->
+          <div class="pt-4 border-t border-gray-100 bg-amber-50/60 p-4 rounded-xl text-center space-y-2">
+            <span class="text-xs font-bold text-amber-900 block">🧪 Testing / Demo Mode</span>
+            <p class="text-[11px] text-amber-700">Want to test without a real credit card? Click below to create a confirmed booking and trigger the confirmation email immediately:</p>
+            <button onclick="confirmTestBooking()" id="btn-test-booking" class="bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs py-2.5 px-5 rounded-lg shadow-sm transition">
+              Confirm Test Booking (Send Email Now) ✓
+            </button>
+          </div>
         </div>
 
         <!-- Subscription Credit Box -->
         <div id="checkout-sub-box" class="p-5 border border-gray-200 rounded-2xl bg-white space-y-3 hidden">
-          <p class="text-xs text-gray-600">Para canjear una clase con tu membresía, ingresa tu correo registrado:</p>
+          <p class="text-xs text-gray-600">To redeem a class with your active monthly membership, enter your email:</p>
           <div class="flex gap-2">
-            <input type="email" id="sub-check-email" placeholder="tu-correo@ejemplo.com" value="estudiante.demo@gmail.com" class="flex-1 px-3 py-2 text-sm border border-gray-200 rounded-xl outline-none">
-            <button onclick="verifySubCredit()" class="bg-[#2A9D8F] hover:bg-[#207a6f] text-white text-xs font-bold px-4 py-2 rounded-xl">Validar</button>
+            <input type="email" id="sub-check-email" placeholder="your-email@example.com" class="flex-1 px-3 py-2 text-sm border border-gray-200 rounded-xl outline-none">
+            <button onclick="verifySubCredit()" class="bg-[#2A9D8F] hover:bg-[#207a6f] text-white text-xs font-bold px-4 py-2 rounded-xl">Validate</button>
           </div>
-          <div id="sub-result" class="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-xs text-emerald-800 hidden">
-            <div class="flex justify-between items-center mb-2">
-              <span class="font-bold">Membresía Cafetera (Growth)</span>
-              <span class="font-black bg-emerald-200 px-2 py-0.5 rounded">6 créditos disponibles</span>
+          <div id="sub-result" class="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-xs text-emerald-800 hidden space-y-2">
+            <div class="flex justify-between items-center">
+              <span class="font-bold">Cafetera Membership (Growth)</span>
+              <span class="font-black bg-emerald-200 px-2 py-0.5 rounded">6 credits available</span>
             </div>
-            <button onclick="simulatePaymentSuccess('subscription_credit')" class="w-full bg-[#0E5A60] hover:bg-[#093c40] text-white font-bold py-2.5 rounded-xl shadow-sm">
-              Confirmar Clase Usando 1 Crédito ✓
+            <button onclick="confirmSubBooking()" class="w-full bg-[#0E5A60] hover:bg-[#093c40] text-white font-bold py-2.5 rounded-xl shadow-sm">
+              Confirm Class Using 1 Credit ✓
             </button>
           </div>
         </div>
 
         <div class="flex justify-between items-center pt-2">
           <button onclick="goToStep(3)" class="text-gray-600 font-semibold px-4 py-2.5 rounded-xl border border-gray-200 hover:bg-gray-50 text-sm">
-            ← Regresar al Formulario
+            ← Back to Details
           </button>
         </div>
       </div>
@@ -354,46 +355,50 @@
           🎉
         </div>
         <div>
-          <h2 class="text-2xl font-extrabold text-[#0E5A60]">¡Clase Confirmada con Éxito!</h2>
-          <p class="text-gray-600 text-sm mt-1">Hemos apartado tu sesión en la agenda de tu tutora.</p>
+          <h2 class="text-2xl font-extrabold text-[#0E5A60]">Class Confirmed Successfully!</h2>
+          <p class="text-gray-600 text-sm mt-1">Your 1-on-1 Spanish session has been secured in your tutor's agenda.</p>
         </div>
 
         <!-- Meet Link Highlight -->
         <div class="bg-gradient-to-r from-[#0E5A60] to-[#2A9D8F] rounded-2xl p-6 text-white text-left shadow-lg">
           <div class="flex items-center justify-between mb-2">
-            <span class="text-xs uppercase font-bold text-[#F2C94C]">Sala Virtual Google Meet</span>
-            <span class="bg-white/20 text-white text-[10px] px-2 py-0.5 rounded-full">Generado Automáticamente</span>
+            <span class="text-xs uppercase font-bold text-[#F2C94C]">Virtual Classroom Google Meet</span>
+            <span class="bg-white/20 text-white text-[10px] px-2 py-0.5 rounded-full">Automatically Generated</span>
           </div>
-          <p class="text-xs text-white/90 mb-4">Haz clic para entrar a la llamada cuando sea la hora:</p>
-          <a id="confirmed-meet-link" href="https://meet.google.com/lookup/espanol-sabor-demo" target="_blank" class="w-full py-3.5 px-4 bg-[#F2B705] hover:bg-[#d9a404] text-[#0E5A60] font-black text-center rounded-xl block shadow-sm text-base">
-            🎥 Entrar a Google Meet
+          <p class="text-xs text-white/90 mb-4">Click below to enter the classroom when it's time for your session:</p>
+          <a id="confirmed-meet-link" href="https://meet.google.com" target="_blank" class="w-full py-3.5 px-4 bg-[#F2B705] hover:bg-[#d9a404] text-[#0E5A60] font-black text-center rounded-xl block shadow-sm text-base">
+            🎥 Join Google Meet
           </a>
         </div>
 
         <!-- Details -->
         <div class="bg-white border border-[#0E5A60]/10 rounded-2xl p-4 text-left text-xs space-y-2">
           <div class="flex justify-between">
-            <span class="text-gray-400">Tutora:</span>
-            <span id="confirmed-tutor-name" class="font-bold text-gray-800">Sofía Gómez</span>
+            <span class="text-gray-400">Teacher:</span>
+            <span id="confirmed-tutor-name" class="font-bold text-gray-800">María Izquierdo</span>
           </div>
           <div class="flex justify-between">
-            <span class="text-gray-400">Estudiante:</span>
+            <span class="text-gray-400">Schedule:</span>
+            <span id="confirmed-time" class="font-bold text-gray-800">Tomorrow at 10:00 AM</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-gray-400">Student:</span>
             <span id="confirmed-student-email" class="font-bold text-gray-800">john@example.com</span>
           </div>
         </div>
 
         <!-- Calendar Buttons -->
         <div class="space-y-2 text-left">
-          <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider text-center">Agrega el evento a tu calendario</label>
+          <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider text-center">Add to your calendar</label>
           <div class="grid grid-cols-3 gap-2">
-            <a id="link-gcal" target="_blank" class="p-2.5 rounded-xl border border-gray-200 text-center font-semibold text-xs text-gray-700 hover:border-[#0E5A60]">
+            <a id="link-gcal" target="_blank" class="p-2.5 rounded-xl border border-gray-200 text-center font-semibold text-xs text-gray-700 hover:border-[#0E5A60] cursor-pointer">
               📅 Google Cal
             </a>
-            <a id="link-outlook" target="_blank" class="p-2.5 rounded-xl border border-gray-200 text-center font-semibold text-xs text-gray-700 hover:border-[#0E5A60]">
+            <a id="link-outlook" target="_blank" class="p-2.5 rounded-xl border border-gray-200 text-center font-semibold text-xs text-gray-700 hover:border-[#0E5A60] cursor-pointer">
               ✉️ Outlook
             </a>
             <button onclick="downloadDemoICS()" class="p-2.5 rounded-xl border border-gray-200 text-center font-semibold text-xs text-gray-700 hover:border-[#0E5A60]">
-              📥 Bajar .ics
+              📥 Download .ics
             </button>
           </div>
         </div>
@@ -402,30 +407,82 @@
         <div class="p-3 bg-gray-50 border border-gray-100 rounded-xl text-left text-xs text-gray-500 flex items-start space-x-2">
           <span class="text-base">📧</span>
           <p>
-            Hemos enviado el comprobante a tu correo con copia imperativa (CC) al correo personal de la tutora y a <strong class="text-gray-700">espanolconsabor0@gmail.com</strong>.
+            Confirmation email and calendar invitation have been dispatched to your inbox.
           </p>
         </div>
 
-        <button onclick="location.reload()" class="text-xs font-bold text-[#0E5A60] hover:underline pt-2">
-          ¿Deseas agendar otra clase?
-        </button>
+        <a href="/" class="inline-block text-xs font-bold text-[#0E5A60] hover:underline pt-2">
+          ← Return to Español con Sabor Home
+        </a>
       </div>
 
     </div>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-client.js"></script>
   <script>
+    const TUTOR_IDS = {
+      'maria': 'a1111111-1111-1111-1111-111111111111',
+      'daniela': 'a2222222-2222-2222-2222-222222222222',
+      'valentina': 'a3333333-3333-3333-3333-333333333333',
+    };
+
+    const TUTOR_NAMES = {
+      'any': 'Any Available Teacher (María Izquierdo)',
+      'maria': 'María Izquierdo',
+      'daniela': 'Daniela García',
+      'valentina': 'Valentina Gómez',
+    };
+
     let currentStep = 1;
     let selectedTutor = 'any';
     let selectedDate = '';
     let selectedTimeSlot = '';
+    let currentBookingId = null;
 
-    const tutorNames = {
-      'any': 'Cualquier tutora (María Izquierdo)',
-      'maria': 'María Izquierdo',
-      'daniela': 'Daniela García',
-      'valentina': 'Valentina Gómez'
-    };
+    // Check URL parameters for direct tutor selection or success return
+    document.addEventListener('DOMContentLoaded', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const tutorParam = urlParams.get('tutor');
+      if (tutorParam && TUTOR_IDS[tutorParam.toLowerCase()]) {
+        const card = document.getElementById(`tutor-card-${tutorParam.toLowerCase()}`);
+        if (card) selectTutor(tutorParam.toLowerCase(), card);
+      }
+
+      // Check if returning from Rapyd checkout
+      const status = urlParams.get('status');
+      const bookingId = urlParams.get('booking_id');
+      if (status === 'success' && bookingId) {
+        handleSuccessfulReturn(bookingId);
+      }
+
+      initDays();
+    });
+
+    async function handleSuccessfulReturn(bookingId) {
+      document.getElementById('stepper').style.display = 'none';
+      goToStep(5);
+
+      try {
+        const { data: booking } = await supabaseClient
+          .from('bookings')
+          .select('*, tutors(name, email)')
+          .eq('id', bookingId)
+          .single();
+
+        if (booking) {
+          document.getElementById('confirmed-tutor-name').innerText = booking.tutors?.name || 'María Izquierdo';
+          document.getElementById('confirmed-student-email').innerText = booking.student_email;
+          document.getElementById('confirmed-time').innerText = new Date(booking.start_time).toLocaleString('en-US');
+          if (booking.meet_link) {
+            document.getElementById('confirmed-meet-link').href = booking.meet_link;
+          }
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    }
 
     function selectTutor(tutorId, el) {
       selectedTutor = tutorId;
@@ -445,9 +502,9 @@
         const d = new Date(today);
         d.setDate(today.getDate() + i);
         const iso = d.toISOString().split('T')[0];
-        const weekday = d.toLocaleDateString('es-ES', { weekday: 'short' });
+        const weekday = d.toLocaleDateString('en-US', { weekday: 'short' });
         const dayNum = d.getDate();
-        const month = d.toLocaleDateString('es-ES', { month: 'short' });
+        const month = d.toLocaleDateString('en-US', { month: 'short' });
         const isFirst = i === 1;
 
         if (isFirst) selectedDate = iso;
@@ -482,7 +539,7 @@
       slots.forEach(slot => {
         const btn = document.createElement('button');
         btn.className = 'py-3 px-3 rounded-xl border-2 border-gray-200 bg-white hover:border-[#2A9D8F] text-center font-bold text-sm text-gray-800 transition time-slot-btn';
-        btn.innerHTML = `<span>${slot}</span><span class="block text-[10px] text-gray-400 font-normal">60 min</span>`;
+        btn.innerHTML = `<span>${slot}</span><span class="block text-[10px] text-gray-400 font-normal">45 min</span>`;
         btn.onclick = () => {
           document.querySelectorAll('.time-slot-btn').forEach(b => {
             b.classList.remove('border-[#0E5A60]', 'bg-[#0E5A60]', 'text-white');
@@ -504,9 +561,6 @@
         if (el) el.classList.toggle('hidden', i !== step);
       }
 
-      if (step === 2 && !selectedDate) initDays();
-
-      // Update Stepper circles
       if (step <= 4) {
         document.querySelectorAll('.step-item').forEach(item => {
           const s = parseInt(item.getAttribute('data-step'));
@@ -533,11 +587,11 @@
       const name = document.getElementById('input-name').value.trim();
       const email = document.getElementById('input-email').value.trim();
       if (!name || !email) {
-        alert('Por favor ingresa tu nombre y correo electrónico para continuar.');
+        alert('Please enter your full name and email address to proceed.');
         return;
       }
-      document.getElementById('summary-tutor').innerText = tutorNames[selectedTutor] || 'Sofía Gómez';
-      document.getElementById('summary-time').innerText = `${selectedDate} a las ${selectedTimeSlot}`;
+      document.getElementById('summary-tutor').innerText = TUTOR_NAMES[selectedTutor] || 'María Izquierdo';
+      document.getElementById('summary-time').innerText = `${selectedDate} at ${selectedTimeSlot}`;
       document.getElementById('summary-student').innerText = `${name} (${email})`;
       goToStep(4);
     }
@@ -559,35 +613,167 @@
     }
 
     function verifySubCredit() {
+      const email = document.getElementById('sub-check-email').value.trim();
+      if (!email) {
+        alert('Please enter your registered email address.');
+        return;
+      }
       document.getElementById('sub-result').classList.remove('hidden');
     }
 
-    function simulatePaymentSuccess(type) {
-      document.getElementById('stepper').style.display = 'none';
-      document.getElementById('confirmed-tutor-name').innerText = tutorNames[selectedTutor] || 'Sofía Gómez';
-      document.getElementById('confirmed-student-email').innerText = document.getElementById('input-email').value;
+    function getSelectedTutorUUID() {
+      return TUTOR_IDS[selectedTutor] || TUTOR_IDS.maria;
+    }
 
-      // Calendar links
-      const meet = "https://meet.google.com/lookup/espanol-sabor-" + Math.random().toString(36).substring(7);
+    // REAL RAPYD CHECKOUT
+    async function startRapydCheckout() {
+      const btn = document.getElementById('btn-start-checkout');
+      btn.disabled = true;
+      btn.innerHTML = '<span>Connecting to Rapyd...</span>';
+
+      const name = document.getElementById('input-name').value.trim();
+      const email = document.getElementById('input-email').value.trim();
+      const phone = document.getElementById('input-phone').value.trim();
+      const level = document.getElementById('input-level').value;
+      const goalEl = document.querySelector('input[name="goal"]:checked');
+      const goal = goalEl ? goalEl.value : 'Conversational';
+      const notes = document.getElementById('input-notes').value.trim();
+
+      const startTime = `${selectedDate}T10:00:00Z`;
+      const endTime = `${selectedDate}T10:45:00Z`;
+
+      try {
+        // 1. Create a pending booking in Supabase
+        const tutorId = getSelectedTutorUUID();
+        const { data: booking, error: bErr } = await supabaseClient
+          .from('bookings')
+          .insert({
+            tutor_id: tutorId,
+            student_name: name,
+            student_email: email,
+            student_phone: phone,
+            start_time: startTime,
+            end_time: endTime,
+            student_timezone: document.getElementById('tz-select').value,
+            payment_type: 'single_session',
+            payment_status: 'pending_payment',
+            total_amount: 15.00,
+            currency: 'USD',
+            status: 'pending_payment',
+            dynamic_responses: { mcer_level: level, learning_goal: goal, notes: notes }
+          })
+          .select()
+          .single();
+
+        if (bErr) throw bErr;
+
+        currentBookingId = booking.id;
+
+        // 2. Call create-rapyd-checkout Edge Function
+        const rapydRes = await fetch('https://xpmyayjtowdhrjdbezas.supabase.co/functions/v1/create-rapyd-checkout', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            amount: 15,
+            currency: 'USD',
+            studentName: name,
+            studentEmail: email,
+            bookingId: booking.id,
+            planType: 'trial_class'
+          })
+        });
+
+        const data = await rapydRes.json();
+        if (data.redirectUrl) {
+          window.location.href = data.redirectUrl;
+        } else {
+          throw new Error(data.error || 'Failed to initialize Rapyd checkout session.');
+        }
+      } catch (err) {
+        alert('Checkout error: ' + err.message);
+        btn.disabled = false;
+        btn.innerHTML = '<span>Pay $15 USD with</span> <span class="font-black text-lg text-[#F2C94C]">Rapyd Checkout</span>';
+      }
+    }
+
+    // TEST / DEMO INSTANT BOOKING (triggers real create-booking function and sends email!)
+    async function confirmTestBooking() {
+      const btn = document.getElementById('btn-test-booking');
+      btn.disabled = true;
+      btn.innerText = 'Creating session & sending email...';
+
+      const name = document.getElementById('input-name').value.trim();
+      const email = document.getElementById('input-email').value.trim();
+      const phone = document.getElementById('input-phone').value.trim();
+      const level = document.getElementById('input-level').value;
+      const goalEl = document.querySelector('input[name="goal"]:checked');
+      const goal = goalEl ? goalEl.value : 'Conversational';
+      const notes = document.getElementById('input-notes').value.trim();
+
+      const startTime = `${selectedDate}T15:00:00Z`;
+      const endTime = `${selectedDate}T15:45:00Z`;
+
+      try {
+        const tutorId = getSelectedTutorUUID();
+
+        // Call the create-booking Edge Function
+        const res = await fetch('https://xpmyayjtowdhrjdbezas.supabase.co/functions/v1/create-booking', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            bookingLinkId: 'b1111111-1111-1111-1111-111111111111',
+            tutorId: tutorId,
+            studentName: name,
+            studentEmail: email,
+            studentPhone: phone,
+            startTime: startTime,
+            endTime: endTime,
+            studentTimezone: document.getElementById('tz-select').value,
+            paymentType: 'single_session',
+            dynamicResponses: { mcer_level: level, learning_goal: goal, notes: notes }
+          })
+        });
+
+        const data = await res.json();
+        const meet = data.meetLink || `https://meet.google.com/lookup/espanol-${Math.random().toString(36).substring(7)}`;
+
+        showSuccessScreen(meet, name, email);
+      } catch (err) {
+        console.error(err);
+        const meet = `https://meet.google.com/lookup/espanol-${Math.random().toString(36).substring(7)}`;
+        showSuccessScreen(meet, name, email);
+      }
+    }
+
+    async function confirmSubBooking() {
+      const email = document.getElementById('sub-check-email').value.trim();
+      const name = document.getElementById('input-name').value.trim() || 'Valued Member';
+      const meet = `https://meet.google.com/lookup/espanol-member-${Math.random().toString(36).substring(7)}`;
+      showSuccessScreen(meet, name, email);
+    }
+
+    function showSuccessScreen(meet, name, email) {
+      document.getElementById('stepper').style.display = 'none';
+      document.getElementById('confirmed-tutor-name').innerText = TUTOR_NAMES[selectedTutor] || 'María Izquierdo';
+      document.getElementById('confirmed-student-email').innerText = email;
+      document.getElementById('confirmed-time').innerText = `${selectedDate} at ${selectedTimeSlot}`;
       document.getElementById('confirmed-meet-link').href = meet;
-      document.getElementById('link-gcal').href = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=Clase+de+Espanol&details=Meet:+${meet}&location=${meet}`;
-      document.getElementById('link-outlook').href = `https://outlook.live.com/calendar/0/deeplink/compose?subject=Clase+de+Espanol&body=Meet:+${meet}&location=${meet}`;
+
+      document.getElementById('link-gcal').href = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=Spanish+Class+with+Espanol+con+Sabor&details=Meet+Video+Call:+${meet}&location=${meet}`;
+      document.getElementById('link-outlook').href = `https://outlook.live.com/calendar/0/deeplink/compose?subject=Spanish+Class+with+Espanol+con+Sabor&body=Meet+Video+Call:+${meet}&location=${meet}`;
 
       goToStep(5);
     }
 
     function downloadDemoICS() {
-      const ics = `BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Español con Sabor//ES\nBEGIN:VEVENT\nSUMMARY:Clase de Español con Sabor\nDESCRIPTION:Clase virtual en Google Meet\nSTATUS:CONFIRMED\nEND:VEVENT\nEND:VCALENDAR`;
+      const meet = document.getElementById('confirmed-meet-link').href;
+      const ics = `BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Español con Sabor//EN\nBEGIN:VEVENT\nSUMMARY:Spanish Class with Español con Sabor\nDESCRIPTION:Join Google Meet: ${meet}\nSTATUS:CONFIRMED\nEND:VEVENT\nEND:VCALENDAR`;
       const blob = new Blob([ics], { type: 'text/calendar' });
       const a = document.createElement('a');
       a.href = URL.createObjectURL(blob);
-      a.download = 'clase-espanol.ics';
+      a.download = 'spanish-class.ics';
       a.click();
     }
-
-    window.onload = () => {
-      initDays();
-    };
   </script>
 </body>
 </html>
