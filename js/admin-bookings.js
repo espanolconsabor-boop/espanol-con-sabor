@@ -347,50 +347,24 @@ async function loadBookingsLinksView() {
       badge: 'Prueba Valentina',
     },
 
-    // RESERVAS PARA MIEMBROS CON SUSCRIPCIÓN (CANJEAR CRÉDITOS $0)
-    {
-      title: '⭐ Reserva para Alumnos con Suscripción / Membresía ($0 USD — 50 Min)',
-      desc: 'Enlace exclusivo para estudiantes activos que ya pagan mensualidad. Canjean su clase de 50 min ingresando su correo.',
-      url: `${origin}/reservar.html?mode=subscription`,
-      badge: 'Miembros $0',
-    },
-    {
-      title: '⭐ Reserva Miembro con María Izquierdo',
-      desc: 'Abre el agendador de miembros (50 min / $0) preseleccionando a María.',
-      url: `${origin}/reservar.html?tutor=maria&mode=subscription`,
-      badge: 'Miembro María',
-    },
-    {
-      title: '⭐ Reserva Miembro con Daniela García',
-      desc: 'Abre el agendador de miembros (50 min / $0) preseleccionando a Daniela.',
-      url: `${origin}/reservar.html?tutor=daniela&mode=subscription`,
-      badge: 'Miembro Daniela',
-    },
-    {
-      title: '⭐ Reserva Miembro con Valentina Gómez',
-      desc: 'Abre el agendador de miembros (50 min / $0) preseleccionando a Valentina.',
-      url: `${origin}/reservar.html?tutor=valentina&mode=subscription`,
-      badge: 'Miembro Valentina',
-    },
-
     // PLANES DE SUSCRIPCIÓN MENSUAL (PAGOS RECURRENTES)
     {
       title: '💳 Suscripción Plan Andina ($68 USD / mes)',
-      desc: '4 clases individuales al mes (50 min c/u) con tutora nativa.',
+      desc: '4 clases individuales al mes (50 min c/u) con tutora nativa. Permite agendar las 4 clases en una sola sesión.',
       url: `${origin}/reservar.html?plan=andina`,
-      badge: 'Plan $68/mes',
+      badge: 'Plan $68/mes (4 clases)',
     },
     {
       title: '💳 Suscripción Plan Cafetera ($128 USD / mes — Más Popular)',
-      desc: '8 clases individuales al mes (50 min c/u) con tutora nativa + sesiones grupales.',
+      desc: '8 clases individuales al mes (50 min c/u) con tutora nativa. Permite agendar las 8 clases en una sola sesión.',
       url: `${origin}/reservar.html?plan=cafetera`,
-      badge: 'Plan $128/mes',
+      badge: 'Plan $128/mes (8 clases)',
     },
     {
       title: '💳 Suscripción Plan Caribeña ($180 USD / mes — Inmersivo)',
-      desc: '12 clases individuales al mes (50 min c/u) con tutora nativa dedicada.',
+      desc: '12 clases individuales al mes (50 min c/u) con tutora nativa dedicada. Permite agendar las 12 clases en una sola sesión.',
       url: `${origin}/reservar.html?plan=caribena`,
-      badge: 'Plan $180/mes',
+      badge: 'Plan $180/mes (12 clases)',
     },
 
     // PORTAL TUTORAS
@@ -441,6 +415,16 @@ async function loadBookingsLinksView() {
           <div>
             <label style="display: block; font-size: 11px; font-weight: 700; color: #cbd5e1; margin-bottom: 4px;">Nombre Alumno (opcional):</label>
             <input type="text" id="gen-name" placeholder="Ej: John Doe" oninput="updateCustomGeneratedLink()" style="width: 100%; padding: 8px 12px; font-size: 12px; border-radius: 8px; border: 1px solid #475569; background: #0f172a; color: white; box-sizing: border-box;" />
+          </div>
+
+          <div>
+            <label style="display: block; font-size: 11px; font-weight: 700; color: #cbd5e1; margin-bottom: 4px;">Número de Clases:</label>
+            <select id="gen-classes" onchange="updateCustomGeneratedLink()" style="width: 100%; padding: 8px 12px; font-size: 12px; border-radius: 8px; border: 1px solid #475569; background: #0f172a; color: white; box-sizing: border-box;">
+              <option value="1">1 Clase Individual (50 min)</option>
+              <option value="4" selected>4 Clases (Suscripción Andina)</option>
+              <option value="8">8 Clases (Suscripción Cafetera)</option>
+              <option value="12">12 Clases (Suscripción Caribeña)</option>
+            </select>
           </div>
         </div>
 
@@ -518,8 +502,9 @@ function updateCustomGeneratedLink() {
   const price = document.getElementById('gen-price')?.value || '68';
   const tutor = document.getElementById('gen-tutor')?.value || '';
   const name = encodeURIComponent(document.getElementById('gen-name')?.value.trim() || '');
+  const classes = document.getElementById('gen-classes')?.value || '4';
 
-  let url = `${origin}/reservar.html?price=${price}&title=${title}`;
+  let url = `${origin}/reservar.html?price=${price}&title=${title}&classes=${classes}&duration=50`;
   if (tutor) url += `&tutor=${tutor}`;
   if (name) url += `&name=${name}`;
 

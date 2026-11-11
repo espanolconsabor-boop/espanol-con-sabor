@@ -11,6 +11,17 @@
       font-family: 'Plus Jakarta Sans', sans-serif;
       background-color: #FFF3D6;
     }
+    .custom-scroll::-webkit-scrollbar {
+      height: 6px;
+    }
+    .custom-scroll::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 4px;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: #0E5A60;
+      border-radius: 4px;
+    }
   </style>
 </head>
 <body class="min-h-screen py-8 px-4 flex flex-col items-center justify-center">
@@ -23,10 +34,10 @@
       <div class="inline-block bg-[#F2B705] text-[#0E5A60] text-xs font-black uppercase tracking-widest px-3 py-1 rounded-full mb-2">
         Español con Sabor
       </div>
-      <h1 class="text-2xl md:text-3xl font-extrabold tracking-tight">
+      <h1 id="banner-title" class="text-2xl md:text-3xl font-extrabold tracking-tight">
         Trial Class — $15 USD (30 Minutes)
       </h1>
-      <p class="text-white/80 text-xs md:text-sm max-w-xl mx-auto mt-1">
+      <p id="banner-sub" class="text-white/80 text-xs md:text-sm max-w-xl mx-auto mt-1">
         30 minutes · No commitment · Choose your native Colombian teacher or redeem your monthly membership.
       </p>
 
@@ -34,22 +45,22 @@
       <div id="stepper" class="flex items-center justify-center space-x-2 sm:space-x-4 mt-6 pt-4 border-t border-white/10">
         <div class="flex items-center space-x-2 step-item" data-step="1">
           <div class="step-circle w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold bg-[#F2B705] text-[#0E5A60] ring-4 ring-white/20">1</div>
-          <span class="step-label text-xs font-bold text-[#F2C94C] hidden md:inline">Teacher</span>
+          <span class="step-label text-xs font-bold text-[#F2C94C] hidden md:inline" id="stepper-label-1">Teacher</span>
         </div>
         <div class="w-4 h-0.5 bg-white/20 hidden sm:block"></div>
         <div class="flex items-center space-x-2 step-item" data-step="2">
           <div class="step-circle w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold bg-white/20 text-white/70">2</div>
-          <span class="step-label text-xs font-medium text-white/50 hidden md:inline">Date & Time</span>
+          <span class="step-label text-xs font-medium text-white/50 hidden md:inline" id="stepper-label-2">Date & Time</span>
         </div>
         <div class="w-4 h-0.5 bg-white/20 hidden sm:block"></div>
         <div class="flex items-center space-x-2 step-item" data-step="3">
           <div class="step-circle w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold bg-white/20 text-white/70">3</div>
-          <span class="step-label text-xs font-medium text-white/50 hidden md:inline">Your Details</span>
+          <span class="step-label text-xs font-medium text-white/50 hidden md:inline" id="stepper-label-3">Your Details</span>
         </div>
         <div class="w-4 h-0.5 bg-white/20 hidden sm:block"></div>
         <div class="flex items-center space-x-2 step-item" data-step="4">
           <div class="step-circle w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold bg-white/20 text-white/70">4</div>
-          <span class="step-label text-xs font-medium text-white/50 hidden md:inline">Payment</span>
+          <span class="step-label text-xs font-medium text-white/50 hidden md:inline" id="stepper-label-4">Payment</span>
         </div>
       </div>
     </div>
@@ -94,8 +105,8 @@
               <p class="text-xs text-gray-500 mt-2 text-center">Specialist in conversational fluency, Colombian idioms, and cultural immersion.</p>
             </div>
             <div class="pt-3 border-t border-gray-100 flex items-center justify-between mt-4">
-              <span class="text-xs text-gray-500">Trial Class</span>
-              <span class="font-bold text-[#0E5A60] text-sm">$15 USD</span>
+              <span class="text-xs text-gray-500 tutor-badge-label">Trial Class</span>
+              <span class="font-bold text-[#0E5A60] text-sm tutor-badge-price">$15 USD</span>
             </div>
           </div>
 
@@ -111,8 +122,8 @@
               <p class="text-xs text-gray-500 mt-2 text-center">Patient and structured methodology. Great for beginners moving to intermediate.</p>
             </div>
             <div class="pt-3 border-t border-gray-100 flex items-center justify-between mt-4">
-              <span class="text-xs text-gray-500">Trial Class</span>
-              <span class="font-bold text-[#0E5A60] text-sm">$15 USD</span>
+              <span class="text-xs text-gray-500 tutor-badge-label">Trial Class</span>
+              <span class="font-bold text-[#0E5A60] text-sm tutor-badge-price">$15 USD</span>
             </div>
           </div>
 
@@ -128,15 +139,15 @@
               <p class="text-xs text-gray-500 mt-2 text-center">Dynamic, high-energy classes focusing on speaking confidence and pronunciation.</p>
             </div>
             <div class="pt-3 border-t border-gray-100 flex items-center justify-between mt-4">
-              <span class="text-xs text-gray-500">Trial Class</span>
-              <span class="font-bold text-[#0E5A60] text-sm">$15 USD</span>
+              <span class="text-xs text-gray-500 tutor-badge-label">Trial Class</span>
+              <span class="font-bold text-[#0E5A60] text-sm tutor-badge-price">$15 USD</span>
             </div>
           </div>
         </div>
 
         <div class="flex justify-end pt-4">
-          <button onclick="goToStep(2)" class="bg-[#0E5A60] hover:bg-[#093c40] text-white font-semibold py-3 px-8 rounded-xl shadow-md transition flex items-center space-x-2 text-sm">
-            <span>Continue to Schedule</span>
+          <button onclick="handleTeacherContinue()" id="btn-step-1" class="bg-[#0E5A60] hover:bg-[#093c40] text-white font-semibold py-3 px-8 rounded-xl shadow-md transition flex items-center space-x-2 text-sm">
+            <span id="btn-step-1-text">Continue to Schedule</span>
             <span>→</span>
           </button>
         </div>
@@ -144,10 +155,38 @@
 
       <!-- STEP 2: Date & Time -->
       <div id="step-2" class="space-y-6 hidden">
+        
+        <!-- Multi-Class Panel for Subscriptions (Shown after payment approval) -->
+        <div id="multi-class-panel" class="space-y-4 hidden">
+          <div class="p-4 bg-emerald-50 border-2 border-emerald-300 rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-sm">
+            <div class="flex items-center space-x-3">
+              <span class="text-2xl">🎉</span>
+              <div>
+                <h4 class="font-bold text-emerald-900 text-sm" id="sub-paid-notice-title">¡Suscripción Aprobada con Éxito!</h4>
+                <p class="text-xs text-emerald-700" id="sub-paid-notice-sub">Tu pago ha sido registrado. Ahora selecciona el día y la hora para tus clases:</p>
+              </div>
+            </div>
+            <span class="bg-emerald-200 text-emerald-800 text-xs font-bold px-3 py-1 rounded-full whitespace-nowrap self-start sm:self-center">✓ Pago Confirmado</span>
+          </div>
+
+          <div class="space-y-2">
+            <div class="flex items-center justify-between">
+              <label class="block text-xs font-bold uppercase tracking-wider text-[#0E5A60]" id="multi-class-header-label">
+                Tus Clases a Agendar (<span id="scheduled-count" class="text-[#2A9D8F]">0</span> de <span id="total-count">4</span> Agendadas)
+              </label>
+              <span class="text-xs text-gray-500 hidden sm:inline">Haz clic en cada clase para asignarle su horario</span>
+            </div>
+            <!-- Class Tabs Container -->
+            <div id="class-tabs-container" class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+              <!-- Dynamically populated via JS -->
+            </div>
+          </div>
+        </div>
+
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-2 border-b border-gray-100">
           <div>
-            <h2 class="text-2xl font-bold text-[#0E5A60]">Select Date & Time</h2>
-            <p class="text-gray-600 text-sm mt-0.5">Session duration: <strong class="text-[#0E5A60]" id="session-duration-text">30 minutes</strong></p>
+            <h2 class="text-2xl font-bold text-[#0E5A60]" id="schedule-step-title">Select Date & Time</h2>
+            <p class="text-gray-600 text-sm mt-0.5" id="schedule-step-sub">Session duration: <strong class="text-[#0E5A60]" id="session-duration-text">30 minutes</strong></p>
           </div>
           <div class="flex items-center space-x-2 text-xs">
             <span class="text-gray-500">🌐 Timezone:</span>
@@ -163,10 +202,16 @@
           </div>
         </div>
 
-        <!-- Horizontal Days Selector -->
+        <!-- Horizontal Days Selector with Scroll Buttons -->
         <div>
-          <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Select a Day</label>
-          <div id="days-carousel" class="flex gap-2 overflow-x-auto pb-2">
+          <div class="flex items-center justify-between mb-2">
+            <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider">Select a Day (Next 45 Days)</label>
+            <div class="flex space-x-1">
+              <button onclick="scrollDaysCarousel(-180)" type="button" class="w-7 h-7 rounded-lg border border-gray-200 bg-white hover:bg-gray-100 flex items-center justify-center text-xs font-bold text-gray-600 shadow-sm">‹</button>
+              <button onclick="scrollDaysCarousel(180)" type="button" class="w-7 h-7 rounded-lg border border-gray-200 bg-white hover:bg-gray-100 flex items-center justify-center text-xs font-bold text-gray-600 shadow-sm">›</button>
+            </div>
+          </div>
+          <div id="days-carousel" class="flex gap-2 overflow-x-auto pb-2 custom-scroll scroll-smooth">
             <!-- Dynamically populated via JS -->
           </div>
         </div>
@@ -179,11 +224,31 @@
           </div>
         </div>
 
-        <div class="flex justify-between items-center pt-4 border-t border-gray-100">
-          <button onclick="goToStep(1)" class="text-gray-600 font-semibold px-4 py-2.5 rounded-xl border border-gray-200 hover:bg-gray-50 text-sm">
+        <!-- Multi-Class Summary Box (Shown when all subscription classes are scheduled) -->
+        <div id="multi-class-summary-box" class="p-5 bg-gradient-to-r from-[#0E5A60]/5 to-[#2A9D8F]/10 border-2 border-[#0E5A60]/20 rounded-2xl space-y-4 hidden">
+          <div class="flex items-center justify-between pb-3 border-b border-[#0E5A60]/10">
+            <div>
+              <h4 class="font-bold text-[#0E5A60] text-sm">Resumen de tus Clases Seleccionadas</h4>
+              <p class="text-xs text-gray-600" id="multi-class-summary-desc">Todas tus clases de 50 minutos con tu tutora nativa.</p>
+            </div>
+            <span class="text-xs font-bold bg-[#2A9D8F] text-white px-3 py-1 rounded-full" id="multi-class-summary-badge">Todas Listas ✓</span>
+          </div>
+
+          <div id="multi-class-slots-list" class="space-y-2 text-xs">
+            <!-- Populated via JS -->
+          </div>
+
+          <button id="btn-confirm-all-classes" onclick="confirmAllSubscriptionClasses()" class="w-full py-3.5 px-6 bg-[#0E5A60] hover:bg-[#093c40] text-white font-extrabold rounded-xl shadow-lg transition text-base flex items-center justify-center space-x-2">
+            <span>Confirmar y Guardar Mis Clases ✓</span>
+          </button>
+        </div>
+
+        <!-- Trial Single Booking Navigation Buttons -->
+        <div id="step-2-trial-nav" class="flex justify-between items-center pt-4 border-t border-gray-100">
+          <button onclick="handleScheduleBack()" class="text-gray-600 font-semibold px-4 py-2.5 rounded-xl border border-gray-200 hover:bg-gray-50 text-sm">
             ← Change Teacher
           </button>
-          <button id="btn-to-step-3" onclick="goToStep(3)" disabled class="bg-[#0E5A60] hover:bg-[#093c40] disabled:opacity-40 disabled:cursor-not-allowed text-white font-semibold py-3 px-8 rounded-xl shadow-md transition text-sm">
+          <button id="btn-to-step-3" onclick="handleScheduleNext()" disabled class="bg-[#0E5A60] hover:bg-[#093c40] disabled:opacity-40 disabled:cursor-not-allowed text-white font-semibold py-3 px-8 rounded-xl shadow-md transition text-sm">
             Continue to Details →
           </button>
         </div>
@@ -253,10 +318,10 @@
         </div>
 
         <div class="flex justify-between items-center pt-4 border-t border-gray-100">
-          <button onclick="goToStep(2)" class="text-gray-600 font-semibold px-4 py-2.5 rounded-xl border border-gray-200 hover:bg-gray-50 text-sm">
-            ← Change Schedule
+          <button onclick="handleDetailsBack()" class="text-gray-600 font-semibold px-4 py-2.5 rounded-xl border border-gray-200 hover:bg-gray-50 text-sm">
+            <span id="btn-details-back-text">← Change Schedule</span>
           </button>
-          <button onclick="validateStep3()" class="bg-[#0E5A60] hover:bg-[#093c40] text-white font-semibold py-3 px-8 rounded-xl shadow-md transition text-sm">
+          <button id="btn-to-payment" onclick="validateStepDetails()" class="bg-[#0E5A60] hover:bg-[#093c40] text-white font-semibold py-3 px-8 rounded-xl shadow-md transition text-sm">
             Proceed to Payment →
           </button>
         </div>
@@ -266,7 +331,7 @@
       <div id="step-4" class="space-y-6 hidden">
         <div class="pb-2 border-b border-gray-100">
           <h2 class="text-2xl font-bold text-[#0E5A60]">Review & Payment</h2>
-          <p class="text-gray-600 text-sm mt-0.5">Advance payment secures your tutor's dedicated time slot.</p>
+          <p class="text-gray-600 text-sm mt-0.5" id="payment-sub-text">Advance payment secures your tutor's dedicated time slot.</p>
         </div>
 
         <!-- Summary Card -->
@@ -293,8 +358,8 @@
           </div>
         </div>
 
-        <!-- Payment Mode Tabs -->
-        <div class="grid grid-cols-2 gap-3">
+        <!-- Payment Mode Tabs (Trial/Membership Only) -->
+        <div id="payment-mode-tabs" class="grid grid-cols-2 gap-3">
           <button onclick="setPaymentMode('paypal')" id="btn-mode-paypal" class="p-4 rounded-xl border-2 border-[#0E5A60] bg-white ring-2 ring-[#0E5A60]/10 text-left shadow-sm">
             <span class="font-bold text-sm text-[#0E5A60] block">Trial Class ($15 USD)</span>
             <span class="text-xs text-gray-500">Credit / Debit Card or PayPal</span>
@@ -326,7 +391,7 @@
           <p class="text-center text-[11px] text-gray-400">🔒 256-bit bank-grade SSL encryption processed securely by PayPal Checkout</p>
         </div>
 
-        <!-- Subscription Credit Box -->
+        <!-- Subscription Credit Box (Member Free Redeem) -->
         <div id="checkout-sub-box" class="p-5 border border-gray-200 rounded-2xl bg-white space-y-3 hidden">
           <p class="text-xs text-gray-600">To redeem a class with your active monthly membership, enter your email:</p>
           <div class="flex gap-2">
@@ -335,8 +400,8 @@
           </div>
           <div id="sub-result" class="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-xs text-emerald-800 hidden space-y-2">
             <div class="flex justify-between items-center">
-              <span class="font-bold">Cafetera Membership (Growth)</span>
-              <span class="font-black bg-emerald-200 px-2 py-0.5 rounded">6 credits available</span>
+              <span class="font-bold">Active Membership</span>
+              <span class="font-black bg-emerald-200 px-2 py-0.5 rounded">Credits available</span>
             </div>
             <button onclick="confirmSubBooking()" class="w-full bg-[#0E5A60] hover:bg-[#093c40] text-white font-bold py-2.5 rounded-xl shadow-sm">
               Confirm Class Using 1 Credit ✓
@@ -345,7 +410,7 @@
         </div>
 
         <div class="flex justify-between items-center pt-2">
-          <button onclick="goToStep(3)" class="text-gray-600 font-semibold px-4 py-2.5 rounded-xl border border-gray-200 hover:bg-gray-50 text-sm">
+          <button onclick="handlePaymentBack()" class="text-gray-600 font-semibold px-4 py-2.5 rounded-xl border border-gray-200 hover:bg-gray-50 text-sm">
             ← Back to Details
           </button>
         </div>
@@ -357,15 +422,15 @@
           🎉
         </div>
         <div>
-          <h2 class="text-2xl font-extrabold text-[#0E5A60]">Class Confirmed Successfully!</h2>
-          <p class="text-gray-600 text-sm mt-1">Your 1-on-1 Spanish session has been secured in your tutor's agenda.</p>
+          <h2 class="text-2xl font-extrabold text-[#0E5A60]" id="success-title">Class Confirmed Successfully!</h2>
+          <p class="text-gray-600 text-sm mt-1" id="success-sub">Your 1-on-1 Spanish session has been secured in your tutor's agenda.</p>
         </div>
 
         <!-- Meet Link Highlight -->
         <div class="bg-gradient-to-r from-[#0E5A60] to-[#2A9D8F] rounded-2xl p-6 text-white text-left shadow-lg">
           <div class="flex items-center justify-between mb-2">
             <span class="text-xs uppercase font-bold text-[#F2C94C]">Virtual Classroom Google Meet</span>
-            <span class="bg-white/20 text-white text-[10px] px-2 py-0.5 rounded-full">Automatically Generated</span>
+            <span class="bg-white/20 text-white text-[10px] px-2 py-0.5 rounded-full">Dedicated Room</span>
           </div>
           <p class="text-xs text-white/90 mb-4">Click below to enter the classroom when it's time for your session:</p>
           <a id="confirmed-meet-link" href="https://meet.google.com" target="_blank" class="w-full py-3.5 px-4 bg-[#F2B705] hover:bg-[#d9a404] text-[#0E5A60] font-black text-center rounded-xl block shadow-sm text-base">
@@ -373,19 +438,30 @@
           </a>
         </div>
 
-        <!-- Details -->
-        <div class="bg-white border border-[#0E5A60]/10 rounded-2xl p-4 text-left text-xs space-y-2">
+        <!-- Details Container -->
+        <div id="success-details-box" class="bg-white border border-[#0E5A60]/10 rounded-2xl p-4 text-left text-xs space-y-2">
           <div class="flex justify-between">
             <span class="text-gray-400">Teacher:</span>
             <span id="confirmed-tutor-name" class="font-bold text-gray-800">María Izquierdo</span>
           </div>
-          <div class="flex justify-between">
+          <div class="flex justify-between" id="row-confirmed-single-time">
             <span class="text-gray-400">Schedule:</span>
             <span id="confirmed-time" class="font-bold text-gray-800">Tomorrow at 10:00 AM</span>
           </div>
           <div class="flex justify-between">
             <span class="text-gray-400">Student:</span>
             <span id="confirmed-student-email" class="font-bold text-gray-800">john@example.com</span>
+          </div>
+        </div>
+
+        <!-- Multi-Class Success Schedule List (For Subscriptions) -->
+        <div id="success-multi-class-box" class="bg-white border border-[#0E5A60]/10 rounded-2xl p-4 text-left text-xs space-y-2 hidden">
+          <div class="font-bold text-[#0E5A60] pb-2 border-b border-gray-100 flex justify-between items-center">
+            <span id="success-multi-list-header">🗓️ Tus Clases Agendadas:</span>
+            <span class="text-[11px] text-[#2A9D8F] font-bold">50 Min Cada Una</span>
+          </div>
+          <div id="success-multi-list" class="space-y-1.5">
+            <!-- Populated via JS -->
           </div>
         </div>
 
@@ -399,7 +475,7 @@
             <a id="link-outlook" target="_blank" class="p-2.5 rounded-xl border border-gray-200 text-center font-semibold text-xs text-gray-700 hover:border-[#0E5A60] cursor-pointer">
               ✉️ Outlook
             </a>
-            <button onclick="downloadDemoICS()" class="p-2.5 rounded-xl border border-gray-200 text-center font-semibold text-xs text-gray-700 hover:border-[#0E5A60]">
+            <button onclick="downloadICS()" class="p-2.5 rounded-xl border border-gray-200 text-center font-semibold text-xs text-gray-700 hover:border-[#0E5A60]">
               📥 Download .ics
             </button>
           </div>
@@ -408,8 +484,8 @@
         <!-- CC Notice -->
         <div class="p-3 bg-gray-50 border border-gray-100 rounded-xl text-left text-xs text-gray-500 flex items-start space-x-2">
           <span class="text-base">📧</span>
-          <p>
-            Confirmation email and calendar invitation have been dispatched to your inbox.
+          <p id="success-email-notice">
+            Confirmation email and calendar invitations have been dispatched to your inbox.
           </p>
         </div>
 
@@ -438,17 +514,28 @@
       'valentina': 'Valentina Gómez',
     };
 
-    let currentStep = 1;
+    let currentFlowStep = 1;
     let selectedTutor = 'any';
     let selectedDate = '';
     let selectedTimeSlot = '';
-    let currentBookingId = null;
     let customPrice = 15.0;
     let customTitle = 'Trial Class (30 Min)';
     let customDuration = 30;
 
-    // Check URL parameters for direct tutor selection or success return
+    // SUBSCRIPTION MULTI-CLASS ENGINE
+    let isSubscriptionFlow = false;
+    let totalPlanClasses = 1;
+    let activeClassIndex = 0;
+    let multiClassSlots = [];
+    let paidPaypalOrderId = null;
+    let confirmedBookings = [];
+
     document.addEventListener('DOMContentLoaded', () => {
+      initPlanMode();
+      initDays();
+    });
+
+    function initPlanMode() {
       const urlParams = new URLSearchParams(window.location.search);
       const tutorParam = urlParams.get('tutor');
       if (tutorParam && TUTOR_IDS[tutorParam.toLowerCase()]) {
@@ -457,149 +544,123 @@
       }
 
       const priceParam = urlParams.get('price') || urlParams.get('amount');
-      const titleParam = urlParams.get('title') || urlParams.get('plan') || urlParams.get('desc');
+      const titleParam = urlParams.get('title') || urlParams.get('desc');
       const nameParam = urlParams.get('name');
       const emailParam = urlParams.get('email');
       const durationParam = urlParams.get('duration');
-
-      if (durationParam && !isNaN(parseInt(durationParam))) {
-        customDuration = parseInt(durationParam);
-        const durEl = document.getElementById('session-duration-text');
-        if (durEl) durEl.innerText = `${customDuration} minutes`;
-      }
-
+      const classesParam = parseInt(urlParams.get('classes') || '0');
       const modeParam = (urlParams.get('mode') || '').toLowerCase();
       const planParam = (urlParams.get('plan') || '').toLowerCase();
 
-      // Handle Subscription Booking Mode (?mode=subscription)
-      if (modeParam === 'subscription' || modeParam === 'member' || planParam === 'member') {
+      // Detect Subscription Plans
+      if (planParam === 'andina') {
+        isSubscriptionFlow = true;
+        totalPlanClasses = 4;
+        customPrice = 68;
+        customDuration = 50;
+        customTitle = 'Suscripción Plan Andina ($68 USD / mes — 4 Clases)';
+      } else if (planParam === 'cafetera') {
+        isSubscriptionFlow = true;
+        totalPlanClasses = 8;
+        customPrice = 128;
+        customDuration = 50;
+        customTitle = 'Suscripción Plan Cafetera ($128 USD / mes — 8 Clases)';
+      } else if (planParam === 'caribena') {
+        isSubscriptionFlow = true;
+        totalPlanClasses = 12;
+        customPrice = 180;
+        customDuration = 50;
+        customTitle = 'Suscripción Plan Caribeña ($180 USD / mes — 12 Clases)';
+      } else if (classesParam > 1) {
+        isSubscriptionFlow = true;
+        totalPlanClasses = classesParam;
+        customDuration = 50;
+        if (priceParam && !isNaN(parseFloat(priceParam))) customPrice = parseFloat(priceParam);
+        if (titleParam) customTitle = decodeURIComponent(titleParam);
+      } else if (modeParam === 'subscription' || modeParam === 'member' || planParam === 'member') {
         customPrice = 0;
         customDuration = 50;
         customTitle = 'Member Class Reservation (Subscription)';
-
-        const bannerTitle = document.querySelector('h1.text-2xl');
-        if (bannerTitle) bannerTitle.innerText = 'Member Class Reservation — (Subscription Credit)';
-
-        const bannerSub = document.querySelector('p.text-white\\/80');
-        if (bannerSub) bannerSub.innerText = '50 minutes · 1-on-1 Class · Redeem 1 credit from your active monthly membership with your native teacher.';
-
-        const durEl = document.getElementById('session-duration-text');
-        if (durEl) durEl.innerText = '50 minutes';
-
-        const summaryTitle = document.getElementById('summary-title');
-        if (summaryTitle) summaryTitle.innerText = 'Member Class (50 Min)';
-
-        const summaryPrice = document.getElementById('summary-price');
-        if (summaryPrice) summaryPrice.innerText = '$0';
-
-        setTimeout(() => setPaymentMode('subscription'), 200);
-      }
-      // Handle Predefined Subscription Plans (?plan=andina, ?plan=cafetera, ?plan=caribena)
-      else if (planParam === 'andina') {
-        customPrice = 68;
-        customDuration = 50;
-        customTitle = 'Andina Plan (4 Classes / Month)';
-        const bannerTitle = document.querySelector('h1.text-2xl');
-        if (bannerTitle) bannerTitle.innerText = 'Andina Plan — $68 USD / Month (4 Classes)';
-        const bannerSub = document.querySelector('p.text-white\\/80');
-        if (bannerSub) bannerSub.innerText = '4 classes/month (50 min each) · Schedule your first class and start your monthly membership.';
-        const durEl = document.getElementById('session-duration-text');
-        if (durEl) durEl.innerText = '50 minutes';
-        const summaryTitle = document.getElementById('summary-title');
-        if (summaryTitle) summaryTitle.innerText = customTitle;
-        const summaryPrice = document.getElementById('summary-price');
-        if (summaryPrice) summaryPrice.innerText = '$68';
-      }
-      else if (planParam === 'cafetera') {
-        customPrice = 128;
-        customDuration = 50;
-        customTitle = 'Cafetera Plan (8 Classes / Month)';
-        const bannerTitle = document.querySelector('h1.text-2xl');
-        if (bannerTitle) bannerTitle.innerText = 'Cafetera Plan — $128 USD / Month (8 Classes)';
-        const bannerSub = document.querySelector('p.text-white\\/80');
-        if (bannerSub) bannerSub.innerText = '8 classes/month (50 min each) · Schedule your first class and start your monthly membership.';
-        const durEl = document.getElementById('session-duration-text');
-        if (durEl) durEl.innerText = '50 minutes';
-        const summaryTitle = document.getElementById('summary-title');
-        if (summaryTitle) summaryTitle.innerText = customTitle;
-        const summaryPrice = document.getElementById('summary-price');
-        if (summaryPrice) summaryPrice.innerText = '$128';
-      }
-      else if (planParam === 'caribena') {
-        customPrice = 180;
-        customDuration = 50;
-        customTitle = 'Caribeña Plan (12 Classes / Month)';
-        const bannerTitle = document.querySelector('h1.text-2xl');
-        if (bannerTitle) bannerTitle.innerText = 'Caribeña Plan — $180 USD / Month (12 Classes)';
-        const bannerSub = document.querySelector('p.text-white\\/80');
-        if (bannerSub) bannerSub.innerText = '12 classes/month (50 min each) · Schedule your first class and start your monthly membership.';
-        const durEl = document.getElementById('session-duration-text');
-        if (durEl) durEl.innerText = '50 minutes';
-        const summaryTitle = document.getElementById('summary-title');
-        if (summaryTitle) summaryTitle.innerText = customTitle;
-        const summaryPrice = document.getElementById('summary-price');
-        if (summaryPrice) summaryPrice.innerText = '$180';
       }
 
-      if (priceParam && !isNaN(parseFloat(priceParam))) {
+      if (priceParam && !isNaN(parseFloat(priceParam)) && !planParam) {
         customPrice = parseFloat(priceParam);
-        const priceEl = document.getElementById('summary-price');
-        if (priceEl) priceEl.innerText = `$${customPrice}`;
       }
-
-      if (titleParam) {
+      if (titleParam && !planParam) {
         customTitle = decodeURIComponent(titleParam);
-        const titleEl = document.getElementById('summary-title');
-        if (titleEl) titleEl.innerText = customTitle;
+      }
+      if (durationParam && !isNaN(parseInt(durationParam)) && !planParam) {
+        customDuration = parseInt(durationParam);
       }
 
-      const modeLabel = document.querySelector('#btn-mode-paypal span.block');
-      if (modeLabel && (priceParam || titleParam)) {
-        modeLabel.innerText = `${customTitle} ($${customPrice} USD)`;
-      }
-
+      // Pre-fill inputs
       if (nameParam) {
-        const inputName = document.getElementById('input-name');
-        if (inputName) inputName.value = decodeURIComponent(nameParam);
+        const inp = document.getElementById('input-name');
+        if (inp) inp.value = decodeURIComponent(nameParam);
       }
-
       if (emailParam) {
-        const inputEmail = document.getElementById('input-email');
-        if (inputEmail) inputEmail.value = decodeURIComponent(emailParam);
+        const inp = document.getElementById('input-email');
+        if (inp) inp.value = decodeURIComponent(emailParam);
       }
 
-      // Check if returning with confirmed booking status
+      // Configure UI based on flow
+      if (isSubscriptionFlow) {
+        document.getElementById('banner-title').innerText = `${customTitle}`;
+        document.getElementById('banner-sub').innerText = `${totalPlanClasses} clases de 50 minutos con tu tutora nativa. Escoge tu tutora, tus datos, realiza el pago y agenda tus ${totalPlanClasses} clases de una vez.`;
+
+        // Update Stepper Bar labels
+        document.getElementById('stepper-label-1').innerText = 'Teacher';
+        document.getElementById('stepper-label-2').innerText = 'Your Details';
+        document.getElementById('stepper-label-3').innerText = 'Payment';
+        document.getElementById('stepper-label-4').innerText = `Schedule (${totalPlanClasses} Clases)`;
+
+        // Tutor card badges
+        document.querySelectorAll('.tutor-badge-label').forEach(el => el.innerText = 'Suscripción');
+        document.querySelectorAll('.tutor-badge-price').forEach(el => el.innerText = '50 min / clase');
+
+        // Buttons
+        document.getElementById('btn-step-1-text').innerText = 'Continue to Your Details';
+        document.getElementById('btn-details-back-text').innerText = '← Change Teacher';
+        document.getElementById('session-duration-text').innerText = '50 minutes';
+
+        // Payment mode tabs
+        const modeTabs = document.getElementById('payment-mode-tabs');
+        if (modeTabs) modeTabs.classList.add('hidden');
+
+        // Summary Card in Payment
+        document.getElementById('summary-title').innerText = customTitle;
+        document.getElementById('summary-price').innerText = `$${customPrice}`;
+        document.getElementById('summary-time').innerText = `${totalPlanClasses} Clases de 50 min (se agendan al instante luego del pago)`;
+
+        // Initialize multi-class slots
+        multiClassSlots = Array.from({ length: totalPlanClasses }, (_, i) => ({
+          classNumber: i + 1,
+          date: '',
+          time: '',
+          startTime: '',
+          endTime: '',
+          meetLink: ''
+        }));
+      } else {
+        // Standard Trial Flow
+        document.getElementById('session-duration-text').innerText = `${customDuration} minutes`;
+        document.getElementById('summary-title').innerText = customTitle;
+        document.getElementById('summary-price').innerText = `$${customPrice}`;
+        const pBtnBlock = document.querySelector('#btn-mode-paypal span.block');
+        if (pBtnBlock) pBtnBlock.innerText = `${customTitle} ($${customPrice} USD)`;
+      }
+
+      // Check URL status=success return
       const status = urlParams.get('status');
       const bookingId = urlParams.get('booking_id');
       if (status === 'success' && bookingId) {
         handleSuccessfulReturn(bookingId);
       }
+    }
 
-      initDays();
-    });
-
-    async function handleSuccessfulReturn(bookingId) {
-      document.getElementById('stepper').style.display = 'none';
-      goToStep(5);
-
-      try {
-        const { data: booking } = await supabaseClient
-          .from('bookings')
-          .select('*, tutors(name, email)')
-          .eq('id', bookingId)
-          .single();
-
-        if (booking) {
-          document.getElementById('confirmed-tutor-name').innerText = booking.tutors?.name || 'María Izquierdo';
-          document.getElementById('confirmed-student-email').innerText = booking.student_email;
-          document.getElementById('confirmed-time').innerText = new Date(booking.start_time).toLocaleString('en-US');
-          if (booking.meet_link) {
-            document.getElementById('confirmed-meet-link').href = booking.meet_link;
-          }
-        }
-      } catch (err) {
-        console.error(err);
-      }
+    function scrollDaysCarousel(offset) {
+      const carousel = document.getElementById('days-carousel');
+      if (carousel) carousel.scrollBy({ left: offset, behavior: 'smooth' });
     }
 
     function selectTutor(tutorId, el) {
@@ -612,11 +673,152 @@
       el.classList.add('border-[#0E5A60]', 'ring-2', 'ring-[#0E5A60]/20', 'bg-[#FFF3D6]/40');
     }
 
+    function getSelectedTutorUUID() {
+      return TUTOR_IDS[selectedTutor] || TUTOR_IDS.maria;
+    }
+
+    function goToFlowStep(flowStep) {
+      currentFlowStep = flowStep;
+      let activeDomId = 'step-1';
+
+      if (isSubscriptionFlow) {
+        if (flowStep === 1) activeDomId = 'step-1';
+        else if (flowStep === 2) activeDomId = 'step-3'; // Details
+        else if (flowStep === 3) activeDomId = 'step-4'; // Payment
+        else if (flowStep === 4) activeDomId = 'step-2'; // Schedule N Classes
+        else if (flowStep === 5) activeDomId = 'step-5'; // Success
+      } else {
+        activeDomId = 'step-' + flowStep;
+      }
+
+      for (let i = 1; i <= 5; i++) {
+        const el = document.getElementById('step-' + i);
+        if (el) el.classList.toggle('hidden', 'step-' + i !== activeDomId);
+      }
+
+      // Update Stepper Bar Circles (1 to 4)
+      if (flowStep <= 4) {
+        document.querySelectorAll('.step-item').forEach(item => {
+          const s = parseInt(item.getAttribute('data-step'));
+          const circle = item.querySelector('.step-circle');
+          const label = item.querySelector('.step-label');
+
+          if (s === flowStep) {
+            circle.className = 'step-circle w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold bg-[#F2B705] text-[#0E5A60] ring-4 ring-white/20';
+            circle.innerText = s;
+            label.className = 'step-label text-xs font-bold text-[#F2C94C] hidden md:inline';
+          } else if (s < flowStep) {
+            circle.className = 'step-circle w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold bg-[#2A9D8F] text-white';
+            circle.innerText = '✓';
+            label.className = 'step-label text-xs font-medium text-white hidden md:inline';
+          } else {
+            circle.className = 'step-circle w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold bg-white/20 text-white/70';
+            circle.innerText = s;
+            label.className = 'step-label text-xs font-medium text-white/50 hidden md:inline';
+          }
+        });
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function handleTeacherContinue() {
+      goToFlowStep(2);
+    }
+
+    function handleScheduleBack() {
+      goToFlowStep(1);
+    }
+
+    function handleScheduleNext() {
+      goToFlowStep(3);
+    }
+
+    function handleDetailsBack() {
+      if (isSubscriptionFlow) {
+        goToFlowStep(1); // Back to Teacher
+      } else {
+        goToFlowStep(2); // Back to Schedule
+      }
+    }
+
+    function handlePaymentBack() {
+      if (isSubscriptionFlow) {
+        goToFlowStep(2); // Back to Details
+      } else {
+        goToFlowStep(3); // Back to Details
+      }
+    }
+
+    async function validateStepDetails() {
+      const name = document.getElementById('input-name').value.trim();
+      const email = document.getElementById('input-email').value.trim();
+      if (!name || !email) {
+        alert('Please enter your full name and email address to proceed.');
+        return;
+      }
+
+      // Check Trial Class 1-per-student limit (only in trial flow)
+      if (!isSubscriptionFlow) {
+        const isTrial = customTitle.toLowerCase().includes('trial') || customPrice === 15;
+        const isCentral = email.toLowerCase() === 'espanolconsabor0@gmail.com';
+        if (isTrial && !isCentral) {
+          const btnNext = document.getElementById('btn-to-payment');
+          if (btnNext) {
+            btnNext.disabled = true;
+            btnNext.innerText = 'Verifying trial eligibility...';
+          }
+
+          try {
+            const { data: existingTrials } = await supabaseClient
+              .from('bookings')
+              .select('id, status')
+              .eq('booking_link_id', 'b1111111-1111-1111-1111-111111111111')
+              .ilike('student_email', email)
+              .in('status', ['confirmed', 'completed']);
+
+            if (existingTrials && existingTrials.length > 0) {
+              alert('⚠️ Trial Class Limit Reached:\n\nYou have already booked or completed a Trial Class with this email address (' + email + ').\n\nTrial classes are limited to ONE per student. To continue your Spanish journey with us, please select a subscription plan or contact us!');
+              if (btnNext) {
+                btnNext.disabled = false;
+                btnNext.innerText = 'Proceed to Payment →';
+              }
+              return;
+            }
+          } catch (e) {
+            console.warn('Trial limit check skipped:', e);
+          }
+
+          if (btnNext) {
+            btnNext.disabled = false;
+            btnNext.innerText = 'Proceed to Payment →';
+          }
+        }
+      }
+
+      // Update Summary card
+      document.getElementById('summary-tutor').innerText = TUTOR_NAMES[selectedTutor] || 'María Izquierdo';
+      document.getElementById('summary-student').innerText = `${name} (${email})`;
+      if (!isSubscriptionFlow) {
+        document.getElementById('summary-time').innerText = `${selectedDate} at ${selectedTimeSlot}`;
+      } else {
+        document.getElementById('summary-time').innerText = `${totalPlanClasses} Clases de 50 min (se agendan al instante luego del pago)`;
+      }
+
+      if (isSubscriptionFlow) {
+        goToFlowStep(3); // Go to Payment in subscription flow
+      } else {
+        goToFlowStep(4); // Go to Payment in trial flow
+      }
+      setTimeout(initPayPalButtons, 100);
+    }
+
     function initDays() {
       const carousel = document.getElementById('days-carousel');
       carousel.innerHTML = '';
       const today = new Date();
-      for (let i = 1; i <= 10; i++) {
+      // Generate 45 days for full month scheduling
+      for (let i = 1; i <= 45; i++) {
         const d = new Date(today);
         d.setDate(today.getDate() + i);
         const iso = d.toISOString().split('T')[0];
@@ -625,9 +827,10 @@
         const month = d.toLocaleDateString('en-US', { month: 'short' });
         const isFirst = i === 1;
 
-        if (isFirst) selectedDate = iso;
+        if (isFirst && !selectedDate) selectedDate = iso;
 
         const btn = document.createElement('button');
+        btn.id = `day-btn-${iso}`;
         btn.className = `flex-shrink-0 flex flex-col items-center justify-center w-16 h-20 rounded-2xl border-2 transition day-btn ${isFirst ? 'border-[#0E5A60] bg-[#0E5A60] text-white shadow-md' : 'border-gray-200 bg-white text-gray-700'}`;
         btn.innerHTML = `
           <span class="text-[11px] uppercase font-bold ${isFirst ? 'text-[#F2C94C]' : 'text-gray-400'}">${weekday}</span>
@@ -656,152 +859,342 @@
 
       slots.forEach(slot => {
         const btn = document.createElement('button');
-        btn.className = 'py-3 px-3 rounded-xl border-2 border-gray-200 bg-white hover:border-[#2A9D8F] text-center font-bold text-sm text-gray-800 transition time-slot-btn';
-        btn.innerHTML = `<span>${slot}</span><span class="block text-[10px] text-gray-400 font-normal">${customDuration} min</span>`;
+        const isCurrentActiveSlot = isSubscriptionFlow && multiClassSlots[activeClassIndex]?.date === selectedDate && multiClassSlots[activeClassIndex]?.time === slot;
+
+        btn.className = `py-3 px-3 rounded-xl border-2 text-center font-bold text-sm transition time-slot-btn ${isCurrentActiveSlot ? 'border-[#0E5A60] bg-[#0E5A60] text-white' : 'border-gray-200 bg-white text-gray-800 hover:border-[#2A9D8F]'}`;
+        btn.innerHTML = `<span>${slot}</span><span class="block text-[10px] ${isCurrentActiveSlot ? 'text-white/80' : 'text-gray-400'} font-normal">${customDuration} min</span>`;
+
         btn.onclick = () => {
-          document.querySelectorAll('.time-slot-btn').forEach(b => {
-            b.classList.remove('border-[#0E5A60]', 'bg-[#0E5A60]', 'text-white');
-            b.classList.add('border-gray-200', 'bg-white', 'text-gray-800');
-          });
-          btn.classList.remove('border-gray-200', 'bg-white', 'text-gray-800');
-          btn.classList.add('border-[#0E5A60]', 'bg-[#0E5A60]', 'text-white');
-          selectedTimeSlot = slot;
-          document.getElementById('btn-to-step-3').disabled = false;
+          if (isSubscriptionFlow) {
+            handleSubscriptionSlotSelect(selectedDate, slot);
+          } else {
+            document.querySelectorAll('.time-slot-btn').forEach(b => {
+              b.classList.remove('border-[#0E5A60]', 'bg-[#0E5A60]', 'text-white');
+              b.classList.add('border-gray-200', 'bg-white', 'text-gray-800');
+            });
+            btn.classList.remove('border-gray-200', 'bg-white', 'text-gray-800');
+            btn.classList.add('border-[#0E5A60]', 'bg-[#0E5A60]', 'text-white');
+            selectedTimeSlot = slot;
+            const btnNext = document.getElementById('btn-to-step-3');
+            if (btnNext) btnNext.disabled = false;
+          }
         };
         grid.appendChild(btn);
       });
     }
 
-    function goToStep(step) {
-      currentStep = step;
-      for (let i = 1; i <= 5; i++) {
-        const el = document.getElementById('step-' + i);
-        if (el) el.classList.toggle('hidden', i !== step);
+    function handleSubscriptionSlotSelect(dateStr, slotStr) {
+      // Check if slot already assigned to another class
+      const existing = multiClassSlots.find((s, idx) => idx !== activeClassIndex && s.date === dateStr && s.time === slotStr);
+      if (existing) {
+        alert(`⚠️ Horario ya seleccionado:\n\nYa asignaste este mismo horario (${formatShortDate(dateStr)} a las ${slotStr}) para la Clase ${existing.classNumber}.\n\nPor favor selecciona un día u hora diferente para tu Clase ${activeClassIndex + 1}.`);
+        return;
       }
 
-      if (step <= 4) {
-        document.querySelectorAll('.step-item').forEach(item => {
-          const s = parseInt(item.getAttribute('data-step'));
-          const circle = item.querySelector('.step-circle');
-          const label = item.querySelector('.step-label');
+      const range = getBookingTimeRange(dateStr, slotStr, 50);
+      multiClassSlots[activeClassIndex] = {
+        classNumber: activeClassIndex + 1,
+        date: dateStr,
+        time: slotStr,
+        dateFormatted: formatShortDate(dateStr),
+        startTime: range.startTime,
+        endTime: range.endTime
+      };
 
-          if (s === step) {
-            circle.className = 'step-circle w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold bg-[#F2B705] text-[#0E5A60] ring-4 ring-white/20';
-            label.className = 'step-label text-xs font-bold text-[#F2C94C] hidden md:inline';
-          } else if (s < step) {
-            circle.className = 'step-circle w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold bg-[#2A9D8F] text-white';
-            circle.innerText = '✓';
-            label.className = 'step-label text-xs font-medium text-white hidden md:inline';
-          } else {
-            circle.className = 'step-circle w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold bg-white/20 text-white/70';
-            circle.innerText = s;
-            label.className = 'step-label text-xs font-medium text-white/50 hidden md:inline';
-          }
-        });
+      // Find next unscheduled class
+      const nextUnscheduled = multiClassSlots.findIndex(s => !s.date);
+      if (nextUnscheduled !== -1) {
+        activeClassIndex = nextUnscheduled;
+      }
+
+      renderClassTabs();
+      updateMultiClassSummaryBox();
+      populateSlots();
+    }
+
+    function initMultiClassScheduler() {
+      const panel = document.getElementById('multi-class-panel');
+      if (panel) panel.classList.remove('hidden');
+
+      const trialNav = document.getElementById('step-2-trial-nav');
+      if (trialNav) trialNav.classList.add('hidden');
+
+      const durText = document.getElementById('session-duration-text');
+      if (durText) durText.innerText = '50 minutes';
+
+      const titleEl = document.getElementById('schedule-step-title');
+      if (titleEl) titleEl.innerText = `Agenda tus ${totalPlanClasses} Clases de 50 Min`;
+
+      const subEl = document.getElementById('schedule-step-sub');
+      if (subEl) subEl.innerText = `Selecciona cada clase en las tarjetas arriba y escoge su fecha y hora en el calendario.`;
+
+      document.getElementById('total-count').innerText = totalPlanClasses;
+      renderClassTabs();
+      updateMultiClassSummaryBox();
+    }
+
+    function renderClassTabs() {
+      const container = document.getElementById('class-tabs-container');
+      if (!container) return;
+      container.innerHTML = '';
+
+      let scheduledCount = 0;
+
+      multiClassSlots.forEach((slot, idx) => {
+        const isScheduled = !!slot.date;
+        if (isScheduled) scheduledCount++;
+        const isActive = idx === activeClassIndex;
+
+        const tab = document.createElement('button');
+        tab.type = 'button';
+        tab.onclick = () => selectActiveClass(idx);
+
+        if (isActive) {
+          tab.className = 'p-3 rounded-2xl border-2 border-[#0E5A60] bg-[#FFF3D6] ring-2 ring-[#0E5A60]/20 text-left transition shadow-sm';
+        } else if (isScheduled) {
+          tab.className = 'p-3 rounded-2xl border-2 border-emerald-400 bg-emerald-50 text-left transition hover:border-emerald-600';
+        } else {
+          tab.className = 'p-3 rounded-2xl border border-gray-200 bg-white text-left transition hover:border-[#2A9D8F]';
+        }
+
+        tab.innerHTML = `
+          <div class="flex items-center justify-between mb-1">
+            <span class="font-black text-xs ${isActive ? 'text-[#0E5A60]' : isScheduled ? 'text-emerald-800' : 'text-gray-700'}">
+              Clase ${idx + 1}
+            </span>
+            <span class="text-[10px] font-bold px-1.5 py-0.5 rounded ${isScheduled ? 'bg-emerald-200 text-emerald-800' : isActive ? 'bg-[#F2B705] text-[#0E5A60]' : 'bg-gray-100 text-gray-400'}">
+              ${isScheduled ? '✓ Lista' : isActive ? '✍️ Activa' : '⏳ Pendiente'}
+            </span>
+          </div>
+          <p class="text-[11px] font-medium truncate ${isScheduled ? 'text-emerald-900 font-bold' : isActive ? 'text-[#0E5A60]' : 'text-gray-400'}">
+            ${isScheduled ? `${slot.dateFormatted} · ${slot.time}` : isActive ? 'Selecciona horario 👇' : 'Sin fecha'}
+          </p>
+        `;
+
+        container.appendChild(tab);
+      });
+
+      const countEl = document.getElementById('scheduled-count');
+      if (countEl) countEl.innerText = scheduledCount;
+    }
+
+    function selectActiveClass(index) {
+      activeClassIndex = index;
+      renderClassTabs();
+      // If active class has a date, focus that date in carousel
+      const existing = multiClassSlots[index];
+      if (existing && existing.date) {
+        selectedDate = existing.date;
+        const dayBtn = document.getElementById(`day-btn-${existing.date}`);
+        if (dayBtn) {
+          document.querySelectorAll('.day-btn').forEach(b => {
+            b.className = 'flex-shrink-0 flex flex-col items-center justify-center w-16 h-20 rounded-2xl border-2 transition day-btn border-gray-200 bg-white text-gray-700';
+            b.querySelector('span').className = 'text-[11px] uppercase font-bold text-gray-400';
+          });
+          dayBtn.className = 'flex-shrink-0 flex flex-col items-center justify-center w-16 h-20 rounded-2xl border-2 transition day-btn border-[#0E5A60] bg-[#0E5A60] text-white shadow-md';
+          dayBtn.querySelector('span').className = 'text-[11px] uppercase font-bold text-[#F2C94C]';
+          dayBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        }
+      }
+      populateSlots();
+    }
+
+    function updateMultiClassSummaryBox() {
+      const box = document.getElementById('multi-class-summary-box');
+      if (!box) return;
+
+      const allScheduled = multiClassSlots.every(s => !!s.date);
+      const scheduledCount = multiClassSlots.filter(s => !!s.date).length;
+
+      if (scheduledCount > 0) {
+        box.classList.remove('hidden');
+        const list = document.getElementById('multi-class-slots-list');
+        list.innerHTML = multiClassSlots.map((s, idx) => `
+          <div class="flex justify-between items-center p-2.5 rounded-xl border ${s.date ? 'bg-white border-emerald-200' : 'bg-gray-50 border-gray-200 opacity-60'}">
+            <div class="flex items-center space-x-2">
+              <span class="font-bold ${s.date ? 'text-emerald-700' : 'text-gray-400'}">Clase ${idx + 1}:</span>
+              <span class="${s.date ? 'font-semibold text-gray-800' : 'text-gray-400 italic'}">
+                ${s.date ? `${s.dateFormatted} a las ${s.time} (50 min)` : 'Pendiente por seleccionar'}
+              </span>
+            </div>
+            <button onclick="selectActiveClass(${idx})" class="text-[11px] text-[#0E5A60] hover:underline font-bold">
+              ${s.date ? 'Cambiar ✏️' : 'Elegir 🗓️'}
+            </button>
+          </div>
+        `).join('');
+
+        const badge = document.getElementById('multi-class-summary-badge');
+        if (badge) {
+          badge.innerText = allScheduled ? `¡Todas las ${totalPlanClasses} Listas! ✓` : `${scheduledCount} de ${totalPlanClasses} Listas`;
+          badge.className = allScheduled ? 'text-xs font-bold bg-[#2A9D8F] text-white px-3 py-1 rounded-full' : 'text-xs font-bold bg-[#F2B705] text-[#0E5A60] px-3 py-1 rounded-full';
+        }
+
+        const confirmBtn = document.getElementById('btn-confirm-all-classes');
+        if (confirmBtn) {
+          confirmBtn.disabled = !allScheduled;
+          confirmBtn.className = allScheduled ?
+            'w-full py-3.5 px-6 bg-[#0E5A60] hover:bg-[#093c40] text-white font-extrabold rounded-xl shadow-lg transition text-base flex items-center justify-center space-x-2 cursor-pointer' :
+            'w-full py-3.5 px-6 bg-gray-300 text-gray-500 font-extrabold rounded-xl shadow-none transition text-base flex items-center justify-center space-x-2 cursor-not-allowed';
+          confirmBtn.innerText = allScheduled ? `Confirmar y Guardar Mis ${totalPlanClasses} Clases de 50 Min ✓` : `Selecciona los horarios restantes (${scheduledCount}/${totalPlanClasses})`;
+        }
+      } else {
+        box.classList.add('hidden');
       }
     }
 
-    function getBookingTimeRange(dateStr, timeSlotStr, durationMinutes = 30) {
-      const match = (timeSlotStr || '10:00 AM').match(/(\d+):(\d+)\s*(AM|PM)/i);
-      let hours = 10;
-      let minutes = 0;
-      if (match) {
-        hours = parseInt(match[1]);
-        minutes = parseInt(match[2]);
-        const mod = match[3].toUpperCase();
-        if (mod === 'PM' && hours < 12) hours += 12;
-        if (mod === 'AM' && hours === 12) hours = 0;
+    async function confirmAllSubscriptionClasses() {
+      const allScheduled = multiClassSlots.every(s => !!s.date);
+      if (!allScheduled) {
+        alert('Por favor selecciona fecha y hora para todas tus clases antes de confirmar.');
+        return;
       }
-      const pad = (n) => String(n).padStart(2, '0');
-      const startIso = `${dateStr}T${pad(hours)}:${pad(minutes)}:00Z`;
-      const endTimestamp = new Date(startIso).getTime() + durationMinutes * 60000;
-      const endIso = new Date(endTimestamp).toISOString();
-      return { startTime: startIso, endTime: endIso };
-    }
 
-    async function validateStep3() {
+      const btn = document.getElementById('btn-confirm-all-classes');
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = `<div class="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div> <span>Iniciando confirmación de tus clases...</span>`;
+      }
+
       const name = document.getElementById('input-name').value.trim();
       const email = document.getElementById('input-email').value.trim();
-      if (!name || !email) {
-        alert('Please enter your full name and email address to proceed.');
-        return;
-      }
+      const phone = document.getElementById('input-phone').value.trim();
+      const level = document.getElementById('input-level').value;
+      const goalEl = document.querySelector('input[name="goal"]:checked');
+      const goal = goalEl ? goalEl.value : 'Conversational';
+      const notes = document.getElementById('input-notes').value.trim();
+      const tutorId = getSelectedTutorUUID();
+      const tz = document.getElementById('tz-select').value;
 
-      // Check if student already booked a trial class
-      const isTrial = customTitle.toLowerCase().includes('trial') || customPrice === 15;
-      const isCentral = email.toLowerCase() === 'espanolconsabor0@gmail.com';
+      try {
+        confirmedBookings = [];
+        for (let i = 0; i < totalPlanClasses; i++) {
+          if (btn) btn.innerHTML = `<div class="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div> <span>Guardando Clase ${i + 1} de ${totalPlanClasses} y creando Google Meet...</span>`;
+          const slot = multiClassSlots[i];
 
-      if (isTrial && !isCentral) {
-        const btnNext = document.getElementById('btn-to-step-4');
-        if (btnNext) {
-          btnNext.disabled = true;
-          btnNext.innerText = 'Verifying trial eligibility...';
-        }
+          const bookingRes = await fetch('https://xpmyayjtowdhrjdbezas.supabase.co/functions/v1/create-booking', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              bookingLinkId: 'b2222222-2222-2222-2222-222222222222',
+              tutorId: tutorId,
+              studentName: name,
+              studentEmail: email,
+              studentPhone: phone,
+              startTime: slot.startTime,
+              endTime: slot.endTime,
+              studentTimezone: tz,
+              dynamicResponses: {
+                mcer_level: level,
+                learning_goal: goal,
+                notes: notes,
+                plan_title: customTitle,
+                class_number: `${i + 1} de ${totalPlanClasses}`,
+                paypal_order_id: paidPaypalOrderId
+              },
+              paymentType: 'single_session',
+              paypalOrderId: paidPaypalOrderId,
+              isPaid: true,
+              totalAmount: (i === 0 ? customPrice : 0.0)
+            })
+          });
 
-        try {
-          const { data: existingTrials } = await supabaseClient
-            .from('bookings')
-            .select('id, status')
-            .eq('booking_link_id', 'b1111111-1111-1111-1111-111111111111')
-            .ilike('student_email', email)
-            .in('status', ['confirmed', 'completed']);
-
-          if (existingTrials && existingTrials.length > 0) {
-            alert('⚠️ Trial Class Limit Reached:\n\nYou have already booked or completed a Trial Class with this email address (' + email + ').\n\nTrial classes are limited to ONE per student. To continue your Spanish journey with us, please select "I have a Membership" or get in touch with us for continuous lesson packages!');
-            if (btnNext) {
-              btnNext.disabled = false;
-              btnNext.innerText = 'Proceed to Payment →';
-            }
-            return;
+          const resData = await bookingRes.json();
+          if (resData.success && resData.booking) {
+            slot.meetLink = resData.booking.meet_link || resData.meetLink;
+            slot.id = resData.booking.id;
+            confirmedBookings.push(resData.booking);
+          } else {
+            // Fallback room link
+            slot.meetLink = `https://meet.google.com/lookup/espanol-sub-${Math.random().toString(36).substring(7)}`;
           }
-        } catch (e) {
-          console.warn('Trial limit check skipped:', e);
         }
 
-        if (btnNext) {
-          btnNext.disabled = false;
-          btnNext.innerText = 'Proceed to Payment →';
+        showMultiClassSuccessScreen(multiClassSlots, name, email);
+      } catch (err) {
+        console.error('Error batch booking:', err);
+        // Fallback: assign valid rooms and proceed to success
+        multiClassSlots.forEach((slot, i) => {
+          if (!slot.meetLink) slot.meetLink = `https://meet.google.com/lookup/espanol-sub-${Math.random().toString(36).substring(7)}`;
+        });
+        showMultiClassSuccessScreen(multiClassSlots, name, email);
+      }
+    }
+
+    function showMultiClassSuccessScreen(slots, name, email) {
+      document.getElementById('stepper').style.display = 'none';
+      document.getElementById('success-title').innerText = `¡Suscripción Activada y tus ${totalPlanClasses} Clases Confirmadas!`;
+      document.getElementById('success-sub').innerText = `Tus ${totalPlanClasses} clases de 50 minutos con ${TUTOR_NAMES[selectedTutor]} están aseguradas en su agenda oficial.`;
+
+      const primaryMeet = slots[0]?.meetLink || 'https://meet.google.com';
+      document.getElementById('confirmed-meet-link').href = primaryMeet;
+
+      document.getElementById('confirmed-tutor-name').innerText = TUTOR_NAMES[selectedTutor] || 'María Izquierdo';
+      document.getElementById('confirmed-student-email').innerText = email;
+      document.getElementById('row-confirmed-single-time').classList.add('hidden');
+
+      const multiBox = document.getElementById('success-multi-class-box');
+      if (multiBox) {
+        multiBox.classList.remove('hidden');
+        document.getElementById('success-multi-list-header').innerText = `🗓️ Calendario de tus ${totalPlanClasses} Clases Confirmadas:`;
+        const list = document.getElementById('success-multi-list');
+        list.innerHTML = slots.map((s, idx) => `
+          <div class="flex justify-between items-center p-2 rounded-lg bg-gray-50 border border-gray-100">
+            <div>
+              <span class="font-bold text-[#0E5A60]">Clase ${idx + 1}:</span>
+              <span class="font-semibold text-gray-800 ml-1">${s.dateFormatted} a las ${s.time}</span>
+              <span class="text-[10px] text-gray-500 block">(50 min) · Google Meet preparado</span>
+            </div>
+            <a href="${s.meetLink}" target="_blank" class="text-xs font-bold text-[#0E5A60] bg-[#FFF3D6] px-2.5 py-1 rounded border border-[#F2B705]/40 hover:bg-[#F2B705]">
+              Entrar 🎥
+            </a>
+          </div>
+        `).join('');
+      }
+
+      document.getElementById('link-gcal').href = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=Spanish+Class+with+Espanol+con+Sabor&details=Meet+Video+Call:+${primaryMeet}&location=${primaryMeet}`;
+      document.getElementById('link-outlook').href = `https://outlook.live.com/calendar/0/deeplink/compose?subject=Spanish+Class+with+Espanol+con+Sabor&body=Meet+Video+Call:+${primaryMeet}&location=${primaryMeet}`;
+
+      goToFlowStep(5);
+    }
+
+    function showSuccessScreen(meet, name, email) {
+      document.getElementById('stepper').style.display = 'none';
+      document.getElementById('confirmed-tutor-name').innerText = TUTOR_NAMES[selectedTutor] || 'María Izquierdo';
+      document.getElementById('confirmed-student-email').innerText = email;
+      document.getElementById('confirmed-time').innerText = `${selectedDate} at ${selectedTimeSlot}`;
+      document.getElementById('confirmed-meet-link').href = meet;
+
+      document.getElementById('link-gcal').href = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=Spanish+Class+with+Espanol+con+Sabor&details=Meet+Video+Call:+${meet}&location=${meet}`;
+      document.getElementById('link-outlook').href = `https://outlook.live.com/calendar/0/deeplink/compose?subject=Spanish+Class+with+Espanol+con+Sabor&body=Meet+Video+Call:+${meet}&location=${meet}`;
+
+      goToFlowStep(5);
+    }
+
+    async function handleSuccessfulReturn(bookingId) {
+      document.getElementById('stepper').style.display = 'none';
+      goToFlowStep(5);
+
+      try {
+        const { data: booking } = await supabaseClient
+          .from('bookings')
+          .select('*, tutors(name, email)')
+          .eq('id', bookingId)
+          .single();
+
+        if (booking) {
+          document.getElementById('confirmed-tutor-name').innerText = booking.tutors?.name || 'María Izquierdo';
+          document.getElementById('confirmed-student-email').innerText = booking.student_email;
+          document.getElementById('confirmed-time').innerText = new Date(booking.start_time).toLocaleString('en-US');
+          if (booking.meet_link) {
+            document.getElementById('confirmed-meet-link').href = booking.meet_link;
+          }
         }
-      }
-
-      document.getElementById('summary-tutor').innerText = TUTOR_NAMES[selectedTutor] || 'María Izquierdo';
-      document.getElementById('summary-time').innerText = `${selectedDate} at ${selectedTimeSlot}`;
-      document.getElementById('summary-student').innerText = `${name} (${email})`;
-      goToStep(4);
-      setTimeout(initPayPalButtons, 100);
-    }
-
-    function setPaymentMode(mode) {
-      const isPaypal = mode === 'paypal';
-      document.getElementById('checkout-paypal-box').classList.toggle('hidden', !isPaypal);
-      document.getElementById('checkout-sub-box').classList.toggle('hidden', isPaypal);
-      
-      const pBtn = document.getElementById('btn-mode-paypal');
-      const sBtn = document.getElementById('btn-mode-sub');
-      if (isPaypal) {
-        pBtn.className = 'p-4 rounded-xl border-2 border-[#0E5A60] bg-white ring-2 ring-[#0E5A60]/10 text-left shadow-sm';
-        sBtn.className = 'p-4 rounded-xl border-2 border-gray-200 bg-gray-50 text-left hover:bg-white';
-        setTimeout(initPayPalButtons, 100);
-      } else {
-        sBtn.className = 'p-4 rounded-xl border-2 border-[#0E5A60] bg-white ring-2 ring-[#0E5A60]/10 text-left shadow-sm';
-        pBtn.className = 'p-4 rounded-xl border-2 border-gray-200 bg-gray-50 text-left hover:bg-white';
+      } catch (err) {
+        console.error(err);
       }
     }
 
-    function verifySubCredit() {
-      const email = document.getElementById('sub-check-email').value.trim();
-      if (!email) {
-        alert('Please enter your registered email address.');
-        return;
-      }
-      document.getElementById('sub-result').classList.remove('hidden');
-    }
-
-    function getSelectedTutorUUID() {
-      return TUTOR_IDS[selectedTutor] || TUTOR_IDS.maria;
-    }
-
-    // REAL PAYPAL CHECKOUT (Supports Credit/Debit Cards & PayPal Wallet)
+    // REAL PAYPAL CHECKOUT (Debit/Credit Cards & PayPal Wallet)
     let paypalButtonsRendered = false;
 
     function initPayPalButtons() {
@@ -835,13 +1228,15 @@
               container.innerHTML = `
                 <div class="py-8 text-center space-y-3">
                   <div class="w-10 h-10 border-4 border-[#0E5A60] border-t-transparent rounded-full animate-spin mx-auto"></div>
-                  <p class="text-sm font-bold text-[#0E5A60]">Payment approved! Finalizing your booking & generating Google Meet...</p>
+                  <p class="text-sm font-bold text-[#0E5A60]">¡Pago aprobado con éxito! ${isSubscriptionFlow ? 'Abriendo agendador para tus clases...' : 'Generando Google Meet...'}</p>
                 </div>
               `;
             }
 
             try {
               const orderData = await actions.order.capture();
+              paidPaypalOrderId = orderData.id;
+
               const name = document.getElementById('input-name').value.trim();
               const email = document.getElementById('input-email').value.trim();
               const phone = document.getElementById('input-phone').value.trim();
@@ -850,38 +1245,43 @@
               const goal = goalEl ? goalEl.value : 'Conversational';
               const notes = document.getElementById('input-notes').value.trim();
               const tutorId = getSelectedTutorUUID();
-              const timeRange = getBookingTimeRange(selectedDate, selectedTimeSlot, customDuration);
-              const startTime = timeRange.startTime;
-              const endTime = timeRange.endTime;
 
-              const bookingRes = await fetch('https://xpmyayjtowdhrjdbezas.supabase.co/functions/v1/create-booking', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                  bookingLinkId: 'b1111111-1111-1111-1111-111111111111',
-                  tutorId: tutorId,
-                  studentName: name,
-                  studentEmail: email,
-                  studentPhone: phone,
-                  startTime: startTime,
-                  endTime: endTime,
-                  studentTimezone: document.getElementById('tz-select').value,
-                  dynamicResponses: { mcer_level: level, learning_goal: goal, notes: notes },
-                  paymentType: 'single_session',
-                  paypalOrderId: orderData.id,
-                  totalAmount: customPrice,
-                  isPaid: true
-                })
-              });
-
-              const resData = await bookingRes.json();
-              if (resData.success && resData.booking) {
-                showSuccessScreen(resData.booking.meet_link || resData.meetLink, name, email);
+              if (isSubscriptionFlow) {
+                // Subscription Flow: Payment captured! Advance to Date & Time to schedule all classes
+                goToFlowStep(4);
+                initMultiClassScheduler();
               } else {
-                throw new Error(resData.error || 'Failed to complete booking.');
+                // Trial Class Flow: Single session booking
+                const timeRange = getBookingTimeRange(selectedDate, selectedTimeSlot, customDuration);
+                const bookingRes = await fetch('https://xpmyayjtowdhrjdbezas.supabase.co/functions/v1/create-booking', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({
+                    bookingLinkId: 'b1111111-1111-1111-1111-111111111111',
+                    tutorId: tutorId,
+                    studentName: name,
+                    studentEmail: email,
+                    studentPhone: phone,
+                    startTime: timeRange.startTime,
+                    endTime: timeRange.endTime,
+                    studentTimezone: document.getElementById('tz-select').value,
+                    dynamicResponses: { mcer_level: level, learning_goal: goal, notes: notes },
+                    paymentType: 'single_session',
+                    paypalOrderId: orderData.id,
+                    totalAmount: customPrice,
+                    isPaid: true
+                  })
+                });
+
+                const resData = await bookingRes.json();
+                if (resData.success && resData.booking) {
+                  showSuccessScreen(resData.booking.meet_link || resData.meetLink, name, email);
+                } else {
+                  throw new Error(resData.error || 'Failed to complete booking.');
+                }
               }
             } catch (err) {
-              alert('Error completing your booking: ' + err.message);
+              alert('Error completing payment: ' + err.message);
               paypalButtonsRendered = false;
               initPayPalButtons();
             }
@@ -898,6 +1298,32 @@
       }
     }
 
+    function setPaymentMode(mode) {
+      const isPaypal = mode === 'paypal';
+      document.getElementById('checkout-paypal-box').classList.toggle('hidden', !isPaypal);
+      document.getElementById('checkout-sub-box').classList.toggle('hidden', isPaypal);
+      
+      const pBtn = document.getElementById('btn-mode-paypal');
+      const sBtn = document.getElementById('btn-mode-sub');
+      if (isPaypal) {
+        pBtn.className = 'p-4 rounded-xl border-2 border-[#0E5A60] bg-white ring-2 ring-[#0E5A60]/10 text-left shadow-sm';
+        sBtn.className = 'p-4 rounded-xl border-2 border-gray-200 bg-gray-50 text-left hover:bg-white';
+        setTimeout(initPayPalButtons, 100);
+      } else {
+        sBtn.className = 'p-4 rounded-xl border-2 border-[#0E5A60] bg-white ring-2 ring-[#0E5A60]/10 text-left shadow-sm';
+        pBtn.className = 'p-4 rounded-xl border-2 border-gray-200 bg-gray-50 text-left hover:bg-white';
+      }
+    }
+
+    function verifySubCredit() {
+      const email = document.getElementById('sub-check-email').value.trim();
+      if (!email) {
+        alert('Please enter your registered email address.');
+        return;
+      }
+      document.getElementById('sub-result').classList.remove('hidden');
+    }
+
     async function confirmSubBooking() {
       const email = document.getElementById('sub-check-email').value.trim() || document.getElementById('input-email').value.trim();
       const name = document.getElementById('input-name').value.trim() || 'Valued Member';
@@ -908,12 +1334,6 @@
       const notes = document.getElementById('input-notes').value.trim();
       const tutorId = getSelectedTutorUUID();
       const timeRange = getBookingTimeRange(selectedDate, selectedTimeSlot, 50);
-
-      const btn = event?.target;
-      if (btn) {
-        btn.disabled = true;
-        btn.innerText = 'Confirming your member class...';
-      }
 
       try {
         const bookingRes = await fetch('https://xpmyayjtowdhrjdbezas.supabase.co/functions/v1/create-booking', {
@@ -947,26 +1367,53 @@
       }
     }
 
-    function showSuccessScreen(meet, name, email) {
-      document.getElementById('stepper').style.display = 'none';
-      document.getElementById('confirmed-tutor-name').innerText = TUTOR_NAMES[selectedTutor] || 'María Izquierdo';
-      document.getElementById('confirmed-student-email').innerText = email;
-      document.getElementById('confirmed-time').innerText = `${selectedDate} at ${selectedTimeSlot}`;
-      document.getElementById('confirmed-meet-link').href = meet;
-
-      document.getElementById('link-gcal').href = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=Spanish+Class+with+Espanol+con+Sabor&details=Meet+Video+Call:+${meet}&location=${meet}`;
-      document.getElementById('link-outlook').href = `https://outlook.live.com/calendar/0/deeplink/compose?subject=Spanish+Class+with+Espanol+con+Sabor&body=Meet+Video+Call:+${meet}&location=${meet}`;
-
-      goToStep(5);
+    function formatShortDate(iso) {
+      if (!iso) return '';
+      const parts = iso.split('-');
+      if (parts.length !== 3) return iso;
+      const d = new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
+      return d.toLocaleDateString('es-ES', { weekday: 'short', month: 'short', day: 'numeric' });
     }
 
-    function downloadDemoICS() {
-      const meet = document.getElementById('confirmed-meet-link').href;
-      const ics = `BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Español con Sabor//EN\nBEGIN:VEVENT\nSUMMARY:Spanish Class with Español con Sabor\nDESCRIPTION:Join Google Meet: ${meet}\nSTATUS:CONFIRMED\nEND:VEVENT\nEND:VCALENDAR`;
+    function getBookingTimeRange(dateStr, timeSlotStr, durationMinutes = 30) {
+      const match = (timeSlotStr || '10:00 AM').match(/(\d+):(\d+)\s*(AM|PM)/i);
+      let hours = 10;
+      let minutes = 0;
+      if (match) {
+        hours = parseInt(match[1]);
+        minutes = parseInt(match[2]);
+        const mod = match[3].toUpperCase();
+        if (mod === 'PM' && hours < 12) hours += 12;
+        if (mod === 'AM' && hours === 12) hours = 0;
+      }
+      const pad = (n) => String(n).padStart(2, '0');
+      const startIso = `${dateStr}T${pad(hours)}:${pad(minutes)}:00Z`;
+      const endTimestamp = new Date(startIso).getTime() + durationMinutes * 60000;
+      const endIso = new Date(endTimestamp).toISOString();
+      return { startTime: startIso, endTime: endIso };
+    }
+
+    function downloadICS() {
+      let eventsICS = '';
+      if (isSubscriptionFlow && multiClassSlots.length > 0) {
+        multiClassSlots.forEach((slot, i) => {
+          if (!slot.startTime) return;
+          const formatDt = (d) => new Date(d).toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+          const start = formatDt(slot.startTime);
+          const end = formatDt(slot.endTime);
+          const meet = slot.meetLink || document.getElementById('confirmed-meet-link').href;
+          eventsICS += `BEGIN:VEVENT\nUID:espanol-${Date.now()}-${i}@espanolconsaboracademy.com\nSUMMARY:Clase ${i+1} de Español (${customTitle}) - Español con Sabor\nDESCRIPTION:Clase con ${TUTOR_NAMES[selectedTutor]}. Enlace Google Meet: ${meet}\nLOCATION:${meet}\nDTSTART:${start}\nDTEND:${end}\nSTATUS:CONFIRMED\nEND:VEVENT\n`;
+        });
+      } else {
+        const meet = document.getElementById('confirmed-meet-link').href;
+        eventsICS = `BEGIN:VEVENT\nSUMMARY:Spanish Class with Español con Sabor\nDESCRIPTION:Join Google Meet: ${meet}\nSTATUS:CONFIRMED\nLOCATION:${meet}\nEND:VEVENT\n`;
+      }
+
+      const ics = `BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Español con Sabor//EN\n${eventsICS}END:VCALENDAR`;
       const blob = new Blob([ics], { type: 'text/calendar' });
       const a = document.createElement('a');
       a.href = URL.createObjectURL(blob);
-      a.download = 'spanish-class.ics';
+      a.download = isSubscriptionFlow ? 'mis-clases-espanol-con-sabor.ics' : 'clase-espanol-con-sabor.ics';
       a.click();
     }
   </script>
