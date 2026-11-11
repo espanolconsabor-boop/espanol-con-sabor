@@ -474,20 +474,20 @@
       // Handle Subscription Booking Mode (?mode=subscription)
       if (modeParam === 'subscription' || modeParam === 'member' || planParam === 'member') {
         customPrice = 0;
-        customDuration = 60;
+        customDuration = 50;
         customTitle = 'Member Class Reservation (Subscription)';
 
         const bannerTitle = document.querySelector('h1.text-2xl');
         if (bannerTitle) bannerTitle.innerText = 'Member Class Reservation — (Subscription Credit)';
 
         const bannerSub = document.querySelector('p.text-white\\/80');
-        if (bannerSub) bannerSub.innerText = '60 minutes · 1-on-1 Class · Redeem 1 credit from your active monthly membership with your native teacher.';
+        if (bannerSub) bannerSub.innerText = '50 minutes · 1-on-1 Class · Redeem 1 credit from your active monthly membership with your native teacher.';
 
         const durEl = document.getElementById('session-duration-text');
-        if (durEl) durEl.innerText = '60 minutes';
+        if (durEl) durEl.innerText = '50 minutes';
 
         const summaryTitle = document.getElementById('summary-title');
-        if (summaryTitle) summaryTitle.innerText = 'Member Class (60 Min)';
+        if (summaryTitle) summaryTitle.innerText = 'Member Class (50 Min)';
 
         const summaryPrice = document.getElementById('summary-price');
         if (summaryPrice) summaryPrice.innerText = '$0';
@@ -497,14 +497,14 @@
       // Handle Predefined Subscription Plans (?plan=andina, ?plan=cafetera, ?plan=caribena)
       else if (planParam === 'andina') {
         customPrice = 68;
-        customDuration = 45;
+        customDuration = 50;
         customTitle = 'Andina Plan (4 Classes / Month)';
         const bannerTitle = document.querySelector('h1.text-2xl');
         if (bannerTitle) bannerTitle.innerText = 'Andina Plan — $68 USD / Month (4 Classes)';
         const bannerSub = document.querySelector('p.text-white\\/80');
-        if (bannerSub) bannerSub.innerText = '4 classes/month (45 min each) · Schedule your first class and start your monthly membership.';
+        if (bannerSub) bannerSub.innerText = '4 classes/month (50 min each) · Schedule your first class and start your monthly membership.';
         const durEl = document.getElementById('session-duration-text');
-        if (durEl) durEl.innerText = '45 minutes';
+        if (durEl) durEl.innerText = '50 minutes';
         const summaryTitle = document.getElementById('summary-title');
         if (summaryTitle) summaryTitle.innerText = customTitle;
         const summaryPrice = document.getElementById('summary-price');
@@ -512,14 +512,14 @@
       }
       else if (planParam === 'cafetera') {
         customPrice = 128;
-        customDuration = 60;
+        customDuration = 50;
         customTitle = 'Cafetera Plan (8 Classes / Month)';
         const bannerTitle = document.querySelector('h1.text-2xl');
         if (bannerTitle) bannerTitle.innerText = 'Cafetera Plan — $128 USD / Month (8 Classes)';
         const bannerSub = document.querySelector('p.text-white\\/80');
-        if (bannerSub) bannerSub.innerText = '8 classes/month (60 min each) · Schedule your first class and start your monthly membership.';
+        if (bannerSub) bannerSub.innerText = '8 classes/month (50 min each) · Schedule your first class and start your monthly membership.';
         const durEl = document.getElementById('session-duration-text');
-        if (durEl) durEl.innerText = '60 minutes';
+        if (durEl) durEl.innerText = '50 minutes';
         const summaryTitle = document.getElementById('summary-title');
         if (summaryTitle) summaryTitle.innerText = customTitle;
         const summaryPrice = document.getElementById('summary-price');
@@ -527,14 +527,14 @@
       }
       else if (planParam === 'caribena') {
         customPrice = 180;
-        customDuration = 60;
+        customDuration = 50;
         customTitle = 'Caribeña Plan (14 Classes / Month)';
         const bannerTitle = document.querySelector('h1.text-2xl');
         if (bannerTitle) bannerTitle.innerText = 'Caribeña Plan — $180 USD / Month (14 Classes)';
         const bannerSub = document.querySelector('p.text-white\\/80');
-        if (bannerSub) bannerSub.innerText = '14 classes/month (60 min each) · Schedule your first class and start your monthly membership.';
+        if (bannerSub) bannerSub.innerText = '14 classes/month (50 min each) · Schedule your first class and start your monthly membership.';
         const durEl = document.getElementById('session-duration-text');
-        if (durEl) durEl.innerText = '60 minutes';
+        if (durEl) durEl.innerText = '50 minutes';
         const summaryTitle = document.getElementById('summary-title');
         if (summaryTitle) summaryTitle.innerText = customTitle;
         const summaryPrice = document.getElementById('summary-price');
@@ -907,7 +907,7 @@
       const goal = goalEl ? goalEl.value : 'Conversational';
       const notes = document.getElementById('input-notes').value.trim();
       const tutorId = getSelectedTutorUUID();
-      const timeRange = getBookingTimeRange(selectedDate, selectedTimeSlot, 60);
+      const timeRange = getBookingTimeRange(selectedDate, selectedTimeSlot, 50);
 
       const btn = event?.target;
       if (btn) {

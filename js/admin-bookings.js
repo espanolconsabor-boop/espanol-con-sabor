@@ -349,26 +349,26 @@ async function loadBookingsLinksView() {
 
     // RESERVAS PARA MIEMBROS CON SUSCRIPCIÓN (CANJEAR CRÉDITOS $0)
     {
-      title: '⭐ Reserva para Alumnos con Suscripción / Membresía ($0 USD — 60 Min)',
-      desc: 'Enlace exclusivo para estudiantes activos que ya pagan mensualidad. Canjean su clase de 60 min ingresando su correo.',
+      title: '⭐ Reserva para Alumnos con Suscripción / Membresía ($0 USD — 50 Min)',
+      desc: 'Enlace exclusivo para estudiantes activos que ya pagan mensualidad. Canjean su clase de 50 min ingresando su correo.',
       url: `${origin}/reservar.html?mode=subscription`,
       badge: 'Miembros $0',
     },
     {
       title: '⭐ Reserva Miembro con María Izquierdo',
-      desc: 'Abre el agendador de miembros (60 min / $0) preseleccionando a María.',
+      desc: 'Abre el agendador de miembros (50 min / $0) preseleccionando a María.',
       url: `${origin}/reservar.html?tutor=maria&mode=subscription`,
       badge: 'Miembro María',
     },
     {
       title: '⭐ Reserva Miembro con Daniela García',
-      desc: 'Abre el agendador de miembros (60 min / $0) preseleccionando a Daniela.',
+      desc: 'Abre el agendador de miembros (50 min / $0) preseleccionando a Daniela.',
       url: `${origin}/reservar.html?tutor=daniela&mode=subscription`,
       badge: 'Miembro Daniela',
     },
     {
       title: '⭐ Reserva Miembro con Valentina Gómez',
-      desc: 'Abre el agendador de miembros (60 min / $0) preseleccionando a Valentina.',
+      desc: 'Abre el agendador de miembros (50 min / $0) preseleccionando a Valentina.',
       url: `${origin}/reservar.html?tutor=valentina&mode=subscription`,
       badge: 'Miembro Valentina',
     },
@@ -376,19 +376,19 @@ async function loadBookingsLinksView() {
     // PLANES DE SUSCRIPCIÓN MENSUAL (PAGOS RECURRENTES)
     {
       title: '💳 Suscripción Plan Andina ($68 USD / mes)',
-      desc: '4 clases individuales al mes (45 min c/u) con tutora nativa.',
+      desc: '4 clases individuales al mes (50 min c/u) con tutora nativa.',
       url: `${origin}/reservar.html?plan=andina`,
       badge: 'Plan $68/mes',
     },
     {
       title: '💳 Suscripción Plan Cafetera ($128 USD / mes — Más Popular)',
-      desc: '8 clases individuales al mes (60 min c/u) con tutora nativa + sesiones grupales.',
+      desc: '8 clases individuales al mes (50 min c/u) con tutora nativa + sesiones grupales.',
       url: `${origin}/reservar.html?plan=cafetera`,
       badge: 'Plan $128/mes',
     },
     {
       title: '💳 Suscripción Plan Caribeña ($180 USD / mes — Inmersivo)',
-      desc: '14 clases individuales al mes (60 min c/u) con tutora nativa dedicada.',
+      desc: '14 clases individuales al mes (50 min c/u) con tutora nativa dedicada.',
       url: `${origin}/reservar.html?plan=caribena`,
       badge: 'Plan $180/mes',
     },
