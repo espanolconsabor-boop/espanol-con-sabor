@@ -106,30 +106,30 @@
       <div id="member-quick-access-bar" class="member-portal-bar">
         <div class="member-portal-bar-text">
           <span style="font-size: 1.25rem;">☕</span>
-          <span>¿Ya tienes una suscripción activa? <strong>Agenda tus clases de este mes sin pagar de nuevo.</strong></span>
+          <span>Already have an account or active membership? <strong>Sign in with your email to book this month's classes.</strong></span>
         </div>
         <button type="button" onclick="openMemberLookupModal()" class="member-portal-bar-btn">
-          Ingresar con mi correo →
+          Sign in with email →
         </button>
       </div>
 
       <!-- Active Member Banner -->
       <div id="member-active-status-bar" class="member-active-card hidden">
         <div>
-          <h4 id="member-status-title">¡Hola, Estudiante! Membresía Activa</h4>
-          <p id="member-status-sub">Tu mensualidad de PayPal está al día. Tienes 4 clases disponibles para agendar este mes.</p>
+          <h4 id="member-status-title">Hi, Student! Active Membership</h4>
+          <p id="member-status-sub">Your monthly PayPal payment is up to date ✓. You have classes ready to book this month without paying again.</p>
         </div>
-        <span class="member-active-badge">Pago al Día ✓</span>
+        <span class="member-active-badge">Active Member ✓</span>
       </div>
 
       <!-- Declined / Expired Member Banner -->
       <div id="member-declined-status-bar" class="member-declined-card hidden">
         <div>
-          <h4 id="member-declined-title">⚠️ Pago mensual no recibido o rechazado</h4>
-          <p id="member-declined-sub">Tu suscripción en PayPal no se encuentra activa o tu tarjeta fue declinada. Para agendar tus clases, por favor actualiza tu método de pago.</p>
+          <h4 id="member-declined-title">⚠️ Monthly payment not received or declined</h4>
+          <p id="member-declined-sub">Your PayPal subscription is inactive or your payment method was declined. To book your classes, please update your payment method in PayPal.</p>
         </div>
         <button type="button" onclick="goToFlowStep(3)" class="btn-primary-action bg-[#9f1239] hover:bg-[#881337] text-white text-xs font-bold px-4 py-2 rounded-xl shadow-xs">
-          Actualizar Pago en PayPal →
+          Update Payment in PayPal →
         </button>
       </div>
 
@@ -138,22 +138,22 @@
         <div class="member-modal-box space-y-4">
           <div class="flex justify-between items-center pb-2 border-b border-gray-100">
             <h3 class="font-bold text-[#0E5A60] text-base flex items-center gap-2">
-              <span>☕</span> Membresía Mensual Español con Sabor
+              <span>☕</span> Español con Sabor Monthly Membership
             </h3>
             <button type="button" onclick="closeMemberLookupModal()" class="text-gray-400 hover:text-gray-600 text-xl font-bold leading-none">&times;</button>
           </div>
           <p class="text-xs text-gray-600 leading-relaxed">
-            Ingresa el correo electrónico con el que te suscribiste a PayPal. Validaremos automáticamente tu pago para que puedas agendar tus clases <strong>sin tener que pagar otra vez</strong>.
+            Enter the email address registered with your PayPal subscription. We will instantly verify your account so you can book your classes <strong>without paying again</strong>.
           </p>
           <div class="space-y-1.5">
-            <label class="block text-xs font-bold text-gray-700">Tu Correo Registrado:</label>
-            <input type="email" id="modal-member-email" placeholder="tu-correo@ejemplo.com" class="form-input w-full px-3.5 py-2.5 text-sm border border-gray-200 rounded-xl outline-none" />
+            <label class="block text-xs font-bold text-gray-700">Your Registered Email:</label>
+            <input type="email" id="modal-member-email" placeholder="your-email@example.com" class="form-input w-full px-3.5 py-2.5 text-sm border border-gray-200 rounded-xl outline-none" />
           </div>
           <div id="modal-member-feedback" class="text-xs hidden p-3 rounded-xl"></div>
           <div class="flex justify-end gap-2 pt-2">
-            <button type="button" onclick="closeMemberLookupModal()" class="px-4 py-2 text-xs font-semibold text-gray-500 hover:bg-gray-100 rounded-xl">Cancelar</button>
+            <button type="button" onclick="closeMemberLookupModal()" class="px-4 py-2 text-xs font-semibold text-gray-500 hover:bg-gray-100 rounded-xl">Cancel</button>
             <button type="button" onclick="submitMemberLookup()" id="btn-modal-member-lookup" class="btn-primary-action bg-[#0E5A60] hover:bg-[#093c40] text-white text-xs font-bold px-5 py-2.5 rounded-xl shadow-sm flex items-center gap-1.5">
-              <span>Verificar y Agendar</span>
+              <span>Verify & Schedule</span>
               <span>→</span>
             </button>
           </div>
@@ -169,8 +169,22 @@
           </p>
         </div>
 
+        <!-- Step 1 Top Action Bar (Fast-Track Continue & Teacher Selection Pill) -->
+        <div class="step-1-top-bar">
+          <div class="step-1-top-pill">
+            <span style="font-size: 1.1rem;">👩‍🏫</span>
+            <span>Teacher:</span>
+            <strong id="selected-teacher-pill" style="font-weight: 800; color: #0E5A60;">✨ Any Available Teacher (Fastest)</strong>
+          </div>
+          <button type="button" onclick="handleTeacherContinue()" class="btn-top-continue" id="btn-top-continue">
+            <span>Continue to Schedule</span>
+            <span>→</span>
+          </button>
+        </div>
+
         <!-- Any Teacher Option -->
-        <div onclick="selectTutor('any', this)" id="tutor-card-any" class="any-tutor-card tutor-card selected p-4 rounded-2xl border-2 border-[#0E5A60] bg-[#FFF3D6]/40 cursor-pointer shadow-sm flex items-center justify-between transition ring-2 ring-[#0E5A60]/20">
+        <div onclick="selectTutor('any', this)" id="tutor-card-any" class="any-tutor-card tutor-card selected relative p-4 rounded-2xl border-2 cursor-pointer shadow-sm flex items-center justify-between transition">
+          <span class="tutor-selected-badge">✓ Selected</span>
           <div class="flex items-center space-x-4">
             <div class="any-icon-wrap w-12 h-12 rounded-full bg-gradient-to-tr from-[#0E5A60] to-[#2A9D8F] flex items-center justify-center text-white text-xl font-bold shadow-inner">
               ✨
@@ -186,7 +200,8 @@
         <!-- Tutor Grid -->
         <div class="tutor-grid grid grid-cols-1 md:grid-cols-3 gap-4">
           <!-- Tutor 1: Maria -->
-          <div onclick="selectTutor('maria', this)" id="tutor-card-maria" class="tutor-card p-5 rounded-2xl border-2 border-gray-200 bg-white hover:border-[#2A9D8F] cursor-pointer transition flex flex-col justify-between">
+          <div onclick="selectTutor('maria', this)" id="tutor-card-maria" class="tutor-card relative p-5 rounded-2xl border-2 cursor-pointer transition flex flex-col justify-between">
+            <span class="tutor-selected-badge">✓ Selected</span>
             <div>
               <div class="tutor-photo-wrap relative mb-3 flex items-center justify-center">
                 <img id="tutor-img-maria" src="https://xpmyayjtowdhrjdbezas.supabase.co/storage/v1/object/public/photos/teachers/1792628508575_2024-12-26%2017.46.06.jpg" alt="María Izquierdo" class="tutor-photo w-24 h-24 rounded-full object-cover border-2 border-[#0E5A60]/20 shadow-sm">
@@ -199,7 +214,8 @@
           </div>
 
           <!-- Tutor 2: Daniela -->
-          <div onclick="selectTutor('daniela', this)" id="tutor-card-daniela" class="tutor-card p-5 rounded-2xl border-2 border-gray-200 bg-white hover:border-[#2A9D8F] cursor-pointer transition flex flex-col justify-between">
+          <div onclick="selectTutor('daniela', this)" id="tutor-card-daniela" class="tutor-card relative p-5 rounded-2xl border-2 cursor-pointer transition flex flex-col justify-between">
+            <span class="tutor-selected-badge">✓ Selected</span>
             <div>
               <div class="tutor-photo-wrap relative mb-3 flex items-center justify-center">
                 <img id="tutor-img-daniela" src="https://xpmyayjtowdhrjdbezas.supabase.co/storage/v1/object/public/photos/teachers/1792628749919_PHOTO-2026-09-19-18-15-35.jpg" alt="Daniela García" class="tutor-photo w-24 h-24 rounded-full object-cover border-2 border-[#0E5A60]/20 shadow-sm">
@@ -212,7 +228,8 @@
           </div>
 
           <!-- Tutor 3: Valentina -->
-          <div onclick="selectTutor('valentina', this)" id="tutor-card-valentina" class="tutor-card p-5 rounded-2xl border-2 border-gray-200 bg-white hover:border-[#2A9D8F] cursor-pointer transition flex flex-col justify-between">
+          <div onclick="selectTutor('valentina', this)" id="tutor-card-valentina" class="tutor-card relative p-5 rounded-2xl border-2 cursor-pointer transition flex flex-col justify-between">
+            <span class="tutor-selected-badge">✓ Selected</span>
             <div>
               <div class="tutor-photo-wrap relative mb-3 flex items-center justify-center">
                 <img id="tutor-img-valentina" src="https://xpmyayjtowdhrjdbezas.supabase.co/storage/v1/object/public/photos/teachers/1792629035343_PHOTO-2026-09-29-11-24-29%202.jpg" alt="Valentina Gómez" class="tutor-photo w-24 h-24 rounded-full object-cover border-2 border-[#0E5A60]/20 shadow-sm">
@@ -242,22 +259,22 @@
             <div class="flex items-center space-x-3">
               <span class="text-2xl">🎉</span>
               <div>
-                <h4 class="font-bold text-emerald-900 text-sm" id="sub-paid-notice-title">¡Suscripción Aprobada con Éxito!</h4>
-                <p class="text-xs text-emerald-700" id="sub-paid-notice-sub">Tu pago ha sido registrado. Ahora selecciona el día y la hora para tus clases:</p>
+                <h4 class="font-bold text-emerald-900 text-sm" id="sub-paid-notice-title">Subscription Approved & Active!</h4>
+                <p class="text-xs text-emerald-700" id="sub-paid-notice-sub">Your payment has been recorded. Now choose the date and time for each of your classes below:</p>
               </div>
             </div>
-            <span class="bg-emerald-200 text-emerald-800 text-xs font-bold px-3 py-1 rounded-full whitespace-nowrap self-start sm:self-center">✓ Pago Confirmado</span>
+            <span class="bg-emerald-200 text-emerald-800 text-xs font-bold px-3 py-1 rounded-full whitespace-nowrap self-start sm:self-center">✓ Payment Confirmed</span>
           </div>
 
           <div class="space-y-2">
             <div class="flex items-center justify-between">
               <label class="block text-xs font-bold uppercase tracking-wider text-[#0E5A60]" id="multi-class-header-label">
-                Tus Clases a Agendar (<span id="scheduled-count" class="text-[#2A9D8F]">0</span> de <span id="total-count">4</span> Agendadas)
+                Your Classes to Schedule (<span id="scheduled-count" class="text-[#2A9D8F]">0</span> of <span id="total-count">4</span> Scheduled)
               </label>
-              <span class="text-xs text-gray-500 hidden sm:inline">Haz clic en cada clase para asignarle su horario</span>
+              <span class="text-xs text-gray-500 hidden sm:inline">Click each card to select its day and time</span>
             </div>
-            <!-- Class Tabs Container -->
-            <div id="class-tabs-container" class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+            <!-- Class Tabs Container (Clean Modern Grid) -->
+            <div id="class-tabs-container" class="class-tabs-grid">
               <!-- Dynamically populated via JS -->
             </div>
           </div>
@@ -685,25 +702,25 @@
       if (!email || !email.includes('@')) {
         if (feedback) {
           feedback.className = 'text-xs p-3 rounded-xl bg-rose-50 text-rose-700 border border-rose-200 block';
-          feedback.innerText = 'Por favor ingresa un correo electrónico válido.';
+          feedback.innerText = 'Please enter a valid email address.';
         }
         return;
       }
 
       if (btn) {
         btn.disabled = true;
-        btn.innerHTML = `<div class="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div> <span>Verificando...</span>`;
+        btn.innerHTML = `<div class="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div> <span>Verifying...</span>`;
       }
       if (feedback) {
         feedback.className = 'text-xs p-3 rounded-xl bg-blue-50 text-blue-700 border border-blue-200 block';
-        feedback.innerText = 'Consultando estado de suscripción en Supabase y PayPal...';
+        feedback.innerText = 'Checking subscription status in Supabase and PayPal...';
       }
 
       const res = await verifyMemberEmail(email);
 
       if (btn) {
         btn.disabled = false;
-        btn.innerHTML = `<span>Verificar y Agendar</span> <span>→</span>`;
+        btn.innerHTML = `<span>Verify & Schedule</span> <span>→</span>`;
       }
 
       if (res.success) {
@@ -711,7 +728,7 @@
       } else if (res.status === 'past_due' || res.status === 'cancelled' || res.status === 'declined') {
         if (feedback) {
           feedback.className = 'text-xs p-3 rounded-xl bg-rose-50 text-rose-800 border border-rose-200 block';
-          feedback.innerHTML = `<strong>⚠️ Pago mensual no recibido / Declinado:</strong> Tu suscripción en PayPal aparece como vencida o sin fondos. Puedes renovarla a continuación.`;
+          feedback.innerHTML = `<strong>⚠️ Monthly payment not received / declined:</strong> Your PayPal subscription appears inactive or past due. You can reactivate it below.`;
         }
         setTimeout(() => {
           closeMemberLookupModal();
@@ -720,7 +737,7 @@
       } else {
         if (feedback) {
           feedback.className = 'text-xs p-3 rounded-xl bg-amber-50 text-amber-800 border border-amber-200 block';
-          feedback.innerText = 'No encontramos una suscripción activa con este correo. Puedes elegir uno de nuestros planes a continuación.';
+          feedback.innerText = "We couldn't find an active membership with this email. You can subscribe to one of our plans below.";
         }
       }
     }
@@ -731,7 +748,7 @@
       activeSubscription = sub;
       activeSubscriptionId = sub.subscription_id || sub.id;
       totalPlanClasses = sub.credits_remaining || sub.credits_per_cycle || 4;
-      customTitle = sub.plan_name || 'Membresía Mensual Español con Sabor';
+      customTitle = sub.plan_name || 'Español con Sabor Monthly Membership';
 
       // Auto fill student data
       const nameInp = document.getElementById('input-name');
@@ -759,24 +776,26 @@
       if (activeBar) {
         activeBar.classList.remove('hidden');
         const titleEl = document.getElementById('member-status-title');
-        if (titleEl) titleEl.innerText = `¡Hola, ${sub.student_name || 'Estudiante'}! Membresía Activa`;
+        if (titleEl) titleEl.innerText = `Hi, ${sub.student_name || 'Student'}! Active Membership`;
         const subEl = document.getElementById('member-status-sub');
-        if (subEl) subEl.innerText = `Tu mensualidad de PayPal está al día ✓. Tienes ${totalPlanClasses} clases disponibles para agendar este mes. Selecciona tu tutora y horarios.`;
+        if (subEl) subEl.innerText = `Your monthly PayPal subscription is active ✓. You have ${totalPlanClasses} classes ready to schedule this month without paying again.`;
       }
 
       // Update Stepper Bar for Members
-      document.getElementById('stepper-label-1').innerText = 'Tutora';
-      document.getElementById('stepper-label-2').innerText = `Agendar (${totalPlanClasses} Clases)`;
-      document.getElementById('stepper-label-3').innerText = 'Confirmación ✓';
-      document.getElementById('stepper-label-4').innerText = 'Al Día';
+      document.getElementById('stepper-label-1').innerText = 'Teacher';
+      document.getElementById('stepper-label-2').innerText = `Schedule (${totalPlanClasses} Classes)`;
+      document.getElementById('stepper-label-3').innerText = 'Confirmation ✓';
+      document.getElementById('stepper-label-4').innerText = 'Active';
 
       // Update Banner Text
       document.getElementById('banner-title').innerText = `${customTitle}`;
-      document.getElementById('banner-sub').innerText = `Membresía activa y pagada. Tienes ${totalPlanClasses} clases de 50 minutos para agendar sin costo adicional.`;
+      document.getElementById('banner-sub').innerText = `Active monthly membership. You have ${totalPlanClasses} classes (50 min each) ready to schedule with no additional payment.`;
 
-      // Update Step 1 Button
+      // Update Step 1 Continue Buttons (both top and bottom!)
       const btnStep1 = document.getElementById('btn-step-1-text');
-      if (btnStep1) btnStep1.innerText = `Continuar a Agendar (${totalPlanClasses} Clases) →`;
+      if (btnStep1) btnStep1.innerText = `Continue to Schedule (${totalPlanClasses} Classes) →`;
+      const btnTop = document.getElementById('btn-top-continue');
+      if (btnTop) btnTop.innerHTML = `<span>Continue to Schedule (${totalPlanClasses} Classes)</span> <span>→</span>`;
     }
 
     function applyDeclinedMembership(sub, email) {
@@ -789,9 +808,9 @@
       if (declinedBar) {
         declinedBar.classList.remove('hidden');
         const titleEl = document.getElementById('member-declined-title');
-        if (titleEl) titleEl.innerText = '⚠️ Pago mensual de PayPal no recibido o declinado';
+        if (titleEl) titleEl.innerText = '⚠️ Monthly PayPal payment not received or declined';
         const subEl = document.getElementById('member-declined-sub');
-        if (subEl) subEl.innerText = `No pudimos verificar un pago activo para ${email}. Tu suscripción aparece como vencida o tu tarjeta fue declinada por PayPal. Para continuar, por favor actualiza tu pago a continuación.`;
+        if (subEl) subEl.innerText = `We couldn't verify an active payment for ${email}. Your subscription appears past due or your payment method was declined by PayPal. To continue, please update your payment below.`;
       }
     }
 
@@ -1068,11 +1087,25 @@
     function selectTutor(tutorId, el) {
       selectedTutor = tutorId;
       document.querySelectorAll('.tutor-card').forEach(c => {
-        c.classList.remove('border-[#0E5A60]', 'ring-2', 'ring-[#0E5A60]/20', 'bg-[#FFF3D6]/40');
-        c.classList.add('border-gray-200', 'bg-white');
+        c.classList.remove('selected');
       });
-      el.classList.remove('border-gray-200', 'bg-white');
-      el.classList.add('border-[#0E5A60]', 'ring-2', 'ring-[#0E5A60]/20', 'bg-[#FFF3D6]/40');
+
+      const target = el || document.getElementById(`tutor-card-${tutorId}`);
+      if (target) {
+        target.classList.add('selected');
+      }
+
+      // Update Top Teacher Pill
+      const pill = document.getElementById('selected-teacher-pill');
+      if (pill) {
+        const names = {
+          any: '✨ Any Available Teacher (Fastest)',
+          maria: '👩‍🏫 María Izquierdo',
+          daniela: '👩‍🏫 Daniela García',
+          valentina: '👩‍🏫 Valentina Gómez'
+        };
+        pill.innerText = names[tutorId] || '✨ Any Available Teacher';
+      }
     }
 
     function getSelectedTutorUUID() {
@@ -1310,7 +1343,7 @@
       // Check if slot already assigned to another class
       const existing = multiClassSlots.find((s, idx) => idx !== activeClassIndex && s.date === dateStr && s.time === slotStr);
       if (existing) {
-        alert(`⚠️ Horario ya seleccionado:\n\nYa asignaste este mismo horario (${formatShortDate(dateStr)} a las ${slotStr}) para la Clase ${existing.classNumber}.\n\nPor favor selecciona un día u hora diferente para tu Clase ${activeClassIndex + 1}.`);
+        alert(`⚠️ Time slot already selected:\n\nYou already assigned this time (${formatShortDate(dateStr)} at ${slotStr}) to Class ${existing.classNumber}.\n\nPlease choose a different day or time for Class ${activeClassIndex + 1}.`);
         return;
       }
 
@@ -1346,10 +1379,10 @@
       if (durText) durText.innerText = '50 minutes';
 
       const titleEl = document.getElementById('schedule-step-title');
-      if (titleEl) titleEl.innerText = `Agenda tus ${totalPlanClasses} Clases de 50 Min`;
+      if (titleEl) titleEl.innerText = isMemberFlow ? `Schedule Your ${totalPlanClasses} Monthly Classes` : `Schedule Your ${totalPlanClasses} Classes (50 min each)`;
 
       const subEl = document.getElementById('schedule-step-sub');
-      if (subEl) subEl.innerText = `Selecciona cada clase en las tarjetas arriba y escoge su fecha y hora en el calendario.`;
+      if (subEl) subEl.innerText = `Click on each class card above and choose its date and time in the calendar below.`;
 
       document.getElementById('total-count').innerText = totalPlanClasses;
       renderClassTabs();
@@ -1372,26 +1405,26 @@
         tab.type = 'button';
         tab.onclick = () => selectActiveClass(idx);
 
-        if (isActive) {
-          tab.className = 'p-3 rounded-2xl border-2 border-[#0E5A60] bg-[#FFF3D6] ring-2 ring-[#0E5A60]/20 text-left transition shadow-sm';
-        } else if (isScheduled) {
-          tab.className = 'p-3 rounded-2xl border-2 border-emerald-400 bg-emerald-50 text-left transition hover:border-emerald-600';
-        } else {
-          tab.className = 'p-3 rounded-2xl border border-gray-200 bg-white text-left transition hover:border-[#2A9D8F]';
-        }
+        let cardClass = 'class-tab-card';
+        if (isActive) cardClass += ' active';
+        else if (isScheduled) cardClass += ' scheduled';
+        tab.className = cardClass;
+
+        const pillStatusClass = isScheduled ? 'scheduled' : isActive ? 'active' : 'pending';
+        const pillText = isScheduled ? '✓ Scheduled' : isActive ? '✍️ Active' : '⏳ Pending';
+
+        const metaText = isScheduled 
+          ? `${slot.dateFormatted} · ${slot.time}` 
+          : isActive 
+            ? 'Pick time below 👇' 
+            : 'Unscheduled';
 
         tab.innerHTML = `
-          <div class="flex items-center justify-between mb-1">
-            <span class="font-black text-xs ${isActive ? 'text-[#0E5A60]' : isScheduled ? 'text-emerald-800' : 'text-gray-700'}">
-              Clase ${idx + 1}
-            </span>
-            <span class="text-[10px] font-bold px-1.5 py-0.5 rounded ${isScheduled ? 'bg-emerald-200 text-emerald-800' : isActive ? 'bg-[#F2B705] text-[#0E5A60]' : 'bg-gray-100 text-gray-400'}">
-              ${isScheduled ? '✓ Lista' : isActive ? '✍️ Activa' : '⏳ Pendiente'}
-            </span>
+          <div class="class-tab-header">
+            <span class="class-tab-title">Class ${idx + 1}</span>
+            <span class="class-tab-pill ${pillStatusClass}">${pillText}</span>
           </div>
-          <p class="text-[11px] font-medium truncate ${isScheduled ? 'text-emerald-900 font-bold' : isActive ? 'text-[#0E5A60]' : 'text-gray-400'}">
-            ${isScheduled ? `${slot.dateFormatted} · ${slot.time}` : isActive ? 'Selecciona horario 👇' : 'Sin fecha'}
-          </p>
+          <p class="class-tab-meta">${metaText}</p>
         `;
 
         container.appendChild(tab);
@@ -1435,20 +1468,20 @@
         list.innerHTML = multiClassSlots.map((s, idx) => `
           <div class="flex justify-between items-center p-2.5 rounded-xl border ${s.date ? 'bg-white border-emerald-200' : 'bg-gray-50 border-gray-200 opacity-60'}">
             <div class="flex items-center space-x-2">
-              <span class="font-bold ${s.date ? 'text-emerald-700' : 'text-gray-400'}">Clase ${idx + 1}:</span>
+              <span class="font-bold ${s.date ? 'text-emerald-700' : 'text-gray-400'}">Class ${idx + 1}:</span>
               <span class="${s.date ? 'font-semibold text-gray-800' : 'text-gray-400 italic'}">
-                ${s.date ? `${s.dateFormatted} a las ${s.time} (50 min)` : 'Pendiente por seleccionar'}
+                ${s.date ? `${s.dateFormatted} at ${s.time} (50 min)` : 'Pending selection'}
               </span>
             </div>
-            <button onclick="selectActiveClass(${idx})" class="text-[11px] text-[#0E5A60] hover:underline font-bold">
-              ${s.date ? 'Cambiar ✏️' : 'Elegir 🗓️'}
+            <button type="button" onclick="selectActiveClass(${idx})" class="text-[11px] text-[#0E5A60] hover:underline font-bold">
+              ${s.date ? 'Change ✏️' : 'Choose 🗓️'}
             </button>
           </div>
         `).join('');
 
         const badge = document.getElementById('multi-class-summary-badge');
         if (badge) {
-          badge.innerText = allScheduled ? `¡Todas las ${totalPlanClasses} Listas! ✓` : `${scheduledCount} de ${totalPlanClasses} Listas`;
+          badge.innerText = allScheduled ? `All ${totalPlanClasses} Classes Ready! ✓` : `${scheduledCount} of ${totalPlanClasses} Scheduled`;
           badge.className = allScheduled ? 'text-xs font-bold bg-[#2A9D8F] text-white px-3 py-1 rounded-full' : 'text-xs font-bold bg-[#F2B705] text-[#0E5A60] px-3 py-1 rounded-full';
         }
 
@@ -1458,7 +1491,7 @@
           confirmBtn.className = allScheduled ?
             'w-full py-3.5 px-6 bg-[#0E5A60] hover:bg-[#093c40] text-white font-extrabold rounded-xl shadow-lg transition text-base flex items-center justify-center space-x-2 cursor-pointer' :
             'w-full py-3.5 px-6 bg-gray-300 text-gray-500 font-extrabold rounded-xl shadow-none transition text-base flex items-center justify-center space-x-2 cursor-not-allowed';
-          confirmBtn.innerText = allScheduled ? `Confirmar y Guardar Mis ${totalPlanClasses} Clases de 50 Min ✓` : `Selecciona los horarios restantes (${scheduledCount}/${totalPlanClasses})`;
+          confirmBtn.innerText = allScheduled ? `Confirm & Book My ${totalPlanClasses} Classes (50 min each) ✓` : `Select remaining class times (${scheduledCount}/${totalPlanClasses})`;
         }
       } else {
         box.classList.add('hidden');
@@ -1468,14 +1501,14 @@
     async function confirmAllSubscriptionClasses() {
       const allScheduled = multiClassSlots.every(s => !!s.date);
       if (!allScheduled) {
-        alert('Por favor selecciona fecha y hora para todas tus clases antes de confirmar.');
+        alert('Please select a date and time for all your classes before confirming.');
         return;
       }
 
       const btn = document.getElementById('btn-confirm-all-classes');
       if (btn) {
         btn.disabled = true;
-        btn.innerHTML = `<div class="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div> <span>Iniciando confirmación de tus clases...</span>`;
+        btn.innerHTML = `<div class="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div> <span>Confirming your ${totalPlanClasses} classes...</span>`;
       }
 
       const name = document.getElementById('input-name').value.trim() || (activeSubscription && activeSubscription.student_name) || 'Estudiante Sabor';
@@ -1778,7 +1811,7 @@
     async function verifySubCredit() {
       const email = document.getElementById('sub-check-email').value.trim();
       if (!email || !email.includes('@')) {
-        alert('Por favor ingresa un correo electrónico registrado.');
+        alert('Please enter a valid registered email address.');
         return;
       }
       const res = await verifyMemberEmail(email);
@@ -1787,9 +1820,9 @@
         const inpEmail = document.getElementById('input-email');
         if (inpEmail) inpEmail.value = email;
       } else if (res && (res.status === 'past_due' || res.status === 'cancelled')) {
-        alert('Tu suscripción en PayPal aparece como vencida o tu pago fue declinado. Por favor reactiva tu suscripción.');
+        alert('Your PayPal subscription appears past due or your payment was declined. Please reactivate your subscription.');
       } else {
-        alert('No encontramos una suscripción activa con este correo.');
+        alert("We couldn't find an active subscription with this email.");
       }
     }
 

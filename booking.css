@@ -199,27 +199,30 @@ body {
 .any-tutor-card {
   padding: 16px 18px;
   border-radius: 20px;
-  border: 2px solid #0E5A60;
-  background: rgba(255, 243, 214, 0.45);
+  border: 2px solid #e2e8f0;
+  background: #FFFFFF;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 14px;
-  box-shadow: 0 4px 12px rgba(14, 90, 96, 0.06);
+  box-shadow: 0 4px 12px rgba(14, 90, 96, 0.04);
   transition: all 0.25s ease;
   margin-bottom: 18px;
+  position: relative;
 }
 
 .any-tutor-card:hover {
+  border-color: #2A9D8F;
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(14, 90, 96, 0.12);
+  box-shadow: 0 8px 20px rgba(14, 90, 96, 0.1);
 }
 
 .any-tutor-card.selected {
-  border-color: #0E5A60 !important;
-  background: #FFFDF5 !important;
-  box-shadow: 0 0 0 3px rgba(14, 90, 96, 0.18) !important;
+  border: 3px solid #0E5A60 !important;
+  background: linear-gradient(180deg, #FFFFFF 0%, #E6F4F5 100%) !important;
+  box-shadow: 0 0 0 3px rgba(14, 90, 96, 0.25), 0 10px 24px rgba(14, 90, 96, 0.15) !important;
+  transform: translateY(-2px);
 }
 
 .any-icon-wrap {
@@ -288,9 +291,53 @@ body {
 }
 
 .tutor-card.selected {
+  border: 3px solid #0E5A60 !important;
+  background: linear-gradient(180deg, #FFFFFF 0%, #E6F4F5 100%) !important;
+  box-shadow: 0 0 0 3px rgba(14, 90, 96, 0.25), 0 12px 28px rgba(14, 90, 96, 0.22) !important;
+  transform: translateY(-4px);
+}
+
+.tutor-card.selected .tutor-photo {
   border-color: #0E5A60 !important;
-  background: #FFFDF5 !important;
-  box-shadow: 0 8px 24px rgba(14, 90, 96, 0.18) !important;
+  box-shadow: 0 0 0 4px rgba(14, 90, 96, 0.35) !important;
+}
+
+.tutor-card.selected .tutor-name {
+  color: #0E5A60 !important;
+  font-weight: 800 !important;
+}
+
+.tutor-selected-badge {
+  display: none;
+  background: #0E5A60;
+  color: #FFFFFF;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 5px 12px;
+  border-radius: 50px;
+  box-shadow: 0 3px 8px rgba(14, 90, 96, 0.35);
+  align-items: center;
+  gap: 4px;
+  z-index: 2;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.tutor-grid .tutor-card .tutor-selected-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+}
+
+.any-tutor-card .tutor-selected-badge {
+  position: static;
+}
+
+.any-tutor-card.selected .badge-recommended {
+  display: none !important;
+}
+
+.tutor-card.selected .tutor-selected-badge {
+  display: inline-flex !important;
 }
 
 .tutor-photo-wrap {
@@ -1018,4 +1065,194 @@ body {
     padding: 12px !important;
   }
 }
+
+/* ===================================================
+   STEP 1 TOP BAR (Fast Continue & Teacher Display)
+   =================================================== */
+.step-1-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(14, 90, 96, 0.05);
+  border: 1.5px solid rgba(14, 90, 96, 0.15);
+  border-radius: 18px;
+  padding: 12px 18px;
+  gap: 12px;
+  margin-top: 14px;
+  margin-bottom: 8px;
+}
+
+.step-1-top-pill {
+  font-size: 13px;
+  color: #0E5A60;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  line-height: 1.3;
+}
+
+.btn-top-continue {
+  background: #0E5A60;
+  color: #FFFFFF;
+  font-size: 12px;
+  font-weight: 800;
+  padding: 10px 20px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(14, 90, 96, 0.2);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-top-continue:hover {
+  background: #093c40;
+  transform: translateY(-1px);
+}
+
+@media (max-width: 640px) {
+  .step-1-top-bar {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    text-align: center;
+  }
+  .step-1-top-pill {
+    justify-content: center;
+  }
+  .btn-top-continue {
+    width: 100% !important;
+    justify-content: center;
+    padding: 12px !important;
+  }
+}
+
+/* ===================================================
+   MULTI-CLASS SCHEDULER TABS (Modern Cards)
+   =================================================== */
+.class-tabs-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.class-tab-card {
+  position: relative;
+  background: #FFFFFF;
+  border: 2px solid #E2E8F0;
+  border-radius: 18px;
+  padding: 14px 12px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 82px;
+  outline: none;
+  font-family: inherit;
+  width: 100%;
+}
+
+.class-tab-card:hover {
+  border-color: #2A9D8F;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(14, 90, 96, 0.08);
+}
+
+/* Active Class (currently selected to pick date/time) */
+.class-tab-card.active {
+  border: 2.5px solid #0E5A60 !important;
+  background: linear-gradient(180deg, #FFFFFF 0%, #FFF9EC 100%) !important;
+  box-shadow: 0 8px 22px rgba(14, 90, 96, 0.18) !important;
+  transform: translateY(-2px);
+}
+
+/* Scheduled Class (has assigned date & time) */
+.class-tab-card.scheduled {
+  border: 2px solid #10B981 !important;
+  background: linear-gradient(180deg, #FFFFFF 0%, #ECFDF5 100%) !important;
+}
+
+.class-tab-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  gap: 6px;
+}
+
+.class-tab-title {
+  font-size: 13px;
+  font-weight: 800;
+  color: #1E293B;
+  margin: 0;
+}
+
+.class-tab-card.active .class-tab-title {
+  color: #0E5A60;
+}
+
+.class-tab-card.scheduled .class-tab-title {
+  color: #065F46;
+}
+
+/* Status Pill */
+.class-tab-pill {
+  font-size: 10px;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 50px;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.class-tab-pill.active {
+  background: #F2B705;
+  color: #0E5A60;
+}
+
+.class-tab-pill.scheduled {
+  background: #D1FAE5;
+  color: #047857;
+}
+
+.class-tab-pill.pending {
+  background: #F1F5F9;
+  color: #64748B;
+}
+
+.class-tab-meta {
+  font-size: 11px;
+  font-weight: 600;
+  color: #64748B;
+  margin: 0;
+  line-height: 1.35;
+}
+
+.class-tab-card.active .class-tab-meta {
+  color: #0E5A60;
+  font-weight: 700;
+}
+
+.class-tab-card.scheduled .class-tab-meta {
+  color: #047857;
+  font-weight: 700;
+}
+
+@media (max-width: 768px) {
+  .class-tabs-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px !important;
+  }
+  .class-tab-card {
+    padding: 10px 10px !important;
+    min-height: 72px !important;
+  }
+}
+
 
