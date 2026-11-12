@@ -16,8 +16,9 @@ async function renderBookingsManager(container) {
     </div>
 
     <!-- Sub-tabs -->
-    <div style="display: flex; gap: 8px; margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 10px;">
+    <div style="display: flex; gap: 8px; margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 10px; overflow-x: auto;">
       <button onclick="switchBookingSubtab('calendar')" id="btn-subtab-calendar" class="admin-tab active" style="font-size: 13px;">🗓️ Reservas y Calendario</button>
+      <button onclick="switchBookingSubtab('subscriptions')" id="btn-subtab-subs" class="admin-tab" style="font-size: 13px;">💳 Suscripciones Mensuales</button>
       <button onclick="switchBookingSubtab('tutors')" id="btn-subtab-tutors" class="admin-tab" style="font-size: 13px;">👩‍🏫 Tutoras Oficiales</button>
       <button onclick="switchBookingSubtab('links')" id="btn-subtab-links" class="admin-tab" style="font-size: 13px;">🔗 Enlaces de Reserva</button>
     </div>
@@ -108,16 +109,105 @@ async function renderBookingsManager(container) {
 
 async function switchBookingSubtab(subtab) {
   const calBtn = document.getElementById('btn-subtab-calendar');
+  const subsBtn = document.getElementById('btn-subtab-subs');
   const tutBtn = document.getElementById('btn-subtab-tutors');
   const lnkBtn = document.getElementById('btn-subtab-links');
 
   if (calBtn) calBtn.classList.toggle('active', subtab === 'calendar');
+  if (subsBtn) subsBtn.classList.toggle('active', subtab === 'subscriptions');
   if (tutBtn) tutBtn.classList.toggle('active', subtab === 'tutors');
   if (lnkBtn) lnkBtn.classList.toggle('active', subtab === 'links');
 
   if (subtab === 'calendar') await loadBookingsCalendarView();
+  if (subtab === 'subscriptions') await loadBookingsSubscriptionsView();
   if (subtab === 'tutors') await loadBookingsTutorsView();
   if (subtab === 'links') await loadBookingsLinksView();
+}
+
+async function loadBookingsSubscriptionsView() {
+  const container = document.getElementById('booking-subtab-content');
+  if (!container) return;
+
+  container.innerHTML = `<p style="color: #888; text-align: center; padding: 30px;">Cargando suscripciones desde Supabase...</p>`;
+
+  try {
+    const { data: subs, error } = await supabaseClient
+      .from('subscriptions')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (error) throw error;
+
+    if (!subs || subs.length === 0) {
+      container.innerHTML = `
+        <div style="background: white; border: 1px solid #eee; border-radius: 12px; padding: 40px; text-align: center;">
+          <div style="font-size: 40px; margin-bottom: 12px;">💳</div>
+          <h3 style="color: #0E5A60; margin: 0 0 8px;">Aún no hay suscripciones registradas</h3>
+          <p style="color: #666; font-size: 13px; max-width: 520px; margin: 0 auto; line-height: 1.5;">
+            Cuando los estudiantes adquieran el Plan Andina ($68), Cafetera ($128) o Caribeña ($180) vía PayPal, aparecerán aquí automáticamente con sus créditos disponibles y fechas de renovación.
+          </p>
+        </div>
+      `;
+      return;
+    }
+
+    let html = `
+      <div style="margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center;">
+        <span style="font-weight: 700; color: #0E5A60; font-size: 14px;">Total Suscripciones: ${subs.length}</span>
+        <button onclick="loadBookingsSubscriptionsView()" style="background: white; border: 1px solid #ccc; border-radius: 8px; padding: 6px 12px; font-size: 12px; cursor: pointer; font-weight: 600;">🔄 Actualizar</button>
+      </div>
+      <div style="background: white; border: 1px solid #eee; border-radius: 12px; overflow-x: auto;">
+        <table style="width: 100%; border-collapse: collapse; font-size: 13px; text-align: left;">
+          <thead>
+            <tr style="background: #f8fafc; border-bottom: 1px solid #eee; color: #64748b;">
+              <th style="padding: 12px 16px;">Estudiante</th>
+              <th style="padding: 12px 16px;">Plan</th>
+              <th style="padding: 12px 16px;">Créditos Ciclo</th>
+              <th style="padding: 12px 16px;">Próxima Renovación</th>
+              <th style="padding: 12px 16px;">Estado</th>
+              <th style="padding: 12px 16px;">ID PayPal</th>
+            </tr>
+          </thead>
+          <tbody>
+    `;
+
+    subs.forEach(s => {
+      const isActive = s.status === 'active' && new Date(s.current_period_end) >= new Date();
+      const statusBadge = isActive ?
+        `<span style="background: #dcfce7; color: #15803d; padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 700;">🟢 Activa</span>` :
+        `<span style="background: #fee2e2; color: #b91c1c; padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 700;">🔴 ${s.status}</span>`;
+
+      const renewDate = s.current_period_end ? new Date(s.current_period_end).toLocaleDateString('es-ES', { day: 'numeric', month: 'short', year: 'numeric' }) : 'N/A';
+
+      html += `
+        <tr style="border-bottom: 1px solid #f1f5f9;">
+          <td style="padding: 12px 16px;">
+            <strong style="color: #0E5A60;">${s.student_name || 'Estudiante'}</strong><br/>
+            <span style="color: #64748b; font-size: 11px;">${s.student_email}</span>
+          </td>
+          <td style="padding: 12px 16px; font-weight: 600; color: #0E5A60;">${s.plan_name || 'Plan Mensual'}</td>
+          <td style="padding: 12px 16px;">
+            <span style="font-weight: 800; color: #0E5A60;">${s.credits_remaining}</span> / ${s.credits_per_cycle} disponibles
+          </td>
+          <td style="padding: 12px 16px; color: #334155;">${renewDate}</td>
+          <td style="padding: 12px 16px;">${statusBadge}</td>
+          <td style="padding: 12px 16px;">
+            <code style="background: #f1f5f9; padding: 3px 6px; border-radius: 4px; font-size: 11px; color: #475569;">${s.paypal_subscription_id}</code>
+          </td>
+        </tr>
+      `;
+    });
+
+    html += `
+          </tbody>
+        </table>
+      </div>
+    `;
+
+    container.innerHTML = html;
+  } catch (err) {
+    container.innerHTML = `<p style="color: red; text-align: center; padding: 20px;">Error al cargar suscripciones: ${err.message}</p>`;
+  }
 }
 
 async function loadBookingsCalendarView() {
