@@ -496,6 +496,59 @@
       </div>
     </section>
 
+    <!-- Interactive Level Quiz Section -->
+    <section class="quiz-section" id="quiz-section">
+      <div class="container">
+        <div class="quiz-card" id="quiz-card">
+          
+          <!-- Quiz Question View -->
+          <div id="quiz-question-view">
+            <div class="quiz-header">
+              <span class="section-tag">2-Minute Interactive Assessment</span>
+              <h2 style="font-size: 2rem; font-weight: 800; color: var(--teal-deep); margin-top: 8px;">What's Your Colombian Spanish Level?</h2>
+              <p style="color: var(--text-secondary); font-size: 0.95rem; max-width: 580px; margin: 6px auto 0;">Answer 5 quick real-life travel situations to diagnose your level and find your ideal native Colombian teacher.</p>
+              
+              <div class="quiz-progress-bar">
+                <div class="quiz-progress-fill" id="quiz-progress-fill"></div>
+              </div>
+              <span class="quiz-q-num" id="quiz-q-counter">Question 1 of 5</span>
+              <h3 class="quiz-question-text" id="quiz-question-text">Loading question...</h3>
+            </div>
+
+            <div class="quiz-options-grid" id="quiz-options-grid">
+              <!-- Dynamically populated options -->
+            </div>
+          </div>
+
+          <!-- Quiz Result View (Hidden initially) -->
+          <div class="quiz-result-box" id="quiz-result-view">
+            <span class="quiz-result-badge" id="quiz-result-level-badge">Level Diagnosis</span>
+            <h3 class="quiz-result-title" id="quiz-result-title">Your Level: B1 Intermediate</h3>
+            <p class="quiz-result-desc" id="quiz-result-desc">Explanation text...</p>
+
+            <div class="quiz-teacher-recommendation" id="quiz-teacher-rec">
+              <img id="quiz-rec-avatar" src="images/teacher_camila.jpg" alt="Recommended Native Teacher" class="quiz-rec-avatar" />
+              <div class="quiz-rec-info">
+                <div class="quiz-q-num" style="margin-bottom:2px;">Recommended Native Teacher</div>
+                <h4 id="quiz-rec-name">Camila Acosta (Medellín)</h4>
+                <p id="quiz-rec-bio">Expert in building speaking confidence from your very first conversation.</p>
+              </div>
+            </div>
+
+            <div class="quiz-result-actions">
+              <a href="reservar" class="btn-primary btn-lg" id="quiz-book-btn">
+                📅 Book Your $15 Trial Class Now →
+              </a>
+              <button class="btn-plan btn-plan--outline" onclick="resetQuiz()" style="cursor:pointer; padding: 14px 24px;">
+                🔄 Retake Quiz
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
     <!-- Final CTA Section -->
     <section class="final-cta">
       <div class="container">
@@ -526,6 +579,37 @@
 
     <section class="blog-section">
       <div class="container">
+
+        <!-- Interactive Slang Explorer -->
+        <div class="slang-explorer-section" id="slang-explorer">
+          <div class="slang-controls">
+            <div>
+              <span class="section-tag">Interactive Explorer</span>
+              <h2 style="font-size: 1.8rem; font-weight: 800; color: var(--teal-deep); margin-top: 6px;">Colombian Slang &amp; Expressions Dictionary</h2>
+              <p style="color: var(--text-secondary); font-size: 0.95rem; margin-top: 4px;">Search or filter authentic idioms from Medellín, Bogotá, Cali, and the Caribbean Coast to sound like a local.</p>
+            </div>
+
+            <div class="slang-search-bar">
+              <span class="slang-search-icon">🔍</span>
+              <input type="text" id="slang-search-input" class="slang-search-input" placeholder="Search any slang word, English meaning or city (e.g. chimba, cool, friend, tinto)..." aria-label="Search Colombian slang" />
+            </div>
+
+            <div class="slang-filters">
+              <button class="slang-filter-btn active" data-region="all" onclick="filterSlangByRegion('all', this)">🇨🇴 All Regions</button>
+              <button class="slang-filter-btn" data-region="paisa" onclick="filterSlangByRegion('paisa', this)">🏔️ Medellín (Paisa)</button>
+              <button class="slang-filter-btn" data-region="rolo" onclick="filterSlangByRegion('rolo', this)">🏛️ Bogotá (Rolo)</button>
+              <button class="slang-filter-btn" data-region="cali" onclick="filterSlangByRegion('cali', this)">💃 Cali (Valluno)</button>
+              <button class="slang-filter-btn" data-region="costeno" onclick="filterSlangByRegion('costeno', this)">🌴 Coast (Costeño)</button>
+            </div>
+          </div>
+
+          <div class="slang-grid" id="slang-cards-grid">
+            <!-- Dynamically populated slang cards -->
+          </div>
+        </div>
+
+        <h2 style="font-size: 1.8rem; font-weight: 800; color: var(--teal-deep); margin-bottom: 24px;">Latest Articles &amp; Cultural Guides</h2>
+
         <div class="blog-grid">
 
           <article class="blog-card" id="blog-post-1" onclick="openBlogArticle(0, true)" style="cursor:pointer;">
@@ -573,6 +657,54 @@
               <h2 class="blog-card-title">10 Colombian Slang Words That'll Make You Sound Like a Local</h2>
               <p class="blog-card-excerpt">Parcero, chévere, bacano, quiubo — if you don't know these words yet, you're missing out on the soul of Colombian Spanish. Our teacher Camila breaks down the most essential slang expressions with real-life examples you can use today.</p>
               <a href="#" class="blog-read-more" onclick="event.preventDefault(); event.stopPropagation(); openBlogArticle(2, true); return false;">Read Article →</a>
+            </div>
+          </article>
+
+          <article class="blog-card" id="blog-post-4" onclick="openBlogArticle(3, true)" style="cursor:pointer;">
+            <div class="blog-card-img-wrapper">
+              <img src="images/hero_colombia_bg.jpg" alt="Colombian Andes Mountains — Paisa vs Rolo vs Costeño accents" class="blog-card-img" loading="lazy" decoding="async" width="1376" height="768" />
+              <span class="blog-card-tag" style="background:#0E5A60;">Culture</span>
+            </div>
+            <div class="blog-card-body">
+              <div class="blog-card-meta">
+                <span class="blog-author">🇨🇴 By Valentina R.</span>
+                <span class="blog-date">September 2026</span>
+              </div>
+              <h2 class="blog-card-title">Paisa vs Rolo vs Costeño: The 3 Main Colombian Spanish Accents Explained</h2>
+              <p class="blog-card-excerpt">Medellín's musical cadence, Bogotá's crystal-clear formality, or the Caribbean's rapid rhythm? Discover how Colombian accents differ, why Colombian Spanish is the clearest in the world, and which accent fits your personal goals.</p>
+              <a href="#" class="blog-read-more" onclick="event.preventDefault(); event.stopPropagation(); openBlogArticle(3, true); return false;">Read Article →</a>
+            </div>
+          </article>
+
+          <article class="blog-card" id="blog-post-5" onclick="openBlogArticle(4, true)" style="cursor:pointer;">
+            <div class="blog-card-img-wrapper">
+              <img src="images/blog_coffee_culture.jpg" alt="Ordering coffee and food in Colombia" class="blog-card-img" loading="lazy" decoding="async" width="1264" height="848" />
+              <span class="blog-card-tag" style="background:#2A9D8F;">Language</span>
+            </div>
+            <div class="blog-card-body">
+              <div class="blog-card-meta">
+                <span class="blog-author">☕ By Camila A.</span>
+                <span class="blog-date">October 2026</span>
+              </div>
+              <h2 class="blog-card-title">How to Order Food &amp; Coffee Like a Colombian: Restaurant Spanish &amp; Menu Decoder</h2>
+              <p class="blog-card-excerpt">Avoid tourist confusion in Colombian panaderías, cafés, and restaurants. Learn how to ask for un tintico, order la cuenta with natural politeness, and decipher menus from arepas to bandeja paisa.</p>
+              <a href="#" class="blog-read-more" onclick="event.preventDefault(); event.stopPropagation(); openBlogArticle(4, true); return false;">Read Article →</a>
+            </div>
+          </article>
+
+          <article class="blog-card" id="blog-post-6" onclick="openBlogArticle(5, true)" style="cursor:pointer;">
+            <div class="blog-card-img-wrapper">
+              <img src="images/blog_slang.jpg" alt="Digital nomads speaking Spanish in Medellín" class="blog-card-img" loading="lazy" decoding="async" width="1264" height="848" />
+              <span class="blog-card-tag" style="background:#FC2C54;">Travel</span>
+            </div>
+            <div class="blog-card-body">
+              <div class="blog-card-meta">
+                <span class="blog-author">🏙️ By Santiago M.</span>
+                <span class="blog-date">November 2026</span>
+              </div>
+              <h2 class="blog-card-title">Colombian Spanish for Digital Nomads: Renting, Coworking &amp; Making Local Friends in Medellín</h2>
+              <p class="blog-card-excerpt">Staying in El Poblado or Laureles? Here are the essential real-world Spanish phrases you need to talk to building security, navigate coworking spaces, and turn casual chats into lasting Colombian friendships.</p>
+              <a href="#" class="blog-read-more" onclick="event.preventDefault(); event.stopPropagation(); openBlogArticle(5, true); return false;">Read Article →</a>
             </div>
           </article>
 
@@ -1036,9 +1168,23 @@
     </div>
   </div>
 
+  <!-- Floating WhatsApp Widget -->
+  <a href="https://wa.me/573007945333?text=Hi%20Espa%C3%B1ol%20con%20Sabor!%20I%20found%20you%20on%20Google%20and%20I'd%20like%20to%20ask%20about%20Colombian%20Spanish%20lessons%20%E2%98%95"
+     target="_blank"
+     rel="noopener noreferrer"
+     class="whatsapp-float"
+     id="whatsapp-btn"
+     aria-label="Chat with Español con Sabor on WhatsApp">
+    <span class="whatsapp-tooltip">Chat with us on WhatsApp ☕</span>
+    <svg class="whatsapp-icon" viewBox="0 0 24 24" width="32" height="32" fill="currentColor">
+      <path d="M12.031 2C6.51 2 2.016 6.485 2.016 12c0 1.942.559 3.754 1.523 5.289L2.001 22l4.87-1.503A9.957 9.957 0 0012.031 22c5.522 0 10.016-4.485 10.016-10s-4.494-10-10.016-10zm0 18.277c-1.637 0-3.167-.47-4.471-1.282l-.32-.2-2.887.89.907-2.809-.208-.337A8.256 8.256 0 013.75 12c0-4.565 3.714-8.277 8.281-8.277 4.568 0 8.281 3.712 8.281 8.277 0 4.565-3.713 8.277-8.281 8.277zm4.536-6.177c-.248-.124-1.468-.724-1.696-.807-.228-.083-.394-.124-.56.124-.166.248-.642.807-.787.973-.145.166-.29.186-.538.062-.249-.124-1.049-.387-1.998-1.233-.738-.658-1.236-1.472-1.381-1.72-.145-.248-.016-.382.108-.506.112-.112.249-.29.373-.435.124-.145.166-.248.249-.414.083-.166.041-.31-.021-.435-.062-.124-.56-1.349-.767-1.848-.201-.486-.406-.42-.56-.428-.145-.008-.31-.01-.476-.01s-.435.062-.663.31c-.228.248-.87 0.85-.87 2.073s.891 2.403 1.015 2.569c.124.166 1.753 2.677 4.247 3.754.593.257 1.057.41 1.419.525.597.19 1.14.163 1.569.099.479-.072 1.468-.6 1.675-1.18.207-.579.207-1.077.145-1.18-.062-.103-.228-.166-.476-.29z"/>
+    </svg>
+  </a>
+
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabase-client.js"></script>
   <script src="js/content-loader.js"></script>
   <script src="app.js"></script>
+  <script src="js/interactive-tools.js" defer></script>
 </body>
 </html>

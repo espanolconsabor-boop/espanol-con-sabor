@@ -59,6 +59,16 @@ function handleRouteHash() {
     setTimeout(() => {
       document.getElementById('faq-accordion')?.scrollIntoView({ behavior: 'smooth' });
     }, 150);
+  } else if (['quiz', 'test', 'level'].includes(hash)) {
+    showTab('home', false);
+    setTimeout(() => {
+      document.getElementById('quiz-section')?.scrollIntoView({ behavior: 'smooth' });
+    }, 150);
+  } else if (['slang', 'dictionary', 'diccionario'].includes(hash)) {
+    showTab('blog', false);
+    setTimeout(() => {
+      document.getElementById('slang-explorer')?.scrollIntoView({ behavior: 'smooth' });
+    }, 150);
   } else {
     showTab('home', false);
   }

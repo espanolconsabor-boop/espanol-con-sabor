@@ -22,6 +22,24 @@ window._staticBlogPosts = [
     tag: "Language",
     image_url: "images/blog_slang.jpg",
     content: "Parcero, chévere, bacano, quiubo — if you don't know these words yet, you're missing out on the soul of Colombian Spanish. Our teacher Camila breaks down the most essential slang expressions with real-life examples you can use today.\n\n1. Parcero / Parce — Amigo, compañero.\n2. Chévere — Genial, bacano, increíble.\n3. Bacano/a — Muy agradable, simpático.\n4. Quiubo — Saludo casual (¿qué hubo?).\n5. Chimba — Increíble o fuera de serie."
+  },
+  {
+    title: "Paisa vs Rolo vs Costeño: The 3 Main Colombian Spanish Accents Explained",
+    tag: "Culture",
+    image_url: "images/hero_colombia_bg.jpg",
+    content: "Colombia is famous for having some of the clearest, most neutral Spanish in the world — but spend a few days traveling from the mountains of Antioquia to the Andean capital or the Caribbean coast, and you'll quickly realize that Colombian Spanish has fascinating regional flavors.\n\n1. El Acento Paisa (Medellín & The Coffee Axis)\nWhere it's spoken: Medellín, Guatapé, Manizales, Pereira, Armenia.\nThe Vibe: Melodic, sing-song cadence with a rising and falling pitch at the end of sentences (\"el sonsonete\").\nKey feature: Frequent use of \"voseo\" (using \"vos\" instead of \"tú\"), accompanied by ultra-polite phrases like \"con mucho gusto\", \"a la orden\", and the iconic \"¡bien o qué, parce!\".\n\n2. El Acento Rolo / Cachaco (Bogotá & Cundinamarca)\nWhere it's spoken: Bogotá and the surrounding Andean plateau.\nThe Vibe: Clear, articulate, and formal. Consonants are fully pronounced.\nKey feature: Widespread use of \"usted\" even among close friends and family members. Expressions like \"¡ala!\", \"mi chino\", and \"qué boleta\".\n\n3. El Acento Costeño (Cartagena, Barranquilla, Santa Marta)\nWhere it's spoken: The entire Caribbean coast.\nThe Vibe: Fast, musical, rhythmic, and heavily influenced by Caribbean cadence and African heritage.\nKey feature: S-aspiration (the letter 's' softens into a subtle breath of air) and vibrant vocabulary like \"¡ajá!\", \"cipote\", \"no joda\", \"cuadro\"."
+  },
+  {
+    title: "How to Order Food & Coffee Like a Colombian: The Ultimate Restaurant Spanish Guide",
+    tag: "Language",
+    image_url: "images/blog_coffee_culture.jpg",
+    content: "Food in Colombia is a love language. From the warm, buttery smell of fresh arepas on a street corner in Medellín to a steaming bowl of ajiaco in Bogotá, ordering food is the very best way to practice your Spanish daily.\n\n1. The Magic Colombian Politeness: \"¿Me regala...?\"\nIn Colombia, locals rarely say \"Quiero un café\". Instead, the universal expression of everyday courtesy is:\n\"¿Me regala un café, por favor?\"\nLiterally: \"Will you gift me a coffee?\". In reality: \"Could I please have a coffee?\". It is polite, gentle, and instantly brings a warm smile to your server's face.\n\n2. Decoding Colombian Coffee: Tinto, Perico & Pintado\n• Tinto: Small black filter coffee, traditionally sweetened with panela.\n• Perico / Pintado: Small coffee with a splash of warm milk.\n• Café con leche: 50% milk and 50% coffee.\n• Café de origen: Specialty single-origin pour-over (V60, Chemex).\n\n3. Asking for the Bill: \"¿Me regala la cuenta?\"\n• \"¿Me regala la cuenta, por favor?\" (Could I have the bill, please?)\n• \"¿Aceptan tarjeta o solo efectivo?\" (Do you take card or cash only?)\n• \"¿La propina está incluida?\" (Is service included? Standard tip is 10%)."
+  },
+  {
+    title: "Colombian Spanish for Digital Nomads: Renting, Coworking & Making Local Friends in Medellín",
+    tag: "Travel",
+    image_url: "images/blog_slang.jpg",
+    content: "Medellín has quickly transformed into the digital nomad capital of South America. With eternal spring weather, world-class café culture, and affordable living, thousands of remote workers land in El Poblado and Laureles every month.\n\n1. Talking to Building Security (El Celador / La Portería)\nIn Colombian apartment buildings, the security team is your first line of communication:\n• \"¡Buenas tardes, don Carlos! ¿Cómo le ha ido?\" (Good afternoon! How have you been?)\n• \"¿De casualidad llegó un paquete para el apartamento 502?\" (Did a package arrive for apt 502?)\n• \"Viene una visita para mí, se llama Sarah.\" (I have a guest coming over).\n\n2. At the Coworking Space & Cafés\n• \"¿Tienen enchufes cerca de esta mesa?\" (Do you have power outlets near this table?)\n• \"¿Qué velocidad tiene el Wi-Fi?\" (What is the Wi-Fi speed?)\n• \"¿Está libre este puesto?\" (Is this seat taken?)\n\n3. Making Friends: \"El Parche\"\n• \"¿Qué hay pa' hacer hoy?\" (What's there to do today?)\n• \"¡Armemos un parche el fin de semana!\" (Let's organize a hangout this weekend!)\n• \"¡Pilas, no des papaya!\" (Stay alert and keep your valuables safe!)."
   }
 ];
 
