@@ -7,7 +7,7 @@
 // ─── TAB NAVIGATION ──────────────────────────────────
 const TABS = ['home', 'blog', 'about', 'book'];
 
-function showTab(tabId) {
+function showTab(tabId, updateHash = true) {
   if (!TABS.includes(tabId)) return;
 
   // Deactivate all tabs
@@ -27,17 +27,41 @@ function showTab(tabId) {
   // Scroll to top smoothly
   window.scrollTo({ top: 0, behavior: 'smooth' });
 
-  // Update document title
+  // Update document title for SEO & UX
   const titles = {
-    home: 'Español con Sabor | Learn Colombian Spanish Online',
-    blog: 'Blog | Español con Sabor',
-    about: 'About Us | Español con Sabor',
-    book: 'Book a Class | Español con Sabor'
+    home: 'Español con Sabor | Learn Colombian Spanish Online 1-on-1',
+    blog: 'Culture & Spanish Learning Blog | Español con Sabor',
+    about: 'About Our Colombian Spanish School & Native Teachers | Español con Sabor',
+    book: 'Plans, Pricing & Class Booking | Español con Sabor'
   };
   document.title = titles[tabId] || titles.home;
 
+  // Update browser address bar hash cleanly
+  if (updateHash && window.history && window.history.replaceState) {
+    const newUrl = tabId === 'home'
+      ? window.location.pathname + window.location.search
+      : window.location.pathname + window.location.search + '#' + tabId;
+    window.history.replaceState(null, '', newUrl);
+  }
+
   // Close mobile menu if open
   closeMobileMenu();
+}
+
+function handleRouteHash() {
+  const hash = (window.location.hash || '').replace('#', '').toLowerCase();
+  if (['blog', 'about', 'book'].includes(hash)) {
+    showTab(hash, false);
+  } else if (['pricing', 'plans', 'precios'].includes(hash)) {
+    showTab('book', false);
+  } else if (hash === 'faq') {
+    showTab('book', false);
+    setTimeout(() => {
+      document.getElementById('faq-accordion')?.scrollIntoView({ behavior: 'smooth' });
+    }, 150);
+  } else {
+    showTab('home', false);
+  }
 }
 
 // ─── MOBILE MENU ──────────────────────────────────────
@@ -320,8 +344,11 @@ document.addEventListener('keydown', (e) => {
 
 // ─── INIT ─────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
-  // Ensure home tab is visible by default
-  showTab('home');
+  // Restore active tab based on URL hash (e.g. #blog, #about, #book)
+  handleRouteHash();
+
+  // Listen for browser forward/back buttons and hash changes
+  window.addEventListener('hashchange', handleRouteHash);
 
   // Show a welcome toast after a brief delay
   setTimeout(() => {

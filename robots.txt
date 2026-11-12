@@ -1,0 +1,23 @@
+# Español con Sabor Academy - Robots.txt
+# https://espanolconsaboracademy.com
+
+User-agent: *
+Allow: /
+Allow: /reservar
+Allow: /images/
+Allow: /style.css
+Allow: /app.js
+Allow: /embed.js
+
+# Prevent crawlers from indexing administrative and internal teacher endpoints
+Disallow: /admin
+Disallow: /admin.html
+Disallow: /tutor
+Disallow: /tutor.html
+Disallow: /supabase-client.js
+Disallow: /supabase_schema.sql
+Disallow: /MEMORIA.md
+Disallow: /implementation_plan.md
+
+# Official XML Sitemap
+Sitemap: https://espanolconsaboracademy.com/sitemap.xml
