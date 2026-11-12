@@ -49,12 +49,173 @@
   }
   </script>
 
-  <link rel="stylesheet" href="booking.css?v=20261111_v1">
+  <link rel="stylesheet" href="booking.css?v=20261111_v5">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
-    /* Critical Fallback Rules (Guaranteed Offline & Mobile Render) */
+    /* Critical Rules & Layout Fallbacks */
     .hidden { display: none !important; }
     body { font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background-color: #FFF3D6; margin: 0; padding: 12px 8px 36px; min-height: 100vh; }
+
+    /* Teacher Selection Color & Border Effect */
+    .tutor-card.selected,
+    .any-tutor-card.selected {
+      border: 3px solid #0E5A60 !important;
+      background: linear-gradient(180deg, #FFFFFF 0%, #E6F4F5 100%) !important;
+      box-shadow: 0 0 0 3px rgba(14, 90, 96, 0.25), 0 12px 28px rgba(14, 90, 96, 0.22) !important;
+      transform: translateY(-4px);
+    }
+    .tutor-card.selected .tutor-photo {
+      border-color: #0E5A60 !important;
+      box-shadow: 0 0 0 4px rgba(14, 90, 96, 0.35) !important;
+    }
+    .tutor-card.selected .tutor-name {
+      color: #0E5A60 !important;
+      font-weight: 800 !important;
+    }
+
+    /* Step 1 Fast-Track Top Bar */
+    .step-1-top-bar {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      background: rgba(14, 90, 96, 0.06) !important;
+      border: 1.5px solid rgba(14, 90, 96, 0.18) !important;
+      border-radius: 18px !important;
+      padding: 12px 18px !important;
+      gap: 12px !important;
+      margin-top: 14px !important;
+      margin-bottom: 12px !important;
+    }
+    .step-1-top-pill {
+      font-size: 13px !important;
+      color: #0E5A60 !important;
+      display: flex !important;
+      align-items: center !important;
+      gap: 6px !important;
+      line-height: 1.3 !important;
+    }
+    .btn-top-continue {
+      background: #0E5A60 !important;
+      color: #FFFFFF !important;
+      font-size: 12px !important;
+      font-weight: 800 !important;
+      padding: 10px 20px !important;
+      border-radius: 12px !important;
+      border: none !important;
+      cursor: pointer !important;
+      white-space: nowrap !important;
+      transition: all 0.2s ease !important;
+      box-shadow: 0 2px 8px rgba(14, 90, 96, 0.2) !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 6px !important;
+    }
+    .btn-top-continue:hover {
+      background: #093c40 !important;
+      transform: translateY(-1px) !important;
+    }
+    @media (max-width: 640px) {
+      .step-1-top-bar {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        text-align: center !important;
+      }
+      .step-1-top-pill {
+        justify-content: center !important;
+      }
+      .btn-top-continue {
+        width: 100% !important;
+        justify-content: center !important;
+        padding: 12px !important;
+      }
+    }
+
+    /* Multi-Class Tabs Styling */
+    .class-tabs-grid {
+      display: grid !important;
+      grid-template-columns: repeat(4, 1fr) !important;
+      gap: 12px !important;
+      margin-top: 8px !important;
+    }
+    .class-tab-card {
+      position: relative !important;
+      background: #FFFFFF !important;
+      border: 2px solid #E2E8F0 !important;
+      border-radius: 18px !important;
+      padding: 14px 12px !important;
+      cursor: pointer !important;
+      text-align: left !important;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03) !important;
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: space-between !important;
+      min-height: 82px !important;
+      outline: none !important;
+      font-family: inherit !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    .class-tab-card:hover {
+      border-color: #2A9D8F !important;
+      transform: translateY(-2px) !important;
+      box-shadow: 0 6px 16px rgba(14, 90, 96, 0.08) !important;
+    }
+    .class-tab-card.active {
+      border: 2.5px solid #0E5A60 !important;
+      background: linear-gradient(180deg, #FFFFFF 0%, #FFF9EC 100%) !important;
+      box-shadow: 0 8px 22px rgba(14, 90, 96, 0.18) !important;
+      transform: translateY(-2px) !important;
+    }
+    .class-tab-card.scheduled {
+      border: 2px solid #10B981 !important;
+      background: linear-gradient(180deg, #FFFFFF 0%, #ECFDF5 100%) !important;
+    }
+    .class-tab-header {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      margin-bottom: 6px !important;
+      gap: 6px !important;
+    }
+    .class-tab-title {
+      font-size: 13px !important;
+      font-weight: 800 !important;
+      color: #1E293B !important;
+      margin: 0 !important;
+    }
+    .class-tab-card.active .class-tab-title { color: #0E5A60 !important; }
+    .class-tab-card.scheduled .class-tab-title { color: #065F46 !important; }
+    .class-tab-pill {
+      font-size: 10px !important;
+      font-weight: 800 !important;
+      padding: 3px 8px !important;
+      border-radius: 50px !important;
+      letter-spacing: 0.02em !important;
+      white-space: nowrap !important;
+    }
+    .class-tab-pill.active { background: #F2B705 !important; color: #0E5A60 !important; }
+    .class-tab-pill.scheduled { background: #D1FAE5 !important; color: #047857 !important; }
+    .class-tab-pill.pending { background: #F1F5F9 !important; color: #64748B !important; }
+    .class-tab-meta {
+      font-size: 11px !important;
+      font-weight: 600 !important;
+      color: #64748B !important;
+      margin: 0 !important;
+      line-height: 1.35 !important;
+    }
+    .class-tab-card.active .class-tab-meta { color: #0E5A60 !important; font-weight: 700 !important; }
+    .class-tab-card.scheduled .class-tab-meta { color: #047857 !important; font-weight: 700 !important; }
+    @media (max-width: 768px) {
+      .class-tabs-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 8px !important;
+      }
+      .class-tab-card {
+        padding: 10px 10px !important;
+        min-height: 72px !important;
+      }
+    }
   </style>
 </head>
 <body class="min-h-screen py-8 px-4 flex flex-col items-center justify-center">
@@ -184,7 +345,6 @@
 
         <!-- Any Teacher Option -->
         <div onclick="selectTutor('any', this)" id="tutor-card-any" class="any-tutor-card tutor-card selected relative p-4 rounded-2xl border-2 cursor-pointer shadow-sm flex items-center justify-between transition">
-          <span class="tutor-selected-badge">✓ Selected</span>
           <div class="flex items-center space-x-4">
             <div class="any-icon-wrap w-12 h-12 rounded-full bg-gradient-to-tr from-[#0E5A60] to-[#2A9D8F] flex items-center justify-center text-white text-xl font-bold shadow-inner">
               ✨
@@ -201,7 +361,6 @@
         <div class="tutor-grid grid grid-cols-1 md:grid-cols-3 gap-4">
           <!-- Tutor 1: Maria -->
           <div onclick="selectTutor('maria', this)" id="tutor-card-maria" class="tutor-card relative p-5 rounded-2xl border-2 cursor-pointer transition flex flex-col justify-between">
-            <span class="tutor-selected-badge">✓ Selected</span>
             <div>
               <div class="tutor-photo-wrap relative mb-3 flex items-center justify-center">
                 <img id="tutor-img-maria" src="https://xpmyayjtowdhrjdbezas.supabase.co/storage/v1/object/public/photos/teachers/1792628508575_2024-12-26%2017.46.06.jpg" alt="María Izquierdo" class="tutor-photo w-24 h-24 rounded-full object-cover border-2 border-[#0E5A60]/20 shadow-sm">
@@ -215,7 +374,6 @@
 
           <!-- Tutor 2: Daniela -->
           <div onclick="selectTutor('daniela', this)" id="tutor-card-daniela" class="tutor-card relative p-5 rounded-2xl border-2 cursor-pointer transition flex flex-col justify-between">
-            <span class="tutor-selected-badge">✓ Selected</span>
             <div>
               <div class="tutor-photo-wrap relative mb-3 flex items-center justify-center">
                 <img id="tutor-img-daniela" src="https://xpmyayjtowdhrjdbezas.supabase.co/storage/v1/object/public/photos/teachers/1792628749919_PHOTO-2026-09-19-18-15-35.jpg" alt="Daniela García" class="tutor-photo w-24 h-24 rounded-full object-cover border-2 border-[#0E5A60]/20 shadow-sm">
@@ -229,7 +387,6 @@
 
           <!-- Tutor 3: Valentina -->
           <div onclick="selectTutor('valentina', this)" id="tutor-card-valentina" class="tutor-card relative p-5 rounded-2xl border-2 cursor-pointer transition flex flex-col justify-between">
-            <span class="tutor-selected-badge">✓ Selected</span>
             <div>
               <div class="tutor-photo-wrap relative mb-3 flex items-center justify-center">
                 <img id="tutor-img-valentina" src="https://xpmyayjtowdhrjdbezas.supabase.co/storage/v1/object/public/photos/teachers/1792629035343_PHOTO-2026-09-29-11-24-29%202.jpg" alt="Valentina Gómez" class="tutor-photo w-24 h-24 rounded-full object-cover border-2 border-[#0E5A60]/20 shadow-sm">
