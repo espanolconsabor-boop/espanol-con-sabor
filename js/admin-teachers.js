@@ -69,11 +69,16 @@ function showTeacherForm(teacher = null) {
   wrapper.innerHTML = `
     <form id="teacher-form" class="admin-form">
       <input type="text" id="t-name" placeholder="Nombre" value="${teacher?.name || ''}" required />
-      <input type="text" id="t-city" placeholder="Ciudad" value="${teacher?.city || ''}" />
+      <input type="text" id="t-city" placeholder="Ciudad (ej: Bogotá, Colombia)" value="${teacher?.city || ''}" />
       <label class="admin-form-label">Calificación de tutor (0.0 a 5.0)</label>
       <input type="number" id="t-rating" step="0.1" min="0" max="5" placeholder="5.0" value="${currentRating}" required />
-      <textarea id="t-bio" placeholder="Biografía">${teacher?.bio || ''}</textarea>
+      <label class="admin-form-label">Video de YouTube (Intro para About Us)</label>
+      <input type="url" id="t-video" placeholder="https://www.youtube.com/watch?v=... o https://youtu.be/..." value="${teacher?.video_url || ''}" />
+      <textarea id="t-bio" placeholder="Biografía / Especialidad">${teacher?.bio || ''}</textarea>
+      <label class="admin-form-label">Foto de Perfil (Reservas y Ficha)</label>
       <input type="file" id="t-photo" accept="image/*" />
+      <label class="admin-form-label">Foto Exclusiva para Home (Opcional)</label>
+      <input type="file" id="t-home-photo" accept="image/*" />
       <label class="admin-form-label">Posición en la página (0 = primero)</label>
       <input type="number" id="t-order" placeholder="Ej: 0, 1, 2..." min="0" value="${teacher?.display_order ?? 0}" />
       <div class="admin-form-actions">
@@ -93,8 +98,11 @@ function showTeacherForm(teacher = null) {
     const order = parseInt(document.getElementById('t-order').value) || 0;
     const ratingVal = parseFloat(document.getElementById('t-rating').value) || 5.0;
     const ratingStr = ratingVal.toFixed(1);
+    const video_url = document.getElementById('t-video').value.trim() || null;
     const fileInput = document.getElementById('t-photo');
+    const homeFileInput = document.getElementById('t-home-photo');
     let photo_url = teacher?.photo_url || null;
+    let home_avatar_url = teacher?.home_avatar_url || null;
 
     if (fileInput.files[0]) {
       const file = fileInput.files[0];
@@ -105,7 +113,16 @@ function showTeacherForm(teacher = null) {
       photo_url = urlData.publicUrl;
     }
 
-    const payload = { name, city, bio, photo_url, display_order: order };
+    if (homeFileInput && homeFileInput.files[0]) {
+      const file = homeFileInput.files[0];
+      const fileName = `teachers/home_${Date.now()}_${file.name}`;
+      const { error: uploadError } = await supabaseClient.storage.from('photos').upload(fileName, file);
+      if (uploadError) { alert('Error subiendo foto de Home: ' + uploadError.message); return; }
+      const { data: urlData } = supabaseClient.storage.from('photos').getPublicUrl(fileName);
+      home_avatar_url = urlData.publicUrl;
+    }
+
+    const payload = { name, city, bio, photo_url, home_avatar_url, video_url, display_order: order };
 
     if (teacher) {
       // Intentar actualizar con columna rating si existe en Supabase
@@ -124,9 +141,11 @@ function showTeacherForm(teacher = null) {
           rating: ratingVal,
           bio,
           headline: bio,
+          video_url,
           updated_at: new Date().toISOString()
         };
         if (photo_url) tutorPayload.avatar_url = photo_url;
+        if (home_avatar_url) tutorPayload.home_avatar_url = home_avatar_url;
         await supabaseClient.from('tutors').update(tutorPayload).ilike('name', `%${firstName}%`);
       } catch (tutorSyncErr) {
         console.warn('Sync to tutors error:', tutorSyncErr);
@@ -152,9 +171,11 @@ function showTeacherForm(teacher = null) {
           rating: ratingVal,
           bio,
           headline: bio,
+          video_url,
           updated_at: new Date().toISOString()
         };
         if (photo_url) tutorPayload.avatar_url = photo_url;
+        if (home_avatar_url) tutorPayload.home_avatar_url = home_avatar_url;
         await supabaseClient.from('tutors').update(tutorPayload).ilike('name', `%${firstName}%`);
       } catch (tutorSyncErr) {
         console.warn('Sync to tutors error:', tutorSyncErr);

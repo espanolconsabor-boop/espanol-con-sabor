@@ -7,6 +7,7 @@ const CONTENT_FIELDS = [
   { key: 'hero_title_line1', label: 'Hero — Título línea 1', type: 'text' },
   { key: 'hero_title_line2', label: 'Hero — Título línea 2 (en cursiva)', type: 'text' },
   { key: 'hero_subtitle', label: 'Hero — Subtítulo', type: 'textarea' },
+  { key: 'hero_image_url', label: 'Foto de Portada (Home) — Reemplaza el cafetal', type: 'image' },
   { key: 'stat_1_number', label: 'Estadística 1 — Número (ej: 500+)', type: 'text' },
   { key: 'stat_1_label', label: 'Estadística 1 — Etiqueta (ej: Students)', type: 'text' },
   { key: 'stat_2_number', label: 'Estadística 2 — Número (ej: 4.9★)', type: 'text' },

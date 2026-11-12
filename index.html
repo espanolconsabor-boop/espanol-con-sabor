@@ -264,13 +264,6 @@
 </head>
 <body>
 
-  <!-- Dismissible Discount Banner -->
-  <div id="discount-banner" class="discount-banner" role="alert">
-    <span class="discount-icon">🎉</span>
-    <span class="discount-text"><strong>Limited Time:</strong> First month <strong>10% off</strong> — Use code <span class="discount-code">SABOR10</span> at checkout</span>
-    <button id="dismiss-banner" class="dismiss-btn" aria-label="Dismiss banner">✕</button>
-  </div>
-
   <!-- Navigation -->
   <header class="navbar" id="navbar">
     <div class="nav-container">
@@ -306,7 +299,7 @@
   <div class="activity-ticker" id="activity-ticker">
     <div class="ticker-content">
       <span class="ticker-dot"></span>
-      <span class="ticker-text" id="ticker-text">🔴 <strong>12 students</strong> booked a class in the last 24 hours</span>
+      <span class="ticker-text" id="ticker-text">✨ <strong>14 students</strong> booked a class in the last 24 hours</span>
     </div>
   </div>
 
@@ -324,9 +317,7 @@
           Speak Spanish<br /><em>the way Colombians do.</em>
         </h1>
         <p class="hero-subtitle">
-          Immersive 1-on-1 lessons with certified native teachers from Colombia.
-          Learn the most <strong>neutral &amp; clear</strong> Spanish in Latin America —
-          rooted in culture, designed for real life.
+          Learn the most neutral &amp; clear Spanish in Latin America, rooted in culture, designed for real life.
         </p>
         <div class="hero-stats">
           <div class="hero-stat">
@@ -355,7 +346,7 @@
         <p class="hero-guarantee">✅ No commitment · Cancel anytime</p>
       </div>
       <div class="hero-image-wrapper">
-        <img src="images/hero_colombia_bg.jpg" alt="Colombian coffee farm with Andes mountains and sombrero vueltiao — Learn Colombian Spanish Online" class="hero-img" loading="eager" fetchpriority="high" decoding="async" width="1376" height="768" />
+        <img src="images/hero_colombia_bg.jpg" id="hero-img" alt="Colombian coffee farm with Andes mountains and sombrero vueltiao — Learn Colombian Spanish Online" class="hero-img" loading="eager" fetchpriority="high" decoding="async" width="1376" height="768" />
         <div class="hero-img-badge">
           <span class="img-badge-icon">🇨🇴</span>
           <div>
@@ -366,131 +357,84 @@
       </div>
     </section>
 
-    <!-- Urgency Promo Banner -->
-    <section class="promo-banner">
-      <div class="promo-inner">
-        <div class="promo-left">
-          <span class="promo-fire">🔥</span>
-          <div>
-            <p class="promo-label">FLASH OFFER — Ends in:</p>
-            <p class="promo-title">30% off your first month of classes</p>
-          </div>
-        </div>
-        <div class="promo-countdown">
-          <div class="countdown-unit">
-            <span class="countdown-num" id="count-h">02</span>
-            <span class="countdown-label">hrs</span>
-          </div>
-          <span class="countdown-sep">:</span>
-          <div class="countdown-unit">
-            <span class="countdown-num" id="count-m">47</span>
-            <span class="countdown-label">min</span>
-          </div>
-          <span class="countdown-sep">:</span>
-          <div class="countdown-unit">
-            <span class="countdown-num" id="count-s">33</span>
-            <span class="countdown-label">sec</span>
-          </div>
-        </div>
-        <button class="btn-promo" id="promo-claim-btn" onclick="showTab('book')">Claim Offer →</button>
-      </div>
-    </section>
-
     <!-- Live Activity Counter -->
     <section class="activity-section">
       <div class="container">
         <div class="activity-card">
           <div class="activity-pulse"></div>
           <div class="activity-info">
-            <p class="activity-count">🗓️ <strong>10 classes</strong> scheduled in the past 24 hours</p>
-            <p class="activity-scarcity">⚡ Only <strong>3 spots left</strong> this week with Camila</p>
+            <p class="activity-count">🗓️ <strong>14 classes</strong> scheduled in the past 24 hours</p>
           </div>
           <button class="btn-activity-cta" id="activity-book-btn" onclick="showTab('book')">Book Now →</button>
         </div>
       </div>
     </section>
 
-    <!-- How It Works -->
-    <section class="how-it-works">
+    <!-- Native Colombian Teachers on Home -->
+    <section class="home-teachers-section" id="home-teachers-section">
       <div class="container">
         <div class="section-header">
-          <span class="section-tag">Simple Process</span>
-          <h2 class="section-title">Start speaking in 3 easy steps</h2>
-          <p class="section-sub">From zero to conversational — faster than you think.</p>
+          <span class="section-tag">Native Colombian Teachers</span>
+          <h2 class="section-title">Meet your teachers</h2>
+          <p class="section-sub">Learn directly with certified native educators from Colombia. Personalized pacing, cultural depth, and zero judgment.</p>
         </div>
-        <div class="steps-grid">
-          <div class="step-card" id="step-1">
-            <div class="step-number">01</div>
-            <div class="step-icon">📅</div>
-            <h3 class="step-title">Book Your Class</h3>
-            <p class="step-desc">Choose a time that works for you and pick your teacher. Trial class is just $15 — no strings attached.</p>
-          </div>
-          <div class="step-connector">→</div>
-          <div class="step-card" id="step-2">
-            <div class="step-number">02</div>
-            <div class="step-icon">🎯</div>
-            <h3 class="step-title">Meet Your Teacher</h3>
-            <p class="step-desc">Your certified Colombian teacher tailors every session to your goals, pace, and interests.</p>
-          </div>
-          <div class="step-connector">→</div>
-          <div class="step-card" id="step-3">
-            <div class="step-number">03</div>
-            <div class="step-icon">🗣️</div>
-            <h3 class="step-title">Start Speaking</h3>
-            <p class="step-desc">From day one you will be speaking real Spanish. Progress is tracked, culture is woven in, results are guaranteed.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Testimonials -->
-    <section class="testimonials">
-      <div class="container">
-        <div class="section-header">
-          <span class="section-tag">Student Stories</span>
-          <h2 class="section-title">What our students say</h2>
-          <div class="overall-rating">
-            <span class="stars">★★★★★</span>
-            <span class="rating-num">4.9</span>
-            <span class="rating-count">(247 reviews)</span>
-          </div>
-        </div>
-        <div class="testimonials-grid">
-          <article class="testimonial-card" id="testimonial-1">
-            <div class="testimonial-header">
-              <div class="testimonial-avatar" style="background:#2A9D8F;">S</div>
-              <div class="testimonial-meta">
-                <strong class="testimonial-name">Sarah M.</strong>
-                <span class="testimonial-location">🇺🇸 New York, USA</span>
-              </div>
-              <div class="testimonial-stars">★★★★★</div>
+        <div class="home-teachers-grid" id="home-teachers-grid">
+          <article class="teacher-card" id="home-teacher-maria">
+            <div class="teacher-img-wrapper">
+              <img src="https://xpmyayjtowdhrjdbezas.supabase.co/storage/v1/object/public/photos/teachers/1792628508575_2024-12-26%2017.46.06.jpg" alt="María Izquierdo" class="teacher-img" loading="lazy" />
             </div>
-            <p class="testimonial-text">"After just 2 months with Camila, I was able to have full conversations in Spanish. The Colombian approach is so warm and encouraging — I never felt embarrassed making mistakes!"</p>
-            <div class="testimonial-badge">📅 Student for 6 months</div>
+            <div class="teacher-body">
+              <div class="teacher-header">
+                <div>
+                  <h3 class="teacher-name">María Izquierdo</h3>
+                  <p class="teacher-city">📍 Bogotá, Colombia</p>
+                </div>
+                <div class="teacher-rating">
+                  <span class="t-stars">★★★★★</span>
+                  <span class="t-rating">5.0</span>
+                </div>
+              </div>
+              <p class="teacher-specialty">Founder &amp; Lead Instructor · Real-life conversation</p>
+              <button class="btn-book-teacher" onclick="window.location.href='reservar.html?tutor=maria'">Book with María →</button>
+            </div>
           </article>
-          <article class="testimonial-card" id="testimonial-2">
-            <div class="testimonial-header">
-              <div class="testimonial-avatar" style="background:#F2B705; color:#0E5A60;">J</div>
-              <div class="testimonial-meta">
-                <strong class="testimonial-name">James T.</strong>
-                <span class="testimonial-location">🇬🇧 London, UK</span>
-              </div>
-              <div class="testimonial-stars">★★★★★</div>
+          <article class="teacher-card" id="home-teacher-daniela">
+            <div class="teacher-img-wrapper">
+              <img src="https://xpmyayjtowdhrjdbezas.supabase.co/storage/v1/object/public/photos/teachers/1792628749919_PHOTO-2026-09-19-18-15-35.jpg" alt="Daniela García" class="teacher-img" loading="lazy" />
             </div>
-            <p class="testimonial-text">"I tried Duolingo for years with no real progress. One month with Santiago and I was ordering coffee in Medellín with zero issues. Worth every cent."</p>
-            <div class="testimonial-badge">📅 Student for 3 months</div>
+            <div class="teacher-body">
+              <div class="teacher-header">
+                <div>
+                  <h3 class="teacher-name">Daniela García</h3>
+                  <p class="teacher-city">📍 Medellín, Colombia</p>
+                </div>
+                <div class="teacher-rating">
+                  <span class="t-stars">★★★★★</span>
+                  <span class="t-rating">5.0</span>
+                </div>
+              </div>
+              <p class="teacher-specialty">Conversational Spanish &amp; Business Culture</p>
+              <button class="btn-book-teacher" onclick="window.location.href='reservar.html?tutor=daniela'">Book with Daniela →</button>
+            </div>
           </article>
-          <article class="testimonial-card" id="testimonial-3">
-            <div class="testimonial-header">
-              <div class="testimonial-avatar" style="background:#0E5A60;">A</div>
-              <div class="testimonial-meta">
-                <strong class="testimonial-name">Ana K.</strong>
-                <span class="testimonial-location">🇩🇪 Berlin, Germany</span>
-              </div>
-              <div class="testimonial-stars">★★★★★</div>
+          <article class="teacher-card" id="home-teacher-valentina">
+            <div class="teacher-img-wrapper">
+              <img src="https://xpmyayjtowdhrjdbezas.supabase.co/storage/v1/object/public/photos/teachers/1792629035343_PHOTO-2026-09-29-11-24-29%202.jpg" alt="Valentina Gómez" class="teacher-img" loading="lazy" />
             </div>
-            <p class="testimonial-text">"The cultural component is what sets this school apart. I don't just speak Spanish — I understand Colombian humor, music, and history. My colleagues are amazed."</p>
-            <div class="testimonial-badge">📅 Student for 1 year</div>
+            <div class="teacher-body">
+              <div class="teacher-header">
+                <div>
+                  <h3 class="teacher-name">Valentina Gómez</h3>
+                  <p class="teacher-city">📍 Cali, Colombia</p>
+                </div>
+                <div class="teacher-rating">
+                  <span class="t-stars">★★★★★</span>
+                  <span class="t-rating">5.0</span>
+                </div>
+              </div>
+              <p class="teacher-specialty">Cultural Immersion &amp; Pronunciation Coach</p>
+              <button class="btn-book-teacher" onclick="window.location.href='reservar.html?tutor=valentina'">Book with Valentina →</button>
+            </div>
           </article>
         </div>
       </div>
@@ -527,10 +471,10 @@
             <p class="quiz-result-desc" id="quiz-result-desc">Explanation text...</p>
 
             <div class="quiz-teacher-recommendation" id="quiz-teacher-rec">
-              <img id="quiz-rec-avatar" src="images/teacher_camila.jpg" alt="Recommended Native Teacher" class="quiz-rec-avatar" />
+              <img id="quiz-rec-avatar" src="https://xpmyayjtowdhrjdbezas.supabase.co/storage/v1/object/public/photos/teachers/1792628508575_2024-12-26%2017.46.06.jpg" alt="Recommended Native Teacher" class="quiz-rec-avatar" />
               <div class="quiz-rec-info">
                 <div class="quiz-q-num" style="margin-bottom:2px;">Recommended Native Teacher</div>
-                <h4 id="quiz-rec-name">Camila Acosta (Medellín)</h4>
+                <h4 id="quiz-rec-name">María Izquierdo (Bogotá)</h4>
                 <p id="quiz-rec-bio">Expert in building speaking confidence from your very first conversation.</p>
               </div>
             </div>
@@ -545,6 +489,87 @@
             </div>
           </div>
 
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials Gallery (Single Row Carousel with Arrows) -->
+    <section class="testimonials" id="testimonials-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Student Stories</span>
+          <h2 class="section-title">What our students say</h2>
+          <div class="overall-rating">
+            <span class="stars">★★★★★</span>
+            <span class="rating-num">4.9</span>
+            <span class="rating-count">(247 reviews)</span>
+          </div>
+        </div>
+        <div class="testimonials-carousel-wrapper">
+          <button class="carousel-arrow-btn carousel-arrow-prev" id="carousel-prev-btn" onclick="scrollReviews(-1)" aria-label="Previous review">‹</button>
+          <div class="testimonials-track" id="testimonials-track">
+            <article class="testimonial-card testimonial-card-slide" id="testimonial-1">
+              <div class="testimonial-header">
+                <div class="testimonial-avatar" style="background:#2A9D8F;">S</div>
+                <div class="testimonial-meta">
+                  <strong class="testimonial-name">Sarah M.</strong>
+                  <span class="testimonial-location">🇺🇸 New York, USA</span>
+                </div>
+                <div class="testimonial-stars">★★★★★</div>
+              </div>
+              <p class="testimonial-text">"After just 2 months with María, I was able to have full conversations in Spanish. The Colombian approach is so warm and encouraging — I never felt embarrassed making mistakes!"</p>
+              <div class="testimonial-badge">📅 Student for 6 months</div>
+            </article>
+            <article class="testimonial-card testimonial-card-slide" id="testimonial-2">
+              <div class="testimonial-header">
+                <div class="testimonial-avatar" style="background:#F2B705; color:#0E5A60;">J</div>
+                <div class="testimonial-meta">
+                  <strong class="testimonial-name">James T.</strong>
+                  <span class="testimonial-location">🇬🇧 London, UK</span>
+                </div>
+                <div class="testimonial-stars">★★★★★</div>
+              </div>
+              <p class="testimonial-text">"I tried Duolingo for years with no real progress. One month with Daniela and I was ordering coffee in Medellín with zero issues. Worth every cent."</p>
+              <div class="testimonial-badge">📅 Student for 3 months</div>
+            </article>
+            <article class="testimonial-card testimonial-card-slide" id="testimonial-3">
+              <div class="testimonial-header">
+                <div class="testimonial-avatar" style="background:#0E5A60;">A</div>
+                <div class="testimonial-meta">
+                  <strong class="testimonial-name">Ana K.</strong>
+                  <span class="testimonial-location">🇩🇪 Berlin, Germany</span>
+                </div>
+                <div class="testimonial-stars">★★★★★</div>
+              </div>
+              <p class="testimonial-text">"The cultural component is what sets this school apart. I don't just speak Spanish — I understand Colombian humor, music, and history with Valentina. My colleagues are amazed."</p>
+              <div class="testimonial-badge">📅 Student for 1 year</div>
+            </article>
+            <article class="testimonial-card testimonial-card-slide" id="testimonial-4">
+              <div class="testimonial-header">
+                <div class="testimonial-avatar" style="background:#FC2C54;">M</div>
+                <div class="testimonial-meta">
+                  <strong class="testimonial-name">Marcus S.</strong>
+                  <span class="testimonial-location">🇺🇸 Austin, USA</span>
+                </div>
+                <div class="testimonial-stars">★★★★★</div>
+              </div>
+              <p class="testimonial-text">"I traveled to Colombia last month and was able to speak with taxi drivers, baristas, and new friends. Incredible teachers and super flexible booking."</p>
+              <div class="testimonial-badge">📅 Student for 4 months</div>
+            </article>
+            <article class="testimonial-card testimonial-card-slide" id="testimonial-5">
+              <div class="testimonial-header">
+                <div class="testimonial-avatar" style="background:#2A9D8F;">E</div>
+                <div class="testimonial-meta">
+                  <strong class="testimonial-name">Elena R.</strong>
+                  <span class="testimonial-location">🇨🇦 Toronto, Canada</span>
+                </div>
+                <div class="testimonial-stars">★★★★★</div>
+              </div>
+              <p class="testimonial-text">"The Google Meet links arrive right away, my tutor is always prepared with slides and real expressions. Definitely the best online Spanish school."</p>
+              <div class="testimonial-badge">📅 Student for 8 months</div>
+            </article>
+          </div>
+          <button class="carousel-arrow-btn carousel-arrow-next" id="carousel-next-btn" onclick="scrollReviews(1)" aria-label="Next review">›</button>
         </div>
       </div>
     </section>
@@ -749,50 +774,63 @@
       </div>
     </section>
 
-    <section class="philosophy-section">
+    <!-- Meet Your Teachers (About Us) with Video Intros -->
+    <section class="about-teachers-section" id="about-teachers-section">
       <div class="container">
         <div class="section-header">
-          <span class="section-tag">Our Philosophy</span>
-          <h2 class="section-title">Three pillars that guide every class</h2>
+          <span class="section-tag">Hear Us Speak</span>
+          <h2 class="section-title">Meet your teachers</h2>
+          <p class="section-sub">Watch our introductory videos to hear our natural accents, see how we teach, and feel the Colombian warmth before your first class.</p>
         </div>
-        <div class="pillars-grid">
-          <div class="pillar-card" id="pillar-1">
-            <div class="pillar-icon">🌱</div>
-            <h3 class="pillar-title">Roots First</h3>
-            <p class="pillar-text">Language lives in culture. We don't just teach words — we teach context, history, and the stories behind every expression.</p>
-          </div>
-          <div class="pillar-card" id="pillar-2">
-            <div class="pillar-icon">🗣️</div>
-            <h3 class="pillar-title">Speak from Day One</h3>
-            <p class="pillar-text">Forget passive study. Our teachers push you to communicate in every class, building real confidence through practice.</p>
-          </div>
-          <div class="pillar-card" id="pillar-3">
-            <div class="pillar-icon">❤️</div>
-            <h3 class="pillar-title">Human Connection</h3>
-            <p class="pillar-text">Learning is personal. We match students with teachers who share their interests, making every class feel natural and genuine.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="teachers-section">
-      <div class="container">
-        <div class="section-header">
-          <span class="section-tag">Meet the Team</span>
-          <h2 class="section-title">Your Colombian teachers</h2>
-          <p class="section-sub">Every teacher is a certified native speaker with a passion for cultural storytelling.</p>
-        </div>
-        <div class="teachers-grid">
-
-          <article class="teacher-card" id="teacher-camila">
-            <div class="teacher-availability">⚡ Only 3 spots left this week!</div>
-            <div class="teacher-img-wrapper">
-              <img src="images/teacher_camila.jpg" alt="Camila Acosta, native Spanish teacher from Medellín Colombia" class="teacher-img" loading="lazy" decoding="async" width="1024" height="1024" />
+        <div class="about-teachers-grid" id="about-teachers-video-grid">
+          
+          <article class="teacher-video-card" id="about-teacher-maria">
+            <div class="teacher-video-container" id="video-wrap-maria">
+              <div class="teacher-video-placeholder">
+                <img src="https://xpmyayjtowdhrjdbezas.supabase.co/storage/v1/object/public/photos/teachers/1792628508575_2024-12-26%2017.46.06.jpg" alt="María Izquierdo" class="video-placeholder-bg" />
+                <div class="video-placeholder-overlay">
+                  <div class="video-play-icon">▶</div>
+                  <span class="video-placeholder-text">Video Intro: María Izquierdo</span>
+                  <span class="video-placeholder-sub">Bogotá, Colombia · Neutral Andean Accent</span>
+                </div>
+              </div>
             </div>
             <div class="teacher-body">
               <div class="teacher-header">
                 <div>
-                  <h3 class="teacher-name">Camila Acosta</h3>
+                  <h3 class="teacher-name">María Izquierdo</h3>
+                  <p class="teacher-city">📍 Bogotá, Cundinamarca</p>
+                </div>
+                <div class="teacher-rating">
+                  <span class="t-stars">★★★★★</span>
+                  <span class="t-rating">5.0</span>
+                </div>
+              </div>
+              <p class="teacher-specialty">Founder &amp; Lead Instructor · Real-life conversation</p>
+              <div class="teacher-badges">
+                <span class="trust-badge">✅ Native Speaker</span>
+                <span class="trust-badge">☕ Culture Coach</span>
+                <span class="trust-badge">⭐ Top Rated</span>
+              </div>
+              <button class="btn-book-teacher" onclick="window.location.href='reservar.html?tutor=maria'">Book with María →</button>
+            </div>
+          </article>
+
+          <article class="teacher-video-card" id="about-teacher-daniela">
+            <div class="teacher-video-container" id="video-wrap-daniela">
+              <div class="teacher-video-placeholder">
+                <img src="https://xpmyayjtowdhrjdbezas.supabase.co/storage/v1/object/public/photos/teachers/1792628749919_PHOTO-2026-09-19-18-15-35.jpg" alt="Daniela García" class="video-placeholder-bg" />
+                <div class="video-placeholder-overlay">
+                  <div class="video-play-icon">▶</div>
+                  <span class="video-placeholder-text">Video Intro: Daniela García</span>
+                  <span class="video-placeholder-sub">Medellín, Colombia · Melodic Paisa Accent</span>
+                </div>
+              </div>
+            </div>
+            <div class="teacher-body">
+              <div class="teacher-header">
+                <div>
+                  <h3 class="teacher-name">Daniela García</h3>
                   <p class="teacher-city">📍 Medellín, Antioquia</p>
                 </div>
                 <div class="teacher-rating">
@@ -800,78 +838,45 @@
                   <span class="t-rating">5.0</span>
                 </div>
               </div>
-              <p class="teacher-specialty">Specialty: Conversational Spanish &amp; Business Spanish</p>
-              <div class="teacher-stats">
-                <div class="t-stat"><span class="t-stat-num">348</span><span class="t-stat-label">Classes</span></div>
-                <div class="t-stat"><span class="t-stat-num">47</span><span class="t-stat-label">Students</span></div>
-                <div class="t-stat"><span class="t-stat-num">98%</span><span class="t-stat-label">Re-book</span></div>
-              </div>
+              <p class="teacher-specialty">Conversational Spanish &amp; Business Culture</p>
               <div class="teacher-badges">
-                <span class="trust-badge">✅ DELE Certified</span>
-                <span class="trust-badge">🏆 Top Rated</span>
-                <span class="trust-badge">💬 Cultural Coach</span>
+                <span class="trust-badge">✅ Native Paisa</span>
+                <span class="trust-badge">💼 Business Spanish</span>
+                <span class="trust-badge">⭐ Top Rated</span>
               </div>
-              <button class="btn-book-teacher" onclick="showTab('book')">Book with Camila →</button>
+              <button class="btn-book-teacher" onclick="window.location.href='reservar.html?tutor=daniela'">Book with Daniela →</button>
             </div>
           </article>
 
-          <article class="teacher-card" id="teacher-santiago">
-            <div class="teacher-img-wrapper">
-              <img src="images/teacher_santiago.jpg" alt="Santiago Morales, native Spanish teacher from Bogotá Colombia" class="teacher-img" loading="lazy" decoding="async" width="1024" height="1024" />
+          <article class="teacher-video-card" id="about-teacher-valentina">
+            <div class="teacher-video-container" id="video-wrap-valentina">
+              <div class="teacher-video-placeholder">
+                <img src="https://xpmyayjtowdhrjdbezas.supabase.co/storage/v1/object/public/photos/teachers/1792629035343_PHOTO-2026-09-29-11-24-29%202.jpg" alt="Valentina Gómez" class="video-placeholder-bg" />
+                <div class="video-placeholder-overlay">
+                  <div class="video-play-icon">▶</div>
+                  <span class="video-placeholder-text">Video Intro: Valentina Gómez</span>
+                  <span class="video-placeholder-sub">Cali, Colombia · Musical Valluno Accent</span>
+                </div>
+              </div>
             </div>
             <div class="teacher-body">
               <div class="teacher-header">
                 <div>
-                  <h3 class="teacher-name">Santiago Morales</h3>
-                  <p class="teacher-city">📍 Bogotá, Cundinamarca</p>
-                </div>
-                <div class="teacher-rating">
-                  <span class="t-stars">★★★★★</span>
-                  <span class="t-rating">4.9</span>
-                </div>
-              </div>
-              <p class="teacher-specialty">Specialty: Grammar Foundations &amp; DELE Exam Prep</p>
-              <div class="teacher-stats">
-                <div class="t-stat"><span class="t-stat-num">512</span><span class="t-stat-label">Classes</span></div>
-                <div class="t-stat"><span class="t-stat-num">62</span><span class="t-stat-label">Students</span></div>
-                <div class="t-stat"><span class="t-stat-num">95%</span><span class="t-stat-label">Re-book</span></div>
-              </div>
-              <div class="teacher-badges">
-                <span class="trust-badge">✅ DELE Examiner</span>
-                <span class="trust-badge">🎓 MA Linguistics</span>
-                <span class="trust-badge">📚 Grammar Expert</span>
-              </div>
-              <button class="btn-book-teacher" onclick="showTab('book')">Book with Santiago →</button>
-            </div>
-          </article>
-
-          <article class="teacher-card" id="teacher-valentina">
-            <div class="teacher-img-wrapper">
-              <img src="images/teacher_valentina.jpg" alt="Valentina Rios, native Spanish teacher from Cali Colombia" class="teacher-img" loading="lazy" decoding="async" width="1024" height="1024" />
-            </div>
-            <div class="teacher-body">
-              <div class="teacher-header">
-                <div>
-                  <h3 class="teacher-name">Valentina Ríos</h3>
+                  <h3 class="teacher-name">Valentina Gómez</h3>
                   <p class="teacher-city">📍 Cali, Valle del Cauca</p>
                 </div>
                 <div class="teacher-rating">
                   <span class="t-stars">★★★★★</span>
-                  <span class="t-rating">4.8</span>
+                  <span class="t-rating">5.0</span>
                 </div>
               </div>
-              <p class="teacher-specialty">Specialty: Cultural Immersion &amp; Travel Spanish</p>
-              <div class="teacher-stats">
-                <div class="t-stat"><span class="t-stat-num">289</span><span class="t-stat-label">Classes</span></div>
-                <div class="t-stat"><span class="t-stat-num">38</span><span class="t-stat-label">Students</span></div>
-                <div class="t-stat"><span class="t-stat-num">97%</span><span class="t-stat-label">Re-book</span></div>
-              </div>
+              <p class="teacher-specialty">Cultural Immersion &amp; Pronunciation Coach</p>
               <div class="teacher-badges">
                 <span class="trust-badge">✅ Native Speaker</span>
-                <span class="trust-badge">🎭 Cultural Expert</span>
-                <span class="trust-badge">🌎 Travel Coach</span>
+                <span class="trust-badge">🎭 Cultural Immersion</span>
+                <span class="trust-badge">⭐ Top Rated</span>
               </div>
-              <button class="btn-book-teacher" onclick="showTab('book')">Book with Valentina →</button>
+              <button class="btn-book-teacher" onclick="window.location.href='reservar.html?tutor=valentina'">Book with Valentina →</button>
             </div>
           </article>
 
@@ -1089,13 +1094,6 @@
 
   </main>
 
-  <!-- Floating CTA Button -->
-  <a href="reservar" class="floating-cta" id="floating-cta-btn">
-    <span class="floating-cta-pulse"></span>
-    <span class="floating-cta-icon">📅</span>
-    <span class="floating-cta-text">Book a Class</span>
-  </a>
-
   <!-- Toast Notification -->
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
@@ -1168,18 +1166,24 @@
     </div>
   </div>
 
-  <!-- Floating WhatsApp Widget -->
-  <a href="https://wa.me/573007945333?text=Hi%20Espa%C3%B1ol%20con%20Sabor!%20I%20found%20you%20on%20Google%20and%20I'd%20like%20to%20ask%20about%20Colombian%20Spanish%20lessons%20%E2%98%95"
-     target="_blank"
-     rel="noopener noreferrer"
-     class="whatsapp-float"
-     id="whatsapp-btn"
-     aria-label="Chat with Español con Sabor on WhatsApp">
-    <span class="whatsapp-tooltip">Chat with us on WhatsApp ☕</span>
-    <svg class="whatsapp-icon" viewBox="0 0 24 24" width="32" height="32" fill="currentColor">
-      <path d="M12.031 2C6.51 2 2.016 6.485 2.016 12c0 1.942.559 3.754 1.523 5.289L2.001 22l4.87-1.503A9.957 9.957 0 0012.031 22c5.522 0 10.016-4.485 10.016-10s-4.494-10-10.016-10zm0 18.277c-1.637 0-3.167-.47-4.471-1.282l-.32-.2-2.887.89.907-2.809-.208-.337A8.256 8.256 0 013.75 12c0-4.565 3.714-8.277 8.281-8.277 4.568 0 8.281 3.712 8.281 8.277 0 4.565-3.713 8.277-8.281 8.277zm4.536-6.177c-.248-.124-1.468-.724-1.696-.807-.228-.083-.394-.124-.56.124-.166.248-.642.807-.787.973-.145.166-.29.186-.538.062-.249-.124-1.049-.387-1.998-1.233-.738-.658-1.236-1.472-1.381-1.72-.145-.248-.016-.382.108-.506.112-.112.249-.29.373-.435.124-.145.166-.248.249-.414.083-.166.041-.31-.021-.435-.062-.124-.56-1.349-.767-1.848-.201-.486-.406-.42-.56-.428-.145-.008-.31-.01-.476-.01s-.435.062-.663.31c-.228.248-.87 0.85-.87 2.073s.891 2.403 1.015 2.569c.124.166 1.753 2.677 4.247 3.754.593.257 1.057.41 1.419.525.597.19 1.14.163 1.569.099.479-.072 1.468-.6 1.675-1.18.207-.579.207-1.077.145-1.18-.062-.103-.228-.166-.476-.29z"/>
-    </svg>
-  </a>
+  <!-- Floating Action Buttons Cluster (Expanding Circles) -->
+  <div class="floating-actions-cluster" id="floating-actions-cluster">
+    <a href="reservar" class="fab-btn fab-book" id="fab-book-btn" aria-label="Book a Class">
+      <span class="fab-icon">📅</span>
+      <span class="fab-label">Book a Class</span>
+    </a>
+    <a href="https://wa.me/573007945333?text=Hi%20Espa%C3%B1ol%20con%20Sabor!%20I'd%20like%20to%20ask%20about%20Colombian%20Spanish%20lessons%20%E2%98%95"
+       target="_blank"
+       rel="noopener noreferrer"
+       class="fab-btn fab-whatsapp"
+       id="whatsapp-btn"
+       aria-label="Chat on WhatsApp">
+      <svg class="fab-icon-svg" viewBox="0 0 24 24" width="28" height="28" fill="currentColor">
+        <path d="M12.031 2C6.51 2 2.016 6.485 2.016 12c0 1.942.559 3.754 1.523 5.289L2.001 22l4.87-1.503A9.957 9.957 0 0012.031 22c5.522 0 10.016-4.485 10.016-10s-4.494-10-10.016-10zm0 18.277c-1.637 0-3.167-.47-4.471-1.282l-.32-.2-2.887.89.907-2.809-.208-.337A8.256 8.256 0 013.75 12c0-4.565 3.714-8.277 8.281-8.277 4.568 0 8.281 3.712 8.281 8.277 0 4.565-3.713 8.277-8.281 8.277zm4.536-6.177c-.248-.124-1.468-.724-1.696-.807-.228-.083-.394-.124-.56.124-.166.248-.642.807-.787.973-.145.166-.29.186-.538.062-.249-.124-1.049-.387-1.998-1.233-.738-.658-1.236-1.472-1.381-1.72-.145-.248-.016-.382.108-.506.112-.112.249-.29.373-.435.124-.145.166-.248.249-.414.083-.166.041-.31-.021-.435-.062-.124-.56-1.349-.767-1.848-.201-.486-.406-.42-.56-.428-.145-.008-.31-.01-.476-.01s-.435.062-.663.31c-.228.248-.87 0.85-.87 2.073s.891 2.403 1.015 2.569c.124.166 1.753 2.677 4.247 3.754.593.257 1.057.41 1.419.525.597.19 1.14.163 1.569.099.479-.072 1.468-.6 1.675-1.18.207-.579.207-1.077.145-1.18-.062-.103-.228-.166-.476-.29z"/>
+      </svg>
+      <span class="fab-label">Chat on WhatsApp</span>
+    </a>
+  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabase-client.js"></script>

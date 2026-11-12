@@ -47,13 +47,29 @@ async function renderBookingsManager(container) {
           </div>
 
           <div>
-            <label style="display: block; font-size: 12px; font-weight: 700; color: #333; margin-bottom: 4px;">Foto de Perfil</label>
+            <label style="display: block; font-size: 12px; font-weight: 700; color: #333; margin-bottom: 4px;">Foto de Perfil (Reservas & Portal)</label>
             <input type="file" id="edit-tutor-file" accept="image/*" style="font-size: 12px; margin-bottom: 6px; width: 100%;" />
             <input type="url" id="edit-tutor-avatar" placeholder="O pega el enlace de la imagen (https://...)" oninput="document.getElementById('edit-tutor-avatar-preview').src = this.value" style="width: 100%; padding: 8px 12px; border: 1px solid #ccc; border-radius: 8px; font-size: 13px; box-sizing: border-box;" />
             <div style="display: flex; align-items: center; gap: 10px; margin-top: 6px;">
               <img id="edit-tutor-avatar-preview" src="" style="width: 48px; height: 48px; border-radius: 50%; object-fit: cover; border: 2px solid #0E5A60;" />
-              <span style="font-size: 11px; color: #666;">Vista previa</span>
+              <span style="font-size: 11px; color: #666;">Vista previa perfil</span>
             </div>
+          </div>
+
+          <div>
+            <label style="display: block; font-size: 12px; font-weight: 700; color: #0E5A60; margin-bottom: 4px;">🖼️ Foto Especial para Home (Opcional - Imagen distinta para el inicio)</label>
+            <input type="file" id="edit-tutor-home-file" accept="image/*" style="font-size: 12px; margin-bottom: 6px; width: 100%;" />
+            <input type="url" id="edit-tutor-home-avatar" placeholder="O pega el enlace de la imagen para Home (https://...)" oninput="document.getElementById('edit-tutor-home-preview').src = this.value" style="width: 100%; padding: 8px 12px; border: 1px solid #ccc; border-radius: 8px; font-size: 13px; box-sizing: border-box;" />
+            <div style="display: flex; align-items: center; gap: 10px; margin-top: 6px;">
+              <img id="edit-tutor-home-preview" src="" style="width: 48px; height: 48px; border-radius: 10px; object-fit: cover; border: 2px solid #2A9D8F;" />
+              <span style="font-size: 11px; color: #666;">Vista previa Home (si no subes una, se usará la foto de perfil)</span>
+            </div>
+          </div>
+
+          <div>
+            <label style="display: block; font-size: 12px; font-weight: 700; color: #0E5A60; margin-bottom: 4px;">🎬 Video de YouTube (Presentación en About Us)</label>
+            <input type="url" id="edit-tutor-video-url" placeholder="https://www.youtube.com/watch?v=... o https://youtu.be/..." style="width: 100%; padding: 8px 12px; border: 1px solid #ccc; border-radius: 8px; font-size: 13px; box-sizing: border-box;" />
+            <small style="display: block; font-size: 11px; color: #666; margin-top: 4px;">Pega el enlace del video de YouTube donde la tutora se presenta para que los alumnos escuchen su voz y acento.</small>
           </div>
 
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
@@ -268,12 +284,17 @@ function openTutorModal(tutorId) {
   document.getElementById('edit-tutor-email').value = tutor.email || '';
   document.getElementById('edit-tutor-avatar').value = tutor.avatar_url || '';
   document.getElementById('edit-tutor-avatar-preview').src = tutor.avatar_url || '';
+  document.getElementById('edit-tutor-home-avatar').value = tutor.home_avatar_url || '';
+  document.getElementById('edit-tutor-home-preview').src = tutor.home_avatar_url || tutor.avatar_url || '';
+  document.getElementById('edit-tutor-video-url').value = tutor.video_url || '';
   document.getElementById('edit-tutor-rating').value = (parseFloat(tutor.rating) || 5.0).toFixed(1);
   document.getElementById('edit-tutor-pin').value = tutor.access_pin || '1234';
   document.getElementById('edit-tutor-headline').value = tutor.headline || '';
   document.getElementById('edit-tutor-bio').value = tutor.bio || '';
   const fileInput = document.getElementById('edit-tutor-file');
   if (fileInput) fileInput.value = '';
+  const homeFileInput = document.getElementById('edit-tutor-home-file');
+  if (homeFileInput) homeFileInput.value = '';
 
   const modal = document.getElementById('modal-edit-tutor');
   modal.style.display = 'flex';
@@ -293,6 +314,9 @@ async function saveTutorChanges(e) {
   const tutorId = document.getElementById('edit-tutor-id').value;
   let avatarUrl = document.getElementById('edit-tutor-avatar').value.trim();
   const fileInput = document.getElementById('edit-tutor-file');
+  let homeAvatarUrl = document.getElementById('edit-tutor-home-avatar').value.trim();
+  const homeFileInput = document.getElementById('edit-tutor-home-file');
+  const videoUrlVal = document.getElementById('edit-tutor-video-url').value.trim();
 
   try {
     if (fileInput && fileInput.files && fileInput.files[0]) {
@@ -303,6 +327,16 @@ async function saveTutorChanges(e) {
       if (uploadError) throw new Error('Error subiendo foto: ' + uploadError.message);
       const { data: urlData } = supabaseClient.storage.from('photos').getPublicUrl(fileName);
       avatarUrl = urlData.publicUrl;
+    }
+
+    if (homeFileInput && homeFileInput.files && homeFileInput.files[0]) {
+      btn.innerText = 'Subiendo foto de Home a Supabase...';
+      const file = homeFileInput.files[0];
+      const fileName = `teachers/home_${Date.now()}_${file.name}`;
+      const { error: uploadError } = await supabaseClient.storage.from('photos').upload(fileName, file);
+      if (uploadError) throw new Error('Error subiendo foto de Home: ' + uploadError.message);
+      const { data: urlData } = supabaseClient.storage.from('photos').getPublicUrl(fileName);
+      homeAvatarUrl = urlData.publicUrl;
     }
 
     const ratingNum = parseFloat(document.getElementById('edit-tutor-rating').value) || 5.0;
@@ -316,6 +350,8 @@ async function saveTutorChanges(e) {
       name: nameVal,
       email: emailVal,
       avatar_url: avatarUrl,
+      home_avatar_url: homeAvatarUrl || null,
+      video_url: videoUrlVal || null,
       rating: ratingNum,
       access_pin: pinVal,
       headline: headlineVal,
@@ -329,12 +365,15 @@ async function saveTutorChanges(e) {
     // Sync to teachers table if present
     try {
       const firstName = nameVal.split(' ')[0];
-      await supabaseClient.from('teachers').update({
+      const teacherUpdates = {
         name: nameVal,
         photo_url: avatarUrl,
+        home_avatar_url: homeAvatarUrl || null,
+        video_url: videoUrlVal || null,
         bio: headlineVal || bioVal,
         rating: ratingNum
-      }).ilike('name', `%${firstName}%`);
+      };
+      await supabaseClient.from('teachers').update(teacherUpdates).ilike('name', `%${firstName}%`);
     } catch (syncErr) {
       console.warn('Sync to teachers table skipped:', syncErr);
     }

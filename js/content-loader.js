@@ -43,67 +43,170 @@ window._staticBlogPosts = [
   }
 ];
 
-async function loadTeachers() {
-  const container = document.querySelector('.teachers-grid');
-  if (!container) return;
-  const { data, error } = await supabaseClient.from('teachers').select('*').order('display_order');
-  if (error || !data || !data.length) return; // Si falla o no hay datos, deja las cards de respaldo
+function extractYouTubeId(url) {
+  if (!url) return null;
+  const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/);
+  return match ? match[1] : null;
+}
 
-  // Cargar calificaciones de tutores desde site_content
+async function loadTeachers() {
+  const homeContainer = document.getElementById('home-teachers-grid');
+  const aboutContainer = document.getElementById('about-teachers-video-grid');
+  const legacyContainer = document.querySelector('.teachers-grid');
+
+  if (!homeContainer && !aboutContainer && !legacyContainer) return;
+
+  // Cargar desde tutors (donde están home_avatar_url y video_url actualizados)
+  let tutorsList = [];
+  try {
+    const { data: tutorsData } = await supabaseClient.from('tutors').select('*').eq('is_active', true);
+    if (tutorsData && tutorsData.length) {
+      tutorsList = tutorsData;
+    }
+  } catch (tErr) {
+    console.warn('Error loading tutors:', tErr);
+  }
+
+  if (!tutorsList.length) {
+    try {
+      const { data: teachersData } = await supabaseClient.from('teachers').select('*').order('display_order');
+      if (teachersData && teachersData.length) tutorsList = teachersData;
+    } catch (tchErr) {
+      console.warn('Error loading teachers:', tchErr);
+    }
+  }
+
+  if (!tutorsList || !tutorsList.length) return;
+
+  // Cargar calificaciones si hay en site_content
   const { data: ratingsData } = await supabaseClient.from('site_content').select('*').like('key', 'teacher_rating_%');
   const ratingsMap = {};
   (ratingsData || []).forEach(r => {
     ratingsMap[r.key.replace('teacher_rating_', '')] = r.value;
   });
 
-  container.innerHTML = data.map(t => {
-    const firstName = t.name ? t.name.split(' ')[0] : 'Teacher';
-    const photo = t.photo_url || 'images/founder_avatar.jpg';
-    const numRating = parseFloat(ratingsMap[t.id] ?? t.rating ?? 5.0) || 5.0;
-    const formattedRating = numRating.toFixed(1);
-    const starCount = Math.round(numRating);
-    const stars = '★'.repeat(Math.max(0, Math.min(5, starCount))) + '☆'.repeat(Math.max(0, 5 - starCount));
+  const getSlug = (name) => {
+    const n = (name || '').toLowerCase();
+    if (n.includes('mar')) return 'maria';
+    if (n.includes('dan')) return 'daniela';
+    if (n.includes('val')) return 'valentina';
+    return '';
+  };
 
-    return `
-      <article class="teacher-card">
-        <div class="teacher-img-wrapper">
-          <img src="${photo}" alt="${t.name}" class="teacher-img" loading="lazy" />
-        </div>
-        <div class="teacher-body">
-          <div class="teacher-header">
-            <div>
-              <h3 class="teacher-name">${t.name}</h3>
-              <p class="teacher-city">📍 ${t.city || ''}</p>
+  // 1. Renderizar en Home (Home Teachers Grid)
+  if (homeContainer) {
+    homeContainer.innerHTML = tutorsList.map(t => {
+      const firstName = t.name ? t.name.split(' ')[0] : 'Teacher';
+      const slug = getSlug(t.name);
+      const photo = t.home_avatar_url || t.avatar_url || t.photo_url || 'images/founder_avatar.jpg';
+      const numRating = parseFloat(t.rating ?? ratingsMap[t.id] ?? 5.0) || 5.0;
+      const formattedRating = numRating.toFixed(1);
+      const starCount = Math.round(numRating);
+      const stars = '★'.repeat(Math.max(0, Math.min(5, starCount))) + '☆'.repeat(Math.max(0, 5 - starCount));
+      const defaultCity = slug === 'daniela' ? 'Medellín, Colombia' : slug === 'valentina' ? 'Cali, Colombia' : 'Bogotá, Colombia';
+      const city = t.city || defaultCity;
+      const bookHref = slug ? `reservar.html?tutor=${slug}` : `reservar.html`;
+
+      return `
+        <article class="teacher-card" id="home-teacher-${slug || t.id}">
+          <div class="teacher-img-wrapper">
+            <img src="${photo}" alt="${t.name}" class="teacher-img" loading="lazy" />
+          </div>
+          <div class="teacher-body">
+            <div class="teacher-header">
+              <div>
+                <h3 class="teacher-name">${t.name}</h3>
+                <p class="teacher-city">📍 ${city}</p>
+              </div>
+              <div class="teacher-rating">
+                <span class="t-stars">${stars}</span>
+                <span class="t-rating">${formattedRating}</span>
+              </div>
             </div>
-            <div class="teacher-rating">
-              <span class="t-stars">${stars}</span>
-              <span class="t-rating">${formattedRating}</span>
+            <p class="teacher-specialty">${t.headline || t.bio || 'Native Spanish Instructor'}</p>
+            <button class="btn-book-teacher" onclick="window.location.href='${bookHref}'">Book with ${firstName} →</button>
+          </div>
+        </article>
+      `;
+    }).join('');
+  }
+
+  // 2. Renderizar en About Us con Video Player
+  if (aboutContainer) {
+    aboutContainer.innerHTML = tutorsList.map(t => {
+      const firstName = t.name ? t.name.split(' ')[0] : 'Teacher';
+      const slug = getSlug(t.name);
+      const photo = t.avatar_url || t.photo_url || 'images/founder_avatar.jpg';
+      const numRating = parseFloat(t.rating ?? ratingsMap[t.id] ?? 5.0) || 5.0;
+      const formattedRating = numRating.toFixed(1);
+      const starCount = Math.round(numRating);
+      const stars = '★'.repeat(Math.max(0, Math.min(5, starCount))) + '☆'.repeat(Math.max(0, 5 - starCount));
+      const defaultCity = slug === 'daniela' ? 'Medellín, Antioquia' : slug === 'valentina' ? 'Cali, Valle del Cauca' : 'Bogotá, Cundinamarca';
+      const city = t.city || defaultCity;
+      const ytId = extractYouTubeId(t.video_url);
+      const bookHref = slug ? `reservar.html?tutor=${slug}` : `reservar.html`;
+
+      const videoMarkup = ytId ? `
+        <div class="teacher-video-container">
+          <iframe src="https://www.youtube-nocookie.com/embed/${ytId}?rel=0" title="Intro video: ${t.name}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+      ` : `
+        <div class="teacher-video-container">
+          <div class="teacher-video-placeholder">
+            <img src="${photo}" alt="${t.name}" class="video-placeholder-bg" />
+            <div class="video-placeholder-overlay">
+              <div class="video-play-icon">▶</div>
+              <span class="video-placeholder-text">Video Intro: ${t.name}</span>
+              <span class="video-placeholder-sub">${city}</span>
             </div>
           </div>
-          <p class="teacher-specialty">${t.bio || ''}</p>
-          <button class="btn-book-teacher" onclick="showTab('book')">Book with ${firstName} →</button>
         </div>
-      </article>
-    `;
-  }).join('');
+      `;
+
+      return `
+        <article class="teacher-video-card" id="about-teacher-${slug || t.id}">
+          ${videoMarkup}
+          <div class="teacher-body">
+            <div class="teacher-header">
+              <div>
+                <h3 class="teacher-name">${t.name}</h3>
+                <p class="teacher-city">📍 ${city}</p>
+              </div>
+              <div class="teacher-rating">
+                <span class="t-stars">${stars}</span>
+                <span class="t-rating">${formattedRating}</span>
+              </div>
+            </div>
+            <p class="teacher-specialty">${t.headline || t.bio || 'Native Spanish Instructor'}</p>
+            <div class="teacher-badges">
+              <span class="trust-badge">✅ Native Speaker</span>
+              <span class="trust-badge">☕ Culture Coach</span>
+              <span class="trust-badge">⭐ Top Rated</span>
+            </div>
+            <button class="btn-book-teacher" onclick="window.location.href='${bookHref}'">Book with ${firstName} →</button>
+          </div>
+        </article>
+      `;
+    }).join('');
+  }
 }
 
 async function loadTestimonials() {
-  const container = document.querySelector('.testimonials-grid');
-  if (!container) return;
+  const track = document.getElementById('testimonials-track') || document.querySelector('.testimonials-track') || document.querySelector('.testimonials-grid');
+  if (!track) return;
   const { data, error } = await supabaseClient.from('testimonials').select('*').order('display_order');
   if (error || !data || !data.length) return; // Respaldo visual si no hay datos
 
   const avatarColors = ['#2A9D8F', '#F2B705', '#0E5A60', '#FC2C54'];
 
-  container.innerHTML = data.map((t, idx) => {
+  track.innerHTML = data.map((t, idx) => {
     const initial = t.name ? t.name.charAt(0).toUpperCase() : 'S';
     const color = avatarColors[idx % avatarColors.length];
     const rating = Math.max(1, Math.min(5, t.rating || 5));
     const stars = '★'.repeat(rating) + '☆'.repeat(5 - rating);
 
     return `
-      <article class="testimonial-card">
+      <article class="testimonial-card testimonial-card-slide">
         <div class="testimonial-header">
           <div class="testimonial-avatar" style="background:${color};">${initial}</div>
           <div class="testimonial-meta">
@@ -247,6 +350,10 @@ async function loadSiteContent() {
     heroTitle.innerHTML = `${v.hero_title_line1}<br /><em>${v.hero_title_line2}</em>`;
   }
   set('.hero-subtitle', v.hero_subtitle);
+  if (v.hero_image_url) {
+    set('.hero-img', v.hero_image_url, 'src');
+    set('#hero-img', v.hero_image_url, 'src');
+  }
 
   // Stats (los 3 hero-stat en orden)
   const statEls = document.querySelectorAll('.hero-stat');

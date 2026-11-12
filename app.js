@@ -150,12 +150,12 @@ if (sessionStorage.getItem('banner-dismissed') === 'true') {
 // ─── LIVE ACTIVITY TICKER ─────────────────────────────
 (function initTicker() {
   const messages = [
-    '🔴 <strong>12 students</strong> booked a class in the last 24 hours',
-    '⚡ Only <strong>3 spots</strong> left this week with Camila',
-    '🎉 <strong>Sarah from New York</strong> just booked her trial class!',
-    '🔴 <strong>10 classes</strong> scheduled in the past 24 hours',
-    '⭐ <strong>James from London</strong> left a 5-star review today',
-    '📅 <strong>Valentina</strong> has 2 new slots available this weekend',
+    '✨ <strong>14 students</strong> booked a class in the last 24 hours',
+    '🇨🇴 <strong>Sarah from New York</strong> just booked her Colombian Spanish class!',
+    '🗓️ <strong>12 classes</strong> scheduled today with native teachers',
+    '⭐ <strong>Marcus from Austin</strong> left a 5-star review',
+    '☕ <strong>David from London</strong> started his Cafetera plan this week',
+    '🎉 <strong>Elena from Toronto</strong> had her first lesson con sabor!'
   ];
 
   let idx = 0;
@@ -174,6 +174,17 @@ if (sessionStorage.getItem('banner-dismissed') === 'true') {
     }, 350);
   }, 5000);
 })();
+
+// ─── TESTIMONIALS CAROUSEL SCROLLER ───────────────────
+function scrollReviews(direction) {
+  const track = document.getElementById('testimonials-track');
+  if (!track) return;
+  const card = track.querySelector('.testimonial-card-slide') || track.querySelector('.testimonial-card');
+  const cardWidth = card ? (card.offsetWidth + 24) : 340;
+  const isDesktop = window.innerWidth > 960;
+  const scrollAmount = isDesktop ? (cardWidth * 3) : cardWidth;
+  track.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
+}
 
 // ─── FAQ ACCORDION ────────────────────────────────────
 function toggleFaq(btn) {
