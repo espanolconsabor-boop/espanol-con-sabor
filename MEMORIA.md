@@ -48,12 +48,42 @@
 
 ---
 
-## 5. SEO y Open Graph
+## 5. SEO, Google Ranking y Optimización Web
+- **Dominio Canónico Oficial:** `https://espanolconsaboracademy.com`
 - **Etiquetas en `<head>`:**
-  - `title`: `Español con Sabor | Learn Colombian Spanish Online`
-  - `meta description`: 154 caracteres.
-  - `og:title` / `twitter:title`: `Español con Sabor | Learn Colombian Spanish Online`
-  - `og:description`: 101 caracteres.
-  - `og:site_name`: `Español con Sabor`
-  - `og:image` / `twitter:image`: `https://espanolconsabor.pages.dev/og-image.jpg` (1200x630 px).
-- **Imagen Social (`og-image.jpg`):** Creada en la raíz con branding corporativo (fondo hero, overlay teal `#0E5A60`, borde dorado `#F2B705` y textos promocionales en inglés).
+  - `title`: `Español con Sabor | Learn Colombian Spanish Online 1-on-1`
+  - `meta description`: 154 caracteres orientados a alta tasa de clics (CTR).
+  - `meta keywords`: Expresiones transaccionales y de búsqueda orgánica en inglés y español.
+  - `canonical`: `https://espanolconsaboracademy.com/` (index) y `https://espanolconsaboracademy.com/reservar` (reservar).
+  - `robots`: `index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1`.
+  - `admin.html` y `tutor.html`: Protegidos con `noindex, nofollow, noarchive`.
+- **Suite de Favicons y PWA:**
+  - `favicon.svg` (vectorial moderno).
+  - `favicon-32x32.png`, `favicon-16x16.png`.
+  - `apple-touch-icon.png` (180x180 px para iOS).
+  - `favicon.ico` (raíz para navegadores legacy).
+- **Robots y Sitemap:**
+  - `robots.txt`: Reglas de rastreo optimizadas, bloqueo de endpoints administrativos y directiva hacia el sitemap.
+  - `sitemap.xml`: Protocolo Sitemaps 0.9 con extensiones de imágenes (`image:image`) y lenguaje alternativo (`xhtml:link hreflang`).
+- **Datos Estructurados Schema.org (JSON-LD):**
+  - `@graph` con `LanguageSchool`, `WebSite`, `Course`, `FAQPage`, `AggregateRating`, `Review` y catálogo de ofertas.
+- **Rendimiento y Core Web Vitals:**
+  - Compresión de imágenes de 5.2 MB a 1.7 MB (ahorro del 66%).
+  - Atributo `fetchpriority="high"` y `decoding="async"` en imagen LCP del hero.
+  - Atributos `loading="lazy"` y dimensiones explícitas en el resto de imágenes.
+- **Enrutamiento por Hash en `app.js`:**
+  - Soporte para enlaces directos `#blog`, `#about`, `#book`, `#pricing`, `#faq` sincronizados con `history.replaceState`.
+
+---
+
+## 6. Motor de Reservas y Suscripciones (`reservar.html`)
+- **Planes de Suscripción Multiclase (50 min por clase en una sola sesión):**
+  - **Plan Andina:** 4 clases ($68 USD).
+  - **Plan Cafetera:** 8 clases ($128 USD).
+  - **Plan Caribeña:** 12 clases ($180 USD).
+  - Flujo: Selección de Tutora ➔ Datos y Metas ➔ Pago completo PayPal ➔ Selección simultánea de las 4, 8 o 12 clases ➔ Confirmación.
+- **Clase de Prueba:** 1 clase de 30 minutos ($15 USD) con validación de una prueba por estudiante.
+- **Integración Google Meet Oficial:**
+  - Fallback OAuth con Google Calendar API que genera enlaces de sala reales y activos (`meet.google.com/xxx-yyyy-zzz`).
+  - Envío automático de invitaciones de calendario (.ics) y correos de confirmación.
+
