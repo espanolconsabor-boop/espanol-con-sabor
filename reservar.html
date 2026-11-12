@@ -579,7 +579,6 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabase-client.js"></script>
-  <script src="https://www.paypal.com/sdk/js?client-id=AeCpAaBbGtkU2OBfrBVrmqj7O19aJsr2MH2EKt75kT4N4FKa4Is3Nz657UhoQrBXMOMxisYNn6qlOeT2&currency=USD"></script>
   <script>
     const TUTOR_IDS = {
       'maria': 'a1111111-1111-1111-1111-111111111111',
@@ -608,12 +607,12 @@
     let activeSubscriptionId = null;
     let currentPlanKey = '';
 
-    // PayPal Subscription Plan IDs (Creados en PayPal Business: Pay & Get Paid > Subscriptions)
-    // Cuando crees los 3 planes en PayPal, pega sus IDs aquí (ej. P-3RX8498877111244)
+    // PayPal Client ID & Subscription Plan IDs
+    const PAYPAL_CLIENT_ID = 'BAAZ7n3LNLO1wrWvxo3LVUHipd2c2mcDjPhQc0GJir6MVeRQnQ2_s1jLMIhbmXzsarzxkLaCXAvU4hjePc';
     const PAYPAL_PLAN_IDS = {
-      'andina': '',   // Plan Andina: 4 clases / $68 USD mes
-      'cafetera': '', // Plan Cafetera: 8 clases / $128 USD mes
-      'caribena': ''  // Plan Caribeña: 12 clases / $180 USD mes
+      'andina': 'P-7GP544922T7720254NL2SRLI',   // Plan Andina: 4 clases / $68 USD mes
+      'cafetera': 'P-7A4095868E7629802NL2SSRI', // Plan Cafetera: 8 clases / $128 USD mes
+      'caribena': 'P-6EJ53239N60197104NL2STJQ'  // Plan Caribeña: 12 clases / $180 USD mes
     };
 
     // SUBSCRIPTION MULTI-CLASS ENGINE
@@ -623,6 +622,39 @@
     let multiClassSlots = [];
     let paidPaypalOrderId = null;
     let confirmedBookings = [];
+
+    // ===================================================
+    // DYNAMIC PAYPAL SDK LOADER
+    // ===================================================
+    function loadPayPalSDK(callback) {
+      const isSub = isSubscriptionFlow && !!PAYPAL_PLAN_IDS[currentPlanKey];
+      const targetSrc = isSub
+        ? `https://www.paypal.com/sdk/js?client-id=${PAYPAL_CLIENT_ID}&vault=true&intent=subscription`
+        : `https://www.paypal.com/sdk/js?client-id=${PAYPAL_CLIENT_ID}&currency=USD`;
+
+      const existing = document.getElementById('paypal-sdk-script');
+      if (existing) {
+        if (existing.getAttribute('src') === targetSrc && window.paypal) {
+          if (callback) callback();
+          return;
+        }
+        existing.remove();
+        delete window.paypal;
+      }
+
+      const script = document.createElement('script');
+      script.id = 'paypal-sdk-script';
+      script.src = targetSrc;
+      script.setAttribute('data-sdk-integration-source', 'button-factory');
+      script.onload = () => {
+        paypalButtonsRendered = false;
+        if (callback) callback();
+      };
+      script.onerror = (e) => {
+        console.error('Failed to load PayPal SDK:', e);
+      };
+      document.head.appendChild(script);
+    }
 
     // ===================================================
     // MODAL & MEMBER VERIFICATION FUNCTIONS
@@ -1023,6 +1055,9 @@
       if (status === 'success' && bookingId) {
         handleSuccessfulReturn(bookingId);
       }
+
+      // Preload appropriate PayPal SDK (Subscription or One-Time)
+      loadPayPalSDK();
     }
 
     function scrollDaysCarousel(offset) {
@@ -1591,37 +1626,21 @@
     function initPayPalButtons() {
       if (paypalButtonsRendered) return;
       const container = document.getElementById('paypal-button-container');
-      if (!container || !window.paypal) return;
+      if (!container) return;
 
-      container.innerHTML = '';
-      try {
-        window.paypal.Buttons({
+      loadPayPalSDK(() => {
+        if (!window.paypal) return;
+        container.innerHTML = '';
+
+        const isSub = isSubscriptionFlow && !!PAYPAL_PLAN_IDS[currentPlanKey];
+        const buttonConfig = {
           style: {
             layout: 'vertical',
             color: 'gold',
             shape: 'rect',
-            label: 'pay'
-          },
-          createOrder: function(data, actions) {
-            // Subscription Plan with configured PayPal Plan ID
-            if (isSubscriptionFlow && currentPlanKey && PAYPAL_PLAN_IDS[currentPlanKey]) {
-              return actions.subscription.create({
-                'plan_id': PAYPAL_PLAN_IDS[currentPlanKey]
-              });
-            }
-            // Standard One-Time Order
-            return actions.order.create({
-              purchase_units: [{
-                description: `${customTitle} - Español con Sabor`,
-                amount: {
-                  currency_code: 'USD',
-                  value: customPrice.toFixed(2)
-                }
-              }]
-            });
+            label: isSub ? 'subscribe' : 'pay'
           },
           onApprove: async function(data, actions) {
-            const container = document.getElementById('paypal-button-container');
             if (container) {
               container.innerHTML = `
                 <div class="py-8 text-center space-y-3">
@@ -1685,7 +1704,7 @@
                     studentTimezone: document.getElementById('tz-select').value,
                     dynamicResponses: { mcer_level: level, learning_goal: goal, notes: notes },
                     paymentType: 'single_session',
-                    paypalOrderId: orderData.id,
+                    paypalOrderId: paidPaypalOrderId,
                     totalAmount: customPrice,
                     isPaid: true
                   })
@@ -1708,12 +1727,35 @@
             console.error('PayPal checkout error:', err);
             alert('Payment could not be completed. Please try another card or payment method.');
           }
-        }).render('#paypal-button-container');
+        };
 
-        paypalButtonsRendered = true;
-      } catch (err) {
-        console.error('Failed to render PayPal buttons:', err);
-      }
+        if (isSub) {
+          buttonConfig.createSubscription = function(data, actions) {
+            return actions.subscription.create({
+              plan_id: PAYPAL_PLAN_IDS[currentPlanKey]
+            });
+          };
+        } else {
+          buttonConfig.createOrder = function(data, actions) {
+            return actions.order.create({
+              purchase_units: [{
+                description: `${customTitle} - Español con Sabor`,
+                amount: {
+                  currency_code: 'USD',
+                  value: customPrice.toFixed(2)
+                }
+              }]
+            });
+          };
+        }
+
+        try {
+          window.paypal.Buttons(buttonConfig).render('#paypal-button-container');
+          paypalButtonsRendered = true;
+        } catch (err) {
+          console.error('Failed to render PayPal buttons:', err);
+        }
+      });
     }
 
     function setPaymentMode(mode) {
