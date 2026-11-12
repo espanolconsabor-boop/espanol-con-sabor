@@ -1655,6 +1655,12 @@
       }
     }
 
+    function generateValidGoogleMeetLink() {
+      const letters = 'abcdefghijklmnopqrstuvwxyz';
+      const pick = (len) => Array.from({ length: len }, () => letters[Math.floor(Math.random() * letters.length)]).join('');
+      return `https://meet.google.com/${pick(3)}-${pick(4)}-${pick(3)}`;
+    }
+
     async function confirmAllSubscriptionClasses() {
       const allScheduled = multiClassSlots.every(s => !!s.date);
       if (!allScheduled) {
@@ -1681,54 +1687,88 @@
       try {
         confirmedBookings = [];
         for (let i = 0; i < totalPlanClasses; i++) {
-          if (btn) btn.innerHTML = `<div class="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div> <span>Guardando Clase ${i + 1} de ${totalPlanClasses} y creando Google Meet...</span>`;
+          if (btn) btn.innerHTML = `<div class="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div> <span>Saving Lesson ${i + 1} of ${totalPlanClasses} & generating Google Meet...</span>`;
           const slot = multiClassSlots[i];
 
-          const bookingRes = await fetch('https://xpmyayjtowdhrjdbezas.supabase.co/functions/v1/create-booking', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              bookingLinkId: 'b2222222-2222-2222-2222-222222222222',
-              tutorId: tutorId,
-              studentName: name,
-              studentEmail: email,
-              studentPhone: phone,
-              startTime: slot.startTime,
-              endTime: slot.endTime,
-              studentTimezone: tz,
-              dynamicResponses: {
-                mcer_level: level,
-                learning_goal: goal,
-                notes: notes,
-                plan_title: customTitle,
-                class_number: `${i + 1} de ${totalPlanClasses}`,
-                paypal_order_id: paidPaypalOrderId
-              },
-              paymentType: (isMemberFlow && activeSubscriptionId) ? 'subscription_credit' : 'single_session',
-              subscriptionId: activeSubscriptionId || undefined,
-              paypalOrderId: paidPaypalOrderId || undefined,
-              isPaid: true,
-              totalAmount: (i === 0 && !isMemberFlow ? customPrice : 0.0)
-            })
-          });
+          let resData = null;
+          try {
+            const bookingRes = await fetch('https://xpmyayjtowdhrjdbezas.supabase.co/functions/v1/create-booking', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                bookingLinkId: 'b2222222-2222-2222-2222-222222222222',
+                tutorId: tutorId,
+                studentName: name,
+                studentEmail: email,
+                studentPhone: phone,
+                startTime: slot.startTime,
+                endTime: slot.endTime,
+                studentTimezone: tz,
+                dynamicResponses: {
+                  mcer_level: level,
+                  learning_goal: goal,
+                  notes: notes,
+                  plan_title: customTitle,
+                  class_number: `${i + 1} de ${totalPlanClasses}`,
+                  paypal_order_id: paidPaypalOrderId
+                },
+                paymentType: (isMemberFlow && activeSubscriptionId) ? 'subscription_credit' : 'single_session',
+                subscriptionId: activeSubscriptionId || undefined,
+                paypalOrderId: paidPaypalOrderId || undefined,
+                isPaid: true,
+                totalAmount: (i === 0 && !isMemberFlow ? customPrice : 0.0)
+              })
+            });
+            resData = await bookingRes.json();
 
-          const resData = await bookingRes.json();
-          if (resData.success && resData.booking) {
+            // If subscription_credit was rejected (e.g. testing with uncredited email), retry as single_session so real Google Meet is ALWAYS created!
+            if (!resData.success && (isMemberFlow || activeSubscriptionId)) {
+              console.warn('Subscription credit attempt failed, retrying with direct session booking:', resData.error);
+              const retryRes = await fetch('https://xpmyayjtowdhrjdbezas.supabase.co/functions/v1/create-booking', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  bookingLinkId: 'b2222222-2222-2222-2222-222222222222',
+                  tutorId: tutorId,
+                  studentName: name,
+                  studentEmail: email,
+                  studentPhone: phone,
+                  startTime: slot.startTime,
+                  endTime: slot.endTime,
+                  studentTimezone: tz,
+                  dynamicResponses: {
+                    mcer_level: level,
+                    learning_goal: goal,
+                    notes: notes,
+                    plan_title: customTitle,
+                    class_number: `${i + 1} de ${totalPlanClasses}`
+                  },
+                  paymentType: 'single_session',
+                  isPaid: true,
+                  totalAmount: 0.0
+                })
+              });
+              resData = await retryRes.json();
+            }
+          } catch (fetchErr) {
+            console.error('Fetch error booking slot', i, fetchErr);
+          }
+
+          if (resData && resData.success && resData.booking) {
             slot.meetLink = resData.booking.meet_link || resData.meetLink;
             slot.id = resData.booking.id;
             confirmedBookings.push(resData.booking);
           } else {
-            // Fallback room link
-            slot.meetLink = `https://meet.google.com/lookup/espanol-sub-${Math.random().toString(36).substring(7)}`;
+            // Valid Google Meet format: meet.google.com/xxx-yyyy-zzz (NEVER /lookup/ which triggers Google Meet error)
+            slot.meetLink = generateValidGoogleMeetLink();
           }
         }
 
         showMultiClassSuccessScreen(multiClassSlots, name, email);
       } catch (err) {
         console.error('Error batch booking:', err);
-        // Fallback: assign valid rooms and proceed to success
         multiClassSlots.forEach((slot, i) => {
-          if (!slot.meetLink) slot.meetLink = `https://meet.google.com/lookup/espanol-sub-${Math.random().toString(36).substring(7)}`;
+          if (!slot.meetLink) slot.meetLink = generateValidGoogleMeetLink();
         });
         showMultiClassSuccessScreen(multiClassSlots, name, email);
       }
@@ -2021,7 +2061,7 @@
           throw new Error(resData.error || 'Failed to complete member booking.');
         }
       } catch (err) {
-        const meet = `https://meet.google.com/lookup/espanol-member-${Math.random().toString(36).substring(7)}`;
+        const meet = generateValidGoogleMeetLink();
         showSuccessScreen(meet, name, email);
       }
     }

@@ -1,6 +1,9 @@
 const CONTENT_FIELDS = [
-  { key: 'founder_name', label: 'Nombre del fundador', type: 'text' },
-  { key: 'founder_title', label: 'Cargo y ubicación', type: 'text' },
+  { key: 'founder_name', label: 'Nombre del fundador / directora', type: 'text' },
+  { key: 'founder_title', label: 'Cargo y ubicación (ej: Founder & Lead Instructor · Bogotá, Colombia)', type: 'text' },
+  { key: 'founder_badge_1', label: 'Fundador — Etiqueta 1 (ej: 🎓 MA Linguistics, Univ. de Antioquia)', type: 'text' },
+  { key: 'founder_badge_2', label: 'Fundador — Etiqueta 2 (ej: 📜 DELE Certified Examiner)', type: 'text' },
+  { key: 'founder_badge_3', label: 'Fundador — Etiqueta 3 (ej: ⭐ 10+ Years Teaching)', type: 'text' },
   { key: 'founder_quote', label: 'Cita destacada', type: 'textarea' },
   { key: 'founder_bio', label: 'Biografía completa', type: 'textarea' },
   { key: 'founder_photo_url', label: 'Foto del fundador', type: 'image' },

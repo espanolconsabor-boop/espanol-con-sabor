@@ -380,6 +380,18 @@ async function loadSiteContent() {
   if (founderTexts[0] && v.founder_bio) founderTexts[0].textContent = v.founder_bio;
   if (v.founder_photo_url) set('.founder-img', v.founder_photo_url, 'src');
 
+  // Founder credentials badges
+  const founderCreds = document.querySelector('.founder-credentials');
+  if (founderCreds) {
+    const badges = [];
+    if (v.founder_badge_1 && v.founder_badge_1.trim()) badges.push(v.founder_badge_1.trim());
+    if (v.founder_badge_2 && v.founder_badge_2.trim()) badges.push(v.founder_badge_2.trim());
+    if (v.founder_badge_3 && v.founder_badge_3.trim()) badges.push(v.founder_badge_3.trim());
+    if (badges.length > 0) {
+      founderCreds.innerHTML = badges.map(b => `<span class="credential-badge">${b}</span>`).join('');
+    }
+  }
+
   // Planes: precio, periodo, nota, features, url (por id del contenedor)
   const plans = [
     { id: 'plan-andina', price: v.plan_andina_price, period: v.plan_andina_period, note: v.plan_andina_note, features: v.plan_andina_features, url: v.plan_andina_booking_url },
