@@ -50,8 +50,8 @@ function showTab(tabId, updateHash = true) {
 
 function handleRouteHash() {
   const hash = (window.location.hash || '').replace('#', '').toLowerCase();
-  if (['blog', 'about', 'book'].includes(hash)) {
-    showTab(hash, false);
+  if (['blog', 'about', 'book', 'prices'].includes(hash)) {
+    showTab(hash === 'prices' ? 'book' : hash, false);
   } else if (['pricing', 'plans', 'precios'].includes(hash)) {
     showTab('book', false);
   } else if (hash === 'faq') {
