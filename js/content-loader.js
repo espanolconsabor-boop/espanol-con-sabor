@@ -45,7 +45,7 @@ window._staticBlogPosts = [
 
 function extractYouTubeId(url) {
   if (!url) return null;
-  const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/);
+  const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=|shorts\/))([\w-]{11})/);
   return match ? match[1] : null;
 }
 
@@ -93,7 +93,7 @@ async function loadTeachers() {
     return '';
   };
 
-  // 1. Renderizar en Home (Home Teachers Grid)
+  // 1. Renderizar en Home (Tarjetas Cuadradas)
   if (homeContainer) {
     homeContainer.innerHTML = tutorsList.map(t => {
       const firstName = t.name ? t.name.split(' ')[0] : 'Teacher';
@@ -108,22 +108,20 @@ async function loadTeachers() {
       const bookHref = slug ? `reservar.html?tutor=${slug}` : `reservar.html`;
 
       return `
-        <article class="teacher-card" id="home-teacher-${slug || t.id}">
-          <div class="teacher-img-wrapper">
-            <img src="${photo}" alt="${t.name}" class="teacher-img" loading="lazy" />
+        <article class="home-teacher-card" id="home-teacher-${slug || t.id}">
+          <div class="home-teacher-photo-wrap">
+            <img src="${photo}" alt="${t.name}" class="home-teacher-photo" loading="lazy" />
           </div>
-          <div class="teacher-body">
-            <div class="teacher-header">
-              <div>
-                <h3 class="teacher-name">${t.name}</h3>
-                <p class="teacher-city">📍 ${city}</p>
-              </div>
-              <div class="teacher-rating">
+          <div class="home-teacher-body">
+            <div class="home-teacher-header">
+              <h3 class="home-teacher-name">${t.name}</h3>
+              <div class="home-teacher-rating">
                 <span class="t-stars">${stars}</span>
                 <span class="t-rating">${formattedRating}</span>
               </div>
             </div>
-            <p class="teacher-specialty">${t.headline || t.bio || 'Native Spanish Instructor'}</p>
+            <p class="home-teacher-city">📍 ${city}</p>
+            <p class="home-teacher-specialty">${t.headline || t.bio || 'Native Spanish Instructor'}</p>
             <button class="btn-book-teacher" onclick="window.location.href='${bookHref}'">Book with ${firstName} →</button>
           </div>
         </article>
@@ -131,7 +129,7 @@ async function loadTeachers() {
     }).join('');
   }
 
-  // 2. Renderizar en About Us con Video Player
+  // 2. Renderizar en About Us (Rectángulos: Video a la izquierda, descripción a la derecha)
   if (aboutContainer) {
     aboutContainer.innerHTML = tutorsList.map(t => {
       const firstName = t.name ? t.name.split(' ')[0] : 'Teacher';
@@ -147,43 +145,44 @@ async function loadTeachers() {
       const bookHref = slug ? `reservar.html?tutor=${slug}` : `reservar.html`;
 
       const videoMarkup = ytId ? `
-        <div class="teacher-video-container">
+        <div class="about-video-embed">
           <iframe src="https://www.youtube-nocookie.com/embed/${ytId}?rel=0" title="Intro video: ${t.name}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
       ` : `
-        <div class="teacher-video-container">
-          <div class="teacher-video-placeholder">
-            <img src="${photo}" alt="${t.name}" class="video-placeholder-bg" />
-            <div class="video-placeholder-overlay">
-              <div class="video-play-icon">▶</div>
-              <span class="video-placeholder-text">Video Intro: ${t.name}</span>
-              <span class="video-placeholder-sub">${city}</span>
-            </div>
+        <div class="about-video-placeholder">
+          <img src="${photo}" alt="${t.name}" class="about-video-img" />
+          <div class="about-video-overlay">
+            <div class="about-play-circle">▶</div>
+            <span class="about-play-title">Video de Presentación</span>
+            <span class="about-play-sub">${t.name} · ${city}</span>
           </div>
         </div>
       `;
 
       return `
-        <article class="teacher-video-card" id="about-teacher-${slug || t.id}">
-          ${videoMarkup}
-          <div class="teacher-body">
-            <div class="teacher-header">
+        <article class="about-teacher-row-card" id="about-teacher-${slug || t.id}">
+          <div class="about-teacher-media">
+            ${videoMarkup}
+          </div>
+          <div class="about-teacher-content">
+            <div class="about-teacher-top">
               <div>
-                <h3 class="teacher-name">${t.name}</h3>
-                <p class="teacher-city">📍 ${city}</p>
+                <h3 class="about-teacher-name">${t.name}</h3>
+                <p class="about-teacher-city">📍 ${city}</p>
               </div>
-              <div class="teacher-rating">
+              <div class="about-teacher-rating">
                 <span class="t-stars">${stars}</span>
                 <span class="t-rating">${formattedRating}</span>
               </div>
             </div>
-            <p class="teacher-specialty">${t.headline || t.bio || 'Native Spanish Instructor'}</p>
-            <div class="teacher-badges">
+            <p class="about-teacher-headline">${t.headline || 'Native Spanish Instructor'}</p>
+            <p class="about-teacher-bio">${t.bio || 'Especialista en conversación y cultura colombiana con enfoque práctico y personalizado.'}</p>
+            <div class="teacher-badges" style="margin-bottom: 20px;">
               <span class="trust-badge">✅ Native Speaker</span>
               <span class="trust-badge">☕ Culture Coach</span>
               <span class="trust-badge">⭐ Top Rated</span>
             </div>
-            <button class="btn-book-teacher" onclick="window.location.href='${bookHref}'">Book with ${firstName} →</button>
+            <a href="${bookHref}" class="btn-book-teacher" style="display:inline-block; width: auto; padding: 12px 28px; text-decoration: none;">Book with ${firstName} →</a>
           </div>
         </article>
       `;

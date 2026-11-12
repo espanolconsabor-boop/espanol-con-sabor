@@ -181,10 +181,11 @@ function scrollReviews(direction) {
   if (!track) return;
   const card = track.querySelector('.testimonial-card-slide') || track.querySelector('.testimonial-card');
   const cardWidth = card ? (card.offsetWidth + 24) : 340;
-  const isDesktop = window.innerWidth > 960;
-  const scrollAmount = isDesktop ? (cardWidth * 3) : cardWidth;
-  track.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
+  const visibleCards = Math.max(1, Math.floor(track.clientWidth / Math.max(cardWidth - 8, 200)));
+  const scrollDistance = visibleCards * cardWidth;
+  track.scrollBy({ left: direction * scrollDistance, behavior: 'smooth' });
 }
+window.scrollReviews = scrollReviews;
 
 // ─── FAQ ACCORDION ────────────────────────────────────
 function toggleFaq(btn) {
@@ -370,6 +371,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Listen for browser forward/back buttons and hash changes
   window.addEventListener('hashchange', handleRouteHash);
+
+  // Bind Carousel Arrow Buttons explicitly
+  const prevBtn = document.getElementById('carousel-prev-btn');
+  const nextBtn = document.getElementById('carousel-next-btn');
+  if (prevBtn) prevBtn.addEventListener('click', (e) => { e.preventDefault(); scrollReviews(-1); });
+  if (nextBtn) nextBtn.addEventListener('click', (e) => { e.preventDefault(); scrollReviews(1); });
 
   // Show a welcome toast after a brief delay
   setTimeout(() => {

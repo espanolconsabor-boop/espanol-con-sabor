@@ -53,7 +53,335 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css?v=20261111_v4" />
+
+  <!-- Critical Layout Overrides (Guaranteed Instant Cache-Bust) -->
+  <style>
+    /* Home Teachers (Square Photos) */
+    .home-teachers-grid {
+      display: grid !important;
+      grid-template-columns: repeat(3, 1fr) !important;
+      gap: 28px !important;
+      max-width: 1100px !important;
+      margin: 32px auto 0 !important;
+    }
+    .home-teacher-card {
+      background: #FFFFFF !important;
+      border: 1px solid rgba(14, 90, 96, 0.12) !important;
+      border-radius: 20px !important;
+      overflow: hidden !important;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06) !important;
+      transition: transform 0.25s ease, box-shadow 0.25s ease !important;
+      display: flex !important;
+      flex-direction: column !important;
+    }
+    .home-teacher-photo-wrap {
+      width: 100% !important;
+      aspect-ratio: 1 / 1 !important;
+      overflow: hidden !important;
+      position: relative !important;
+      background: #f0f7f7 !important;
+    }
+    .home-teacher-photo {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+      object-position: center 20% !important;
+    }
+    .home-teacher-body {
+      padding: 22px !important;
+      display: flex !important;
+      flex-direction: column !important;
+      flex-grow: 1 !important;
+    }
+    .home-teacher-header {
+      display: flex !important;
+      justify-content: space-between !important;
+      align-items: center !important;
+      margin-bottom: 6px !important;
+    }
+    .home-teacher-name {
+      font-size: 1.25rem !important;
+      font-weight: 800 !important;
+      color: #0E5A60 !important;
+      margin: 0 !important;
+    }
+    .home-teacher-city {
+      font-size: 0.85rem !important;
+      color: #666 !important;
+      margin: 2px 0 10px 0 !important;
+    }
+    .home-teacher-specialty {
+      font-size: 0.88rem !important;
+      color: #2A9D8F !important;
+      font-weight: 600 !important;
+      line-height: 1.4 !important;
+      margin: 0 0 18px 0 !important;
+      flex-grow: 1 !important;
+    }
+    @media (max-width: 860px) {
+      .home-teachers-grid { grid-template-columns: 1fr !important; max-width: 380px !important; }
+    }
+
+    /* About Us Teachers (Horizontal Rectangles) */
+    .about-teachers-grid {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 36px !important;
+      max-width: 1040px !important;
+      margin: 36px auto 0 !important;
+    }
+    .about-teacher-row-card {
+      display: grid !important;
+      grid-template-columns: 46% 54% !important;
+      background: #FFFFFF !important;
+      border: 1px solid rgba(14, 90, 96, 0.12) !important;
+      border-radius: 24px !important;
+      overflow: hidden !important;
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06) !important;
+    }
+    .about-teacher-media {
+      position: relative !important;
+      width: 100% !important;
+      height: 100% !important;
+      min-height: 280px !important;
+      background: #0E5A60 !important;
+      overflow: hidden !important;
+    }
+    .about-video-embed {
+      position: relative !important;
+      width: 100% !important;
+      height: 100% !important;
+      min-height: 280px !important;
+    }
+    .about-video-embed iframe {
+      position: absolute !important;
+      inset: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      border: 0 !important;
+    }
+    .about-video-placeholder {
+      position: relative !important;
+      width: 100% !important;
+      height: 100% !important;
+      min-height: 280px !important;
+    }
+    .about-video-img {
+      position: absolute !important;
+      inset: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+      object-position: center 25% !important;
+      filter: brightness(0.72) !important;
+    }
+    .about-video-overlay {
+      position: absolute !important;
+      inset: 0 !important;
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      justify-content: center !important;
+      color: #FFFFFF !important;
+      text-align: center !important;
+      padding: 20px !important;
+      background: rgba(14, 90, 96, 0.35) !important;
+    }
+    .about-play-circle {
+      width: 56px !important;
+      height: 56px !important;
+      border-radius: 50% !important;
+      background: #F2B705 !important;
+      color: #0E5A60 !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      font-size: 1.4rem !important;
+      margin-bottom: 12px !important;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.3) !important;
+    }
+    .about-play-title {
+      font-size: 1.05rem !important;
+      font-weight: 800 !important;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.8) !important;
+    }
+    .about-play-sub {
+      font-size: 0.8rem !important;
+      opacity: 0.9 !important;
+      margin-top: 4px !important;
+    }
+    .about-teacher-content {
+      padding: 32px 36px !important;
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: center !important;
+    }
+    .about-teacher-top {
+      display: flex !important;
+      justify-content: space-between !important;
+      align-items: flex-start !important;
+      margin-bottom: 8px !important;
+    }
+    .about-teacher-name {
+      font-size: 1.45rem !important;
+      font-weight: 800 !important;
+      color: #0E5A60 !important;
+      margin: 0 !important;
+    }
+    .about-teacher-headline {
+      font-size: 0.95rem !important;
+      font-weight: 700 !important;
+      color: #2A9D8F !important;
+      margin: 6px 0 12px 0 !important;
+    }
+    .about-teacher-bio {
+      font-size: 0.92rem !important;
+      color: #444 !important;
+      line-height: 1.6 !important;
+      margin: 0 0 18px 0 !important;
+    }
+    @media (max-width: 860px) {
+      .about-teacher-row-card { grid-template-columns: 1fr !important; }
+      .about-teacher-media { min-height: 240px !important; height: 240px !important; }
+      .about-teacher-content { padding: 24px 20px !important; }
+    }
+
+    /* Testimonials Horizontal Carousel */
+    .testimonials-carousel-wrapper {
+      position: relative !important;
+      max-width: 1160px !important;
+      margin: 36px auto 0 !important;
+      padding: 0 56px !important;
+      box-sizing: border-box !important;
+    }
+    .testimonials-track {
+      display: flex !important;
+      flex-direction: row !important;
+      gap: 24px !important;
+      overflow-x: auto !important;
+      scroll-behavior: smooth !important;
+      scroll-snap-type: x mandatory !important;
+      padding: 16px 4px 24px !important;
+      width: 100% !important;
+      -webkit-overflow-scrolling: touch !important;
+      scrollbar-width: thin !important;
+    }
+    .testimonial-card-slide {
+      flex: 0 0 calc((100% - 48px) / 3) !important;
+      min-width: 300px !important;
+      max-width: 360px !important;
+      scroll-snap-align: start !important;
+      box-sizing: border-box !important;
+      background: #FFFFFF !important;
+      border: 1px solid rgba(14,90,96,0.12) !important;
+      border-radius: 20px !important;
+      padding: 24px !important;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.05) !important;
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: space-between !important;
+    }
+    .carousel-arrow-btn {
+      position: absolute !important;
+      top: 50% !important;
+      transform: translateY(-50%) !important;
+      width: 52px !important;
+      height: 52px !important;
+      border-radius: 50% !important;
+      background: #FFFFFF !important;
+      border: 2px solid #0E5A60 !important;
+      color: #0E5A60 !important;
+      line-height: 1 !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      cursor: pointer !important;
+      box-shadow: 0 6px 20px rgba(14,90,96,0.22) !important;
+      transition: all 0.25s ease !important;
+      z-index: 25 !important;
+      user-select: none !important;
+      padding: 0 !important;
+    }
+    .carousel-arrow-btn svg {
+      display: block !important;
+      pointer-events: none !important;
+    }
+    .carousel-arrow-btn:hover {
+      background: #0E5A60 !important;
+      color: #FFFFFF !important;
+      transform: translateY(-50%) scale(1.1) !important;
+      box-shadow: 0 8px 24px rgba(14,90,96,0.35) !important;
+    }
+    .carousel-arrow-btn:active {
+      transform: translateY(-50%) scale(0.96) !important;
+    }
+    .carousel-arrow-prev { left: 2px !important; }
+    .carousel-arrow-next { right: 2px !important; }
+    @media (max-width: 960px) {
+      .testimonial-card-slide { flex: 0 0 calc((100% - 20px) / 2) !important; min-width: 280px !important; }
+    }
+    @media (max-width: 640px) {
+      .testimonials-carousel-wrapper { padding: 0 10px !important; }
+      .carousel-arrow-btn { display: none !important; }
+      .testimonial-card-slide { flex: 0 0 88% !important; min-width: 88% !important; }
+    }
+
+    /* Floating Action Buttons */
+    .floating-actions-cluster {
+      position: fixed !important;
+      bottom: 24px !important;
+      right: 24px !important;
+      z-index: 999999 !important;
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: flex-end !important;
+      gap: 14px !important;
+      pointer-events: none !important;
+    }
+    .fab-btn {
+      pointer-events: auto !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      height: 56px !important;
+      width: 56px;
+      border-radius: 28px !important;
+      text-decoration: none !important;
+      overflow: hidden !important;
+      box-shadow: 0 6px 22px rgba(0, 0, 0, 0.25) !important;
+      transition: width 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.25s ease !important;
+      white-space: nowrap !important;
+      position: relative !important;
+    }
+    .fab-btn.fab-book:hover { width: 180px !important; }
+    .fab-btn.fab-whatsapp:hover { width: 210px !important; }
+    .fab-icon, .fab-icon-svg {
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      width: 56px !important;
+      min-width: 56px !important;
+      height: 56px !important;
+    }
+    .fab-label {
+      font-size: 0.95rem !important;
+      font-weight: 800 !important;
+      opacity: 0;
+      transform: translateX(12px) !important;
+      transition: opacity 0.25s ease, transform 0.25s ease !important;
+      padding-right: 20px !important;
+    }
+    .fab-btn:hover .fab-label { opacity: 1 !important; transform: translateX(0) !important; }
+    .fab-book { background: linear-gradient(135deg, #F2B705 0%, #E5A600 100%) !important; color: #0E5A60 !important; }
+    .fab-whatsapp { background: #25D366 !important; color: #FFFFFF !important; }
+    @media (max-width: 640px) {
+      .floating-actions-cluster { bottom: 18px !important; right: 16px !important; }
+      .fab-btn { height: 50px !important; width: 50px !important; border-radius: 25px !important; }
+      .fab-icon, .fab-icon-svg { width: 50px !important; min-width: 50px !important; height: 50px !important; }
+      .fab-btn:hover { width: 50px !important; }
+      .fab-btn:hover .fab-label { display: none !important; }
+    }
+  </style>
 
   <!-- Schema.org JSON-LD Structured Data for Google Rich Snippets -->
   <script type="application/ld+json">
@@ -379,60 +707,54 @@
           <p class="section-sub">Learn directly with certified native educators from Colombia. Personalized pacing, cultural depth, and zero judgment.</p>
         </div>
         <div class="home-teachers-grid" id="home-teachers-grid">
-          <article class="teacher-card" id="home-teacher-maria">
-            <div class="teacher-img-wrapper">
-              <img src="https://xpmyayjtowdhrjdbezas.supabase.co/storage/v1/object/public/photos/teachers/1792628508575_2024-12-26%2017.46.06.jpg" alt="María Izquierdo" class="teacher-img" loading="lazy" />
+          <article class="home-teacher-card" id="home-teacher-maria">
+            <div class="home-teacher-photo-wrap">
+              <img src="https://xpmyayjtowdhrjdbezas.supabase.co/storage/v1/object/public/photos/teachers/1792628508575_2024-12-26%2017.46.06.jpg" alt="María Izquierdo" class="home-teacher-photo" loading="lazy" />
             </div>
-            <div class="teacher-body">
-              <div class="teacher-header">
-                <div>
-                  <h3 class="teacher-name">María Izquierdo</h3>
-                  <p class="teacher-city">📍 Bogotá, Colombia</p>
-                </div>
-                <div class="teacher-rating">
+            <div class="home-teacher-body">
+              <div class="home-teacher-header">
+                <h3 class="home-teacher-name">María Izquierdo</h3>
+                <div class="home-teacher-rating">
                   <span class="t-stars">★★★★★</span>
                   <span class="t-rating">5.0</span>
                 </div>
               </div>
-              <p class="teacher-specialty">Founder &amp; Lead Instructor · Real-life conversation</p>
+              <p class="home-teacher-city">📍 Bogotá, Colombia</p>
+              <p class="home-teacher-specialty">Founder &amp; Lead Instructor · Real-life conversation</p>
               <button class="btn-book-teacher" onclick="window.location.href='reservar.html?tutor=maria'">Book with María →</button>
             </div>
           </article>
-          <article class="teacher-card" id="home-teacher-daniela">
-            <div class="teacher-img-wrapper">
-              <img src="https://xpmyayjtowdhrjdbezas.supabase.co/storage/v1/object/public/photos/teachers/1792628749919_PHOTO-2026-09-19-18-15-35.jpg" alt="Daniela García" class="teacher-img" loading="lazy" />
+          <article class="home-teacher-card" id="home-teacher-daniela">
+            <div class="home-teacher-photo-wrap">
+              <img src="https://xpmyayjtowdhrjdbezas.supabase.co/storage/v1/object/public/photos/teachers/1792628749919_PHOTO-2026-09-19-18-15-35.jpg" alt="Daniela García" class="home-teacher-photo" loading="lazy" />
             </div>
-            <div class="teacher-body">
-              <div class="teacher-header">
-                <div>
-                  <h3 class="teacher-name">Daniela García</h3>
-                  <p class="teacher-city">📍 Medellín, Colombia</p>
-                </div>
-                <div class="teacher-rating">
+            <div class="home-teacher-body">
+              <div class="home-teacher-header">
+                <h3 class="home-teacher-name">Daniela García</h3>
+                <div class="home-teacher-rating">
                   <span class="t-stars">★★★★★</span>
                   <span class="t-rating">5.0</span>
                 </div>
               </div>
-              <p class="teacher-specialty">Conversational Spanish &amp; Business Culture</p>
+              <p class="home-teacher-city">📍 Medellín, Colombia</p>
+              <p class="home-teacher-specialty">Conversational Spanish &amp; Business Culture</p>
               <button class="btn-book-teacher" onclick="window.location.href='reservar.html?tutor=daniela'">Book with Daniela →</button>
             </div>
           </article>
-          <article class="teacher-card" id="home-teacher-valentina">
-            <div class="teacher-img-wrapper">
-              <img src="https://xpmyayjtowdhrjdbezas.supabase.co/storage/v1/object/public/photos/teachers/1792629035343_PHOTO-2026-09-29-11-24-29%202.jpg" alt="Valentina Gómez" class="teacher-img" loading="lazy" />
+          <article class="home-teacher-card" id="home-teacher-valentina">
+            <div class="home-teacher-photo-wrap">
+              <img src="https://xpmyayjtowdhrjdbezas.supabase.co/storage/v1/object/public/photos/teachers/1792629035343_PHOTO-2026-09-29-11-24-29%202.jpg" alt="Valentina Gómez" class="home-teacher-photo" loading="lazy" />
             </div>
-            <div class="teacher-body">
-              <div class="teacher-header">
-                <div>
-                  <h3 class="teacher-name">Valentina Gómez</h3>
-                  <p class="teacher-city">📍 Cali, Colombia</p>
-                </div>
-                <div class="teacher-rating">
+            <div class="home-teacher-body">
+              <div class="home-teacher-header">
+                <h3 class="home-teacher-name">Valentina Gómez</h3>
+                <div class="home-teacher-rating">
                   <span class="t-stars">★★★★★</span>
                   <span class="t-rating">5.0</span>
                 </div>
               </div>
-              <p class="teacher-specialty">Cultural Immersion &amp; Pronunciation Coach</p>
+              <p class="home-teacher-city">📍 Cali, Colombia</p>
+              <p class="home-teacher-specialty">Cultural Immersion &amp; Pronunciation Coach</p>
               <button class="btn-book-teacher" onclick="window.location.href='reservar.html?tutor=valentina'">Book with Valentina →</button>
             </div>
           </article>
@@ -506,7 +828,11 @@
           </div>
         </div>
         <div class="testimonials-carousel-wrapper">
-          <button class="carousel-arrow-btn carousel-arrow-prev" id="carousel-prev-btn" onclick="scrollReviews(-1)" aria-label="Previous review">‹</button>
+          <button class="carousel-arrow-btn carousel-arrow-prev" id="carousel-prev-btn" onclick="scrollReviews(-1)" aria-label="Previous review" type="button">
+            <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+          </button>
           <div class="testimonials-track" id="testimonials-track">
             <article class="testimonial-card testimonial-card-slide" id="testimonial-1">
               <div class="testimonial-header">
@@ -569,7 +895,11 @@
               <div class="testimonial-badge">📅 Student for 8 months</div>
             </article>
           </div>
-          <button class="carousel-arrow-btn carousel-arrow-next" id="carousel-next-btn" onclick="scrollReviews(1)" aria-label="Next review">›</button>
+          <button class="carousel-arrow-btn carousel-arrow-next" id="carousel-next-btn" onclick="scrollReviews(1)" aria-label="Next review" type="button">
+            <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
         </div>
       </div>
     </section>
@@ -784,99 +1114,102 @@
         </div>
         <div class="about-teachers-grid" id="about-teachers-video-grid">
           
-          <article class="teacher-video-card" id="about-teacher-maria">
-            <div class="teacher-video-container" id="video-wrap-maria">
-              <div class="teacher-video-placeholder">
-                <img src="https://xpmyayjtowdhrjdbezas.supabase.co/storage/v1/object/public/photos/teachers/1792628508575_2024-12-26%2017.46.06.jpg" alt="María Izquierdo" class="video-placeholder-bg" />
-                <div class="video-placeholder-overlay">
-                  <div class="video-play-icon">▶</div>
-                  <span class="video-placeholder-text">Video Intro: María Izquierdo</span>
-                  <span class="video-placeholder-sub">Bogotá, Colombia · Neutral Andean Accent</span>
+          <article class="about-teacher-row-card" id="about-teacher-maria">
+            <div class="about-teacher-media" id="video-wrap-maria">
+              <div class="about-video-placeholder">
+                <img src="https://xpmyayjtowdhrjdbezas.supabase.co/storage/v1/object/public/photos/teachers/1792628508575_2024-12-26%2017.46.06.jpg" alt="María Izquierdo" class="about-video-img" />
+                <div class="about-video-overlay">
+                  <div class="about-play-circle">▶</div>
+                  <span class="about-play-title">Video de Presentación</span>
+                  <span class="about-play-sub">María Izquierdo · Bogotá</span>
                 </div>
               </div>
             </div>
-            <div class="teacher-body">
-              <div class="teacher-header">
+            <div class="about-teacher-content">
+              <div class="about-teacher-top">
                 <div>
-                  <h3 class="teacher-name">María Izquierdo</h3>
-                  <p class="teacher-city">📍 Bogotá, Cundinamarca</p>
+                  <h3 class="about-teacher-name">María Izquierdo</h3>
+                  <p class="about-teacher-city">📍 Bogotá, Cundinamarca</p>
                 </div>
-                <div class="teacher-rating">
+                <div class="about-teacher-rating">
                   <span class="t-stars">★★★★★</span>
                   <span class="t-rating">5.0</span>
                 </div>
               </div>
-              <p class="teacher-specialty">Founder &amp; Lead Instructor · Real-life conversation</p>
-              <div class="teacher-badges">
+              <p class="about-teacher-headline">Founder &amp; Lead Instructor · Real-life conversation</p>
+              <p class="about-teacher-bio">Founder of Español con Sabor. Specialized in conversational fluency, Colombian idioms, and building speaking confidence from day one.</p>
+              <div class="teacher-badges" style="margin-bottom: 20px;">
                 <span class="trust-badge">✅ Native Speaker</span>
                 <span class="trust-badge">☕ Culture Coach</span>
                 <span class="trust-badge">⭐ Top Rated</span>
               </div>
-              <button class="btn-book-teacher" onclick="window.location.href='reservar.html?tutor=maria'">Book with María →</button>
+              <a href="reservar.html?tutor=maria" class="btn-book-teacher" style="display:inline-block; width: auto; padding: 12px 28px; text-decoration: none;">Book with María →</a>
             </div>
           </article>
 
-          <article class="teacher-video-card" id="about-teacher-daniela">
-            <div class="teacher-video-container" id="video-wrap-daniela">
-              <div class="teacher-video-placeholder">
-                <img src="https://xpmyayjtowdhrjdbezas.supabase.co/storage/v1/object/public/photos/teachers/1792628749919_PHOTO-2026-09-19-18-15-35.jpg" alt="Daniela García" class="video-placeholder-bg" />
-                <div class="video-placeholder-overlay">
-                  <div class="video-play-icon">▶</div>
-                  <span class="video-placeholder-text">Video Intro: Daniela García</span>
-                  <span class="video-placeholder-sub">Medellín, Colombia · Melodic Paisa Accent</span>
+          <article class="about-teacher-row-card" id="about-teacher-daniela">
+            <div class="about-teacher-media" id="video-wrap-daniela">
+              <div class="about-video-placeholder">
+                <img src="https://xpmyayjtowdhrjdbezas.supabase.co/storage/v1/object/public/photos/teachers/1792628749919_PHOTO-2026-09-19-18-15-35.jpg" alt="Daniela García" class="about-video-img" />
+                <div class="about-video-overlay">
+                  <div class="about-play-circle">▶</div>
+                  <span class="about-play-title">Video de Presentación</span>
+                  <span class="about-play-sub">Daniela García · Medellín</span>
                 </div>
               </div>
             </div>
-            <div class="teacher-body">
-              <div class="teacher-header">
+            <div class="about-teacher-content">
+              <div class="about-teacher-top">
                 <div>
-                  <h3 class="teacher-name">Daniela García</h3>
-                  <p class="teacher-city">📍 Medellín, Antioquia</p>
+                  <h3 class="about-teacher-name">Daniela García</h3>
+                  <p class="about-teacher-city">📍 Medellín, Antioquia</p>
                 </div>
-                <div class="teacher-rating">
+                <div class="about-teacher-rating">
                   <span class="t-stars">★★★★★</span>
                   <span class="t-rating">5.0</span>
                 </div>
               </div>
-              <p class="teacher-specialty">Conversational Spanish &amp; Business Culture</p>
-              <div class="teacher-badges">
+              <p class="about-teacher-headline">Conversational Spanish &amp; Business Culture</p>
+              <p class="about-teacher-bio">Medellín native passionate about practical conversation, professional communication, and everyday Colombian expressions.</p>
+              <div class="teacher-badges" style="margin-bottom: 20px;">
                 <span class="trust-badge">✅ Native Paisa</span>
                 <span class="trust-badge">💼 Business Spanish</span>
                 <span class="trust-badge">⭐ Top Rated</span>
               </div>
-              <button class="btn-book-teacher" onclick="window.location.href='reservar.html?tutor=daniela'">Book with Daniela →</button>
+              <a href="reservar.html?tutor=daniela" class="btn-book-teacher" style="display:inline-block; width: auto; padding: 12px 28px; text-decoration: none;">Book with Daniela →</a>
             </div>
           </article>
 
-          <article class="teacher-video-card" id="about-teacher-valentina">
-            <div class="teacher-video-container" id="video-wrap-valentina">
-              <div class="teacher-video-placeholder">
-                <img src="https://xpmyayjtowdhrjdbezas.supabase.co/storage/v1/object/public/photos/teachers/1792629035343_PHOTO-2026-09-29-11-24-29%202.jpg" alt="Valentina Gómez" class="video-placeholder-bg" />
-                <div class="video-placeholder-overlay">
-                  <div class="video-play-icon">▶</div>
-                  <span class="video-placeholder-text">Video Intro: Valentina Gómez</span>
-                  <span class="video-placeholder-sub">Cali, Colombia · Musical Valluno Accent</span>
+          <article class="about-teacher-row-card" id="about-teacher-valentina">
+            <div class="about-teacher-media" id="video-wrap-valentina">
+              <div class="about-video-placeholder">
+                <img src="https://xpmyayjtowdhrjdbezas.supabase.co/storage/v1/object/public/photos/teachers/1792629035343_PHOTO-2026-09-29-11-24-29%202.jpg" alt="Valentina Gómez" class="about-video-img" />
+                <div class="about-video-overlay">
+                  <div class="about-play-circle">▶</div>
+                  <span class="about-play-title">Video de Presentación</span>
+                  <span class="about-play-sub">Valentina Gómez · Cali</span>
                 </div>
               </div>
             </div>
-            <div class="teacher-body">
-              <div class="teacher-header">
+            <div class="about-teacher-content">
+              <div class="about-teacher-top">
                 <div>
-                  <h3 class="teacher-name">Valentina Gómez</h3>
-                  <p class="teacher-city">📍 Cali, Valle del Cauca</p>
+                  <h3 class="about-teacher-name">Valentina Gómez</h3>
+                  <p class="about-teacher-city">📍 Cali, Valle del Cauca</p>
                 </div>
-                <div class="teacher-rating">
+                <div class="about-teacher-rating">
                   <span class="t-stars">★★★★★</span>
                   <span class="t-rating">5.0</span>
                 </div>
               </div>
-              <p class="teacher-specialty">Cultural Immersion &amp; Pronunciation Coach</p>
-              <div class="teacher-badges">
+              <p class="about-teacher-headline">Cultural Immersion &amp; Pronunciation Coach</p>
+              <p class="about-teacher-bio">Cali native specializing in neutral pronunciation, salsa and music culture, and real Latin American cultural nuances.</p>
+              <div class="teacher-badges" style="margin-bottom: 20px;">
                 <span class="trust-badge">✅ Native Speaker</span>
                 <span class="trust-badge">🎭 Cultural Immersion</span>
                 <span class="trust-badge">⭐ Top Rated</span>
               </div>
-              <button class="btn-book-teacher" onclick="window.location.href='reservar.html?tutor=valentina'">Book with Valentina →</button>
+              <a href="reservar.html?tutor=valentina" class="btn-book-teacher" style="display:inline-block; width: auto; padding: 12px 28px; text-decoration: none;">Book with Valentina →</a>
             </div>
           </article>
 
@@ -1166,9 +1499,9 @@
     </div>
   </div>
 
-  <!-- Floating Action Buttons Cluster (Expanding Circles) -->
-  <div class="floating-actions-cluster" id="floating-actions-cluster">
-    <a href="reservar" class="fab-btn fab-book" id="fab-book-btn" aria-label="Book a Class">
+  <!-- Floating Action Buttons Cluster (Expanding Circles - Always Visible) -->
+  <div class="floating-actions-cluster" id="floating-actions-cluster" style="position: fixed !important; bottom: 24px !important; right: 24px !important; z-index: 999999 !important; display: flex !important; flex-direction: column !important; align-items: flex-end !important; gap: 14px !important; pointer-events: none !important;">
+    <a href="reservar.html" onclick="if(typeof showTab==='function'){showTab('book');return false;}" class="fab-btn fab-book" id="fab-book-btn" aria-label="Book a Class" style="pointer-events: auto !important;">
       <span class="fab-icon">📅</span>
       <span class="fab-label">Book a Class</span>
     </a>
@@ -1177,7 +1510,8 @@
        rel="noopener noreferrer"
        class="fab-btn fab-whatsapp"
        id="whatsapp-btn"
-       aria-label="Chat on WhatsApp">
+       aria-label="Chat on WhatsApp"
+       style="pointer-events: auto !important;">
       <svg class="fab-icon-svg" viewBox="0 0 24 24" width="28" height="28" fill="currentColor">
         <path d="M12.031 2C6.51 2 2.016 6.485 2.016 12c0 1.942.559 3.754 1.523 5.289L2.001 22l4.87-1.503A9.957 9.957 0 0012.031 22c5.522 0 10.016-4.485 10.016-10s-4.494-10-10.016-10zm0 18.277c-1.637 0-3.167-.47-4.471-1.282l-.32-.2-2.887.89.907-2.809-.208-.337A8.256 8.256 0 013.75 12c0-4.565 3.714-8.277 8.281-8.277 4.568 0 8.281 3.712 8.281 8.277 0 4.565-3.713 8.277-8.281 8.277zm4.536-6.177c-.248-.124-1.468-.724-1.696-.807-.228-.083-.394-.124-.56.124-.166.248-.642.807-.787.973-.145.166-.29.186-.538.062-.249-.124-1.049-.387-1.998-1.233-.738-.658-1.236-1.472-1.381-1.72-.145-.248-.016-.382.108-.506.112-.112.249-.29.373-.435.124-.145.166-.248.249-.414.083-.166.041-.31-.021-.435-.062-.124-.56-1.349-.767-1.848-.201-.486-.406-.42-.56-.428-.145-.008-.31-.01-.476-.01s-.435.062-.663.31c-.228.248-.87 0.85-.87 2.073s.891 2.403 1.015 2.569c.124.166 1.753 2.677 4.247 3.754.593.257 1.057.41 1.419.525.597.19 1.14.163 1.569.099.479-.072 1.468-.6 1.675-1.18.207-.579.207-1.077.145-1.18-.062-.103-.228-.166-.476-.29z"/>
       </svg>
