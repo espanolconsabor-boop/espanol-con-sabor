@@ -56,35 +56,6 @@ async function loadTeachers() {
 
   if (!homeContainer && !aboutContainer && !legacyContainer) return;
 
-  // Cargar desde tutors (donde están home_avatar_url y video_url actualizados)
-  let tutorsList = [];
-  try {
-    const { data: tutorsData } = await supabaseClient.from('tutors').select('*').eq('is_active', true);
-    if (tutorsData && tutorsData.length) {
-      tutorsList = tutorsData;
-    }
-  } catch (tErr) {
-    console.warn('Error loading tutors:', tErr);
-  }
-
-  if (!tutorsList.length) {
-    try {
-      const { data: teachersData } = await supabaseClient.from('teachers').select('*').order('display_order');
-      if (teachersData && teachersData.length) tutorsList = teachersData;
-    } catch (tchErr) {
-      console.warn('Error loading teachers:', tchErr);
-    }
-  }
-
-  if (!tutorsList || !tutorsList.length) return;
-
-  // Cargar calificaciones si hay en site_content
-  const { data: ratingsData } = await supabaseClient.from('site_content').select('*').like('key', 'teacher_rating_%');
-  const ratingsMap = {};
-  (ratingsData || []).forEach(r => {
-    ratingsMap[r.key.replace('teacher_rating_', '')] = r.value;
-  });
-
   const getSlug = (name) => {
     const n = (name || '').toLowerCase();
     if (n.includes('mar')) return 'maria';
@@ -93,18 +64,95 @@ async function loadTeachers() {
     return '';
   };
 
+  // Cargar calificaciones si hay en site_content
+  let ratingsMap = {};
+  try {
+    const { data: ratingsData } = await supabaseClient.from('site_content').select('*').like('key', 'teacher_rating_%');
+    (ratingsData || []).forEach(r => {
+      ratingsMap[r.key.replace('teacher_rating_', '')] = r.value;
+    });
+  } catch (rErr) {
+    console.warn('Error loading ratings:', rErr);
+  }
+
+  // 1. Cargar desde 'teachers' (fuente de verdad para ciudad, orden y datos configurados en admin)
+  let teachersList = [];
+  try {
+    const { data: tchData } = await supabaseClient.from('teachers').select('*').order('display_order');
+    if (tchData && tchData.length) {
+      teachersList = tchData;
+    }
+  } catch (tchErr) {
+    console.warn('Error loading teachers:', tchErr);
+  }
+
+  // 2. Cargar desde 'tutors' (donde están fotos de perfil/home actualizadas y bios de agendamiento)
+  const tutorsMap = {};
+  let tutorsList = [];
+  try {
+    const { data: tutData } = await supabaseClient.from('tutors').select('*');
+    if (tutData && tutData.length) {
+      tutorsList = tutData;
+      tutData.forEach(tut => {
+        const slug = getSlug(tut.name);
+        if (slug) tutorsMap[slug] = tut;
+        tutorsMap[(tut.name || '').toLowerCase().trim()] = tut;
+      });
+    }
+  } catch (tErr) {
+    console.warn('Error loading tutors:', tErr);
+  }
+
+  // Consolidar lista respetando la ciudad y el orden de 'teachers'
+  let consolidatedList = [];
+  if (teachersList.length) {
+    consolidatedList = teachersList.map(t => {
+      const slug = getSlug(t.name);
+      const tutor = tutorsMap[slug] || tutorsMap[(t.name || '').toLowerCase().trim()] || {};
+      return {
+        id: t.id,
+        name: t.name,
+        slug: slug,
+        city: t.city || tutor.city || 'Bogotá, Colombia',
+        home_avatar_url: t.home_avatar_url || tutor.home_avatar_url || t.photo_url || tutor.avatar_url || 'images/founder_avatar.jpg',
+        photo_url: t.photo_url || tutor.avatar_url || tutor.home_avatar_url || 'images/founder_avatar.jpg',
+        headline: tutor.headline || t.bio || 'Native Spanish Instructor',
+        bio: t.bio || tutor.bio || 'Especialista en conversación y cultura colombiana con enfoque práctico y personalizado.',
+        video_url: t.video_url || tutor.video_url || null,
+        rating: ratingsMap[t.id] ?? t.rating ?? tutor.rating ?? 5.0
+      };
+    });
+  } else if (tutorsList.length) {
+    consolidatedList = tutorsList.map(t => {
+      const slug = getSlug(t.name);
+      return {
+        id: t.id,
+        name: t.name,
+        slug: slug,
+        city: t.city || (slug === 'daniela' ? 'Cartagena, Colombia' : 'Bogotá, Colombia'),
+        home_avatar_url: t.home_avatar_url || t.avatar_url || 'images/founder_avatar.jpg',
+        photo_url: t.avatar_url || t.home_avatar_url || 'images/founder_avatar.jpg',
+        headline: t.headline || t.bio || 'Native Spanish Instructor',
+        bio: t.bio || t.headline || 'Especialista en conversación y cultura colombiana.',
+        video_url: t.video_url || null,
+        rating: ratingsMap[t.id] ?? t.rating ?? 5.0
+      };
+    });
+  }
+
+  if (!consolidatedList.length) return;
+
   // 1. Renderizar en Home (Tarjetas Cuadradas)
   if (homeContainer) {
-    homeContainer.innerHTML = tutorsList.map(t => {
+    homeContainer.innerHTML = consolidatedList.map(t => {
       const firstName = t.name ? t.name.split(' ')[0] : 'Teacher';
-      const slug = getSlug(t.name);
-      const photo = t.home_avatar_url || t.avatar_url || t.photo_url || 'images/founder_avatar.jpg';
-      const numRating = parseFloat(t.rating ?? ratingsMap[t.id] ?? 5.0) || 5.0;
+      const slug = t.slug;
+      const photo = t.home_avatar_url;
+      const numRating = parseFloat(t.rating) || 5.0;
       const formattedRating = numRating.toFixed(1);
       const starCount = Math.round(numRating);
       const stars = '★'.repeat(Math.max(0, Math.min(5, starCount))) + '☆'.repeat(Math.max(0, 5 - starCount));
-      const defaultCity = slug === 'daniela' ? 'Medellín, Colombia' : slug === 'valentina' ? 'Cali, Colombia' : 'Bogotá, Colombia';
-      const city = t.city || defaultCity;
+      const city = t.city;
       const bookHref = slug ? `reservar.html?tutor=${slug}` : `reservar.html`;
 
       return `
@@ -131,16 +179,15 @@ async function loadTeachers() {
 
   // 2. Renderizar en About Us (Rectángulos: Video a la izquierda, descripción a la derecha)
   if (aboutContainer) {
-    aboutContainer.innerHTML = tutorsList.map(t => {
+    aboutContainer.innerHTML = consolidatedList.map(t => {
       const firstName = t.name ? t.name.split(' ')[0] : 'Teacher';
-      const slug = getSlug(t.name);
-      const photo = t.avatar_url || t.photo_url || 'images/founder_avatar.jpg';
-      const numRating = parseFloat(t.rating ?? ratingsMap[t.id] ?? 5.0) || 5.0;
+      const slug = t.slug;
+      const photo = t.photo_url;
+      const numRating = parseFloat(t.rating) || 5.0;
       const formattedRating = numRating.toFixed(1);
       const starCount = Math.round(numRating);
       const stars = '★'.repeat(Math.max(0, Math.min(5, starCount))) + '☆'.repeat(Math.max(0, 5 - starCount));
-      const defaultCity = slug === 'daniela' ? 'Medellín, Antioquia' : slug === 'valentina' ? 'Cali, Valle del Cauca' : 'Bogotá, Cundinamarca';
-      const city = t.city || defaultCity;
+      const city = t.city;
       const ytId = extractYouTubeId(t.video_url);
       const bookHref = slug ? `reservar.html?tutor=${slug}` : `reservar.html`;
 
@@ -363,6 +410,7 @@ async function loadSiteContent() {
   // Section titles
   set('.philosophy-section .section-title', v.section_title_pillars);
   set('#founder-card', null); // no-op, placeholder to keep structure
+  set('#home-teachers-sub', v.section_sub_home_teachers);
   document.querySelectorAll('.section-title').forEach(el => {
     if (el.textContent.trim() === 'Start speaking in 3 easy steps' && v.section_title_steps) el.textContent = v.section_title_steps;
     if (el.textContent.trim() === 'What our students say' && v.section_title_testimonials) el.textContent = v.section_title_testimonials;
@@ -439,6 +487,20 @@ async function loadSiteContent() {
   const footerCreditsEl = document.getElementById('footer-credits-text');
   if (footerCreditsEl && v.footer_credits) {
     footerCreditsEl.textContent = v.footer_credits;
+  }
+
+  // Términos y Condiciones (PDF subido en Admin)
+  const termsLink = document.getElementById('footer-terms-link');
+  if (termsLink) {
+    if (v.terms_pdf_url && v.terms_pdf_url.trim()) {
+      termsLink.href = v.terms_pdf_url.trim();
+      termsLink.onclick = null;
+    } else {
+      termsLink.onclick = (e) => {
+        e.preventDefault();
+        alert('Terms & Conditions document will be available soon.');
+      };
+    }
   }
 
   // Email

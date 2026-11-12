@@ -11,6 +11,8 @@ const CONTENT_FIELDS = [
   { key: 'hero_title_line2', label: 'Hero — Título línea 2 (en cursiva)', type: 'text' },
   { key: 'hero_subtitle', label: 'Hero — Subtítulo', type: 'textarea' },
   { key: 'hero_image_url', label: 'Foto de Portada (Home) — Reemplaza el cafetal', type: 'image' },
+  { key: 'section_sub_home_teachers', label: 'Home — Subtítulo Sección Profesores ("Learn directly with certified native educators...")', type: 'textarea' },
+  { key: 'terms_pdf_url', label: 'Términos y Condiciones (Subir archivo PDF para el pie de página)', type: 'file' },
   { key: 'stat_1_number', label: 'Estadística 1 — Número (ej: 500+)', type: 'text' },
   { key: 'stat_1_label', label: 'Estadística 1 — Etiqueta (ej: Students)', type: 'text' },
   { key: 'stat_2_number', label: 'Estadística 2 — Número (ej: 4.9★)', type: 'text' },
@@ -73,6 +75,22 @@ async function renderSiteContent(content) {
     if (f.type === 'textarea') {
       return `<label class="admin-form-label">${f.label}</label><textarea data-key="${f.key}">${values[f.key] || ''}</textarea>`;
     }
+    if (f.type === 'file') {
+      const currentUrl = values[f.key];
+      return `
+        <div style="margin: 16px 0; padding: 16px; background: rgba(14,90,96,0.04); border-radius: 12px; border: 1.5px dashed rgba(14,90,96,0.25);">
+          <label class="admin-form-label" style="font-weight: 700; color: #0E5A60; margin-bottom: 6px; display: block;">${f.label}</label>
+          ${currentUrl ? `
+            <div style="margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
+              <span style="font-size: 13px; color: #0E5A60; font-weight: 600;">📄 PDF cargado:</span>
+              <a href="${currentUrl}" target="_blank" style="font-size: 13px; color: #2A9D8F; text-decoration: underline; font-weight: bold;">Ver archivo actual ↗</a>
+            </div>
+          ` : '<p style="font-size: 12px; color: #888; margin-bottom: 8px;">No se ha subido ningún archivo PDF todavía.</p>'}
+          <input type="file" accept=".pdf,application/pdf" data-key="${f.key}" class="content-file-input" style="font-size: 13px;" />
+          <small style="display: block; margin-top: 6px; color: #666;">Selecciona un archivo PDF de tu computador. Al guardar, se subirá automáticamente y el enlace de "Terms & Conditions" en el pie de página de la academia abrirá este documento.</small>
+        </div>
+      `;
+    }
     if (f.type === 'image') {
       return `<label class="admin-form-label">${f.label}</label>
         ${values[f.key] ? `<img src="${values[f.key]}" class="admin-card-img" style="max-width:150px;" />` : ''}
@@ -89,6 +107,16 @@ async function renderSiteContent(content) {
       if (f.type === 'toggle') {
         const checkbox = form.querySelector(`input[type="checkbox"][data-key="${f.key}"]`);
         updates.push({ key: f.key, value: checkbox && checkbox.checked ? 'true' : 'false' });
+      } else if (f.type === 'file') {
+        const fileInput = form.querySelector(`.content-file-input[data-key="${f.key}"]`);
+        if (fileInput && fileInput.files && fileInput.files[0]) {
+          const file = fileInput.files[0];
+          const fileName = `documents/terms_${Date.now()}.pdf`;
+          const { error: uploadError } = await supabaseClient.storage.from('photos').upload(fileName, file, { contentType: 'application/pdf', upsert: true });
+          if (uploadError) { alert('Error subiendo PDF ' + f.label + ': ' + uploadError.message); return; }
+          const { data: urlData } = supabaseClient.storage.from('photos').getPublicUrl(fileName);
+          updates.push({ key: f.key, value: urlData.publicUrl });
+        }
       } else if (f.type === 'image') {
         const fileInput = form.querySelector(`.content-image-input[data-key="${f.key}"]`);
         if (fileInput.files[0]) {
