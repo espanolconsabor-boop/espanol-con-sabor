@@ -8,29 +8,31 @@
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
   <link rel="shortcut icon" href="favicon.ico">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="tutor.css?v=20261111_v1">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
-    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; }
+    /* Critical Fallback Rules (Guaranteed Offline & Mobile Render) */
+    .hidden { display: none !important; }
+    body { font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background-color: #f8fafc; margin: 0; padding: 0; }
   </style>
 </head>
 <body class="min-h-screen text-gray-800 pb-12">
 
   <!-- PANTALLA DE ACCESO CON PIN (Bloqueada por defecto si no hay sesión) -->
-  <div id="login-modal-screen" class="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-[#0E5A60] to-[#2A9D8F]">
-    <div class="bg-white rounded-3xl p-8 max-w-md w-full shadow-2xl space-y-6">
+  <div id="login-modal-screen" class="login-screen-wrap min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-[#0E5A60] to-[#2A9D8F]">
+    <div class="login-card bg-white rounded-3xl p-8 max-w-md w-full shadow-2xl space-y-6">
       <div class="text-center space-y-2">
-        <div class="w-16 h-16 rounded-2xl bg-[#FFF3D6] text-[#0E5A60] flex items-center justify-center text-3xl mx-auto border border-[#F2B705]/40 shadow-sm">
+        <div class="login-icon-badge w-16 h-16 rounded-2xl bg-[#FFF3D6] text-[#0E5A60] flex items-center justify-center text-3xl mx-auto border border-[#F2B705]/40 shadow-sm">
           ☕
         </div>
-        <h2 class="text-2xl font-black text-[#0E5A60]">Portal de Tutoras</h2>
-        <p class="text-xs text-gray-500">Ingreso privado y seguro para el equipo de tutoras de Español con Sabor.</p>
+        <h2 class="login-title text-2xl font-black text-[#0E5A60]">Portal de Tutoras</h2>
+        <p class="login-subtitle text-xs text-gray-500">Ingreso privado y seguro para el equipo de tutoras de Español con Sabor.</p>
       </div>
 
       <form id="tutor-login-form" onsubmit="handleTutorLogin(event)" class="space-y-4">
         <div>
-          <label class="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-1.5">Selecciona tu perfil</label>
-          <select id="login-tutor-select" class="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm font-semibold text-[#0E5A60] bg-white outline-none focus:border-[#0E5A60] focus:ring-2 focus:ring-[#0E5A60]/10">
+          <label class="form-label-small block text-xs font-bold uppercase tracking-wider text-gray-700 mb-1.5">Selecciona tu perfil</label>
+          <select id="login-tutor-select" class="tutor-select-input w-full px-4 py-3 rounded-xl border border-gray-200 text-sm font-semibold text-[#0E5A60] bg-white outline-none focus:border-[#0E5A60] focus:ring-2 focus:ring-[#0E5A60]/10">
             <option value="a1111111-1111-1111-1111-111111111111">María Izquierdo</option>
             <option value="a2222222-2222-2222-2222-222222222222">Daniela García</option>
             <option value="a3333333-3333-3333-3333-333333333333">Valentina Gómez</option>
@@ -38,16 +40,16 @@
         </div>
 
         <div>
-          <label class="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-1.5">Código PIN de Acceso</label>
-          <input type="password" id="login-pin-input" placeholder="••••" maxlength="6" required class="w-full px-4 py-3 rounded-xl border border-gray-200 text-center tracking-[8px] text-xl font-black text-[#0E5A60] outline-none focus:border-[#0E5A60] focus:ring-2 focus:ring-[#0E5A60]/10" />
-          <p class="text-[11px] text-gray-400 mt-1 text-center">Tu PIN personal asignado por administración.</p>
+          <label class="form-label-small block text-xs font-bold uppercase tracking-wider text-gray-700 mb-1.5">Código PIN de Acceso</label>
+          <input type="password" id="login-pin-input" inputmode="numeric" placeholder="••••" maxlength="6" required class="pin-input w-full px-4 py-3 rounded-xl border border-gray-200 text-center tracking-[8px] text-xl font-black text-[#0E5A60] outline-none focus:border-[#0E5A60] focus:ring-2 focus:ring-[#0E5A60]/10" />
+          <p class="pin-helper-text text-[11px] text-gray-400 mt-1 text-center">Tu PIN personal asignado por administración.</p>
         </div>
 
-        <div id="login-error-msg" class="p-3 bg-red-50 border border-red-200 rounded-xl text-xs text-red-600 font-bold text-center hidden">
+        <div id="login-error-msg" class="login-error-alert p-3 bg-red-50 border border-red-200 rounded-xl text-xs text-red-600 font-bold text-center hidden">
           PIN incorrecto. Por favor verifica tu código.
         </div>
 
-        <button type="submit" id="btn-login-submit" class="w-full bg-[#0E5A60] hover:bg-[#093c40] text-white font-bold py-3.5 rounded-xl shadow-md transition text-sm flex items-center justify-center space-x-2">
+        <button type="submit" id="btn-login-submit" class="btn-tutor-submit w-full bg-[#0E5A60] hover:bg-[#093c40] text-white font-bold py-3.5 rounded-xl shadow-md transition text-sm flex items-center justify-center space-x-2">
           <span>Ingresar a mi Portal</span>
           <span>→</span>
         </button>
@@ -58,30 +60,30 @@
   <!-- APLICACIÓN PRINCIPAL (Visible solo cuando se valida el PIN) -->
   <div id="tutor-dashboard-screen" class="hidden">
     <!-- Header -->
-    <header class="bg-white border-b border-gray-200 px-6 py-4 sticky top-0 z-30 shadow-xs">
-      <div class="max-w-5xl mx-auto flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-        <div class="flex items-center space-x-3">
-          <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-[#0E5A60] to-[#2A9D8F] flex items-center justify-center text-white text-lg font-black shadow-sm">
+    <header class="tutor-navbar bg-white border-b border-gray-200 px-6 py-4 sticky top-0 z-30 shadow-xs">
+      <div class="tutor-nav-inner max-w-5xl mx-auto flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div class="tutor-nav-brand flex items-center space-x-3">
+          <div class="tutor-logo-circle w-10 h-10 rounded-xl bg-gradient-to-br from-[#0E5A60] to-[#2A9D8F] flex items-center justify-center text-white text-lg font-black shadow-sm">
             ☕
           </div>
           <div>
-            <h1 class="text-xl font-extrabold text-[#0E5A60] flex items-center space-x-2">
-              <span>Español con Sabor</span>
-              <span class="text-xs bg-[#FFF3D6] text-[#0E5A60] font-bold px-2.5 py-0.5 rounded-full border border-[#F2B705]/40">
+            <div class="tutor-title-row">
+              <h1 class="tutor-brand-name text-xl font-extrabold text-[#0E5A60]">Español con Sabor</h1>
+              <span class="tutor-badge-tag text-xs bg-[#FFF3D6] text-[#0E5A60] font-bold px-2.5 py-0.5 rounded-full border border-[#F2B705]/40">
                 Portal de Tutora
               </span>
-            </h1>
-            <p class="text-xs text-gray-500">Consulta tus clases asignadas y gestiona tus horarios</p>
+            </div>
+            <p class="tutor-sub-text text-xs text-gray-500">Consulta tus clases asignadas y gestiona tus horarios</p>
           </div>
         </div>
 
         <!-- Tutor Active Badge & Logout -->
-        <div class="flex items-center space-x-3">
+        <div class="tutor-nav-actions flex items-center space-x-3">
           <div class="text-right">
-            <span class="text-[11px] text-gray-400 uppercase font-bold block">Sesión Activa</span>
-            <strong id="header-active-name" class="text-xs font-bold text-[#0E5A60]">María Izquierdo</strong>
+            <span class="active-tutor-label text-[11px] text-gray-400 uppercase font-bold block">Sesión Activa</span>
+            <strong id="header-active-name" class="active-tutor-name text-xs font-bold text-[#0E5A60]">María Izquierdo</strong>
           </div>
-          <button onclick="handleTutorLogout()" class="bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-bold px-3 py-2 rounded-xl transition flex items-center space-x-1">
+          <button onclick="handleTutorLogout()" class="btn-tutor-logout bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-bold px-3 py-2 rounded-xl transition flex items-center space-x-1">
             <span>Salir 🔒</span>
           </button>
         </div>
@@ -89,40 +91,40 @@
     </header>
 
     <!-- Main Container -->
-    <main class="max-w-5xl mx-auto p-4 sm:p-6 space-y-6">
+    <main class="tutor-main-content max-w-5xl mx-auto p-4 sm:p-6 space-y-6">
 
       <!-- Tutor Profile Header Card -->
-      <div id="tutor-card" class="bg-gradient-to-r from-[#0E5A60] to-[#2A9D8F] rounded-3xl p-6 text-white shadow-md flex flex-col sm:flex-row items-center justify-between gap-4">
-        <div class="flex items-center space-x-4">
-          <img id="tutor-avatar" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80" class="w-16 h-16 rounded-full object-cover border-2 border-white/40 shadow-sm">
-          <div>
+      <div id="tutor-card" class="tutor-profile-banner bg-gradient-to-r from-[#0E5A60] to-[#2A9D8F] rounded-3xl p-6 text-white shadow-md flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="tutor-profile-left flex items-center space-x-4">
+          <img id="tutor-avatar" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80" alt="Tutora" class="tutor-profile-avatar w-16 h-16 rounded-full object-cover border-2 border-white/40 shadow-sm">
+          <div class="tutor-profile-info">
             <h2 id="tutor-name" class="text-xl font-bold">María Izquierdo</h2>
             <p id="tutor-email" class="text-xs text-white/80">mariajose.izquierdo.j@gmail.com</p>
-            <span class="inline-block mt-1 text-[11px] bg-white/20 px-2.5 py-0.5 rounded-full font-medium">
+            <span class="tutor-role-pill inline-block mt-1 text-[11px] bg-white/20 px-2.5 py-0.5 rounded-full font-medium">
               Tutora Oficial de Español
             </span>
           </div>
         </div>
 
         <div class="flex flex-wrap gap-2">
-          <a id="connect-gcal-btn" href="#" target="_blank" class="bg-[#F2B705] hover:bg-[#d9a404] text-[#0E5A60] font-bold text-xs px-4 py-2.5 rounded-xl transition flex items-center space-x-1.5 shadow-sm">
+          <a id="connect-gcal-btn" href="#" target="_blank" class="btn-gcal-sync bg-[#F2B705] hover:bg-[#d9a404] text-[#0E5A60] font-bold text-xs px-4 py-2.5 rounded-xl transition flex items-center space-x-1.5 shadow-sm">
             <span>🗓️ Conectar mi Google Calendar</span>
           </a>
         </div>
       </div>
 
       <!-- Sub Navigation Tabs -->
-      <div class="flex space-x-2 border-b border-gray-200 pb-2">
-        <button onclick="switchTab('classes')" id="tab-btn-classes" class="px-4 py-2 rounded-xl text-xs font-bold bg-[#0E5A60] text-white shadow-xs">
+      <div class="tutor-tabs-row flex space-x-2 border-b border-gray-200 pb-2">
+        <button onclick="switchTab('classes')" id="tab-btn-classes" class="tutor-tab-btn active px-4 py-2 rounded-xl text-xs font-bold bg-[#0E5A60] text-white shadow-xs">
           📚 Mis Clases Agendadas (<span id="classes-count">0</span>)
         </button>
-        <button onclick="switchTab('schedule')" id="tab-btn-schedule" class="px-4 py-2 rounded-xl text-xs font-bold bg-white text-gray-600 border border-gray-200 hover:bg-gray-50">
+        <button onclick="switchTab('schedule')" id="tab-btn-schedule" class="tutor-tab-btn px-4 py-2 rounded-xl text-xs font-bold bg-white text-gray-600 border border-gray-200 hover:bg-gray-50">
           ⚙️ Mi Disponibilidad Semanal
         </button>
       </div>
 
       <!-- TAB 1: MIS CLASES -->
-      <div id="view-classes" class="space-y-4">
+      <div id="view-classes" class="classes-list-wrap space-y-4">
         <div id="classes-list" class="space-y-3">
           <div class="p-12 text-center bg-white rounded-2xl border border-gray-200 text-gray-400 text-xs">
             Cargando tus clases desde Supabase...
@@ -131,18 +133,18 @@
       </div>
 
       <!-- TAB 2: DISPONIBILIDAD SEMANAL -->
-      <div id="view-schedule" class="bg-white rounded-3xl p-6 border border-gray-200 shadow-sm space-y-5 hidden">
-        <div class="flex justify-between items-center pb-3 border-b border-gray-100">
+      <div id="view-schedule" class="schedule-box-wrap bg-white rounded-3xl p-6 border border-gray-200 shadow-sm space-y-5 hidden">
+        <div class="schedule-top-row flex justify-between items-center pb-3 border-b border-gray-100">
           <div>
             <h3 class="font-bold text-base text-[#0E5A60]">Configurar mi Horario Semanal</h3>
             <p class="text-xs text-gray-500 mt-0.5">Define qué días y horas estás disponible para recibir alumnos.</p>
           </div>
-          <button onclick="saveScheduleChanges()" class="bg-[#0E5A60] hover:bg-[#093c40] text-white text-xs font-bold px-4 py-2 rounded-xl shadow-xs transition">
+          <button onclick="saveScheduleChanges()" class="btn-save-schedule bg-[#0E5A60] hover:bg-[#093c40] text-white text-xs font-bold px-4 py-2 rounded-xl shadow-xs transition">
             Guardar Cambios ✓
           </button>
         </div>
 
-        <div id="schedule-rules" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+        <div id="schedule-rules" class="schedule-days-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
           <!-- Rendered by JS -->
         </div>
       </div>

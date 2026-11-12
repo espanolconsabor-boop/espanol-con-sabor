@@ -1,0 +1,659 @@
+/**
+ * Español con Sabor - Tutor Portal Stylesheet
+ * File: tutor.css
+ * Guaranteed 100% Standalone & Mobile Optimized
+ */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: #f8fafc;
+  color: #1e293b;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* ===================================================
+   PANTALLA DE LOGIN CON PIN (CENTRADA Y SEGURA)
+   =================================================== */
+.login-screen-wrap {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 16px;
+  background: linear-gradient(135deg, #0E5A60 0%, #166B72 50%, #2A9D8F 100%);
+}
+
+.login-card {
+  background: #FFFFFF;
+  border-radius: 26px;
+  padding: 36px 26px;
+  max-width: 430px;
+  width: 100%;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+  text-align: center;
+}
+
+.login-icon-badge {
+  width: 64px;
+  height: 64px;
+  border-radius: 20px;
+  background: #FFF3D6;
+  color: #0E5A60;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  margin: 0 auto 14px;
+  border: 1.5px solid rgba(242, 183, 5, 0.5);
+  box-shadow: 0 4px 12px rgba(242, 183, 5, 0.2);
+}
+
+.login-title {
+  font-size: 1.55rem;
+  font-weight: 900;
+  color: #0E5A60;
+  margin: 0 0 6px;
+}
+
+.login-subtitle {
+  font-size: 0.85rem;
+  color: #64748b;
+  margin: 0 0 24px;
+  line-height: 1.4;
+}
+
+.form-label-small {
+  display: block;
+  text-align: left;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #475569;
+  margin-bottom: 6px;
+}
+
+.tutor-select-input {
+  width: 100%;
+  padding: 13px 16px;
+  border-radius: 14px;
+  border: 1.5px solid #cbd5e1;
+  font-size: 15px;
+  font-weight: 700;
+  color: #0E5A60;
+  background: #FFFFFF;
+  outline: none;
+  margin-bottom: 16px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.tutor-select-input:focus {
+  border-color: #0E5A60;
+  box-shadow: 0 0 0 3px rgba(14, 90, 96, 0.12);
+}
+
+.pin-input {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 14px;
+  border: 1.5px solid #cbd5e1;
+  text-align: center;
+  letter-spacing: 12px;
+  font-size: 24px;
+  font-weight: 900;
+  color: #0E5A60;
+  background: #FFFFFF;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
+}
+
+.pin-input:focus {
+  border-color: #0E5A60;
+  box-shadow: 0 0 0 3px rgba(14, 90, 96, 0.12);
+}
+
+.pin-helper-text {
+  font-size: 11px;
+  color: #94a3b8;
+  margin: 6px 0 18px;
+}
+
+.login-error-alert {
+  padding: 12px 14px;
+  background: #fef2f2;
+  border: 1.5px solid #fecaca;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #dc2626;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.btn-tutor-submit {
+  width: 100%;
+  background: #0E5A60;
+  color: #FFFFFF;
+  font-weight: 800;
+  font-size: 15px;
+  padding: 14px 20px;
+  border-radius: 14px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(14, 90, 96, 0.28);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.btn-tutor-submit:hover:not(:disabled) {
+  background: #093c40;
+  transform: translateY(-2px);
+}
+
+.btn-tutor-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ===================================================
+   PANEL PRINCIPAL DE TUTORA
+   =================================================== */
+.tutor-navbar {
+  background: #FFFFFF;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 14px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+.tutor-nav-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.tutor-nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.tutor-logo-circle {
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #0E5A60 0%, #2A9D8F 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  font-size: 20px;
+  box-shadow: 0 2px 8px rgba(14, 90, 96, 0.2);
+}
+
+.tutor-title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tutor-brand-name {
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: #0E5A60;
+  margin: 0;
+}
+
+.tutor-badge-tag {
+  font-size: 11px;
+  background: #FFF3D6;
+  color: #0E5A60;
+  font-weight: 800;
+  padding: 3px 10px;
+  border-radius: 20px;
+  border: 1px solid rgba(242, 183, 5, 0.4);
+}
+
+.tutor-sub-text {
+  font-size: 11px;
+  color: #64748b;
+  margin: 2px 0 0;
+}
+
+.tutor-nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.active-tutor-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  font-weight: 800;
+  color: #94a3b8;
+  display: block;
+}
+
+.active-tutor-name {
+  font-size: 13px;
+  font-weight: 800;
+  color: #0E5A60;
+}
+
+.btn-tutor-logout {
+  background: #f1f5f9;
+  color: #475569;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 8px 14px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-tutor-logout:hover {
+  background: #e2e8f0;
+  color: #1e293b;
+}
+
+/* ===================================================
+   CONTENEDOR DEL DASHBOARD
+   =================================================== */
+.tutor-main-content {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 24px 16px 48px;
+}
+
+/* Tarjeta Perfil */
+.tutor-profile-banner {
+  background: linear-gradient(135deg, #0E5A60 0%, #166B72 50%, #2A9D8F 100%);
+  border-radius: 24px;
+  padding: 24px 22px;
+  color: #FFFFFF;
+  box-shadow: 0 8px 24px rgba(14, 90, 96, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.tutor-profile-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.tutor-profile-avatar {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.tutor-profile-info h2 {
+  font-size: 1.35rem;
+  font-weight: 800;
+  margin: 0 0 2px;
+}
+
+.tutor-profile-info p {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0 0 6px;
+}
+
+.tutor-role-pill {
+  display: inline-block;
+  font-size: 11px;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-weight: 600;
+}
+
+.btn-gcal-sync {
+  background: #F2B705;
+  color: #0E5A60;
+  font-weight: 800;
+  font-size: 13px;
+  padding: 12px 18px;
+  border-radius: 12px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s;
+}
+
+.btn-gcal-sync:hover {
+  transform: translateY(-2px);
+}
+
+/* Pestañas */
+.tutor-tabs-row {
+  display: flex;
+  gap: 10px;
+  border-bottom: 2px solid #e2e8f0;
+  padding-bottom: 10px;
+  margin-bottom: 22px;
+}
+
+.tutor-tab-btn {
+  padding: 10px 18px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+}
+
+.tutor-tab-btn.active {
+  background: #0E5A60 !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 4px 12px rgba(14, 90, 96, 0.25) !important;
+}
+
+.tutor-tab-btn:not(.active) {
+  background: #FFFFFF;
+  color: #64748b;
+  border-color: #cbd5e1;
+}
+
+.tutor-tab-btn:not(.active):hover {
+  background: #f1f5f9;
+  color: #1e293b;
+}
+
+/* ===================================================
+   MIS CLASES
+   =================================================== */
+.classes-list-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.tutor-class-card {
+  background: #FFFFFF;
+  border-radius: 20px;
+  border: 1px solid #e2e8f0;
+  padding: 18px 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: all 0.2s ease;
+}
+
+.tutor-class-card:hover {
+  box-shadow: 0 6px 18px rgba(14, 90, 96, 0.08);
+  border-color: #cbd5e1;
+}
+
+.class-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #f1f5f9;
+  margin-bottom: 12px;
+}
+
+.class-type-badge {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #2A9D8F;
+  margin-bottom: 4px;
+  display: block;
+}
+
+.student-title {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #1e293b;
+  margin: 0 0 2px;
+}
+
+.student-meta {
+  font-size: 12px;
+  color: #64748b;
+  margin: 0;
+}
+
+.class-schedule-box {
+  text-align: right;
+}
+
+.class-date-text {
+  font-size: 14px;
+  font-weight: 800;
+  color: #0E5A60;
+  text-transform: capitalize;
+  display: block;
+}
+
+.class-time-text {
+  font-size: 12px;
+  color: #64748b;
+  font-weight: 600;
+}
+
+.class-details-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  background: #f8fafc;
+  padding: 12px 14px;
+  border-radius: 12px;
+  font-size: 12px;
+  color: #334155;
+  margin-bottom: 14px;
+}
+
+.class-actions-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.status-badge-confirmed {
+  font-size: 11px;
+  font-weight: 800;
+  background: #ecfdf5;
+  color: #047857;
+  padding: 5px 12px;
+  border-radius: 20px;
+  border: 1px solid #a7f3d0;
+}
+
+.btn-enter-meet {
+  background: #0E5A60;
+  color: #FFFFFF;
+  font-size: 12px;
+  font-weight: 800;
+  padding: 10px 18px;
+  border-radius: 12px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 2px 8px rgba(14, 90, 96, 0.2);
+  transition: all 0.2s;
+}
+
+.btn-enter-meet:hover {
+  background: #093c40;
+  transform: translateY(-1px);
+}
+
+/* ===================================================
+   CONFIGURACIÓN DE DISPONIBILIDAD
+   =================================================== */
+.schedule-box-wrap {
+  background: #FFFFFF;
+  border-radius: 24px;
+  padding: 24px 20px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+}
+
+.schedule-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #f1f5f9;
+  margin-bottom: 18px;
+}
+
+.schedule-top-row h3 {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #0E5A60;
+  margin: 0 0 2px;
+}
+
+.schedule-top-row p {
+  font-size: 12px;
+  color: #64748b;
+  margin: 0;
+}
+
+.btn-save-schedule {
+  background: #0E5A60;
+  color: #FFFFFF;
+  font-size: 13px;
+  font-weight: 800;
+  padding: 10px 20px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(14, 90, 96, 0.2);
+  transition: all 0.2s;
+}
+
+.btn-save-schedule:hover {
+  background: #093c40;
+  transform: translateY(-1px);
+}
+
+.schedule-days-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.rule-card {
+  padding: 16px;
+  border-radius: 18px;
+  border: 1.5px solid #e2e8f0;
+  background: #f8fafc;
+}
+
+/* ===================================================
+   MOBILE RESPONSIVENESS (DOWN TO 320PX)
+   =================================================== */
+@media (max-width: 680px) {
+  .tutor-navbar {
+    padding: 12px 14px !important;
+  }
+
+  .tutor-nav-inner {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 10px !important;
+  }
+
+  .tutor-nav-actions {
+    justify-content: space-between !important;
+    padding-top: 8px !important;
+    border-top: 1px solid #f1f5f9 !important;
+  }
+
+  .tutor-main-content {
+    padding: 16px 12px 40px !important;
+  }
+
+  .tutor-profile-banner {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    padding: 20px 16px !important;
+  }
+
+  .btn-gcal-sync {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+
+  .tutor-tabs-row {
+    flex-direction: column !important;
+  }
+
+  .tutor-tab-btn {
+    width: 100% !important;
+    text-align: center !important;
+  }
+
+  .class-schedule-box {
+    text-align: left !important;
+  }
+
+  .class-details-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .class-actions-row {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 8px !important;
+  }
+
+  .btn-enter-meet {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+
+  .schedule-days-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .btn-save-schedule {
+    width: 100% !important;
+  }
+}

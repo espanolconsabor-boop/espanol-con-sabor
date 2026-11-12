@@ -49,137 +49,126 @@
   }
   </script>
 
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="booking.css?v=20261111_v1">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
-    body {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      background-color: #FFF3D6;
-    }
-    .custom-scroll::-webkit-scrollbar {
-      height: 6px;
-    }
-    .custom-scroll::-webkit-scrollbar-track {
-      background: #f1f1f1;
-      border-radius: 4px;
-    }
-    .custom-scroll::-webkit-scrollbar-thumb {
-      background: #0E5A60;
-      border-radius: 4px;
-    }
+    /* Critical Fallback Rules (Guaranteed Offline & Mobile Render) */
+    .hidden { display: none !important; }
+    body { font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background-color: #FFF3D6; margin: 0; padding: 12px 8px 36px; min-height: 100vh; }
   </style>
 </head>
 <body class="min-h-screen py-8 px-4 flex flex-col items-center justify-center">
 
   <!-- Main Container -->
-  <div class="w-full max-w-4xl bg-white rounded-3xl shadow-2xl border border-[#0E5A60]/10 overflow-hidden">
+  <div class="booking-wrapper w-full max-w-4xl bg-white rounded-3xl shadow-2xl border border-[#0E5A60]/10 overflow-hidden">
     
     <!-- Top Header Banner -->
-    <div class="bg-gradient-to-r from-[#0E5A60] via-[#0E5A60] to-[#2A9D8F] p-6 text-white text-center relative">
-      <div class="inline-block bg-[#F2B705] text-[#0E5A60] text-xs font-black uppercase tracking-widest px-3 py-1 rounded-full mb-2">
+    <div class="booking-header bg-gradient-to-r from-[#0E5A60] via-[#0E5A60] to-[#2A9D8F] p-6 text-white text-center relative">
+      <div class="booking-brand-pill inline-block bg-[#F2B705] text-[#0E5A60] text-xs font-black uppercase tracking-widest px-3 py-1 rounded-full mb-2">
         Español con Sabor
       </div>
-      <h1 id="banner-title" class="text-2xl md:text-3xl font-extrabold tracking-tight">
+      <h1 id="banner-title" class="booking-title text-2xl md:text-3xl font-extrabold tracking-tight">
         Trial Class — $15 USD (30 Minutes)
       </h1>
-      <p id="banner-sub" class="text-white/80 text-xs md:text-sm max-w-xl mx-auto mt-1">
+      <p id="banner-sub" class="booking-sub text-white/80 text-xs md:text-sm max-w-xl mx-auto mt-1">
         30 minutes · No commitment · Choose your native Colombian teacher or redeem your monthly membership.
       </p>
 
       <!-- Stepper Progress Bar -->
-      <div id="stepper" class="flex items-center justify-center space-x-2 sm:space-x-4 mt-6 pt-4 border-t border-white/10">
+      <div id="stepper" class="stepper-container flex items-center justify-center space-x-2 sm:space-x-4 mt-6 pt-4 border-t border-white/10">
         <div class="flex items-center space-x-2 step-item" data-step="1">
-          <div class="step-circle w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold bg-[#F2B705] text-[#0E5A60] ring-4 ring-white/20">1</div>
-          <span class="step-label text-xs font-bold text-[#F2C94C] hidden md:inline" id="stepper-label-1">Teacher</span>
+          <div class="step-circle w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold bg-[#F2B705] text-[#0E5A60] ring-4 ring-white/20 active">1</div>
+          <span class="step-label text-xs font-bold text-[#F2C94C] hidden md:inline active" id="stepper-label-1">Teacher</span>
         </div>
-        <div class="w-4 h-0.5 bg-white/20 hidden sm:block"></div>
+        <div class="step-divider w-4 h-0.5 bg-white/20 hidden sm:block"></div>
         <div class="flex items-center space-x-2 step-item" data-step="2">
           <div class="step-circle w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold bg-white/20 text-white/70">2</div>
           <span class="step-label text-xs font-medium text-white/50 hidden md:inline" id="stepper-label-2">Date & Time</span>
         </div>
-        <div class="w-4 h-0.5 bg-white/20 hidden sm:block"></div>
+        <div class="step-divider w-4 h-0.5 bg-white/20 hidden sm:block"></div>
         <div class="flex items-center space-x-2 step-item" data-step="3">
           <div class="step-circle w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold bg-white/20 text-white/70">3</div>
           <span class="step-label text-xs font-medium text-white/50 hidden md:inline" id="stepper-label-3">Your Details</span>
         </div>
-        <div class="w-4 h-0.5 bg-white/20 hidden sm:block"></div>
+        <div class="step-divider w-4 h-0.5 bg-white/20 hidden sm:block"></div>
         <div class="flex items-center space-x-2 step-item" data-step="4">
           <div class="step-circle w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold bg-white/20 text-white/70">4</div>
           <span class="step-label text-xs font-medium text-white/50 hidden md:inline" id="stepper-label-4">Payment</span>
         </div>
       </div>
+      <div id="mobile-step-indicator" class="mobile-step-indicator">Paso 1 de 4 · Selecciona tu Tutora</div>
     </div>
 
     <!-- Step Container -->
-    <div class="p-6 md:p-8 bg-[#FFF3D6]/20">
+    <div class="booking-body p-6 md:p-8 bg-[#FFF3D6]/20">
       
       <!-- STEP 1: Teacher Selection -->
       <div id="step-1" class="space-y-6">
-        <div class="text-center max-w-xl mx-auto">
-          <h2 class="text-2xl font-bold text-[#0E5A60]">Choose Your Teacher</h2>
-          <p class="text-gray-600 text-sm mt-1">
+        <div class="step-heading-group text-center max-w-xl mx-auto">
+          <h2 class="step-heading text-2xl font-bold text-[#0E5A60]">Choose Your Teacher</h2>
+          <p class="step-description text-gray-600 text-sm mt-1">
             Our teachers are certified native Colombian professionals. Pick your preferred tutor or choose automatic matching for fastest booking.
           </p>
         </div>
 
         <!-- Any Teacher Option -->
-        <div onclick="selectTutor('any', this)" id="tutor-card-any" class="tutor-card p-4 rounded-2xl border-2 border-[#0E5A60] bg-[#FFF3D6]/40 cursor-pointer shadow-sm flex items-center justify-between transition ring-2 ring-[#0E5A60]/20">
+        <div onclick="selectTutor('any', this)" id="tutor-card-any" class="any-tutor-card tutor-card selected p-4 rounded-2xl border-2 border-[#0E5A60] bg-[#FFF3D6]/40 cursor-pointer shadow-sm flex items-center justify-between transition ring-2 ring-[#0E5A60]/20">
           <div class="flex items-center space-x-4">
-            <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-[#0E5A60] to-[#2A9D8F] flex items-center justify-center text-white text-xl font-bold shadow-inner">
+            <div class="any-icon-wrap w-12 h-12 rounded-full bg-gradient-to-tr from-[#0E5A60] to-[#2A9D8F] flex items-center justify-center text-white text-xl font-bold shadow-inner">
               ✨
             </div>
-            <div>
+            <div class="any-text-group">
               <h3 class="font-bold text-[#0E5A60] text-base">Any Available Teacher</h3>
               <p class="text-xs text-gray-500">Widest schedule availability and immediate booking.</p>
             </div>
           </div>
-          <span class="text-xs font-semibold px-2.5 py-1 bg-[#2A9D8F]/15 text-[#0E5A60] rounded-full">Recommended</span>
+          <span class="badge-recommended text-xs font-semibold px-2.5 py-1 bg-[#2A9D8F]/15 text-[#0E5A60] rounded-full">Recommended</span>
         </div>
 
         <!-- Tutor Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="tutor-grid grid grid-cols-1 md:grid-cols-3 gap-4">
           <!-- Tutor 1: Maria -->
           <div onclick="selectTutor('maria', this)" id="tutor-card-maria" class="tutor-card p-5 rounded-2xl border-2 border-gray-200 bg-white hover:border-[#2A9D8F] cursor-pointer transition flex flex-col justify-between">
             <div>
-              <div class="relative mb-3 flex items-center justify-center">
-                <img id="tutor-img-maria" src="https://xpmyayjtowdhrjdbezas.supabase.co/storage/v1/object/public/photos/teachers/1792628508575_2024-12-26%2017.46.06.jpg" alt="María Izquierdo" class="w-24 h-24 rounded-full object-cover border-2 border-[#0E5A60]/20 shadow-sm">
-                <span id="tutor-rating-maria" class="absolute -bottom-1 bg-[#F2B705] text-[#0E5A60] text-xs font-bold px-2.5 py-0.5 rounded-full shadow-sm">★ 5.0</span>
+              <div class="tutor-photo-wrap relative mb-3 flex items-center justify-center">
+                <img id="tutor-img-maria" src="https://xpmyayjtowdhrjdbezas.supabase.co/storage/v1/object/public/photos/teachers/1792628508575_2024-12-26%2017.46.06.jpg" alt="María Izquierdo" class="tutor-photo w-24 h-24 rounded-full object-cover border-2 border-[#0E5A60]/20 shadow-sm">
+                <span id="tutor-rating-maria" class="tutor-stars-badge absolute -bottom-1 bg-[#F2B705] text-[#0E5A60] text-xs font-bold px-2.5 py-0.5 rounded-full shadow-sm">★ 5.0</span>
               </div>
-              <h3 id="tutor-name-maria" class="text-center font-bold text-gray-900 text-base">María Izquierdo</h3>
-              <p id="tutor-headline-maria" class="text-center text-xs text-[#2A9D8F] font-semibold mt-0.5">Lead Instructor · Medellín</p>
-              <p id="tutor-bio-maria" class="text-xs text-gray-500 mt-2 text-center leading-relaxed">Specialist in conversational fluency, Colombian idioms, and cultural immersion.</p>
+              <h3 id="tutor-name-maria" class="tutor-name text-center font-bold text-gray-900 text-base">María Izquierdo</h3>
+              <p id="tutor-headline-maria" class="tutor-headline text-center text-xs text-[#2A9D8F] font-semibold mt-0.5">Lead Instructor · Medellín</p>
+              <p id="tutor-bio-maria" class="tutor-bio text-xs text-gray-500 mt-2 text-center leading-relaxed">Specialist in conversational fluency, Colombian idioms, and cultural immersion.</p>
             </div>
           </div>
 
           <!-- Tutor 2: Daniela -->
           <div onclick="selectTutor('daniela', this)" id="tutor-card-daniela" class="tutor-card p-5 rounded-2xl border-2 border-gray-200 bg-white hover:border-[#2A9D8F] cursor-pointer transition flex flex-col justify-between">
             <div>
-              <div class="relative mb-3 flex items-center justify-center">
-                <img id="tutor-img-daniela" src="https://xpmyayjtowdhrjdbezas.supabase.co/storage/v1/object/public/photos/teachers/1792628749919_PHOTO-2026-09-19-18-15-35.jpg" alt="Daniela García" class="w-24 h-24 rounded-full object-cover border-2 border-[#0E5A60]/20 shadow-sm">
-                <span id="tutor-rating-daniela" class="absolute -bottom-1 bg-[#F2B705] text-[#0E5A60] text-xs font-bold px-2.5 py-0.5 rounded-full shadow-sm">★ 5.0</span>
+              <div class="tutor-photo-wrap relative mb-3 flex items-center justify-center">
+                <img id="tutor-img-daniela" src="https://xpmyayjtowdhrjdbezas.supabase.co/storage/v1/object/public/photos/teachers/1792628749919_PHOTO-2026-09-19-18-15-35.jpg" alt="Daniela García" class="tutor-photo w-24 h-24 rounded-full object-cover border-2 border-[#0E5A60]/20 shadow-sm">
+                <span id="tutor-rating-daniela" class="tutor-stars-badge absolute -bottom-1 bg-[#F2B705] text-[#0E5A60] text-xs font-bold px-2.5 py-0.5 rounded-full shadow-sm">★ 5.0</span>
               </div>
-              <h3 id="tutor-name-daniela" class="text-center font-bold text-gray-900 text-base">Daniela García</h3>
-              <p id="tutor-headline-daniela" class="text-center text-xs text-[#2A9D8F] font-semibold mt-0.5">DELE & Grammar Expert · Bogotá</p>
-              <p id="tutor-bio-daniela" class="text-xs text-gray-500 mt-2 text-center leading-relaxed">Patient and structured methodology. Great for beginners moving to intermediate.</p>
+              <h3 id="tutor-name-daniela" class="tutor-name text-center font-bold text-gray-900 text-base">Daniela García</h3>
+              <p id="tutor-headline-daniela" class="tutor-headline text-center text-xs text-[#2A9D8F] font-semibold mt-0.5">DELE & Grammar Expert · Bogotá</p>
+              <p id="tutor-bio-daniela" class="tutor-bio text-xs text-gray-500 mt-2 text-center leading-relaxed">Patient and structured methodology. Great for beginners moving to intermediate.</p>
             </div>
           </div>
 
           <!-- Tutor 3: Valentina -->
           <div onclick="selectTutor('valentina', this)" id="tutor-card-valentina" class="tutor-card p-5 rounded-2xl border-2 border-gray-200 bg-white hover:border-[#2A9D8F] cursor-pointer transition flex flex-col justify-between">
             <div>
-              <div class="relative mb-3 flex items-center justify-center">
-                <img id="tutor-img-valentina" src="https://xpmyayjtowdhrjdbezas.supabase.co/storage/v1/object/public/photos/teachers/1792629035343_PHOTO-2026-09-29-11-24-29%202.jpg" alt="Valentina Gómez" class="w-24 h-24 rounded-full object-cover border-2 border-[#0E5A60]/20 shadow-sm">
-                <span id="tutor-rating-valentina" class="absolute -bottom-1 bg-[#F2B705] text-[#0E5A60] text-xs font-bold px-2.5 py-0.5 rounded-full shadow-sm">★ 5.0</span>
+              <div class="tutor-photo-wrap relative mb-3 flex items-center justify-center">
+                <img id="tutor-img-valentina" src="https://xpmyayjtowdhrjdbezas.supabase.co/storage/v1/object/public/photos/teachers/1792629035343_PHOTO-2026-09-29-11-24-29%202.jpg" alt="Valentina Gómez" class="tutor-photo w-24 h-24 rounded-full object-cover border-2 border-[#0E5A60]/20 shadow-sm">
+                <span id="tutor-rating-valentina" class="tutor-stars-badge absolute -bottom-1 bg-[#F2B705] text-[#0E5A60] text-xs font-bold px-2.5 py-0.5 rounded-full shadow-sm">★ 5.0</span>
               </div>
-              <h3 id="tutor-name-valentina" class="text-center font-bold text-gray-900 text-base">Valentina Gómez</h3>
-              <p id="tutor-headline-valentina" class="text-center text-xs text-[#2A9D8F] font-semibold mt-0.5">Travel & Real Life Spanish · Cali</p>
-              <p id="tutor-bio-valentina" class="text-xs text-gray-500 mt-2 text-center leading-relaxed">Dynamic, high-energy classes focusing on speaking confidence and pronunciation.</p>
+              <h3 id="tutor-name-valentina" class="tutor-name text-center font-bold text-gray-900 text-base">Valentina Gómez</h3>
+              <p id="tutor-headline-valentina" class="tutor-headline text-center text-xs text-[#2A9D8F] font-semibold mt-0.5">Travel & Real Life Spanish · Cali</p>
+              <p id="tutor-bio-valentina" class="tutor-bio text-xs text-gray-500 mt-2 text-center leading-relaxed">Dynamic, high-energy classes focusing on speaking confidence and pronunciation.</p>
             </div>
           </div>
         </div>
 
-        <div class="flex justify-end pt-4">
-          <button onclick="handleTeacherContinue()" id="btn-step-1" class="bg-[#0E5A60] hover:bg-[#093c40] text-white font-semibold py-3 px-8 rounded-xl shadow-md transition flex items-center space-x-2 text-sm">
+        <div class="nav-actions-row flex justify-end pt-4">
+          <button onclick="handleTeacherContinue()" id="btn-step-1" class="btn-primary-action bg-[#0E5A60] hover:bg-[#093c40] text-white font-semibold py-3 px-8 rounded-xl shadow-md transition flex items-center space-x-2 text-sm">
             <span id="btn-step-1-text">Continue to Schedule</span>
             <span>→</span>
           </button>
@@ -223,7 +212,7 @@
           </div>
           <div class="flex items-center space-x-2 text-xs">
             <span class="text-gray-500">🌐 Timezone:</span>
-            <select id="tz-select" class="bg-white border border-gray-200 rounded-lg px-2.5 py-1.5 font-medium text-gray-700 outline-none">
+            <select id="tz-select" class="timezone-select bg-white border border-gray-200 rounded-lg px-2.5 py-1.5 font-medium text-gray-700 outline-none">
               <option value="America/New_York" selected>Eastern Time (ET) - New York / Miami</option>
               <option value="America/Chicago">Central Time (CT) - Chicago / Dallas</option>
               <option value="America/Denver">Mountain Time (MT) - Denver</option>
@@ -237,22 +226,22 @@
 
         <!-- Horizontal Days Selector with Scroll Buttons -->
         <div>
-          <div class="flex items-center justify-between mb-2">
-            <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider">Select a Day (Next 45 Days)</label>
-            <div class="flex space-x-1">
-              <button onclick="scrollDaysCarousel(-180)" type="button" class="w-7 h-7 rounded-lg border border-gray-200 bg-white hover:bg-gray-100 flex items-center justify-center text-xs font-bold text-gray-600 shadow-sm">‹</button>
-              <button onclick="scrollDaysCarousel(180)" type="button" class="w-7 h-7 rounded-lg border border-gray-200 bg-white hover:bg-gray-100 flex items-center justify-center text-xs font-bold text-gray-600 shadow-sm">›</button>
+          <div class="carousel-nav-row flex items-center justify-between mb-2">
+            <label class="carousel-nav-label block text-xs font-semibold text-gray-500 uppercase tracking-wider">Select a Day (Next 45 Days)</label>
+            <div class="carousel-arrows flex space-x-1">
+              <button onclick="scrollDaysCarousel(-180)" type="button" class="carousel-arrow-btn-small w-7 h-7 rounded-lg border border-gray-200 bg-white hover:bg-gray-100 flex items-center justify-center text-xs font-bold text-gray-600 shadow-sm">‹</button>
+              <button onclick="scrollDaysCarousel(180)" type="button" class="carousel-arrow-btn-small w-7 h-7 rounded-lg border border-gray-200 bg-white hover:bg-gray-100 flex items-center justify-center text-xs font-bold text-gray-600 shadow-sm">›</button>
             </div>
           </div>
-          <div id="days-carousel" class="flex gap-2 overflow-x-auto pb-2 custom-scroll scroll-smooth">
+          <div id="days-carousel" class="days-carousel flex gap-2 overflow-x-auto pb-2 custom-scroll scroll-smooth">
             <!-- Dynamically populated via JS -->
           </div>
         </div>
 
         <!-- Time Slots Grid -->
         <div>
-          <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Available times for this date</label>
-          <div id="slots-grid" class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+          <label class="carousel-nav-label block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Available times for this date</label>
+          <div id="slots-grid" class="slots-grid grid grid-cols-2 sm:grid-cols-4 gap-2.5">
             <!-- Populated via JS -->
           </div>
         </div>
@@ -271,17 +260,17 @@
             <!-- Populated via JS -->
           </div>
 
-          <button id="btn-confirm-all-classes" onclick="confirmAllSubscriptionClasses()" class="w-full py-3.5 px-6 bg-[#0E5A60] hover:bg-[#093c40] text-white font-extrabold rounded-xl shadow-lg transition text-base flex items-center justify-center space-x-2">
+          <button id="btn-confirm-all-classes" onclick="confirmAllSubscriptionClasses()" class="btn-primary-action w-full py-3.5 px-6 bg-[#0E5A60] hover:bg-[#093c40] text-white font-extrabold rounded-xl shadow-lg transition text-base flex items-center justify-center space-x-2">
             <span>Confirmar y Guardar Mis Clases ✓</span>
           </button>
         </div>
 
         <!-- Trial Single Booking Navigation Buttons -->
-        <div id="step-2-trial-nav" class="flex justify-between items-center pt-4 border-t border-gray-100">
-          <button onclick="handleScheduleBack()" class="text-gray-600 font-semibold px-4 py-2.5 rounded-xl border border-gray-200 hover:bg-gray-50 text-sm">
+        <div id="step-2-trial-nav" class="nav-actions-row flex justify-between items-center pt-4 border-t border-gray-100">
+          <button onclick="handleScheduleBack()" class="btn-secondary-action text-gray-600 font-semibold px-4 py-2.5 rounded-xl border border-gray-200 hover:bg-gray-50 text-sm">
             ← Change Teacher
           </button>
-          <button id="btn-to-step-3" onclick="handleScheduleNext()" disabled class="bg-[#0E5A60] hover:bg-[#093c40] disabled:opacity-40 disabled:cursor-not-allowed text-white font-semibold py-3 px-8 rounded-xl shadow-md transition text-sm">
+          <button id="btn-to-step-3" onclick="handleScheduleNext()" disabled class="btn-primary-action bg-[#0E5A60] hover:bg-[#093c40] disabled:opacity-40 disabled:cursor-not-allowed text-white font-semibold py-3 px-8 rounded-xl shadow-md transition text-sm">
             Continue to Details →
           </button>
         </div>
@@ -289,31 +278,31 @@
 
       <!-- STEP 3: Dynamic Questionnaire Form -->
       <div id="step-3" class="space-y-6 hidden">
-        <div class="pb-2 border-b border-gray-100">
-          <h2 class="text-2xl font-bold text-[#0E5A60]">Your Details & Learning Goals</h2>
-          <p class="text-gray-600 text-sm mt-0.5">This information helps your teacher prepare the ideal personalized lesson for you.</p>
+        <div class="step-heading-group text-center max-w-xl mx-auto pb-2 border-b border-gray-100">
+          <h2 class="step-heading text-2xl font-bold text-[#0E5A60]">Your Details &amp; Learning Goals</h2>
+          <p class="step-description text-gray-600 text-sm mt-0.5">This information helps your teacher prepare the ideal personalized lesson for you.</p>
         </div>
 
         <div class="space-y-4">
-          <div>
-            <label class="block text-sm font-semibold text-gray-700 mb-1">Full Name <span class="text-[#FC2C54]">*</span></label>
-            <input type="text" id="input-name" placeholder="e.g. John Doe" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-[#0E5A60] focus:ring-2 focus:ring-[#0E5A60]/10 text-sm outline-none">
+          <div class="form-group">
+            <label class="form-label block text-sm font-semibold text-gray-700 mb-1">Full Name <span class="form-required text-[#FC2C54]">*</span></label>
+            <input type="text" id="input-name" placeholder="e.g. John Doe" class="form-input w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-[#0E5A60] focus:ring-2 focus:ring-[#0E5A60]/10 text-sm outline-none">
           </div>
 
-          <div>
-            <label class="block text-sm font-semibold text-gray-700 mb-1">Email Address <span class="text-[#FC2C54]">*</span></label>
-            <input type="email" id="input-email" placeholder="john@example.com" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-[#0E5A60] focus:ring-2 focus:ring-[#0E5A60]/10 text-sm outline-none">
+          <div class="form-group">
+            <label class="form-label block text-sm font-semibold text-gray-700 mb-1">Email Address <span class="form-required text-[#FC2C54]">*</span></label>
+            <input type="email" id="input-email" placeholder="john@example.com" class="form-input w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-[#0E5A60] focus:ring-2 focus:ring-[#0E5A60]/10 text-sm outline-none">
             <p class="text-[11px] text-gray-500 mt-1">Your Google Meet video link and calendar invitation will be sent here.</p>
           </div>
 
-          <div>
-            <label class="block text-sm font-semibold text-gray-700 mb-1">Phone / WhatsApp (Optional)</label>
-            <input type="tel" id="input-phone" placeholder="+1 (555) 000-0000" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-[#0E5A60] text-sm outline-none">
+          <div class="form-group">
+            <label class="form-label block text-sm font-semibold text-gray-700 mb-1">Phone / WhatsApp (Optional)</label>
+            <input type="tel" id="input-phone" placeholder="+1 (555) 000-0000" class="form-input w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-[#0E5A60] text-sm outline-none">
           </div>
 
-          <div>
-            <label class="block text-sm font-semibold text-gray-700 mb-1">What is your current Spanish level? <span class="text-[#FC2C54]">*</span></label>
-            <select id="input-level" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-[#0E5A60] text-sm bg-white outline-none">
+          <div class="form-group">
+            <label class="form-label block text-sm font-semibold text-gray-700 mb-1">What is your current Spanish level? <span class="form-required text-[#FC2C54]">*</span></label>
+            <select id="input-level" class="form-select w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-[#0E5A60] text-sm bg-white outline-none">
               <option value="A1 - Total Beginner (Just starting)">A1 - Total Beginner (Just starting)</option>
               <option value="A2 - Elementary (Basic phrases and survival Spanish)">A2 - Elementary (Basic phrases and survival Spanish)</option>
               <option value="B1 - Intermediate (Can hold basic conversations)" selected>B1 - Intermediate (Can hold basic conversations)</option>
@@ -322,39 +311,39 @@
             </select>
           </div>
 
-          <div>
-            <label class="block text-sm font-semibold text-gray-700 mb-2">What is your primary learning goal? <span class="text-[#FC2C54]">*</span></label>
-            <div class="space-y-2">
-              <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-200 hover:border-[#0E5A60] cursor-pointer">
-                <input type="radio" name="goal" value="Conversational fluency for travel and daily life" checked class="text-[#0E5A60]">
+          <div class="form-group">
+            <label class="form-label block text-sm font-semibold text-gray-700 mb-2">What is your primary learning goal? <span class="form-required text-[#FC2C54]">*</span></label>
+            <div class="goals-list space-y-2">
+              <label class="goal-option flex items-center space-x-3 p-3 rounded-xl border border-gray-200 hover:border-[#0E5A60] cursor-pointer">
+                <input type="radio" name="goal" value="Conversational fluency for travel and daily life" checked class="goal-radio text-[#0E5A60]">
                 <span class="text-sm">Conversational fluency for travel and daily life</span>
               </label>
-              <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-200 hover:border-[#0E5A60] cursor-pointer">
-                <input type="radio" name="goal" value="Official exam preparation (DELE / SIELE)" class="text-[#0E5A60]">
+              <label class="goal-option flex items-center space-x-3 p-3 rounded-xl border border-gray-200 hover:border-[#0E5A60] cursor-pointer">
+                <input type="radio" name="goal" value="Official exam preparation (DELE / SIELE)" class="goal-radio text-[#0E5A60]">
                 <span class="text-sm">Official exam preparation (DELE / SIELE)</span>
               </label>
-              <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-200 hover:border-[#0E5A60] cursor-pointer">
-                <input type="radio" name="goal" value="Business or professional Spanish" class="text-[#0E5A60]">
+              <label class="goal-option flex items-center space-x-3 p-3 rounded-xl border border-gray-200 hover:border-[#0E5A60] cursor-pointer">
+                <input type="radio" name="goal" value="Business or professional Spanish" class="goal-radio text-[#0E5A60]">
                 <span class="text-sm">Business or professional Spanish</span>
               </label>
-              <label class="flex items-center space-x-3 p-3 rounded-xl border border-gray-200 hover:border-[#0E5A60] cursor-pointer">
-                <input type="radio" name="goal" value="Colombian culture, slang and pronunciation" class="text-[#0E5A60]">
+              <label class="goal-option flex items-center space-x-3 p-3 rounded-xl border border-gray-200 hover:border-[#0E5A60] cursor-pointer">
+                <input type="radio" name="goal" value="Colombian culture, slang and pronunciation" class="goal-radio text-[#0E5A60]">
                 <span class="text-sm">Colombian culture, slang and pronunciation</span>
               </label>
             </div>
           </div>
 
-          <div>
-            <label class="block text-sm font-semibold text-gray-700 mb-1">Any specific topics or goals for this class? (Optional)</label>
-            <textarea id="input-notes" rows="2" placeholder="e.g. Subjunctive, ordering food in Medellín, job interview..." class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-[#0E5A60] text-sm outline-none"></textarea>
+          <div class="form-group">
+            <label class="form-label block text-sm font-semibold text-gray-700 mb-1">Any specific topics or goals for this class? (Optional)</label>
+            <textarea id="input-notes" rows="2" placeholder="e.g. Subjunctive, ordering food in Medellín, job interview..." class="form-textarea w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-[#0E5A60] text-sm outline-none"></textarea>
           </div>
         </div>
 
-        <div class="flex justify-between items-center pt-4 border-t border-gray-100">
-          <button onclick="handleDetailsBack()" class="text-gray-600 font-semibold px-4 py-2.5 rounded-xl border border-gray-200 hover:bg-gray-50 text-sm">
+        <div class="nav-actions-row flex justify-between items-center pt-4 border-t border-gray-100">
+          <button onclick="handleDetailsBack()" class="btn-secondary-action text-gray-600 font-semibold px-4 py-2.5 rounded-xl border border-gray-200 hover:bg-gray-50 text-sm">
             <span id="btn-details-back-text">← Change Schedule</span>
           </button>
-          <button id="btn-to-payment" onclick="validateStepDetails()" class="bg-[#0E5A60] hover:bg-[#093c40] text-white font-semibold py-3 px-8 rounded-xl shadow-md transition text-sm">
+          <button id="btn-to-payment" onclick="validateStepDetails()" class="btn-primary-action bg-[#0E5A60] hover:bg-[#093c40] text-white font-semibold py-3 px-8 rounded-xl shadow-md transition text-sm">
             Proceed to Payment →
           </button>
         </div>
@@ -368,8 +357,8 @@
         </div>
 
         <!-- Summary Card -->
-        <div class="bg-[#FFF3D6]/40 border border-[#0E5A60]/15 rounded-2xl p-5 space-y-3">
-          <div class="flex items-center justify-between pb-3 border-b border-[#0E5A60]/10">
+        <div class="summary-card bg-[#FFF3D6]/40 border border-[#0E5A60]/15 rounded-2xl p-5 space-y-3">
+          <div class="summary-header-row flex items-center justify-between pb-3 border-b border-[#0E5A60]/10">
             <div>
               <h4 class="font-bold text-[#0E5A60] text-base" id="summary-title">Trial Class (30 Min)</h4>
               <p class="text-xs text-gray-600">Teacher: <strong id="summary-tutor">María Izquierdo</strong></p>
@@ -379,7 +368,7 @@
               <span class="text-xs text-gray-500 block">USD</span>
             </div>
           </div>
-          <div class="grid grid-cols-2 gap-2 text-xs text-gray-700">
+          <div class="summary-details-grid grid grid-cols-2 gap-2 text-xs text-gray-700">
             <div>
               <span class="text-gray-400 block">Schedule</span>
               <span id="summary-time" class="font-bold text-gray-800">Tomorrow at 10:00 AM</span>
@@ -392,12 +381,12 @@
         </div>
 
         <!-- Payment Mode Tabs (Trial/Membership Only) -->
-        <div id="payment-mode-tabs" class="grid grid-cols-2 gap-3">
-          <button onclick="setPaymentMode('paypal')" id="btn-mode-paypal" class="p-4 rounded-xl border-2 border-[#0E5A60] bg-white ring-2 ring-[#0E5A60]/10 text-left shadow-sm">
+        <div id="payment-mode-tabs" class="payment-modes-grid grid grid-cols-2 gap-3">
+          <button onclick="setPaymentMode('paypal')" id="btn-mode-paypal" class="payment-mode-btn p-4 rounded-xl border-2 border-[#0E5A60] bg-white ring-2 ring-[#0E5A60]/10 text-left shadow-sm active">
             <span class="font-bold text-sm text-[#0E5A60] block">Trial Class ($15 USD)</span>
             <span class="text-xs text-gray-500">Credit / Debit Card or PayPal</span>
           </button>
-          <button onclick="setPaymentMode('subscription')" id="btn-mode-sub" class="p-4 rounded-xl border-2 border-gray-200 bg-gray-50 text-left hover:bg-white">
+          <button onclick="setPaymentMode('subscription')" id="btn-mode-sub" class="payment-mode-btn p-4 rounded-xl border-2 border-gray-200 bg-gray-50 text-left hover:bg-white">
             <span class="font-bold text-sm text-[#0E5A60] block">I have a Membership</span>
             <span class="text-xs text-gray-500">Redeem 1 class credit</span>
           </button>
@@ -428,30 +417,30 @@
         <div id="checkout-sub-box" class="p-5 border border-gray-200 rounded-2xl bg-white space-y-3 hidden">
           <p class="text-xs text-gray-600">To redeem a class with your active monthly membership, enter your email:</p>
           <div class="flex gap-2">
-            <input type="email" id="sub-check-email" placeholder="your-email@example.com" class="flex-1 px-3 py-2 text-sm border border-gray-200 rounded-xl outline-none">
-            <button onclick="verifySubCredit()" class="bg-[#2A9D8F] hover:bg-[#207a6f] text-white text-xs font-bold px-4 py-2 rounded-xl">Validate</button>
+            <input type="email" id="sub-check-email" placeholder="your-email@example.com" class="form-input flex-1 px-3 py-2 text-sm border border-gray-200 rounded-xl outline-none">
+            <button onclick="verifySubCredit()" class="btn-primary-action bg-[#2A9D8F] hover:bg-[#207a6f] text-white text-xs font-bold px-4 py-2 rounded-xl">Validate</button>
           </div>
           <div id="sub-result" class="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-xs text-emerald-800 hidden space-y-2">
             <div class="flex justify-between items-center">
               <span class="font-bold">Active Membership</span>
               <span class="font-black bg-emerald-200 px-2 py-0.5 rounded">Credits available</span>
             </div>
-            <button onclick="confirmSubBooking()" class="w-full bg-[#0E5A60] hover:bg-[#093c40] text-white font-bold py-2.5 rounded-xl shadow-sm">
+            <button onclick="confirmSubBooking()" class="btn-primary-action w-full bg-[#0E5A60] hover:bg-[#093c40] text-white font-bold py-2.5 rounded-xl shadow-sm">
               Confirm Class Using 1 Credit ✓
             </button>
           </div>
         </div>
 
-        <div class="flex justify-between items-center pt-2">
-          <button onclick="handlePaymentBack()" class="text-gray-600 font-semibold px-4 py-2.5 rounded-xl border border-gray-200 hover:bg-gray-50 text-sm">
+        <div class="nav-actions-row flex justify-between items-center pt-2">
+          <button onclick="handlePaymentBack()" class="btn-secondary-action text-gray-600 font-semibold px-4 py-2.5 rounded-xl border border-gray-200 hover:bg-gray-50 text-sm">
             ← Back to Details
           </button>
         </div>
       </div>
 
       <!-- STEP 5: Confirmation Success -->
-      <div id="step-5" class="space-y-6 text-center max-w-xl mx-auto py-4 hidden">
-        <div class="w-16 h-16 bg-[#2A9D8F]/15 text-[#2A9D8F] rounded-full flex items-center justify-center text-3xl mx-auto shadow-inner">
+      <div id="step-5" class="success-box space-y-6 text-center max-w-xl mx-auto py-4 hidden">
+        <div class="success-icon-badge w-16 h-16 bg-[#2A9D8F]/15 text-[#2A9D8F] rounded-full flex items-center justify-center text-3xl mx-auto shadow-inner">
           🎉
         </div>
         <div>
@@ -460,13 +449,13 @@
         </div>
 
         <!-- Meet Link Highlight -->
-        <div class="bg-gradient-to-r from-[#0E5A60] to-[#2A9D8F] rounded-2xl p-6 text-white text-left shadow-lg">
+        <div class="meet-highlight-card bg-gradient-to-r from-[#0E5A60] to-[#2A9D8F] rounded-2xl p-6 text-white text-left shadow-lg">
           <div class="flex items-center justify-between mb-2">
             <span class="text-xs uppercase font-bold text-[#F2C94C]">Virtual Classroom Google Meet</span>
             <span class="bg-white/20 text-white text-[10px] px-2 py-0.5 rounded-full">Dedicated Room</span>
           </div>
           <p class="text-xs text-white/90 mb-4">Click below to enter the classroom when it's time for your session:</p>
-          <a id="confirmed-meet-link" href="https://meet.google.com" target="_blank" class="w-full py-3.5 px-4 bg-[#F2B705] hover:bg-[#d9a404] text-[#0E5A60] font-black text-center rounded-xl block shadow-sm text-base">
+          <a id="confirmed-meet-link" href="https://meet.google.com" target="_blank" class="btn-join-meet w-full py-3.5 px-4 bg-[#F2B705] hover:bg-[#d9a404] text-[#0E5A60] font-black text-center rounded-xl block shadow-sm text-base">
             🎥 Join Google Meet
           </a>
         </div>
@@ -501,14 +490,14 @@
         <!-- Calendar Buttons -->
         <div class="space-y-2 text-left">
           <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider text-center">Add to your calendar</label>
-          <div class="grid grid-cols-3 gap-2">
-            <a id="link-gcal" target="_blank" class="p-2.5 rounded-xl border border-gray-200 text-center font-semibold text-xs text-gray-700 hover:border-[#0E5A60] cursor-pointer">
+          <div class="calendar-buttons-grid grid grid-cols-3 gap-2">
+            <a id="link-gcal" target="_blank" class="calendar-export-btn p-2.5 rounded-xl border border-gray-200 text-center font-semibold text-xs text-gray-700 hover:border-[#0E5A60] cursor-pointer">
               📅 Google Cal
             </a>
-            <a id="link-outlook" target="_blank" class="p-2.5 rounded-xl border border-gray-200 text-center font-semibold text-xs text-gray-700 hover:border-[#0E5A60] cursor-pointer">
+            <a id="link-outlook" target="_blank" class="calendar-export-btn p-2.5 rounded-xl border border-gray-200 text-center font-semibold text-xs text-gray-700 hover:border-[#0E5A60] cursor-pointer">
               ✉️ Outlook
             </a>
-            <button onclick="downloadICS()" class="p-2.5 rounded-xl border border-gray-200 text-center font-semibold text-xs text-gray-700 hover:border-[#0E5A60]">
+            <button onclick="downloadICS()" class="calendar-export-btn p-2.5 rounded-xl border border-gray-200 text-center font-semibold text-xs text-gray-700 hover:border-[#0E5A60]">
               📥 Download .ics
             </button>
           </div>
@@ -773,11 +762,11 @@
           const label = item.querySelector('.step-label');
 
           if (s === flowStep) {
-            circle.className = 'step-circle w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold bg-[#F2B705] text-[#0E5A60] ring-4 ring-white/20';
+            circle.className = 'step-circle w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold bg-[#F2B705] text-[#0E5A60] ring-4 ring-white/20 active';
             circle.innerText = s;
-            label.className = 'step-label text-xs font-bold text-[#F2C94C] hidden md:inline';
+            label.className = 'step-label text-xs font-bold text-[#F2C94C] hidden md:inline active';
           } else if (s < flowStep) {
-            circle.className = 'step-circle w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold bg-[#2A9D8F] text-white';
+            circle.className = 'step-circle w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold bg-[#2A9D8F] text-white completed';
             circle.innerText = '✓';
             label.className = 'step-label text-xs font-medium text-white hidden md:inline';
           } else {
@@ -786,6 +775,16 @@
             label.className = 'step-label text-xs font-medium text-white/50 hidden md:inline';
           }
         });
+
+        // Update Mobile Step Indicator Text
+        const mobileStepTitles = {
+          1: 'Paso 1 de 4 · Selecciona tu Tutora',
+          2: isSubscriptionFlow ? 'Paso 2 de 4 · Tus Datos' : 'Paso 2 de 4 · Fecha y Hora',
+          3: isSubscriptionFlow ? 'Paso 3 de 4 · Pago Seguro' : 'Paso 3 de 4 · Tus Datos',
+          4: isSubscriptionFlow ? 'Paso 4 de 4 · Agendar Clases' : 'Paso 4 de 4 · Pago Seguro'
+        };
+        const mobInd = document.getElementById('mobile-step-indicator');
+        if (mobInd) mobInd.innerText = mobileStepTitles[flowStep] || '';
       }
 
       window.scrollTo({ top: 0, behavior: 'smooth' });
