@@ -780,6 +780,7 @@
     let activeSubscription = null;
     let activeSubscriptionId = null;
     let currentPlanKey = '';
+    let assignedTutorLocked = false;
 
     // PayPal Client ID & Subscription Plan IDs
     const PAYPAL_CLIENT_ID = 'BAAZ7n3LNLO1wrWvxo3LVUHipd2c2mcDjPhQc0GJir6MVeRQnQ2_s1jLMIhbmXzsarzxkLaCXAvU4hjePc';
@@ -938,9 +939,55 @@
         if (subEl) subEl.innerText = `Your monthly PayPal subscription is active ✓. You have ${totalPlanClasses} classes ready to schedule this month without paying again.`;
       }
 
-      // Update Stepper Bar for Members
-      document.getElementById('stepper-label-1').innerText = 'Teacher';
-      document.getElementById('stepper-label-2').innerText = `Schedule (${totalPlanClasses} Classes)`;
+      // OPTION C: Locked Assigned Tutor
+      let assignedSlug = null;
+      if (sub.assigned_tutor_id) {
+        for (const [slug, id] of Object.entries(TUTOR_IDS)) {
+          if (id === sub.assigned_tutor_id) {
+            assignedSlug = slug;
+            break;
+          }
+        }
+      }
+      if (!assignedSlug && sub.assigned_tutor_name) {
+        const n = sub.assigned_tutor_name.toLowerCase();
+        if (n.includes('mar')) assignedSlug = 'maria';
+        else if (n.includes('dan')) assignedSlug = 'daniela';
+        else if (n.includes('val')) assignedSlug = 'valentina';
+      }
+
+      if (assignedSlug && TUTOR_NAMES[assignedSlug]) {
+        assignedTutorLocked = true;
+        const card = document.getElementById(`tutor-card-${assignedSlug}`);
+        selectTutor(assignedSlug, card);
+
+        const tutorDisplayName = TUTOR_NAMES[assignedSlug] || 'Your certified native tutor';
+        const firstName = tutorDisplayName.split(' ')[0];
+
+        const subEl = document.getElementById('member-status-sub');
+        if (subEl) {
+          subEl.innerHTML = `Your monthly PayPal subscription is active ✓. Your assigned teacher is <strong>${tutorDisplayName}</strong> 👩‍🏫. You have ${totalPlanClasses} classes ready to schedule this month without paying again.<br/><span style="display:inline-block; margin-top: 6px; font-size: 11.5px; color: #0E5A60; font-weight: 500;">💬 To request a teacher change or discuss your schedule, <a href="https://wa.me/573007945333?text=Hi%20Espa%C3%B1ol%20con%20Sabor!%20I'd%20like%20to%20request%20a%20teacher%20change%20for%20my%20subscription" target="_blank" style="text-decoration:underline; font-weight:700; color: #0E5A60;">message María on WhatsApp ↗</a></span>`;
+        }
+
+        const noticeTitle = document.getElementById('sub-paid-notice-title');
+        if (noticeTitle) noticeTitle.innerText = `Hi, ${sub.student_name || 'Student'}! Active Membership`;
+        const noticeSub = document.getElementById('sub-paid-notice-sub');
+        if (noticeSub) noticeSub.innerText = `Classes are assigned to ${tutorDisplayName} 👩‍🏫. Choose the date and time for each class below:`;
+
+        document.getElementById('stepper-label-1').innerText = `Teacher: ${firstName} ✓`;
+        document.getElementById('stepper-label-2').innerText = `Schedule (${totalPlanClasses} Classes)`;
+
+        // Automatically jump directly to Step 2 so the student books directly with their assigned teacher!
+        setTimeout(() => {
+          goToFlowStep(2);
+        }, 120);
+      } else {
+        assignedTutorLocked = false;
+        // Update Stepper Bar for Members without assigned tutor
+        document.getElementById('stepper-label-1').innerText = 'Teacher';
+        document.getElementById('stepper-label-2').innerText = `Schedule (${totalPlanClasses} Classes)`;
+      }
+
       document.getElementById('stepper-label-3').innerText = 'Confirmation ✓';
       document.getElementById('stepper-label-4').innerText = 'Active';
 
@@ -985,11 +1032,33 @@
       const cleanEmail = email.trim().toLowerCase();
 
       try {
+        // Consultar la tutora asignada en reservas previas del estudiante
+        let assignedTutorId = null;
+        let assignedTutorName = null;
+        try {
+          const { data: bTutor } = await supabaseClient
+            .from('bookings')
+            .select('tutor_id, tutors(id, name)')
+            .ilike('student_email', cleanEmail)
+            .order('created_at', { ascending: false })
+            .limit(1);
+          if (bTutor && bTutor.length > 0 && bTutor[0].tutor_id) {
+            assignedTutorId = bTutor[0].tutor_id;
+            if (bTutor[0].tutors && bTutor[0].tutors.name) {
+              assignedTutorName = bTutor[0].tutors.name;
+            }
+          }
+        } catch (tErr) {
+          console.warn('Could not query assigned tutor from bookings:', tErr);
+        }
+
         // 1. RPC check (si la función existe en la base de datos)
         try {
           const { data: rpcRes, error: rpcErr } = await supabaseClient.rpc('check_student_subscription', { p_email: cleanEmail });
           if (!rpcErr && rpcRes && rpcRes.found !== undefined) {
             if (rpcRes.is_valid && rpcRes.success) {
+              rpcRes.assigned_tutor_id = assignedTutorId;
+              rpcRes.assigned_tutor_name = assignedTutorName;
               applyActiveMembership(rpcRes);
               return { success: true, sub: rpcRes };
             } else if (rpcRes.status === 'past_due' || rpcRes.status === 'cancelled' || rpcRes.status === 'suspended') {
@@ -1014,6 +1083,8 @@
           const pastDue = subs.find(s => s.status === 'past_due' || s.status === 'cancelled' || new Date(s.current_period_end) < now);
 
           if (active) {
+            active.assigned_tutor_id = assignedTutorId || active.tutor_id;
+            active.assigned_tutor_name = assignedTutorName;
             applyActiveMembership(active);
             return { success: true, sub: active };
           } else if (pastDue) {
@@ -1039,7 +1110,9 @@
             student_email: lastBooking.student_email,
             plan_name: lastBooking.dynamic_responses?.plan_title || 'Membresía Activa Español con Sabor',
             credits_remaining: 4,
-            status: 'active'
+            status: 'active',
+            assigned_tutor_id: assignedTutorId || lastBooking.tutor_id,
+            assigned_tutor_name: assignedTutorName
           };
           applyActiveMembership(fallbackSub);
           return { success: true, sub: fallbackSub };
@@ -1274,7 +1347,15 @@
       let activeDomId = 'step-1';
 
       if (isMemberFlow) {
-        if (flowStep === 1) activeDomId = 'step-1'; // Teacher
+        if (flowStep === 1) {
+          if (assignedTutorLocked) {
+            flowStep = 2;
+            activeDomId = 'step-2';
+            initMultiClassScheduler();
+          } else {
+            activeDomId = 'step-1'; // Teacher
+          }
+        }
         else if (flowStep === 2) activeDomId = 'step-2'; // Schedule N Classes (Payment skipped!)
         else if (flowStep === 3) activeDomId = 'step-5'; // Success
         else if (flowStep === 4) activeDomId = 'step-2'; // Direct jump to Schedule
@@ -1340,6 +1421,10 @@
     }
 
     function handleScheduleBack() {
+      if (isMemberFlow && assignedTutorLocked) {
+        alert(`Your subscription is locked with ${TUTOR_NAMES[selectedTutor] || 'your assigned teacher'} to preserve your personalized learning continuity.\n\nTo request a teacher change, please message us on WhatsApp and we will gladly coordinate it!`);
+        return;
+      }
       goToFlowStep(1);
     }
 
@@ -1349,7 +1434,11 @@
 
     function handleDetailsBack() {
       if (isSubscriptionFlow) {
-        goToFlowStep(1); // Back to Teacher
+        if (isMemberFlow && assignedTutorLocked) {
+          goToFlowStep(2);
+        } else {
+          goToFlowStep(1); // Back to Teacher
+        }
       } else {
         goToFlowStep(2); // Back to Schedule
       }
