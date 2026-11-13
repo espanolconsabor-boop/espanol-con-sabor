@@ -1027,16 +1027,10 @@
                 </div>
               </button>
             </div>
-                  <span class="text-[11px] text-gray-500 block">Structured grammar, reading & certification</span>
-                </div>
-              </button>
-            </div>
           </div>
 
-          <div class="form-group">
-            <label class="form-label block text-sm font-semibold text-gray-700 mb-1">Any specific topics or goals for this class? (Optional)</label>
-            <textarea id="input-notes" rows="2" placeholder="e.g. Subjunctive, ordering food in Medellín, job interview..." class="form-textarea w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-[#0E5A60] text-sm outline-none"></textarea>
-          </div>
+          <!-- Hidden notes input for backend payload compatibility -->
+          <input type="hidden" id="input-notes" value="">
         </div>
 
         <div class="nav-actions-row flex justify-between items-center pt-4 border-t border-gray-100">
