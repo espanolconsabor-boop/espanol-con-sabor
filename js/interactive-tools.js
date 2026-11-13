@@ -120,43 +120,43 @@ function showQuizResult() {
   const bookBtn = document.getElementById('quiz-book-btn');
 
   if (quizScore <= 1.5) {
-    // A1 Beginner
+    // A1 Beginner -> Valentina Gómez
     if (badgeEl) badgeEl.textContent = 'Diagnostic: Level A1 (Beginner)';
     if (titleEl) titleEl.textContent = '🌱 You are Ready to Start Speaking!';
     if (descEl) descEl.textContent = "You're at the very beginning of an exciting journey. Colombian Spanish is the clearest and friendliest dialect in the world to start with. With our 1-on-1 personalized guidance, you'll be speaking your first full sentences from lesson one!";
-    if (recAvatar) recAvatar.src = 'images/founder_avatar.jpg';
-    if (recName) recName.textContent = 'María Izquierdo (Bogotá)';
+    if (recAvatar) recAvatar.src = 'https://xpmyayjtowdhrjdbezas.supabase.co/storage/v1/object/public/photos/teachers/1792629035343_PHOTO-2026-09-29-11-24-29%202.jpg';
+    if (recName) recName.textContent = 'Valentina Gómez (Bogotá)';
     if (recBio) recBio.textContent = 'Specialist in building zero-stress conversational foundations and pronunciation clarity.';
     if (bookBtn) {
-      bookBtn.href = 'reservar.html?tutor=maria&level=A1';
-      bookBtn.textContent = '📅 Book $15 Trial with María →';
+      bookBtn.href = 'reservar.html?tutor=valentina&level=A1';
+      bookBtn.textContent = '📅 Book $15 Trial with Valentina →';
     }
   } else if (quizScore <= 3) {
-    // A2 Elementary
+    // A2 Elementary -> Valentina Gómez
     if (badgeEl) badgeEl.textContent = 'Diagnostic: Level A2 (Elementary)';
     if (titleEl) titleEl.textContent = '🚀 Ready for Natural Conversation!';
     if (descEl) descEl.textContent = "You already know essential phrases and have great instincts, but you might hesitate before speaking. Your next breakthrough is building conversational momentum and authentic everyday vocabulary.";
-    if (recAvatar) recAvatar.src = 'https://xpmyayjtowdhrjdbezas.supabase.co/storage/v1/object/public/photos/teachers/1792628749919_PHOTO-2026-09-19-18-15-35.jpg';
-    if (recName) recName.textContent = 'Daniela García (Cartagena)';
-    if (recBio) recBio.textContent = 'Expert in breaking speaking plateaus and building rapid conversational fluency.';
+    if (recAvatar) recAvatar.src = 'https://xpmyayjtowdhrjdbezas.supabase.co/storage/v1/object/public/photos/teachers/1792629035343_PHOTO-2026-09-29-11-24-29%202.jpg';
+    if (recName) recName.textContent = 'Valentina Gómez (Bogotá)';
+    if (recBio) recBio.textContent = 'Expert in breaking speaking plateaus and building rapid everyday vocabulary.';
     if (bookBtn) {
-      bookBtn.href = 'reservar.html?tutor=daniela&level=A2';
-      bookBtn.textContent = '📅 Book $15 Trial with Daniela →';
+      bookBtn.href = 'reservar.html?tutor=valentina&level=A2';
+      bookBtn.textContent = '📅 Book $15 Trial with Valentina →';
     }
   } else if (quizScore <= 4) {
-    // B1 Intermediate
+    // B1 Intermediate -> Daniela García
     if (badgeEl) badgeEl.textContent = 'Diagnostic: Level B1 (Intermediate)';
     if (titleEl) titleEl.textContent = '⭐ Solid Fluency & Natural Rhythm!';
     if (descEl) descEl.textContent = "Impressive! You understand real Colombian idioms and subjunctive structures in context. It's time to transition from thinking in English to speaking fluidly and effortlessly like a Colombian local.";
-    if (recAvatar) recAvatar.src = 'https://xpmyayjtowdhrjdbezas.supabase.co/storage/v1/object/public/photos/teachers/1792629035343_PHOTO-2026-09-29-11-24-29%202.jpg';
-    if (recName) recName.textContent = 'Valentina Gómez (Bogotá)';
+    if (recAvatar) recAvatar.src = 'https://xpmyayjtowdhrjdbezas.supabase.co/storage/v1/object/public/photos/teachers/1792628749919_PHOTO-2026-09-19-18-15-35.jpg';
+    if (recName) recName.textContent = 'Daniela García (Cartagena)';
     if (recBio) recBio.textContent = 'Master in advanced idiomatic fluency, cultural nuance, and high-energy conversational sparring.';
     if (bookBtn) {
-      bookBtn.href = 'reservar.html?tutor=valentina&level=B1';
-      bookBtn.textContent = '📅 Book $15 Trial with Valentina →';
+      bookBtn.href = 'reservar.html?tutor=daniela&level=B1';
+      bookBtn.textContent = '📅 Book $15 Trial with Daniela →';
     }
   } else {
-    // B2+ Advanced
+    // B2+ Advanced -> María Izquierdo
     if (badgeEl) badgeEl.textContent = 'Diagnostic: Level B2+ (Advanced)';
     if (titleEl) titleEl.textContent = '🔥 ¡Qué Chimba! You Speak Like a Local!';
     if (descEl) descEl.textContent = "Outstanding! You have a deep grasp of Colombian idioms, cultural nuance, and grammar. You're ready for advanced immersion, Colombian literature, rapid-fire debates, and full professional fluency.";

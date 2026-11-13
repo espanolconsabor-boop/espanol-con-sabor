@@ -216,6 +216,352 @@
         min-height: 72px !important;
       }
     }
+
+    /* 1-Click Interactive Level & Goal Choice Buttons (Cream & Emerald) */
+    .level-pills-grid {
+      display: grid !important;
+      grid-template-columns: repeat(4, 1fr) !important;
+      gap: 12px !important;
+      margin-top: 8px !important;
+    }
+    .goals-pills-grid {
+      display: grid !important;
+      grid-template-columns: repeat(2, 1fr) !important;
+      gap: 12px !important;
+      margin-top: 8px !important;
+    }
+    @media (max-width: 640px) {
+      .level-pills-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 8px !important;
+      }
+      .goals-pills-grid {
+        grid-template-columns: 1fr !important;
+        gap: 8px !important;
+      }
+    }
+    .level-pill-btn,
+    .goal-pill-btn {
+      background: #FAF6EF !important;
+      border: 2px solid #EADBCC !important;
+      border-radius: 14px !important;
+      padding: 14px 16px !important;
+      color: #1E293B !important;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif !important;
+      cursor: pointer !important;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+      text-align: left !important;
+      display: flex !important;
+      align-items: center !important;
+      gap: 12px !important;
+      box-shadow: 0 2px 8px rgba(14, 90, 96, 0.05) !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+      outline: none !important;
+    }
+    .level-pill-btn {
+      flex-direction: column !important;
+      align-items: flex-start !important;
+      gap: 4px !important;
+      padding: 14px 12px !important;
+    }
+    .level-pill-btn .pill-icon {
+      font-size: 20px !important;
+      line-height: 1 !important;
+      display: block !important;
+    }
+    .level-pill-btn .pill-title,
+    .goal-pill-btn .pill-title {
+      display: block !important;
+      font-size: 13px !important;
+      font-weight: 800 !important;
+      color: #0E5A60 !important;
+      line-height: 1.3 !important;
+      transition: color 0.2s ease !important;
+    }
+    .level-pill-btn .pill-desc,
+    .goal-pill-btn .pill-desc {
+      display: block !important;
+      font-size: 11px !important;
+      font-weight: 500 !important;
+      color: #64748B !important;
+      line-height: 1.3 !important;
+      transition: color 0.2s ease !important;
+    }
+    .level-pill-btn:hover,
+    .goal-pill-btn:hover {
+      background: #FFFDF9 !important;
+      border-color: #2A9D8F !important;
+      transform: translateY(-2px) !important;
+      box-shadow: 0 6px 16px rgba(14, 90, 96, 0.12) !important;
+    }
+    .level-pill-btn.selected,
+    .goal-pill-btn.selected {
+      background: #0E5A60 !important;
+      border-color: #0E5A60 !important;
+      color: #FFFFFF !important;
+      box-shadow: 0 6px 20px rgba(14, 90, 96, 0.28) !important;
+      transform: translateY(-2px) !important;
+    }
+    .level-pill-btn.selected .pill-title,
+    .goal-pill-btn.selected .pill-title {
+      color: #FFFFFF !important;
+    }
+    .level-pill-btn.selected .pill-desc,
+    .goal-pill-btn.selected .pill-desc {
+      color: rgba(255, 255, 255, 0.9) !important;
+    }
+
+    /* Schedule Mode Switcher */
+    .schedule-mode-toggle-wrap {
+      display: flex !important;
+      justify-content: center !important;
+      align-items: center !important;
+      gap: 8px !important;
+      background: #FAF6EF !important;
+      border: 2px solid #EADBCC !important;
+      padding: 6px !important;
+      border-radius: 18px !important;
+      max-width: 520px !important;
+      margin: 16px auto 20px !important;
+    }
+    .schedule-mode-tab {
+      flex: 1 !important;
+      padding: 11px 18px !important;
+      border-radius: 14px !important;
+      border: none !important;
+      background: transparent !important;
+      color: #475569 !important;
+      font-family: 'Plus Jakarta Sans', sans-serif !important;
+      font-size: 13px !important;
+      font-weight: 700 !important;
+      cursor: pointer !important;
+      transition: all 0.2s ease !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 8px !important;
+      white-space: nowrap !important;
+    }
+    .schedule-mode-tab:hover {
+      color: #0E5A60 !important;
+    }
+    .schedule-mode-tab.active {
+      background: #0E5A60 !important;
+      color: #FFFFFF !important;
+      box-shadow: 0 4px 14px rgba(14, 90, 96, 0.25) !important;
+    }
+    @media (max-width: 540px) {
+      .schedule-mode-toggle-wrap {
+        flex-direction: column !important;
+        gap: 6px !important;
+      }
+      .schedule-mode-tab {
+        width: 100% !important;
+      }
+    }
+
+    /* Auto-Schedule Card */
+    .auto-schedule-box {
+      background: #FAF6EF !important;
+      border: 2px solid #EADBCC !important;
+      border-radius: 20px !important;
+      padding: 22px !important;
+      margin-bottom: 20px !important;
+      box-shadow: 0 2px 10px rgba(14, 90, 96, 0.04) !important;
+    }
+    .auto-schedule-header {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      margin-bottom: 6px !important;
+      flex-wrap: wrap !important;
+      gap: 8px !important;
+    }
+    .auto-schedule-title {
+      color: #0E5A60 !important;
+      font-size: 15px !important;
+      font-weight: 800 !important;
+      margin: 0 !important;
+      display: flex !important;
+      align-items: center !important;
+      gap: 6px !important;
+    }
+    .auto-schedule-badge {
+      font-size: 11px !important;
+      font-weight: 800 !important;
+      color: #2A9D8F !important;
+      background: rgba(42, 157, 143, 0.12) !important;
+      padding: 4px 10px !important;
+      border-radius: 999px !important;
+    }
+    .auto-schedule-sub {
+      color: #475569 !important;
+      font-size: 12.5px !important;
+      margin: 0 0 16px 0 !important;
+      line-height: 1.45 !important;
+    }
+    .routine-picker-grid {
+      display: grid !important;
+      grid-template-columns: repeat(3, 1fr) !important;
+      gap: 12px !important;
+    }
+    @media (max-width: 680px) {
+      .routine-picker-grid {
+        grid-template-columns: 1fr !important;
+        gap: 10px !important;
+      }
+    }
+    .routine-picker-col {
+      display: flex !important;
+      flex-direction: column !important;
+    }
+    .routine-picker-label {
+      display: block !important;
+      font-size: 11px !important;
+      font-weight: 700 !important;
+      color: #64748B !important;
+      text-transform: uppercase !important;
+      letter-spacing: 0.5px !important;
+      margin-bottom: 6px !important;
+    }
+    .sabor-select {
+      width: 100% !important;
+      background: #FFFFFF !important;
+      border: 2px solid #EADBCC !important;
+      border-radius: 14px !important;
+      padding: 12px 14px !important;
+      font-family: 'Plus Jakarta Sans', sans-serif !important;
+      font-size: 13.5px !important;
+      font-weight: 700 !important;
+      color: #0E5A60 !important;
+      outline: none !important;
+      cursor: pointer !important;
+      transition: all 0.2s ease !important;
+      box-sizing: border-box !important;
+    }
+    .sabor-select:focus,
+    .sabor-select:hover {
+      border-color: #2A9D8F !important;
+      box-shadow: 0 0 0 3px rgba(42, 157, 143, 0.12) !important;
+    }
+    .auto-schedule-footer {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      gap: 14px !important;
+      margin-top: 16px !important;
+      padding-top: 14px !important;
+      border-top: 1px solid rgba(14, 90, 96, 0.1) !important;
+      flex-wrap: wrap !important;
+    }
+    @media (max-width: 640px) {
+      .auto-schedule-footer {
+        flex-direction: column !important;
+        align-items: stretch !important;
+      }
+      .auto-schedule-footer .btn-primary-action {
+        width: 100% !important;
+      }
+    }
+    .flexible-rescheduling-badge {
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 8px !important;
+      color: #475569 !important;
+      font-size: 12px !important;
+      line-height: 1.4 !important;
+    }
+
+    /* Multi-Class Summary Box (Image 4 aesthetic update) */
+    .summary-classes-card {
+      background: #FAF6EF !important;
+      border: 2px solid #EADBCC !important;
+      border-radius: 20px !important;
+      padding: 22px !important;
+      margin-top: 24px !important;
+      box-shadow: 0 4px 16px rgba(14, 90, 96, 0.05) !important;
+    }
+    .summary-classes-header {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      padding-bottom: 12px !important;
+      border-bottom: 1.5px solid rgba(14, 90, 96, 0.1) !important;
+      margin-bottom: 14px !important;
+      flex-wrap: wrap !important;
+      gap: 8px !important;
+    }
+    .summary-classes-title {
+      color: #0E5A60 !important;
+      font-size: 15px !important;
+      font-weight: 800 !important;
+      margin: 0 !important;
+    }
+    .summary-classes-badge {
+      font-size: 12px !important;
+      font-weight: 800 !important;
+      color: #FFFFFF !important;
+      background: #2A9D8F !important;
+      padding: 4px 12px !important;
+      border-radius: 999px !important;
+    }
+    .summary-class-row {
+      background: #FFFFFF !important;
+      border: 1.5px solid #EADBCC !important;
+      border-radius: 14px !important;
+      padding: 12px 16px !important;
+      margin-bottom: 8px !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      gap: 12px !important;
+      transition: all 0.2s ease !important;
+      box-shadow: 0 2px 6px rgba(14, 90, 96, 0.03) !important;
+    }
+    .summary-class-row:hover {
+      border-color: #2A9D8F !important;
+    }
+    .summary-class-info {
+      display: flex !important;
+      align-items: center !important;
+      gap: 10px !important;
+      flex-wrap: wrap !important;
+    }
+    .summary-class-badge {
+      font-weight: 800 !important;
+      color: #0E5A60 !important;
+      font-size: 13px !important;
+    }
+    .summary-class-datetime {
+      font-weight: 600 !important;
+      color: #1E293B !important;
+      font-size: 13.5px !important;
+    }
+    .summary-class-duration {
+      background: rgba(14, 90, 96, 0.08) !important;
+      color: #0E5A60 !important;
+      font-size: 11px !important;
+      font-weight: 700 !important;
+      padding: 3px 8px !important;
+      border-radius: 999px !important;
+    }
+    .btn-change-slot {
+      background: #FAF6EF !important;
+      border: 1.5px solid #0E5A60 !important;
+      color: #0E5A60 !important;
+      font-weight: 700 !important;
+      font-size: 12px !important;
+      padding: 6px 14px !important;
+      border-radius: 10px !important;
+      cursor: pointer !important;
+      transition: all 0.2s ease !important;
+      font-family: 'Plus Jakarta Sans', sans-serif !important;
+    }
+    .btn-change-slot:hover {
+      background: #0E5A60 !important;
+      color: #FFFFFF !important;
+    }
   </style>
 </head>
 <body class="min-h-screen py-8 px-4 flex flex-col items-center justify-center">
@@ -417,30 +763,54 @@
               <span class="text-2xl">🎉</span>
               <div>
                 <h4 class="font-bold text-emerald-900 text-sm" id="sub-paid-notice-title">Subscription Approved & Active!</h4>
-                <p class="text-xs text-emerald-700" id="sub-paid-notice-sub">Your payment has been recorded. Now choose the date and time for each of your classes below:</p>
+                <p class="text-xs text-emerald-700" id="sub-paid-notice-sub">Your payment has been recorded. Choose your preferred scheduling mode below:</p>
               </div>
             </div>
             <span class="bg-emerald-200 text-emerald-800 text-xs font-bold px-3 py-1 rounded-full whitespace-nowrap self-start sm:self-center">✓ Payment Confirmed</span>
           </div>
 
-          <!-- Quick Routine Auto-Scheduler Box -->
-          <div class="p-4 bg-gradient-to-r from-[#0E5A60]/5 via-white to-[#2A9D8F]/10 border-2 border-[#0E5A60]/20 rounded-2xl space-y-3">
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5">
-              <div class="flex items-center space-x-2">
-                <span class="text-xl">⚡</span>
-                <h4 class="font-bold text-[#0E5A60] text-sm">Quick Routine: Repeat on the same day &amp; time every week</h4>
-              </div>
-              <span class="text-[11px] font-bold text-[#2A9D8F] bg-[#2A9D8F]/10 px-2.5 py-0.5 rounded-full self-start sm:self-auto">Fast 1-Click Setup</span>
+          <!-- Central Switcher: Schedule Manually vs Auto-Schedule -->
+          <div class="schedule-mode-toggle-wrap">
+            <button type="button" id="tab-mode-manual" onclick="setScheduleMode('manual')" class="schedule-mode-tab active">
+              <span>🗓️ Schedule Manually</span>
+            </button>
+            <button type="button" id="tab-mode-auto" onclick="setScheduleMode('auto')" class="schedule-mode-tab">
+              <span>⚡ Auto-Schedule (Routine)</span>
+            </button>
+          </div>
+
+          <!-- Mode 1: Manual Multi-Class Grid -->
+          <div id="schedule-view-manual" class="space-y-2">
+            <div class="flex items-center justify-between">
+              <label class="block text-xs font-bold uppercase tracking-wider text-[#0E5A60]" id="multi-class-header-label">
+                Your Classes to Schedule (<span id="scheduled-count" class="text-[#2A9D8F]">0</span> of <span id="total-count">4</span> Scheduled)
+              </label>
+              <span class="text-xs text-gray-500 hidden sm:inline">Click each card to select its day and time below</span>
             </div>
-            <p class="text-xs text-gray-600">
-              Pick your preferred recurring day(s) and time. We will automatically generate your full month schedule:
+            <!-- Class Tabs Container (Clean Modern Grid) -->
+            <div id="class-tabs-container" class="class-tabs-grid">
+              <!-- Dynamically populated via JS -->
+            </div>
+          </div>
+
+          <!-- Mode 2: Auto-Schedule Weekly Routine -->
+          <div id="schedule-view-auto" class="auto-schedule-box hidden">
+            <div class="auto-schedule-header">
+              <h4 class="auto-schedule-title">
+                <span>⚡</span>
+                <span>Quick Routine: Repeat on the same day &amp; time every week</span>
+              </h4>
+              <span class="auto-schedule-badge">1-Click Setup</span>
+            </div>
+            <p class="auto-schedule-sub">
+              Pick your preferred recurring day(s) and time. We will automatically generate your full month schedule in 1 click:
             </p>
-            
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-1">
+
+            <div class="routine-picker-grid">
               <!-- Day 1 Selector -->
-              <div>
-                <label class="block text-[11px] font-semibold text-gray-500 uppercase mb-1">Weekly Day</label>
-                <select id="routine-day-1" class="w-full bg-white border border-gray-200 rounded-xl px-3 py-2 text-xs font-bold text-gray-800 outline-none">
+              <div class="routine-picker-col">
+                <label class="routine-picker-label">Every (Day of Week)</label>
+                <select id="routine-day-1" class="sabor-select">
                   <option value="1">Every Monday</option>
                   <option value="2" selected>Every Tuesday</option>
                   <option value="3">Every Wednesday</option>
@@ -451,9 +821,9 @@
               </div>
 
               <!-- Day 2 Selector (Only shown if plan has >= 8 classes) -->
-              <div id="routine-day-2-wrap" class="hidden">
-                <label class="block text-[11px] font-semibold text-gray-500 uppercase mb-1">Second Weekly Day</label>
-                <select id="routine-day-2" class="w-full bg-white border border-gray-200 rounded-xl px-3 py-2 text-xs font-bold text-gray-800 outline-none">
+              <div id="routine-day-2-wrap" class="routine-picker-col hidden">
+                <label class="routine-picker-label">Second Day (Every)</label>
+                <select id="routine-day-2" class="sabor-select">
                   <option value="1">Every Monday</option>
                   <option value="2">Every Tuesday</option>
                   <option value="3">Every Wednesday</option>
@@ -464,61 +834,46 @@
               </div>
 
               <!-- Time Selector -->
-              <div>
-                <label class="block text-[11px] font-semibold text-gray-500 uppercase mb-1">Preferred Time</label>
-                <select id="routine-time" class="w-full bg-white border border-gray-200 rounded-xl px-3 py-2 text-xs font-bold text-gray-800 outline-none">
-                  <option value="09:00 AM">09:00 AM</option>
-                  <option value="10:30 AM" selected>10:30 AM</option>
-                  <option value="02:00 PM">02:00 PM</option>
-                  <option value="03:30 PM">03:30 PM</option>
-                  <option value="05:00 PM">05:00 PM</option>
-                  <option value="06:30 PM">06:30 PM</option>
+              <div class="routine-picker-col">
+                <label class="routine-picker-label">Preferred Time</label>
+                <select id="routine-time" class="sabor-select">
+                  <option value="09:00 AM">09:00 AM (50 min)</option>
+                  <option value="10:30 AM" selected>10:30 AM (50 min)</option>
+                  <option value="02:00 PM">02:00 PM (50 min)</option>
+                  <option value="03:30 PM">03:30 PM (50 min)</option>
+                  <option value="05:00 PM">05:00 PM (50 min)</option>
+                  <option value="06:30 PM">06:30 PM (50 min)</option>
                 </select>
               </div>
             </div>
 
-            <div class="flex flex-col sm:flex-row items-center justify-between gap-2 pt-2 border-t border-gray-100">
-              <div class="flex items-center space-x-1.5 text-[11px] text-gray-600">
+            <div class="auto-schedule-footer">
+              <div class="flexible-rescheduling-badge">
                 <span>🔄</span>
                 <span><strong>Flexible Rescheduling:</strong> Need to change a specific date later? Free 24h rescheduling anytime.</span>
               </div>
-              <button type="button" onclick="applyWeeklyRoutine()" class="w-full sm:w-auto px-4 py-2 bg-[#0E5A60] hover:bg-[#093c40] text-white text-xs font-extrabold rounded-xl shadow-sm transition flex items-center justify-center space-x-1.5 whitespace-nowrap">
+              <button type="button" onclick="applyWeeklyRoutine()" class="btn-primary-action">
                 <span>⚡ Auto-Schedule All Classes</span>
               </button>
             </div>
           </div>
-
-          <div class="space-y-2">
-            <div class="flex items-center justify-between">
-              <label class="block text-xs font-bold uppercase tracking-wider text-[#0E5A60]" id="multi-class-header-label">
-                Your Classes to Schedule (<span id="scheduled-count" class="text-[#2A9D8F]">0</span> of <span id="total-count">4</span> Scheduled)
-              </label>
-              <span class="text-xs text-gray-500 hidden sm:inline">Click each card to select its day and time</span>
-            </div>
-            <!-- Class Tabs Container (Clean Modern Grid) -->
-            <div id="class-tabs-container" class="class-tabs-grid">
-              <!-- Dynamically populated via JS -->
-            </div>
-          </div>
         </div>
 
-        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-2 border-b border-gray-100">
+        <div class="pb-2 border-b border-gray-100">
           <div>
             <h2 class="text-2xl font-bold text-[#0E5A60]" id="schedule-step-title">Select Date & Time</h2>
             <p class="text-gray-600 text-sm mt-0.5" id="schedule-step-sub">Session duration: <strong class="text-[#0E5A60]" id="session-duration-text">30 minutes</strong></p>
           </div>
-          <div class="flex items-center space-x-2 text-xs">
-            <span class="text-gray-500">🌐 Timezone:</span>
-            <select id="tz-select" class="timezone-select bg-white border border-gray-200 rounded-lg px-2.5 py-1.5 font-medium text-gray-700 outline-none">
-              <option value="America/New_York" selected>Eastern Time (ET) - New York / Miami</option>
-              <option value="America/Chicago">Central Time (CT) - Chicago / Dallas</option>
-              <option value="America/Denver">Mountain Time (MT) - Denver</option>
-              <option value="America/Los_Angeles">Pacific Time (PT) - LA / San Francisco</option>
-              <option value="America/Bogota">Colombia / Peru (UTC-5)</option>
-              <option value="Europe/London">UK Time (GMT / BST)</option>
-              <option value="Europe/Madrid">Spain / Central Europe (CET)</option>
-            </select>
-          </div>
+          <!-- Hidden Timezone (auto-detected via JS in the background, UI removed as requested) -->
+          <select id="tz-select" class="hidden">
+            <option value="America/New_York" selected>America/New_York</option>
+            <option value="America/Chicago">America/Chicago</option>
+            <option value="America/Denver">America/Denver</option>
+            <option value="America/Los_Angeles">America/Los_Angeles</option>
+            <option value="America/Bogota">America/Bogota</option>
+            <option value="Europe/London">Europe/London</option>
+            <option value="Europe/Madrid">Europe/Madrid</option>
+          </select>
         </div>
 
         <!-- Horizontal Days Selector with Scroll Buttons -->
@@ -543,21 +898,21 @@
           </div>
         </div>
 
-        <!-- Multi-Class Summary Box (Shown when all subscription classes are scheduled) -->
-        <div id="multi-class-summary-box" class="p-5 bg-gradient-to-r from-[#0E5A60]/5 to-[#2A9D8F]/10 border-2 border-[#0E5A60]/20 rounded-2xl space-y-4 hidden">
-          <div class="flex items-center justify-between pb-3 border-b border-[#0E5A60]/10">
+        <!-- Multi-Class Summary Box (Shown when subscription classes are scheduled) -->
+        <div id="multi-class-summary-box" class="summary-classes-card hidden">
+          <div class="summary-classes-header">
             <div>
-              <h4 class="font-bold text-[#0E5A60] text-sm">Resumen de tus Clases Seleccionadas</h4>
-              <p class="text-xs text-gray-600" id="multi-class-summary-desc">Todas tus clases de 50 minutos con tu tutora nativa.</p>
+              <h4 class="summary-classes-title">Resumen de tus Clases Seleccionadas</h4>
+              <p class="text-xs text-gray-600" id="multi-class-summary-desc" style="margin:2px 0 0 0;">Todas tus clases de 50 minutos con tu tutora nativa.</p>
             </div>
-            <span class="text-xs font-bold bg-[#2A9D8F] text-white px-3 py-1 rounded-full" id="multi-class-summary-badge">Todas Listas ✓</span>
+            <span class="summary-classes-badge" id="multi-class-summary-badge">Todas Listas ✓</span>
           </div>
 
           <div id="multi-class-slots-list" class="space-y-2 text-xs">
             <!-- Populated via JS -->
           </div>
 
-          <button id="btn-confirm-all-classes" onclick="confirmAllSubscriptionClasses()" class="btn-primary-action w-full py-3.5 px-6 bg-[#0E5A60] hover:bg-[#093c40] text-white font-extrabold rounded-xl shadow-lg transition text-base flex items-center justify-center space-x-2">
+          <button id="btn-confirm-all-classes" onclick="confirmAllSubscriptionClasses()" class="btn-primary-action" style="width: 100%; margin-top: 14px; padding: 15px; font-size: 15px;">
             <span>Confirmar y Guardar Mis Clases ✓</span>
           </button>
         </div>
@@ -608,26 +963,26 @@
               <option value="C1 / C2 - Advanced / Fluent">C1 / C2 - Advanced / Fluent</option>
             </select>
             <!-- 1-Click Interactive Level Pills -->
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5" id="level-pills-container">
-              <button type="button" onclick="selectLevelPill('A1 - Total Beginner (Just starting)', this)" class="level-pill-btn p-3 rounded-xl border-2 border-gray-200 text-left hover:border-[#0E5A60] transition cursor-pointer bg-white">
-                <span class="text-base block">🌱 A1</span>
-                <strong class="text-xs text-gray-900 block mt-0.5 font-bold">Beginner</strong>
-                <span class="text-[10px] text-gray-500 block leading-tight">Zero or few words</span>
+            <div class="level-pills-grid" id="level-pills-container">
+              <button type="button" onclick="selectLevelPill('A1 - Total Beginner (Just starting)', this)" class="level-pill-btn">
+                <span class="pill-icon">🌱 A1</span>
+                <span class="pill-title">Beginner</span>
+                <span class="pill-desc">Zero or few words</span>
               </button>
-              <button type="button" onclick="selectLevelPill('A2 - Elementary (Basic phrases and survival Spanish)', this)" class="level-pill-btn p-3 rounded-xl border-2 border-gray-200 text-left hover:border-[#0E5A60] transition cursor-pointer bg-white">
-                <span class="text-base block">🚀 A2</span>
-                <strong class="text-xs text-gray-900 block mt-0.5 font-bold">Elementary</strong>
-                <span class="text-[10px] text-gray-500 block leading-tight">Basic survival</span>
+              <button type="button" onclick="selectLevelPill('A2 - Elementary (Basic phrases and survival Spanish)', this)" class="level-pill-btn">
+                <span class="pill-icon">🚀 A2</span>
+                <span class="pill-title">Elementary</span>
+                <span class="pill-desc">Basic survival</span>
               </button>
-              <button type="button" onclick="selectLevelPill('B1 - Intermediate (Can hold basic conversations)', this)" class="level-pill-btn p-3 rounded-xl border-2 border-[#0E5A60] bg-[#0E5A60]/5 text-left transition cursor-pointer">
-                <span class="text-base block">💬 B1</span>
-                <strong class="text-xs text-[#0E5A60] block mt-0.5 font-bold">Intermediate</strong>
-                <span class="text-[10px] text-gray-500 block leading-tight">Can converse</span>
+              <button type="button" onclick="selectLevelPill('B1 - Intermediate (Can hold basic conversations)', this)" class="level-pill-btn selected">
+                <span class="pill-icon">💬 B1</span>
+                <span class="pill-title">Intermediate</span>
+                <span class="pill-desc">Can converse</span>
               </button>
-              <button type="button" onclick="selectLevelPill('B2 - Upper Intermediate (Comfortable speaking)', this)" class="level-pill-btn p-3 rounded-xl border-2 border-gray-200 text-left hover:border-[#0E5A60] transition cursor-pointer bg-white">
-                <span class="text-base block">🎯 B2+</span>
-                <strong class="text-xs text-gray-900 block mt-0.5 font-bold">Advanced</strong>
-                <span class="text-[10px] text-gray-500 block leading-tight">Nuance & debate</span>
+              <button type="button" onclick="selectLevelPill('B2 - Upper Intermediate (Comfortable speaking)', this)" class="level-pill-btn">
+                <span class="pill-icon">🎯 B2+</span>
+                <span class="pill-title">Advanced</span>
+                <span class="pill-desc">Nuance &amp; debate</span>
               </button>
             </div>
           </div>
@@ -642,32 +997,36 @@
               <input type="radio" name="goal" id="goal-radio-exam" value="Official exam preparation (DELE / SIELE)">
             </div>
             <!-- 1-Click Interactive Goals Pills -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5" id="goals-pills-container">
-              <button type="button" onclick="selectGoalPill('Conversational fluency for travel and daily life', this)" class="goal-pill-btn p-3.5 rounded-xl border-2 border-[#0E5A60] bg-[#0E5A60]/5 text-left transition cursor-pointer flex items-center space-x-3">
-                <span class="text-2xl flex-shrink-0">✈️</span>
+            <div class="goals-pills-grid" id="goals-pills-container">
+              <button type="button" onclick="selectGoalPill('Conversational fluency for travel and daily life', this)" class="goal-pill-btn selected">
+                <span style="font-size:24px; line-height:1; flex-shrink:0;">✈️</span>
                 <div>
-                  <strong class="text-xs text-[#0E5A60] block font-bold">Travel & Everyday Fluency</strong>
-                  <span class="text-[11px] text-gray-500 block">Cafés, taxis, travel & making local friends</span>
+                  <span class="pill-title">Travel &amp; Everyday Fluency</span>
+                  <span class="pill-desc">Cafés, taxis, travel &amp; making local friends</span>
                 </div>
               </button>
-              <button type="button" onclick="selectGoalPill('Business or professional Spanish', this)" class="goal-pill-btn p-3.5 rounded-xl border-2 border-gray-200 text-left hover:border-[#0E5A60] transition cursor-pointer bg-white flex items-center space-x-3">
-                <span class="text-2xl flex-shrink-0">💼</span>
+              <button type="button" onclick="selectGoalPill('Business or professional Spanish', this)" class="goal-pill-btn">
+                <span style="font-size:24px; line-height:1; flex-shrink:0;">💼</span>
                 <div>
-                  <strong class="text-xs text-gray-900 block font-bold">Work & Business Spanish</strong>
-                  <span class="text-[11px] text-gray-500 block">Meetings, emails, remote work & clients</span>
+                  <span class="pill-title">Work &amp; Business Spanish</span>
+                  <span class="pill-desc">Meetings, emails, remote work &amp; clients</span>
                 </div>
               </button>
-              <button type="button" onclick="selectGoalPill('Colombian culture, slang and pronunciation', this)" class="goal-pill-btn p-3.5 rounded-xl border-2 border-gray-200 text-left hover:border-[#0E5A60] transition cursor-pointer bg-white flex items-center space-x-3">
-                <span class="text-2xl flex-shrink-0">☕</span>
+              <button type="button" onclick="selectGoalPill('Colombian culture, slang and pronunciation', this)" class="goal-pill-btn">
+                <span style="font-size:24px; line-height:1; flex-shrink:0;">☕</span>
                 <div>
-                  <strong class="text-xs text-gray-900 block font-bold">Culture, Slang & Accents</strong>
-                  <span class="text-[11px] text-gray-500 block">Paisa idioms, music, real Colombian immersion</span>
+                  <span class="pill-title">Culture, Slang &amp; Accents</span>
+                  <span class="pill-desc">Paisa idioms, music, real Colombian immersion</span>
                 </div>
               </button>
-              <button type="button" onclick="selectGoalPill('Official exam preparation (DELE / SIELE)', this)" class="goal-pill-btn p-3.5 rounded-xl border-2 border-gray-200 text-left hover:border-[#0E5A60] transition cursor-pointer bg-white flex items-center space-x-3">
-                <span class="text-2xl flex-shrink-0">🎓</span>
+              <button type="button" onclick="selectGoalPill('Official exam preparation (DELE / SIELE)', this)" class="goal-pill-btn">
+                <span style="font-size:24px; line-height:1; flex-shrink:0;">🎓</span>
                 <div>
-                  <strong class="text-xs text-gray-900 block font-bold">DELE / SIELE Exam Prep</strong>
+                  <span class="pill-title">DELE / SIELE Exam Prep</span>
+                  <span class="pill-desc">Structured grammar, reading &amp; certification</span>
+                </div>
+              </button>
+            </div>
                   <span class="text-[11px] text-gray-500 block">Structured grammar, reading & certification</span>
                 </div>
               </button>
@@ -1273,15 +1632,11 @@
       if (sel) sel.value = val;
 
       document.querySelectorAll('.level-pill-btn').forEach(b => {
-        b.className = 'level-pill-btn p-3 rounded-xl border-2 border-gray-200 text-left hover:border-[#0E5A60] transition cursor-pointer bg-white';
-        const strong = b.querySelector('strong');
-        if (strong) strong.className = 'text-xs text-gray-900 block mt-0.5 font-bold';
+        b.classList.remove('selected');
       });
 
       if (btn) {
-        btn.className = 'level-pill-btn p-3 rounded-xl border-2 border-[#0E5A60] bg-[#0E5A60]/5 text-left transition cursor-pointer';
-        const strong = btn.querySelector('strong');
-        if (strong) strong.className = 'text-xs text-[#0E5A60] block mt-0.5 font-bold';
+        btn.classList.add('selected');
       }
     }
 
@@ -1292,15 +1647,42 @@
       });
 
       document.querySelectorAll('.goal-pill-btn').forEach(b => {
-        b.className = 'goal-pill-btn p-3.5 rounded-xl border-2 border-gray-200 text-left hover:border-[#0E5A60] transition cursor-pointer bg-white flex items-center space-x-3';
-        const strong = b.querySelector('strong');
-        if (strong) strong.className = 'text-xs text-gray-900 block font-bold';
+        b.classList.remove('selected');
       });
 
       if (btn) {
-        btn.className = 'goal-pill-btn p-3.5 rounded-xl border-2 border-[#0E5A60] bg-[#0E5A60]/5 text-left transition cursor-pointer flex items-center space-x-3';
-        const strong = btn.querySelector('strong');
-        if (strong) strong.className = 'text-xs text-[#0E5A60] block font-bold';
+        btn.classList.add('selected');
+      }
+    }
+
+    // ===================================================
+    // SCHEDULE MODE SWITCHER (MANUAL VS AUTO ROUTINE)
+    // ===================================================
+    function setScheduleMode(mode) {
+      const tabManual = document.getElementById('tab-mode-manual');
+      const tabAuto = document.getElementById('tab-mode-auto');
+      const viewManual = document.getElementById('schedule-view-manual');
+      const viewAuto = document.getElementById('schedule-view-auto');
+
+      if (mode === 'manual') {
+        if (tabManual) tabManual.classList.add('active');
+        if (tabAuto) tabAuto.classList.remove('active');
+        if (viewManual) viewManual.classList.remove('hidden');
+        if (viewAuto) viewAuto.classList.add('hidden');
+      } else {
+        if (tabAuto) tabAuto.classList.add('active');
+        if (tabManual) tabManual.classList.remove('active');
+        if (viewAuto) viewAuto.classList.remove('hidden');
+        if (viewManual) viewManual.classList.add('hidden');
+      }
+    }
+
+    function selectActiveClassAndSwitchManual(index) {
+      setScheduleMode('manual');
+      selectActiveClass(index);
+      const target = document.getElementById('schedule-view-manual') || document.getElementById('days-carousel');
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
     }
 
@@ -2010,14 +2392,15 @@
         box.classList.remove('hidden');
         const list = document.getElementById('multi-class-slots-list');
         list.innerHTML = multiClassSlots.map((s, idx) => `
-          <div class="flex justify-between items-center p-2.5 rounded-xl border ${s.date ? 'bg-white border-emerald-200' : 'bg-gray-50 border-gray-200 opacity-60'}">
-            <div class="flex items-center space-x-2">
-              <span class="font-bold ${s.date ? 'text-emerald-700' : 'text-gray-400'}">Class ${idx + 1}:</span>
-              <span class="${s.date ? 'font-semibold text-gray-800' : 'text-gray-400 italic'}">
-                ${s.date ? `${s.dateFormatted} at ${s.time} (50 min)` : 'Pending selection'}
+          <div class="summary-class-row">
+            <div class="summary-class-info">
+              <span class="summary-class-badge">Class ${idx + 1}:</span>
+              <span class="summary-class-datetime">
+                ${s.date ? `${s.dateFormatted} at ${s.time}` : 'Pending selection'}
               </span>
+              <span class="summary-class-duration">50 min</span>
             </div>
-            <button type="button" onclick="selectActiveClass(${idx})" class="text-[11px] text-[#0E5A60] hover:underline font-bold">
+            <button type="button" onclick="selectActiveClassAndSwitchManual(${idx})" class="btn-change-slot">
               ${s.date ? 'Change ✏️' : 'Choose 🗓️'}
             </button>
           </div>
@@ -2026,16 +2409,24 @@
         const badge = document.getElementById('multi-class-summary-badge');
         if (badge) {
           badge.innerText = allScheduled ? `All ${totalPlanClasses} Classes Ready! ✓` : `${scheduledCount} of ${totalPlanClasses} Scheduled`;
-          badge.className = allScheduled ? 'text-xs font-bold bg-[#2A9D8F] text-white px-3 py-1 rounded-full' : 'text-xs font-bold bg-[#F2B705] text-[#0E5A60] px-3 py-1 rounded-full';
+          if (allScheduled) {
+            badge.style.background = '#2A9D8F';
+            badge.style.color = '#FFFFFF';
+          } else {
+            badge.style.background = '#F2B705';
+            badge.style.color = '#0E5A60';
+          }
         }
 
         const confirmBtn = document.getElementById('btn-confirm-all-classes');
         if (confirmBtn) {
           confirmBtn.disabled = !allScheduled;
-          confirmBtn.className = allScheduled ?
-            'w-full py-3.5 px-6 bg-[#0E5A60] hover:bg-[#093c40] text-white font-extrabold rounded-xl shadow-lg transition text-base flex items-center justify-center space-x-2 cursor-pointer' :
-            'w-full py-3.5 px-6 bg-gray-300 text-gray-500 font-extrabold rounded-xl shadow-none transition text-base flex items-center justify-center space-x-2 cursor-not-allowed';
-          confirmBtn.innerText = allScheduled ? `Confirm & Book My ${totalPlanClasses} Classes (50 min each) ✓` : `Select remaining class times (${scheduledCount}/${totalPlanClasses})`;
+          confirmBtn.className = 'btn-primary-action';
+          confirmBtn.style.width = '100%';
+          confirmBtn.style.marginTop = '14px';
+          confirmBtn.style.padding = '16px';
+          confirmBtn.style.fontSize = '15px';
+          confirmBtn.innerText = allScheduled ? `Confirm & Book My ${totalPlanClasses} Classes (50 min each) ✓` : `Select Remaining Classes (${scheduledCount} of ${totalPlanClasses} Scheduled)`;
         }
       } else {
         box.classList.add('hidden');
