@@ -210,6 +210,7 @@ async function loadTeachers() {
         <article class="about-teacher-row-card" id="about-teacher-${slug || t.id}">
           <div class="about-teacher-media">
             ${videoMarkup}
+            <a href="${bookHref}" class="about-video-book-pill">📅 Book with ${firstName} →</a>
           </div>
           <div class="about-teacher-content">
             <div class="about-teacher-top">

@@ -124,23 +124,23 @@ function showQuizResult() {
     if (badgeEl) badgeEl.textContent = 'Diagnostic: Level A1 (Beginner)';
     if (titleEl) titleEl.textContent = '🌱 You are Ready to Start Speaking!';
     if (descEl) descEl.textContent = "You're at the very beginning of an exciting journey. Colombian Spanish is the clearest and friendliest dialect in the world to start with. With our 1-on-1 personalized guidance, you'll be speaking your first full sentences from lesson one!";
-    if (recAvatar) recAvatar.src = 'images/teacher_camila.jpg';
-    if (recName) recName.textContent = 'Camila Acosta (Medellín)';
+    if (recAvatar) recAvatar.src = 'images/founder_avatar.jpg';
+    if (recName) recName.textContent = 'María Izquierdo (Bogotá)';
     if (recBio) recBio.textContent = 'Specialist in building zero-stress conversational foundations and pronunciation clarity.';
     if (bookBtn) {
-      bookBtn.href = 'reservar?teacher=maria';
-      bookBtn.textContent = '📅 Book $15 Trial with Camila →';
+      bookBtn.href = 'reservar.html?tutor=maria&level=A1';
+      bookBtn.textContent = '📅 Book $15 Trial with María →';
     }
   } else if (quizScore <= 3) {
     // A2 Elementary
     if (badgeEl) badgeEl.textContent = 'Diagnostic: Level A2 (Elementary)';
     if (titleEl) titleEl.textContent = '🚀 Ready for Natural Conversation!';
     if (descEl) descEl.textContent = "You already know essential phrases and have great instincts, but you might hesitate before speaking. Your next breakthrough is building conversational momentum and authentic everyday vocabulary.";
-    if (recAvatar) recAvatar.src = 'images/teacher_santiago.jpg';
-    if (recName) recName.textContent = 'Daniela Gómez (Bogotá)';
+    if (recAvatar) recAvatar.src = 'https://xpmyayjtowdhrjdbezas.supabase.co/storage/v1/object/public/photos/teachers/1792628749919_PHOTO-2026-09-19-18-15-35.jpg';
+    if (recName) recName.textContent = 'Daniela García (Cartagena)';
     if (recBio) recBio.textContent = 'Expert in breaking speaking plateaus and building rapid conversational fluency.';
     if (bookBtn) {
-      bookBtn.href = 'reservar?teacher=daniela';
+      bookBtn.href = 'reservar.html?tutor=daniela&level=A2';
       bookBtn.textContent = '📅 Book $15 Trial with Daniela →';
     }
   } else if (quizScore <= 4) {
@@ -148,11 +148,11 @@ function showQuizResult() {
     if (badgeEl) badgeEl.textContent = 'Diagnostic: Level B1 (Intermediate)';
     if (titleEl) titleEl.textContent = '⭐ Solid Fluency & Natural Rhythm!';
     if (descEl) descEl.textContent = "Impressive! You understand real Colombian idioms and subjunctive structures in context. It's time to transition from thinking in English to speaking fluidly and effortlessly like a Colombian local.";
-    if (recAvatar) recAvatar.src = 'images/teacher_valentina.jpg';
-    if (recName) recName.textContent = 'Valentina Rios (Cali)';
+    if (recAvatar) recAvatar.src = 'https://xpmyayjtowdhrjdbezas.supabase.co/storage/v1/object/public/photos/teachers/1792629035343_PHOTO-2026-09-29-11-24-29%202.jpg';
+    if (recName) recName.textContent = 'Valentina Gómez (Bogotá)';
     if (recBio) recBio.textContent = 'Master in advanced idiomatic fluency, cultural nuance, and high-energy conversational sparring.';
     if (bookBtn) {
-      bookBtn.href = 'reservar?teacher=valentina';
+      bookBtn.href = 'reservar.html?tutor=valentina&level=B1';
       bookBtn.textContent = '📅 Book $15 Trial with Valentina →';
     }
   } else {
@@ -160,12 +160,12 @@ function showQuizResult() {
     if (badgeEl) badgeEl.textContent = 'Diagnostic: Level B2+ (Advanced)';
     if (titleEl) titleEl.textContent = '🔥 ¡Qué Chimba! You Speak Like a Local!';
     if (descEl) descEl.textContent = "Outstanding! You have a deep grasp of Colombian idioms, cultural nuance, and grammar. You're ready for advanced immersion, Colombian literature, rapid-fire debates, and full professional fluency.";
-    if (recAvatar) recAvatar.src = 'images/teacher_valentina.jpg';
-    if (recName) recName.textContent = 'Valentina Rios & Plan Cafetera';
+    if (recAvatar) recAvatar.src = 'images/founder_avatar.jpg';
+    if (recName) recName.textContent = 'María Izquierdo (Bogotá)';
     if (recBio) recBio.textContent = 'Deep-dive into regional cultural nuances, humor, debate, and nuanced native mastery.';
     if (bookBtn) {
-      bookBtn.href = 'reservar?plan=cafetera';
-      bookBtn.textContent = '🌟 Start Growth Plan Cafetera ($128/mo) →';
+      bookBtn.href = 'reservar.html?tutor=maria&level=B2';
+      bookBtn.textContent = '📅 Book $15 Trial with María →';
     }
   }
 }

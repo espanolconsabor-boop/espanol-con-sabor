@@ -2065,6 +2065,31 @@ section[id] { scroll-margin-top: 80px; }
   background: #0E5A60 !important;
   overflow: hidden !important;
 }
+.about-video-book-pill {
+  position: absolute !important;
+  bottom: 14px !important;
+  right: 14px !important;
+  z-index: 20 !important;
+  background: var(--gold, #F2B705) !important;
+  color: #0E5A60 !important;
+  font-weight: 800 !important;
+  font-size: 12px !important;
+  padding: 8px 16px !important;
+  border-radius: 9999px !important;
+  text-decoration: none !important;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease !important;
+  cursor: pointer !important;
+}
+.about-video-book-pill:hover {
+  transform: translateY(-2px) !important;
+  background: #ffcf33 !important;
+  color: #093c40 !important;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.35) !important;
+}
 .about-video-embed {
   position: relative !important;
   width: 100% !important;

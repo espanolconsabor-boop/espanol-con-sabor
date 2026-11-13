@@ -423,6 +423,71 @@
             <span class="bg-emerald-200 text-emerald-800 text-xs font-bold px-3 py-1 rounded-full whitespace-nowrap self-start sm:self-center">✓ Payment Confirmed</span>
           </div>
 
+          <!-- Quick Routine Auto-Scheduler Box -->
+          <div class="p-4 bg-gradient-to-r from-[#0E5A60]/5 via-white to-[#2A9D8F]/10 border-2 border-[#0E5A60]/20 rounded-2xl space-y-3">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5">
+              <div class="flex items-center space-x-2">
+                <span class="text-xl">⚡</span>
+                <h4 class="font-bold text-[#0E5A60] text-sm">Quick Routine: Repeat on the same day &amp; time every week</h4>
+              </div>
+              <span class="text-[11px] font-bold text-[#2A9D8F] bg-[#2A9D8F]/10 px-2.5 py-0.5 rounded-full self-start sm:self-auto">Fast 1-Click Setup</span>
+            </div>
+            <p class="text-xs text-gray-600">
+              Pick your preferred recurring day(s) and time. We will automatically generate your full month schedule:
+            </p>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-1">
+              <!-- Day 1 Selector -->
+              <div>
+                <label class="block text-[11px] font-semibold text-gray-500 uppercase mb-1">Weekly Day</label>
+                <select id="routine-day-1" class="w-full bg-white border border-gray-200 rounded-xl px-3 py-2 text-xs font-bold text-gray-800 outline-none">
+                  <option value="1">Every Monday</option>
+                  <option value="2" selected>Every Tuesday</option>
+                  <option value="3">Every Wednesday</option>
+                  <option value="4">Every Thursday</option>
+                  <option value="5">Every Friday</option>
+                  <option value="6">Every Saturday</option>
+                </select>
+              </div>
+
+              <!-- Day 2 Selector (Only shown if plan has >= 8 classes) -->
+              <div id="routine-day-2-wrap" class="hidden">
+                <label class="block text-[11px] font-semibold text-gray-500 uppercase mb-1">Second Weekly Day</label>
+                <select id="routine-day-2" class="w-full bg-white border border-gray-200 rounded-xl px-3 py-2 text-xs font-bold text-gray-800 outline-none">
+                  <option value="1">Every Monday</option>
+                  <option value="2">Every Tuesday</option>
+                  <option value="3">Every Wednesday</option>
+                  <option value="4" selected>Every Thursday</option>
+                  <option value="5">Every Friday</option>
+                  <option value="6">Every Saturday</option>
+                </select>
+              </div>
+
+              <!-- Time Selector -->
+              <div>
+                <label class="block text-[11px] font-semibold text-gray-500 uppercase mb-1">Preferred Time</label>
+                <select id="routine-time" class="w-full bg-white border border-gray-200 rounded-xl px-3 py-2 text-xs font-bold text-gray-800 outline-none">
+                  <option value="09:00 AM">09:00 AM</option>
+                  <option value="10:30 AM" selected>10:30 AM</option>
+                  <option value="02:00 PM">02:00 PM</option>
+                  <option value="03:30 PM">03:30 PM</option>
+                  <option value="05:00 PM">05:00 PM</option>
+                  <option value="06:30 PM">06:30 PM</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-2 pt-2 border-t border-gray-100">
+              <div class="flex items-center space-x-1.5 text-[11px] text-gray-600">
+                <span>🔄</span>
+                <span><strong>Flexible Rescheduling:</strong> Need to change a specific date later? Free 24h rescheduling anytime.</span>
+              </div>
+              <button type="button" onclick="applyWeeklyRoutine()" class="w-full sm:w-auto px-4 py-2 bg-[#0E5A60] hover:bg-[#093c40] text-white text-xs font-extrabold rounded-xl shadow-sm transition flex items-center justify-center space-x-1.5 whitespace-nowrap">
+                <span>⚡ Auto-Schedule All Classes</span>
+              </button>
+            </div>
+          </div>
+
           <div class="space-y-2">
             <div class="flex items-center justify-between">
               <label class="block text-xs font-bold uppercase tracking-wider text-[#0E5A60]" id="multi-class-header-label">
@@ -533,35 +598,79 @@
           </div>
 
           <div class="form-group">
-            <label class="form-label block text-sm font-semibold text-gray-700 mb-1">What is your current Spanish level? <span class="form-required text-[#FC2C54]">*</span></label>
-            <select id="input-level" class="form-select w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-[#0E5A60] text-sm bg-white outline-none">
+            <label class="form-label block text-sm font-semibold text-gray-700 mb-2">What is your current Spanish level? <span class="form-required text-[#FC2C54]">*</span></label>
+            <!-- Hidden sync select for backend compatibility -->
+            <select id="input-level" class="hidden">
               <option value="A1 - Total Beginner (Just starting)">A1 - Total Beginner (Just starting)</option>
               <option value="A2 - Elementary (Basic phrases and survival Spanish)">A2 - Elementary (Basic phrases and survival Spanish)</option>
               <option value="B1 - Intermediate (Can hold basic conversations)" selected>B1 - Intermediate (Can hold basic conversations)</option>
               <option value="B2 - Upper Intermediate (Comfortable speaking)">B2 - Upper Intermediate (Comfortable speaking)</option>
               <option value="C1 / C2 - Advanced / Fluent">C1 / C2 - Advanced / Fluent</option>
             </select>
+            <!-- 1-Click Interactive Level Pills -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5" id="level-pills-container">
+              <button type="button" onclick="selectLevelPill('A1 - Total Beginner (Just starting)', this)" class="level-pill-btn p-3 rounded-xl border-2 border-gray-200 text-left hover:border-[#0E5A60] transition cursor-pointer bg-white">
+                <span class="text-base block">🌱 A1</span>
+                <strong class="text-xs text-gray-900 block mt-0.5 font-bold">Beginner</strong>
+                <span class="text-[10px] text-gray-500 block leading-tight">Zero or few words</span>
+              </button>
+              <button type="button" onclick="selectLevelPill('A2 - Elementary (Basic phrases and survival Spanish)', this)" class="level-pill-btn p-3 rounded-xl border-2 border-gray-200 text-left hover:border-[#0E5A60] transition cursor-pointer bg-white">
+                <span class="text-base block">🚀 A2</span>
+                <strong class="text-xs text-gray-900 block mt-0.5 font-bold">Elementary</strong>
+                <span class="text-[10px] text-gray-500 block leading-tight">Basic survival</span>
+              </button>
+              <button type="button" onclick="selectLevelPill('B1 - Intermediate (Can hold basic conversations)', this)" class="level-pill-btn p-3 rounded-xl border-2 border-[#0E5A60] bg-[#0E5A60]/5 text-left transition cursor-pointer">
+                <span class="text-base block">💬 B1</span>
+                <strong class="text-xs text-[#0E5A60] block mt-0.5 font-bold">Intermediate</strong>
+                <span class="text-[10px] text-gray-500 block leading-tight">Can converse</span>
+              </button>
+              <button type="button" onclick="selectLevelPill('B2 - Upper Intermediate (Comfortable speaking)', this)" class="level-pill-btn p-3 rounded-xl border-2 border-gray-200 text-left hover:border-[#0E5A60] transition cursor-pointer bg-white">
+                <span class="text-base block">🎯 B2+</span>
+                <strong class="text-xs text-gray-900 block mt-0.5 font-bold">Advanced</strong>
+                <span class="text-[10px] text-gray-500 block leading-tight">Nuance & debate</span>
+              </button>
+            </div>
           </div>
 
           <div class="form-group">
             <label class="form-label block text-sm font-semibold text-gray-700 mb-2">What is your primary learning goal? <span class="form-required text-[#FC2C54]">*</span></label>
-            <div class="goals-list space-y-2">
-              <label class="goal-option flex items-center space-x-3 p-3 rounded-xl border border-gray-200 hover:border-[#0E5A60] cursor-pointer">
-                <input type="radio" name="goal" value="Conversational fluency for travel and daily life" checked class="goal-radio text-[#0E5A60]">
-                <span class="text-sm">Conversational fluency for travel and daily life</span>
-              </label>
-              <label class="goal-option flex items-center space-x-3 p-3 rounded-xl border border-gray-200 hover:border-[#0E5A60] cursor-pointer">
-                <input type="radio" name="goal" value="Official exam preparation (DELE / SIELE)" class="goal-radio text-[#0E5A60]">
-                <span class="text-sm">Official exam preparation (DELE / SIELE)</span>
-              </label>
-              <label class="goal-option flex items-center space-x-3 p-3 rounded-xl border border-gray-200 hover:border-[#0E5A60] cursor-pointer">
-                <input type="radio" name="goal" value="Business or professional Spanish" class="goal-radio text-[#0E5A60]">
-                <span class="text-sm">Business or professional Spanish</span>
-              </label>
-              <label class="goal-option flex items-center space-x-3 p-3 rounded-xl border border-gray-200 hover:border-[#0E5A60] cursor-pointer">
-                <input type="radio" name="goal" value="Colombian culture, slang and pronunciation" class="goal-radio text-[#0E5A60]">
-                <span class="text-sm">Colombian culture, slang and pronunciation</span>
-              </label>
+            <!-- Hidden radio sync for existing scripts -->
+            <div class="hidden">
+              <input type="radio" name="goal" id="goal-radio-travel" value="Conversational fluency for travel and daily life" checked>
+              <input type="radio" name="goal" id="goal-radio-business" value="Business or professional Spanish">
+              <input type="radio" name="goal" id="goal-radio-culture" value="Colombian culture, slang and pronunciation">
+              <input type="radio" name="goal" id="goal-radio-exam" value="Official exam preparation (DELE / SIELE)">
+            </div>
+            <!-- 1-Click Interactive Goals Pills -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5" id="goals-pills-container">
+              <button type="button" onclick="selectGoalPill('Conversational fluency for travel and daily life', this)" class="goal-pill-btn p-3.5 rounded-xl border-2 border-[#0E5A60] bg-[#0E5A60]/5 text-left transition cursor-pointer flex items-center space-x-3">
+                <span class="text-2xl flex-shrink-0">✈️</span>
+                <div>
+                  <strong class="text-xs text-[#0E5A60] block font-bold">Travel & Everyday Fluency</strong>
+                  <span class="text-[11px] text-gray-500 block">Cafés, taxis, travel & making local friends</span>
+                </div>
+              </button>
+              <button type="button" onclick="selectGoalPill('Business or professional Spanish', this)" class="goal-pill-btn p-3.5 rounded-xl border-2 border-gray-200 text-left hover:border-[#0E5A60] transition cursor-pointer bg-white flex items-center space-x-3">
+                <span class="text-2xl flex-shrink-0">💼</span>
+                <div>
+                  <strong class="text-xs text-gray-900 block font-bold">Work & Business Spanish</strong>
+                  <span class="text-[11px] text-gray-500 block">Meetings, emails, remote work & clients</span>
+                </div>
+              </button>
+              <button type="button" onclick="selectGoalPill('Colombian culture, slang and pronunciation', this)" class="goal-pill-btn p-3.5 rounded-xl border-2 border-gray-200 text-left hover:border-[#0E5A60] transition cursor-pointer bg-white flex items-center space-x-3">
+                <span class="text-2xl flex-shrink-0">☕</span>
+                <div>
+                  <strong class="text-xs text-gray-900 block font-bold">Culture, Slang & Accents</strong>
+                  <span class="text-[11px] text-gray-500 block">Paisa idioms, music, real Colombian immersion</span>
+                </div>
+              </button>
+              <button type="button" onclick="selectGoalPill('Official exam preparation (DELE / SIELE)', this)" class="goal-pill-btn p-3.5 rounded-xl border-2 border-gray-200 text-left hover:border-[#0E5A60] transition cursor-pointer bg-white flex items-center space-x-3">
+                <span class="text-2xl flex-shrink-0">🎓</span>
+                <div>
+                  <strong class="text-xs text-gray-900 block font-bold">DELE / SIELE Exam Prep</strong>
+                  <span class="text-[11px] text-gray-500 block">Structured grammar, reading & certification</span>
+                </div>
+              </button>
             </div>
           </div>
 
@@ -1126,7 +1235,164 @@
       }
     }
 
+    // ===================================================
+    // TIMEZONE AUTO-DETECTION
+    // ===================================================
+    function autoDetectTimezone() {
+      try {
+        const userTz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        if (!userTz) return;
+        const tzSelect = document.getElementById('tz-select');
+        if (!tzSelect) return;
+
+        let found = false;
+        for (let opt of tzSelect.options) {
+          if (opt.value === userTz) {
+            tzSelect.value = userTz;
+            found = true;
+            break;
+          }
+        }
+        if (!found) {
+          const opt = document.createElement('option');
+          opt.value = userTz;
+          opt.text = `📍 ${userTz} (Your Local Time)`;
+          opt.selected = true;
+          tzSelect.prepend(opt);
+        }
+      } catch (e) {
+        console.warn('Timezone detection error:', e);
+      }
+    }
+
+    // ===================================================
+    // INTERACTIVE LEVEL & GOAL PILLS
+    // ===================================================
+    function selectLevelPill(val, btn) {
+      const sel = document.getElementById('input-level');
+      if (sel) sel.value = val;
+
+      document.querySelectorAll('.level-pill-btn').forEach(b => {
+        b.className = 'level-pill-btn p-3 rounded-xl border-2 border-gray-200 text-left hover:border-[#0E5A60] transition cursor-pointer bg-white';
+        const strong = b.querySelector('strong');
+        if (strong) strong.className = 'text-xs text-gray-900 block mt-0.5 font-bold';
+      });
+
+      if (btn) {
+        btn.className = 'level-pill-btn p-3 rounded-xl border-2 border-[#0E5A60] bg-[#0E5A60]/5 text-left transition cursor-pointer';
+        const strong = btn.querySelector('strong');
+        if (strong) strong.className = 'text-xs text-[#0E5A60] block mt-0.5 font-bold';
+      }
+    }
+
+    function selectGoalPill(val, btn) {
+      const radios = document.querySelectorAll('input[name="goal"]');
+      radios.forEach(r => {
+        if (r.value === val) r.checked = true;
+      });
+
+      document.querySelectorAll('.goal-pill-btn').forEach(b => {
+        b.className = 'goal-pill-btn p-3.5 rounded-xl border-2 border-gray-200 text-left hover:border-[#0E5A60] transition cursor-pointer bg-white flex items-center space-x-3';
+        const strong = b.querySelector('strong');
+        if (strong) strong.className = 'text-xs text-gray-900 block font-bold';
+      });
+
+      if (btn) {
+        btn.className = 'goal-pill-btn p-3.5 rounded-xl border-2 border-[#0E5A60] bg-[#0E5A60]/5 text-left transition cursor-pointer flex items-center space-x-3';
+        const strong = btn.querySelector('strong');
+        if (strong) strong.className = 'text-xs text-[#0E5A60] block font-bold';
+      }
+    }
+
+    // ===================================================
+    // WEEKLY ROUTINE AUTO-SCHEDULER
+    // ===================================================
+    function applyWeeklyRoutine() {
+      const day1Select = document.getElementById('routine-day-1');
+      const day2Select = document.getElementById('routine-day-2');
+      const timeSelect = document.getElementById('routine-time');
+
+      const day1 = day1Select ? parseInt(day1Select.value, 10) : 2;
+      const day2 = day2Select ? parseInt(day2Select.value, 10) : 4;
+      const timeSlot = timeSelect ? timeSelect.value : '10:30 AM';
+
+      let targetDays = [day1];
+      if (totalPlanClasses >= 8 && day1 !== day2) {
+        targetDays = [day1, day2];
+      }
+
+      const matchedDates = [];
+      const curr = new Date();
+      curr.setDate(curr.getDate() + 1); // Start search from tomorrow
+
+      // Search up to 90 days ahead to find enough slots
+      for (let i = 0; i < 90 && matchedDates.length < totalPlanClasses; i++) {
+        const dayOfWeek = curr.getDay(); // 0=Sun, 1=Mon, ..., 6=Sat
+        if (targetDays.includes(dayOfWeek)) {
+          const pad = (n) => String(n).padStart(2, '0');
+          const iso = `${curr.getFullYear()}-${pad(curr.getMonth() + 1)}-${pad(curr.getDate())}`;
+          matchedDates.push(iso);
+        }
+        curr.setDate(curr.getDate() + 1);
+      }
+
+      if (matchedDates.length === 0) {
+        alert('Could not calculate routine dates. Please pick your dates manually below.');
+        return;
+      }
+
+      if (!multiClassSlots || multiClassSlots.length !== totalPlanClasses) {
+        multiClassSlots = Array.from({ length: totalPlanClasses }, (_, i) => ({
+          classNumber: i + 1,
+          date: '',
+          time: '',
+          startTime: '',
+          endTime: '',
+          meetLink: ''
+        }));
+      }
+
+      matchedDates.forEach((iso, idx) => {
+        if (idx < totalPlanClasses) {
+          const range = getBookingTimeRange(iso, timeSlot, 50);
+          multiClassSlots[idx] = {
+            classNumber: idx + 1,
+            date: iso,
+            time: timeSlot,
+            dateFormatted: formatShortDate(iso),
+            startTime: range.startTime,
+            endTime: range.endTime
+          };
+        }
+      });
+
+      activeClassIndex = 0;
+      if (multiClassSlots[0]?.date) {
+        selectedDate = multiClassSlots[0].date;
+        const dayBtn = document.getElementById(`day-btn-${selectedDate}`);
+        if (dayBtn) {
+          document.querySelectorAll('.day-btn').forEach(b => {
+            b.className = 'flex-shrink-0 flex flex-col items-center justify-center w-16 h-20 rounded-2xl border-2 transition day-btn border-gray-200 bg-white text-gray-700';
+            b.querySelector('span').className = 'text-[11px] uppercase font-bold text-gray-400';
+          });
+          dayBtn.className = 'flex-shrink-0 flex flex-col items-center justify-center w-16 h-20 rounded-2xl border-2 transition day-btn border-[#0E5A60] bg-[#0E5A60] text-white shadow-md';
+          dayBtn.querySelector('span').className = 'text-[11px] uppercase font-bold text-[#F2C94C]';
+          dayBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        }
+      }
+
+      renderClassTabs();
+      updateMultiClassSummaryBox();
+      populateSlots();
+
+      const summaryBox = document.getElementById('multi-class-summary-box');
+      if (summaryBox) {
+        summaryBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
+      autoDetectTimezone();
       initPlanMode();
       initDays();
       loadTutorsFromSupabase();
@@ -1240,6 +1506,26 @@
       if (emailParam) {
         const inp = document.getElementById('input-email');
         if (inp) inp.value = decodeURIComponent(emailParam);
+      }
+
+      // Check level from quiz diagnostic or URL query param
+      const levelParam = (urlParams.get('level') || '').toUpperCase();
+      if (levelParam) {
+        let targetVal = '';
+        if (levelParam.includes('A1')) targetVal = 'A1 - Total Beginner (Just starting)';
+        else if (levelParam.includes('A2')) targetVal = 'A2 - Elementary (Basic phrases and survival Spanish)';
+        else if (levelParam.includes('B1')) targetVal = 'B1 - Intermediate (Can hold basic conversations)';
+        else if (levelParam.includes('B2') || levelParam.includes('C1') || levelParam.includes('C2')) targetVal = 'B2 - Upper Intermediate (Comfortable speaking)';
+
+        if (targetVal) {
+          const sel = document.getElementById('input-level');
+          if (sel) sel.value = targetVal;
+          document.querySelectorAll('.level-pill-btn').forEach(b => {
+            if (b.innerText.toUpperCase().includes(levelParam)) {
+              selectLevelPill(targetVal, b);
+            }
+          });
+        }
       }
 
       // Check if user came from monthly email renewal or member shortcut
@@ -1356,7 +1642,10 @@
             activeDomId = 'step-1'; // Teacher
           }
         }
-        else if (flowStep === 2) activeDomId = 'step-2'; // Schedule N Classes (Payment skipped!)
+        else if (flowStep === 2) {
+          activeDomId = 'step-2'; // Schedule N Classes (Payment skipped!)
+          initMultiClassScheduler();
+        }
         else if (flowStep === 3) activeDomId = 'step-5'; // Success
         else if (flowStep === 4) activeDomId = 'step-2'; // Direct jump to Schedule
         else if (flowStep === 5) activeDomId = 'step-5'; // Success
@@ -1628,7 +1917,16 @@
       if (titleEl) titleEl.innerText = isMemberFlow ? `Schedule Your ${totalPlanClasses} Monthly Classes` : `Schedule Your ${totalPlanClasses} Classes (50 min each)`;
 
       const subEl = document.getElementById('schedule-step-sub');
-      if (subEl) subEl.innerText = `Click on each class card above and choose its date and time in the calendar below.`;
+      if (subEl) subEl.innerText = `Click on each class card above and choose its date and time in the calendar below, or use the Quick Routine auto-scheduler.`;
+
+      const day2Wrap = document.getElementById('routine-day-2-wrap');
+      if (day2Wrap) {
+        if (totalPlanClasses >= 8) {
+          day2Wrap.classList.remove('hidden');
+        } else {
+          day2Wrap.classList.add('hidden');
+        }
+      }
 
       document.getElementById('total-count').innerText = totalPlanClasses;
       renderClassTabs();
