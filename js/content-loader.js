@@ -98,6 +98,8 @@ async function loadTeachers() {
         if (slug) tutorsMap[slug] = tut;
         tutorsMap[(tut.name || '').toLowerCase().trim()] = tut;
       });
+      window._saborTutorsMap = tutorsMap;
+      window._saborTutorsList = tutorsList;
     }
   } catch (tErr) {
     console.warn('Error loading tutors:', tErr);
@@ -111,15 +113,15 @@ async function loadTeachers() {
       const tutor = tutorsMap[slug] || tutorsMap[(t.name || '').toLowerCase().trim()] || {};
       return {
         id: t.id,
-        name: t.name,
+        name: tutor.name || t.name,
         slug: slug,
-        city: t.city || tutor.city || 'Bogotá, Colombia',
-        home_avatar_url: t.home_avatar_url || tutor.home_avatar_url || t.photo_url || tutor.avatar_url || 'images/founder_avatar.jpg',
-        photo_url: t.photo_url || tutor.avatar_url || tutor.home_avatar_url || 'images/founder_avatar.jpg',
+        city: t.city || tutor.city || (slug === 'daniela' ? 'Cartagena, Colombia' : 'Bogotá, Colombia'),
+        home_avatar_url: tutor.home_avatar_url || tutor.avatar_url || t.home_avatar_url || t.photo_url || 'images/founder_avatar.jpg',
+        photo_url: tutor.avatar_url || tutor.home_avatar_url || t.photo_url || t.home_avatar_url || 'images/founder_avatar.jpg',
         headline: tutor.headline || t.bio || 'Native Spanish Instructor',
-        bio: t.bio || tutor.bio || 'Especialista en conversación y cultura colombiana con enfoque práctico y personalizado.',
-        video_url: t.video_url || tutor.video_url || null,
-        rating: ratingsMap[t.id] ?? t.rating ?? tutor.rating ?? 5.0
+        bio: tutor.bio || t.bio || 'Especialista en conversación y cultura colombiana con enfoque práctico y personalizado.',
+        video_url: tutor.video_url || t.video_url || null,
+        rating: tutor.rating ?? ratingsMap[t.id] ?? t.rating ?? 5.0
       };
     });
   } else if (tutorsList.length) {

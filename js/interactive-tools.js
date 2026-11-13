@@ -11,18 +11,18 @@ const QUIZ_QUESTIONS = [
   {
     q: "You arrive in Medellín and your local host smiles and greets you: '¡Hola! ¿Quiubo, cómo vas, bien o qué?'. What is the most natural way to reply?",
     options: [
+      { text: "No hablo español.", points: 0 },
       { text: "¡Bien o qué! Todo bien, ¿y usted?", points: 1, correct: true },
       { text: "Bien, gracias, ¿y tú cómo estás?", points: 0.5 },
-      { text: "No hablo español.", points: 0 },
       { text: "Hasta la vista, baby.", points: 0 }
     ]
   },
   {
     q: "You are at a traditional café in the Coffee Triangle and want a small, hot black coffee. What is the authentic Colombian phrase to ask for it?",
     options: [
-      { text: "¿Me regala un tintico, por favor?", points: 1, correct: true },
-      { text: "Me da un café negro americano grande.", points: 0.5 },
       { text: "Quiero una taza con agua y café.", points: 0 },
+      { text: "Me da un café negro americano grande.", points: 0.5 },
+      { text: "¿Me regala un tintico, por favor?", points: 1, correct: true },
       { text: "Deme café caliente ahora.", points: 0 }
     ]
   },
@@ -38,17 +38,17 @@ const QUIZ_QUESTIONS = [
   {
     q: "In a busy street market in Bogotá, your Colombian friend whispers: '¡Pilas, no des papaya!'. What advice are they giving you?",
     options: [
-      { text: "Stay alert and don't make yourself an easy target", points: 1, correct: true },
       { text: "Don't eat raw tropical fruit on the street", points: 0 },
       { text: "Hurry up because the market is closing", points: 0 },
-      { text: "Buy some sweet papayas for lunch", points: 0 }
+      { text: "Buy some sweet papayas for lunch", points: 0 },
+      { text: "Stay alert and don't make yourself an easy target", points: 1, correct: true }
     ]
   },
   {
     q: "Which sentence is grammatically correct and expresses 'I hope you have a great trip through Colombia' using authentic natural Spanish?",
     options: [
-      { text: "Ojalá que tengas un viaje muy bacano.", points: 1, correct: true },
       { text: "Ojalá que tienes un gran viaje.", points: 0.5 },
+      { text: "Ojalá que tengas un viaje muy bacano.", points: 1, correct: true },
       { text: "Espero que tú tener viaje bueno.", points: 0 },
       { text: "Tener buen viaje hoy tú.", points: 0 }
     ]
@@ -105,6 +105,36 @@ function selectQuizOption(optionIndex) {
   }
 }
 
+// Centralized Tutor Config & Real Supabase Photo Fallbacks
+const TUTOR_QUIZ_CONFIG = {
+  valentina: {
+    name: 'Valentina Gómez (Bogotá)',
+    avatar_url: 'https://xpmyayjtowdhrjdbezas.supabase.co/storage/v1/object/public/photos/teachers/1794456474868_Captura%20de%20pantalla%202026-11-11%20a%20la(s)%2011.06.59%20p.m..png',
+    bio: 'Specialist in building zero-stress conversational foundations and pronunciation clarity.'
+  },
+  daniela: {
+    name: 'Daniela García (Cartagena)',
+    avatar_url: 'https://xpmyayjtowdhrjdbezas.supabase.co/storage/v1/object/public/photos/teachers/1794457574284_Captura%20de%20pantalla%202026-11-11%20a%20la(s)%2011.25.41%20p.m..png',
+    bio: 'Master in advanced idiomatic fluency, cultural nuance, and high-energy conversational sparring.'
+  },
+  maria: {
+    name: 'María Izquierdo (Bogotá)',
+    avatar_url: 'https://xpmyayjtowdhrjdbezas.supabase.co/storage/v1/object/public/photos/teachers/1794456639987_IMG_6253.JPG',
+    bio: 'Deep-dive into regional cultural nuances, humor, debate, and nuanced native mastery.'
+  }
+};
+
+function getTutorQuizData(slug) {
+  const map = window._saborTutorsMap || {};
+  const live = map[slug] || map[slug.toLowerCase()];
+  const fallback = TUTOR_QUIZ_CONFIG[slug] || {};
+  return {
+    name: live?.name ? `${live.name} (${live.city ? live.city.split(',')[0].trim() : (slug === 'daniela' ? 'Cartagena' : 'Bogotá')})` : fallback.name,
+    avatar_url: live?.avatar_url || live?.home_avatar_url || fallback.avatar_url,
+    bio: live?.headline || live?.bio || fallback.bio
+  };
+}
+
 function showQuizResult() {
   const qView = document.getElementById('quiz-question-view');
   const rView = document.getElementById('quiz-result-view');
@@ -119,54 +149,84 @@ function showQuizResult() {
   const recBio = document.getElementById('quiz-rec-bio');
   const bookBtn = document.getElementById('quiz-book-btn');
 
+  let activeSlug = 'maria';
+
   if (quizScore <= 1.5) {
     // A1 Beginner -> Valentina Gómez
+    activeSlug = 'valentina';
+    const t = getTutorQuizData('valentina');
     if (badgeEl) badgeEl.textContent = 'Diagnostic: Level A1 (Beginner)';
     if (titleEl) titleEl.textContent = '🌱 You are Ready to Start Speaking!';
     if (descEl) descEl.textContent = "You're at the very beginning of an exciting journey. Colombian Spanish is the clearest and friendliest dialect in the world to start with. With our 1-on-1 personalized guidance, you'll be speaking your first full sentences from lesson one!";
-    if (recAvatar) recAvatar.src = 'https://xpmyayjtowdhrjdbezas.supabase.co/storage/v1/object/public/photos/teachers/1792629035343_PHOTO-2026-09-29-11-24-29%202.jpg';
-    if (recName) recName.textContent = 'Valentina Gómez (Bogotá)';
-    if (recBio) recBio.textContent = 'Specialist in building zero-stress conversational foundations and pronunciation clarity.';
+    if (recAvatar) recAvatar.src = t.avatar_url;
+    if (recName) recName.textContent = t.name;
+    if (recBio) recBio.textContent = t.bio;
     if (bookBtn) {
       bookBtn.href = 'reservar.html?tutor=valentina&level=A1';
       bookBtn.textContent = '📅 Book $15 Trial with Valentina →';
     }
   } else if (quizScore <= 3) {
     // A2 Elementary -> Valentina Gómez
+    activeSlug = 'valentina';
+    const t = getTutorQuizData('valentina');
     if (badgeEl) badgeEl.textContent = 'Diagnostic: Level A2 (Elementary)';
     if (titleEl) titleEl.textContent = '🚀 Ready for Natural Conversation!';
     if (descEl) descEl.textContent = "You already know essential phrases and have great instincts, but you might hesitate before speaking. Your next breakthrough is building conversational momentum and authentic everyday vocabulary.";
-    if (recAvatar) recAvatar.src = 'https://xpmyayjtowdhrjdbezas.supabase.co/storage/v1/object/public/photos/teachers/1792629035343_PHOTO-2026-09-29-11-24-29%202.jpg';
-    if (recName) recName.textContent = 'Valentina Gómez (Bogotá)';
-    if (recBio) recBio.textContent = 'Expert in breaking speaking plateaus and building rapid everyday vocabulary.';
+    if (recAvatar) recAvatar.src = t.avatar_url;
+    if (recName) recName.textContent = t.name;
+    if (recBio) recBio.textContent = t.bio;
     if (bookBtn) {
       bookBtn.href = 'reservar.html?tutor=valentina&level=A2';
       bookBtn.textContent = '📅 Book $15 Trial with Valentina →';
     }
   } else if (quizScore <= 4) {
     // B1 Intermediate -> Daniela García
+    activeSlug = 'daniela';
+    const t = getTutorQuizData('daniela');
     if (badgeEl) badgeEl.textContent = 'Diagnostic: Level B1 (Intermediate)';
     if (titleEl) titleEl.textContent = '⭐ Solid Fluency & Natural Rhythm!';
     if (descEl) descEl.textContent = "Impressive! You understand real Colombian idioms and subjunctive structures in context. It's time to transition from thinking in English to speaking fluidly and effortlessly like a Colombian local.";
-    if (recAvatar) recAvatar.src = 'https://xpmyayjtowdhrjdbezas.supabase.co/storage/v1/object/public/photos/teachers/1792628749919_PHOTO-2026-09-19-18-15-35.jpg';
-    if (recName) recName.textContent = 'Daniela García (Cartagena)';
-    if (recBio) recBio.textContent = 'Master in advanced idiomatic fluency, cultural nuance, and high-energy conversational sparring.';
+    if (recAvatar) recAvatar.src = t.avatar_url;
+    if (recName) recName.textContent = t.name;
+    if (recBio) recBio.textContent = t.bio;
     if (bookBtn) {
       bookBtn.href = 'reservar.html?tutor=daniela&level=B1';
       bookBtn.textContent = '📅 Book $15 Trial with Daniela →';
     }
   } else {
     // B2+ Advanced -> María Izquierdo
+    activeSlug = 'maria';
+    const t = getTutorQuizData('maria');
     if (badgeEl) badgeEl.textContent = 'Diagnostic: Level B2+ (Advanced)';
     if (titleEl) titleEl.textContent = '🔥 ¡Qué Chimba! You Speak Like a Local!';
     if (descEl) descEl.textContent = "Outstanding! You have a deep grasp of Colombian idioms, cultural nuance, and grammar. You're ready for advanced immersion, Colombian literature, rapid-fire debates, and full professional fluency.";
-    if (recAvatar) recAvatar.src = 'images/founder_avatar.jpg';
-    if (recName) recName.textContent = 'María Izquierdo (Bogotá)';
-    if (recBio) recBio.textContent = 'Deep-dive into regional cultural nuances, humor, debate, and nuanced native mastery.';
+    if (recAvatar) recAvatar.src = t.avatar_url;
+    if (recName) recName.textContent = t.name;
+    if (recBio) recBio.textContent = t.bio;
     if (bookBtn) {
       bookBtn.href = 'reservar.html?tutor=maria&level=B2';
       bookBtn.textContent = '📅 Book $15 Trial with María →';
     }
+  }
+
+  // Live dynamic sync with Supabase tutors table if updated in Admin
+  if (typeof supabaseClient !== 'undefined' && (!window._saborTutorsMap || !window._saborTutorsMap[activeSlug])) {
+    supabaseClient.from('tutors').select('*').then(({ data }) => {
+      if (data && data.length) {
+        window._saborTutorsMap = window._saborTutorsMap || {};
+        data.forEach(tut => {
+          const n = (tut.name || '').toLowerCase();
+          let slug = '';
+          if (n.includes('mar')) slug = 'maria';
+          else if (n.includes('dan')) slug = 'daniela';
+          else if (n.includes('val')) slug = 'valentina';
+          if (slug) window._saborTutorsMap[slug] = tut;
+        });
+        const liveTutor = getTutorQuizData(activeSlug);
+        if (recAvatar && liveTutor.avatar_url) recAvatar.src = liveTutor.avatar_url;
+        if (recName && liveTutor.name) recName.textContent = liveTutor.name;
+      }
+    }).catch(() => {});
   }
 }
 
